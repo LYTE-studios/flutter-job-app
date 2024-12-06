@@ -41,13 +41,13 @@ class ConversationList extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     name,
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 17),
                   ),
                   SizedBox(height: 6),
                   Text(
                     messageText,
                     style: TextStyle(
-                      fontSize: 13,
+                      fontSize: 16,
                       color: Colors.grey.shade600,
                       fontWeight: isMessageRead ? FontWeight.bold : FontWeight.normal,
                     ),
@@ -61,7 +61,7 @@ class ConversationList extends StatelessWidget {
                 Text(
                   time,
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 16.5,
                     fontWeight: isMessageRead ? FontWeight.bold : FontWeight.normal,
                   ),
                 ),
@@ -70,8 +70,8 @@ class ConversationList extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                     decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(12),
+                      color: Color(0xFF3E68),
+                      borderRadius: BorderRadius.circular(14),
                     ),
                     child: Text(
                       unreadCount.toString(),

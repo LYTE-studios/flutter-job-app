@@ -23,7 +23,7 @@ class _ChatPageState extends State<ChatPage> {
         messageText: "Ik: Plannen we anders een ges..",
         imageURL: "https://randomuser.me/api/portraits/women/2.jpg",
         time: "07:23",
-        unreadCount: 2
+        unreadCount: 1
     ),
   ];
 
@@ -44,31 +44,8 @@ class _ChatPageState extends State<ChatPage> {
                     Text(
                       "Chat",
                       style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                     ),
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.pink[50],
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.add,
-                            color: Colors.pink,
-                            size: 20,
-                          ),
-                          SizedBox(width: 2),
-                          Text(
-                            "Add New",
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -82,17 +59,17 @@ class _ChatPageState extends State<ChatPage> {
                     children: <Widget>[
                       TextButton(
                         onPressed: () {},
-                        child: Text("All", style: TextStyle(color: Colors.red)),
+                        child: Text("Alle", style: TextStyle(color: Colors.red, fontSize:16.18)),
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text("Ongelezen", style: TextStyle(color: Colors.blueGrey)),
+                        child: Text("Ongelezen", style: TextStyle(color: Colors.blueGrey, fontSize:16.18)),
                       ),
                     ],
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: Text("3 Verzoeken", style: TextStyle(color: Colors.red)),
+                    child: Text("3 Verzoeken", style: TextStyle(color: Colors.red, fontSize:16.18)),
                   ),
                 ],
               ),
