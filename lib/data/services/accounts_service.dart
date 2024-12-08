@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_exam/data/services/api_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_exam/data/services/api_service.dart';
 
 class AccountsService {
   final ApiService apiService;
@@ -13,7 +13,7 @@ class AccountsService {
   Future<Map<String, dynamic>> login(String username, String password) async {
     try {
       // Request tokens using the TokenObtainPair endpoint
-      final response = await apiService.dio.post(
+      final response = await apiService.postApi(
         "token/",
         data: {
           "username": username,
@@ -31,18 +31,13 @@ class AccountsService {
         value: response.data['refresh'],
       );
 
-      // Call login endpoint (if necessary for further processing)
-      final loginResponse = await apiService.dio.post(
+      // Optional: Call login endpoint (if necessary for further processing)
+      final loginResponse = await apiService.postApi(
         "/accounts/login/",
         data: {
           "username": username,
           "password": password,
         },
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer ${response.data['access']}',
-          },
-        ),
       );
 
       return loginResponse.data;
@@ -65,14 +60,9 @@ class AccountsService {
       }
 
       // Make the API call with the token in the Authorization header
-      final response = await apiService.dio.post(
+      final response = await apiService.postApi(
         "/accounts/register/employee/",
         data: employeeData,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $accessToken',
-          },
-        ),
       );
       return response.data;
     } on DioError catch (e) {
@@ -83,6 +73,7 @@ class AccountsService {
     }
   }
 
+  // Function to register an employer
   Future<Map<String, dynamic>> registerByEmployer(
       Map<String, dynamic> employerData) async {
     try {
@@ -93,14 +84,9 @@ class AccountsService {
       }
 
       // Make the API call with the token in the Authorization header
-      final response = await apiService.dio.post(
+      final response = await apiService.postApi(
         "/accounts/register/employer/",
         data: employerData,
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer $accessToken',
-          },
-        ),
       );
       return response.data;
     } on DioError catch (e) {

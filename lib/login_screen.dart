@@ -14,8 +14,10 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   String? _errorMessage;
 
+  // Login function
   Future<void> _login() async {
     final accountsService = AccountsService(_apiService);
+
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -27,10 +29,11 @@ class _LoginScreenState extends State<LoginScreen> {
         _passwordController.text,
       );
 
+      // Assuming response['success'] is true if login is successful
       if (response['success'] == true) {
         // Navigate to home screen or dashboard
-        Navigator.of(context)
-            .pushReplacementNamed('/home'); // Update with your route
+        Navigator.of(context).pushReplacementNamed(
+            '/home'); // Replace '/home' with actual route name
       } else {
         setState(() {
           _errorMessage = response['message'] ?? 'Login failed';
@@ -47,15 +50,16 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  // Register employee function
   Future<void> _testRegisterEmployee() async {
     final accountsService = AccountsService(_apiService);
+
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
 
     try {
-      // Test API for registering an employee
       final employeeData = {
         "date_of_birth": "1990-01-01",
         "gender": "male",
@@ -85,15 +89,16 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  // Register employer function
   Future<void> _testRegisterEmployer() async {
     final accountsService = AccountsService(_apiService);
+
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
 
     try {
-      // Test API for registering an employer
       final employerData = {
         "vat_number": "123456789",
         "company_name": "TechCorp",
