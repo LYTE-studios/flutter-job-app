@@ -1,7 +1,11 @@
 class ChatMessage {
   final String message;
-  final String time;
   final bool isSentByMe;
+  final bool showSeen; // New property
 
-  ChatMessage({required this.message, required this.time, required this.isSentByMe});
+  ChatMessage({
+    required this.message,
+    required this.isSentByMe,
+    this.showSeen = false, // Default is false
+  });
 }

@@ -12,13 +12,13 @@ class ChatRequest extends StatefulWidget {
 class _ChatScreenState extends State<ChatRequest> {
 
   final List<ChatMessage> messages = [
-    ChatMessage(message: 'Hey Louis,', time: '09:46', isSentByMe: false),
-    ChatMessage(message: 'Kan je morgen langskomen voor een sollicitatiegesprek?', time: '09:47', isSentByMe: false),
-    ChatMessage(message: 'Kan ik morgen eventueel langs ...', time: '09:48', isSentByMe: true),
-    ChatMessage(message: 'Hey! Ja hoor, ik kan rond 15u?', time: '09:49', isSentByMe: false),
-    ChatMessage(message: 'Perfect, kom dan maar af!', time: '09:50', isSentByMe: true),
-    ChatMessage(message: 'Thanks, tot morgen!', time: '09:51', isSentByMe: false),
+    ChatMessage(message: 'Hey Louis,', isSentByMe: false),
+    ChatMessage(message: 'Kan je morgen langskomen voor een sollicitatiegesprek?', isSentByMe: false),
+    ChatMessage(message: 'Kan ik morgen eventueel langs ...', isSentByMe: true),
+    ChatMessage(message: 'Hey! Ja hoor, ik kan rond 15u?', isSentByMe: false),
+    ChatMessage(message: 'Perfect, kom dan maar af!', isSentByMe: true, showSeen: true), // Show "seen" text here
   ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +26,13 @@ class _ChatScreenState extends State<ChatRequest> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 80,
-        leading: const Icon(Icons.arrow_back_ios),
+        automaticallyImplyLeading: false, // Removes the default back arrow
+        /* leadingWidth: 80,
+        leading: const Icon(Icons.arrow_back_ios,size: 30,color:  Color(0xFF000000)),*/
         title: Row(
           children: [
+            const SizedBox(width: 22,),
+            const Icon(Icons.arrow_back_ios,size: 30,color:  Color(0xFF000000)),
             Container(
               width: 33,
               height: 33,
@@ -41,7 +44,7 @@ class _ChatScreenState extends State<ChatRequest> {
                 ),
               ),
             ),
-            SizedBox(width: 8,),
+            const SizedBox(width:11,),
             const Text(
               'Spicy Lemon',
               style: TextStyle(
@@ -67,9 +70,9 @@ class _ChatScreenState extends State<ChatRequest> {
               const Divider(
                 color:   Color(0x0F000000),
                 height: 20,
-                thickness: 1,
+                thickness: 2,
               ),
-              const Text("Zaterdag",style: TextStyle( fontSize: 16),),
+              const Text("Zaterdag",style: TextStyle( fontSize: 16,color: Color(0xFF696969)),),
               Container(
                 decoration: BoxDecoration(
                   color:  const Color(0xFFF6F6F6),
@@ -100,13 +103,13 @@ class _ChatScreenState extends State<ChatRequest> {
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white, // Button background color
+                        backgroundColor: Color(0xFFF6F6F6), // Button background color
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(19),
-                          side: const BorderSide(color: Color(0xFFFF3E68), width: 1), // Border style
+                          side: const BorderSide(color: Color(0xFFFF3E68), width: 2), // Border style
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Bekijk vacature',
                         style: TextStyle(
                           color: Color(0xFFFF3E68),
@@ -124,33 +127,47 @@ class _ChatScreenState extends State<ChatRequest> {
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
                     final message = messages[index];
-                    return Align(
-                      alignment: message.isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 5.0),
-                        padding: const EdgeInsets.all(10.0),
-                        decoration: BoxDecoration(
-                          color: message.isSentByMe ? const Color(0xFF3976FF) : const Color(0xFFF6F6F6),
-                          borderRadius: BorderRadius.circular(17.79),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: message.isSentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                          children: [
-                            Text(
+                    return Column(
+                      crossAxisAlignment: message.isSentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: message.isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5.0),
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              color: message.isSentByMe ? const Color(0xFF3976FF) : const Color(0xFFF6F6F6),
+                              borderRadius: BorderRadius.circular(17.79),
+                            ),
+                            child: Text(
                               message.message,
-                              style: TextStyle(color: message.isSentByMe ? Colors.white : Colors.black,fontSize: 16.74,fontFamily: 'DMSans',),
+                              style: TextStyle(
+                                color: message.isSentByMe ? Colors.white : Colors.black,
+                                fontSize: 16.74,
+                                fontFamily: 'DMSans',
+                              ),
                             ),
-                            Text(
-                              message.time,
-                              style: TextStyle(color: message.isSentByMe ? Colors.white70 : Colors.black54, fontSize: 10),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
+                        if (message.showSeen == true)
+                          const Padding(
+                            padding: EdgeInsets.only(top: 2.0, right: 8.0),
+                            child: Text(
+                              "Verzonden",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 13,
+                                fontFamily: 'DMSans',
+                              ),
+                            ),
+                          ),
+
+                      ],
                     );
                   },
                 ),
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -160,7 +177,7 @@ class _ChatScreenState extends State<ChatRequest> {
                     height: 39,
                     // Adjust the width as needed
                     child: TextField(
-                      style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal),
+                      style: TextStyle(fontSize: 17,fontWeight: FontWeight.normal,color: Color(0xFFBABABA)),
                       decoration: InputDecoration(
                         hintText: 'Hier typen...',
                         border: OutlineInputBorder(),
@@ -168,7 +185,7 @@ class _ChatScreenState extends State<ChatRequest> {
                       ),
                     ),
                   ),
-                  SizedBox(width:6 ),
+                  const SizedBox(width:6 ),
                   SvgPicture.asset("assets/images/logos/send_message.svg",height: 32,width: 32,)
                 ],
               ),

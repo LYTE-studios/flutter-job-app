@@ -69,9 +69,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: [
                   Row(
                     children: [
-                      _buildCategoryButton('Alle', const Color(0xFFFF3E68), const Color(0xFFFF3E68).withOpacity(0.9),),
+                      _buildCategoryButton('Alle', const Color(0xFFFFEEF1), const Color(0xFFFF3E68).withOpacity(0.9),),
                       const SizedBox(width: 6),
-                      _buildCategoryButton('Ongelezen', const Color(0xFFAEAEAE), const Color(0xFFA0A0A0)),
+                      _buildCategoryButton('Ongelezen', const Color(0xFFF8F8F8), const Color(0xFFA0A0A0)),
                     ],
                   ),
                   TextButton(
@@ -91,7 +91,7 @@ class _ChatScreenState extends State<ChatScreen> {
                const Divider(
                 color:   Color(0x0F000000),
                 height: 20,
-                thickness: 1,
+                thickness: 2,
                 indent: 74,
               ),
               Expanded(
@@ -112,7 +112,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           const Divider(
                             color:   Color(0x0F000000),
                             height: 20,
-                            thickness: 1,
+                            thickness: 2,
                             indent: 74,
                           ),
                         ],
@@ -135,8 +135,8 @@ class _ChatScreenState extends State<ChatScreen> {
       children: [
         // Profile Picture
         Container(
-          width: 57,
-          height: 57,
+          width: 67,
+          height: 67,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
@@ -179,15 +179,15 @@ class _ChatScreenState extends State<ChatScreen> {
             Text(
               chat['time'],
               style: TextStyle(
-                color: chat['unreadCount'] > 0 ? Colors.red : const Color(0xFF8F8F8F),
+                color: chat['unreadCount'] > 0 ?const Color(0xFFFF3E68) : const Color(0xFF8F8F8F),
                 fontSize: 17,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.bold,
               ),
             ),
             if (chat['unreadCount'] > 0)
               CircleAvatar(
                 radius: 10,
-                backgroundColor: Colors.red,
+                backgroundColor:const Color(0xFFFF3E68),
                 child: Text(
                   '${chat['unreadCount']}',
                   style: const TextStyle(
