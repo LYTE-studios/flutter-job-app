@@ -26,6 +26,7 @@ class _ChatScreenState extends State<ChatRequest> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 80,
         leading: const Icon(Icons.arrow_back_ios),
         title: Row(
           children: [
@@ -44,7 +45,7 @@ class _ChatScreenState extends State<ChatRequest> {
             const Text(
               'Spicy Lemon',
               style: TextStyle(
-                fontSize: 17,
+                fontSize: 20,
                 fontWeight: FontWeight.w600,
                 fontFamily: 'Eloquia',
               ),
@@ -52,8 +53,7 @@ class _ChatScreenState extends State<ChatRequest> {
           ],
         ),
         actions: [
-          Padding(padding: const EdgeInsets.only(right: 13.0),child: SvgPicture.asset("assets/images/logos/dial.svg")),
-          Padding(padding: const EdgeInsets.only(right: 13.0),child: SvgPicture.asset("assets/images/logos/info.svg"),)
+          Padding(padding: const EdgeInsets.only(right: 13.0),child: SvgPicture.asset("assets/images/logos/info.svg",height: 28,width: 28,),)
         ],
       ),
       body: Container(
@@ -61,21 +61,19 @@ class _ChatScreenState extends State<ChatRequest> {
         height: screenHeight,
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 17.0),
           child: Column(
             children: [
-              const Text("Vendaag",style: TextStyle( fontSize: 16),),
+              const Divider(
+                color:   Color(0x0F000000),
+                height: 20,
+                thickness: 1,
+              ),
+              const Text("Zaterdag",style: TextStyle( fontSize: 16),),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey[100],
+                  color:  const Color(0xFFF6F6F6),
                   borderRadius: BorderRadius.circular(17),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 4, // Shadow blur effect
-                      offset: const Offset(2, 2), // Shadow position
-                    ),
-                  ],
                 ),
                 padding: const EdgeInsets.all(16), // Internal padding
                 margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16), // External spacing
@@ -105,26 +103,17 @@ class _ChatScreenState extends State<ChatRequest> {
                         backgroundColor: Colors.white, // Button background color
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(19),
-                          side: const BorderSide(color: Colors.red, width: 2), // Border style
+                          side: const BorderSide(color: Color(0xFFFF3E68), width: 1), // Border style
                         ),
                       ),
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            "assets/images/logos/sollicitatie.svg",
-                            height: 20,
-                            width: 20,
-                          ),
-                          const SizedBox(width: 8), // Spacing between icon and text
-                          const Text(
-                            'Sollicitatie',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'Eloquia',
-                              ),
-                          ),
-                        ],
+                      child: Text(
+                        'Bekijk vacature',
+                        style: TextStyle(
+                          color: Color(0xFFFF3E68),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Eloquia',
+                        ),
                       ),
                     ),
                   ],
@@ -141,15 +130,15 @@ class _ChatScreenState extends State<ChatRequest> {
                         margin: const EdgeInsets.symmetric(vertical: 5.0),
                         padding: const EdgeInsets.all(10.0),
                         decoration: BoxDecoration(
-                          color: message.isSentByMe ? Colors.blue : Colors.grey[100],
-                          borderRadius: BorderRadius.circular(10.0),
+                          color: message.isSentByMe ? const Color(0xFF3976FF) : const Color(0xFFF6F6F6),
+                          borderRadius: BorderRadius.circular(17.79),
                         ),
                         child: Column(
                           crossAxisAlignment: message.isSentByMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                           children: [
                             Text(
                               message.message,
-                              style: TextStyle(color: message.isSentByMe ? Colors.white : Colors.black,fontSize: 16),
+                              style: TextStyle(color: message.isSentByMe ? Colors.white : Colors.black,fontSize: 16.74,fontFamily: 'DMSans',),
                             ),
                             Text(
                               message.time,
@@ -162,30 +151,28 @@ class _ChatScreenState extends State<ChatRequest> {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  children: [
-                    // Wrap the TextField with a SizedBox to adjust width
-                    const SizedBox(
-                      width: 325,
-                      height: 50,
-                      // Adjust the width as needed
-                      child: TextField(
-                        style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal),
-                        decoration: InputDecoration(
-                          hintText: 'Hier typen...',
-                          border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12.0), // Adjust the height
-                        ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Wrap the TextField with a SizedBox to adjust width
+                  const SizedBox(
+                    width: 333,
+                    height: 39,
+                    // Adjust the width as needed
+                    child: TextField(
+                      style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal),
+                      decoration: InputDecoration(
+                        hintText: 'Hier typen...',
+                        border: OutlineInputBorder(),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 12.0), // Adjust the height
                       ),
                     ),
-                    SizedBox(width:6 ),
-                    SvgPicture.asset("assets/images/logos/send_message.svg",height: 45,width: 45,)
-                  ],
-                ),
+                  ),
+                  SizedBox(width:6 ),
+                  SvgPicture.asset("assets/images/logos/send_message.svg",height: 32,width: 32,)
+                ],
               ),
-
+SizedBox(height: 20,)
             ],
           ),
         ),

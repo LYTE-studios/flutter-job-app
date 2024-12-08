@@ -50,17 +50,18 @@ class _ChatScreenState extends State<ChatScreen> {
           'Chat',
           style: TextStyle(
             fontSize: 25,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w700,
             fontFamily: 'Eloquia',
           ),
         ),
+        centerTitle: false, // Ensures the title is aligned to the left
       ),
       body: Container(
         width: screenWidth,
         height: screenHeight,
-        color: Colors.white,
+        color: const Color(0xFFFFFFFF),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0), // Add padding
+          padding: const EdgeInsets.symmetric(horizontal: 17.0), // Add padding
           child: Column(
             children: [
               Row(
@@ -68,9 +69,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: [
                   Row(
                     children: [
-                      _buildCategoryButton('Alle', const Color(0x00FF3E68), Colors.red),
+                      _buildCategoryButton('Alle', const Color(0xFFFF3E68), const Color(0xFFFF3E68).withOpacity(0.9),),
                       const SizedBox(width: 6),
-                      _buildCategoryButton('Ongelezen', const Color(0x00AEAEAE), Colors.grey),
+                      _buildCategoryButton('Ongelezen', const Color(0xFFAEAEAE), const Color(0xFFA0A0A0)),
                     ],
                   ),
                   TextButton(
@@ -78,16 +79,21 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: const Text(
                       '3 verzoeken',
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Color(0xFFFF3E68),
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        fontFamily: 'Eloquia',
                       ),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 18),
+               const Divider(
+                color:   Color(0x0F000000),
+                height: 20,
+                thickness: 1,
+                indent: 74,
+              ),
               Expanded(
                 child: GestureDetector(
                   onTap: () { Navigator.push(
@@ -102,11 +108,13 @@ class _ChatScreenState extends State<ChatScreen> {
                       final chat = chatData[index];
                       return Column(
                         children: [
-                          const Divider(
-                            color: Color(0xFFD3D3D3),
-                            height: 20,
-                          ),
                           _buildChatItem(chat),
+                          const Divider(
+                            color:   Color(0x0F000000),
+                            height: 20,
+                            thickness: 1,
+                            indent: 74,
+                          ),
                         ],
                       );
                     },
@@ -148,7 +156,6 @@ class _ChatScreenState extends State<ChatScreen> {
                 style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
-                  fontFamily: 'Eloquia',
                 ),
               ),
               const SizedBox(height: 4),
@@ -173,8 +180,8 @@ class _ChatScreenState extends State<ChatScreen> {
               chat['time'],
               style: TextStyle(
                 color: chat['unreadCount'] > 0 ? Colors.red : const Color(0xFF8F8F8F),
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
               ),
             ),
             if (chat['unreadCount'] > 0)
@@ -187,6 +194,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     color: Colors.white,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'Eloquia',
                   ),
                 ),
               ),
@@ -215,7 +223,6 @@ class _ChatScreenState extends State<ChatScreen> {
             color: textColor,
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            fontFamily: 'Eloquia',
           ),
         ),
       ),

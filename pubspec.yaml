@@ -106,6 +106,10 @@ flutter:
       fonts:
         - asset: assets/fonts/Inter.ttf
           weight: 700
+    - family: DMSans
+      fonts:
+        - asset: assets/fonts/DMSans-Regular.ttf
+          weight: 500
     - family: Eloquia
       fonts:
         - asset: assets/fonts/Eloquia Display ExtBd.ttf
