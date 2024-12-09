@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/features/authentication/screens/login_screen.dart';
-import 'package:flutter_exam/features/authentication/widgets/privacy_policy_block.dart';
-import 'package:flutter_exam/ui/common_widgets/custom_textfield.dart';
-import 'package:flutter_exam/ui/common_widgets/primary_button.dart';
+import 'package:jobr/features/authentication/screens/login_screen.dart';
+import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
+import 'package:jobr/ui/buttons/primary_button.dart';
+import 'package:jobr/ui/input/custom_textfield.dart';
 
 class EmailLoginScreen extends StatefulWidget {
   static const String route = '${LoginScreen.route}/$location';
@@ -23,7 +23,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
@@ -36,7 +36,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: 124,
         ),
         Container(
@@ -46,7 +46,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
             hintText: "Jouw email",
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
@@ -57,7 +57,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
             hintText: "Jouw email",
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
@@ -68,10 +68,10 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
             hintText: "Jouw email",
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        PrimaryButton(
+        const PrimaryButton(
           buttonText: 'Account maken',
         ),
         const PrivacyPolicyBlock(),

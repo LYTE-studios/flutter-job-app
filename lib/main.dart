@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/features/authentication/screens/chat_screen.dart';
-import 'package:flutter_exam/ui/theme/jobr_theme.dart';
+import 'package:jobr/features/chat/screens/chat_screen.dart';
+import 'package:jobr/ui/theme/jobr_theme.dart';
 
 void main() {
   runApp(

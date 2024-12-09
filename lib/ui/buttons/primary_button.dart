@@ -9,14 +9,14 @@ class PrimaryButton extends StatelessWidget {
   final double height;
 
   const PrimaryButton({
-    Key? key,
+    super.key,
     required this.buttonText,
     this.buttonColor = const Color(0xFFFF3E68),
     this.textColor = Colors.white,
     this.borderRadius = 27,
     this.width = 346,
     this.height = 50,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

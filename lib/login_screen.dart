@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/data/services/accounts_service.dart';
-import 'package:flutter_exam/data/services/api_service.dart';
+import 'package:jobr/data/services/accounts_service.dart';
+import 'package:jobr/data/services/api_service.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }

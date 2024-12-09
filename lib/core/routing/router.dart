@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/features/authentication/screens/base_auth_screen.dart';
-import 'package:flutter_exam/features/authentication/screens/email_login_screen.dart';
-import 'package:flutter_exam/features/authentication/screens/email_register_screen.dart';
-import 'package:flutter_exam/features/authentication/screens/first_glance_screen.dart';
-import 'package:flutter_exam/features/authentication/screens/login_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/features/authentication/base/base_auth_screen.dart';
+import 'package:jobr/features/authentication/screens/email_login_screen.dart';
+import 'package:jobr/features/authentication/screens/email_register_screen.dart';
+import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
+import 'package:jobr/features/authentication/screens/login_screen.dart';
 
 GoRouter router = GoRouter(
   initialLocation: FirstGlanceScreen.route,

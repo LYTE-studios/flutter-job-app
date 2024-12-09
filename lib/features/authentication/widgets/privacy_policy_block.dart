@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/configuration.dart';
-import 'package:flutter_exam/ui/theme/padding_sizes.dart';
-import 'package:flutter_exam/ui/theme/text_styles.dart';
+import 'package:jobr/configuration.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
+import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PrivacyPolicyBlock extends StatelessWidget {

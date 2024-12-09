@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TermsAndConditionsWidget extends StatelessWidget {
+  const TermsAndConditionsWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,6 +41,8 @@ class TermsAndConditionsWidget extends StatelessWidget {
 }
 
 class SubscriptionPage extends StatefulWidget {
+  const SubscriptionPage({super.key});
+
   @override
   _SubscriptionPageState createState() => _SubscriptionPageState();
 }
@@ -67,9 +71,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
-            icon: Padding(
-              padding: const EdgeInsets.only(left: 14.0),
-              child: const Icon(Icons.close, color: Colors.black, size: 25),
+            icon: const Padding(
+              padding: EdgeInsets.only(left: 14.0),
+              child: Icon(Icons.close, color: Colors.black, size: 25),
             ),
             onPressed: () {},
           ),
@@ -89,7 +93,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             MonthlyPlans(),
             YearlyPlans(),
@@ -101,20 +105,22 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
 }
 
 class MonthlyPlans extends StatelessWidget {
+  const MonthlyPlans({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         ListView(
           padding: const EdgeInsets.all(16),
-          children: [
-            const PlanCard(
+          children: const [
+            PlanCard(
               title: 'Starter',
               price: 'Gratis',
               description: 'Maak kennis met jobr',
               offers: ' 📍 1 vestiging   📄 1 vacature',
             ),
-            const PlanCard(
+            PlanCard(
               title: 'Local ⚡',
               price: '€59,90',
               description: 'Ideaal voor lokale zaken',
@@ -128,9 +134,9 @@ class MonthlyPlans extends StatelessWidget {
               description: 'Voor groeiende kmo’s',
               offers:
                   ' ∞ Onbeperkte kandidaten \n 🔍 AI matchmaking   ✔️ Custom vragenlijst   \n👀 Wie bekeek mijn vacature?',
-              backgroundColor: const Color.fromARGB(255, 255, 249, 251),
+              backgroundColor: Color.fromARGB(255, 255, 249, 251),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
           ],
         ),
         Positioned(
@@ -149,7 +155,7 @@ class MonthlyPlans extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
+        const Positioned(
           bottom: 8, // Ensure the widget is at the bottom
           left: 0,
           right: 0,
@@ -161,13 +167,15 @@ class MonthlyPlans extends StatelessWidget {
 }
 
 class YearlyPlans extends StatelessWidget {
+  const YearlyPlans({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         ListView(
           padding: const EdgeInsets.all(16),
-          children: [
+          children: const [
             PlanCard(
               title: 'Starter',
               price: 'Gratis',
@@ -188,9 +196,9 @@ class YearlyPlans extends StatelessWidget {
               description: 'Voor groeiende kmo’s',
               offers:
                   '📍 Meerdere vestigingen   📄 5 vacatures\n🔍 AI matchmaking  👀 Wie bekeek je profiel? \n ✔️ Vragenlijst',
-              backgroundColor: const Color.fromARGB(255, 255, 249, 251),
+              backgroundColor: Color.fromARGB(255, 255, 249, 251),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
           ],
         ),
         Positioned(
@@ -207,7 +215,7 @@ class YearlyPlans extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 20)),
           ),
         ),
-        Positioned(
+        const Positioned(
           bottom: 8, // Ensure the widget is at the bottom
           left: 0,
           right: 0,
@@ -226,7 +234,7 @@ class PlanCard extends StatelessWidget {
   final Color backgroundColor;
   final bool isPopular;
 
-  const PlanCard({
+  const PlanCard({super.key, 
     required this.title,
     required this.price,
     required this.description,
@@ -235,6 +243,7 @@ class PlanCard extends StatelessWidget {
     required this.offers,
   });
 
+  @override
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8),

@@ -1,17 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/core/routing/mixins/screen_state_mixin.dart';
-import 'package:flutter_exam/features/authentication/screens/chat_request.dart';
-import 'package:flutter_exam/features/authentication/screens/email_register_screen.dart';
-import 'package:flutter_exam/features/authentication/widgets/privacy_policy_block.dart';
-import 'package:flutter_exam/ui/buttons/jobr_icon_button.dart';
-import 'package:flutter_exam/ui/theme/jobr_icons.dart';
-import 'package:go_router/go_router.dart';
-
-import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
+import 'package:jobr/features/chat/screens/chat_request.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -46,14 +34,16 @@ class _ChatScreenState extends State<ChatScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Padding(padding: EdgeInsets.only(left:6),child: Text(
-          'Chat',
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.w700,
-            fontFamily: 'Eloquia',
-          ),
-        )),
+        title: const Padding(
+            padding: EdgeInsets.only(left: 6),
+            child: Text(
+              'Chat',
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Eloquia',
+              ),
+            )),
         centerTitle: false, // Ensures the title is aligned to the left
       ),
       body: Container(
@@ -69,9 +59,14 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: [
                   Row(
                     children: [
-                      _buildCategoryButton('Alle', const Color(0xFFFFEEF1), const Color(0xFFFF3E68).withOpacity(0.9),),
+                      _buildCategoryButton(
+                        'Alle',
+                        const Color(0xFFFFEEF1),
+                        const Color(0xFFFF3E68).withOpacity(0.9),
+                      ),
                       const SizedBox(width: 6),
-                      _buildCategoryButton('Ongelezen', const Color(0xFFF8F8F8), const Color(0xFFA0A0A0)),
+                      _buildCategoryButton('Ongelezen', const Color(0xFFF8F8F8),
+                          const Color(0xFFA0A0A0)),
                     ],
                   ),
                   TextButton(
@@ -88,39 +83,40 @@ class _ChatScreenState extends State<ChatScreen> {
                 ],
               ),
               const SizedBox(height: 18),
-               const Divider(
-                color:   Color(0x0F000000),
+              const Divider(
+                color: Color(0x0F000000),
                 height: 20,
                 thickness: 1.5,
                 indent: 74,
               ),
               Expanded(
-                child: GestureDetector(
-                  onTap: () { Navigator.push(
+                  child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const ChatRequest(),
                     ),
-                  );},
-                  child: ListView.builder(
-                    itemCount: chatData.length,
-                    itemBuilder: (context, index) {
-                      final chat = chatData[index];
-                      return Column(
-                        children: [
-                          _buildChatItem(chat),
-                          const Divider(
-                            color:   Color(0x0F000000),
-                            height: 20,
-                            thickness: 1.5,
-                            indent: 74,
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                )
-              ),
+                  );
+                },
+                child: ListView.builder(
+                  itemCount: chatData.length,
+                  itemBuilder: (context, index) {
+                    final chat = chatData[index];
+                    return Column(
+                      children: [
+                        _buildChatItem(chat),
+                        const Divider(
+                          color: Color(0x0F000000),
+                          height: 20,
+                          thickness: 1.5,
+                          indent: 74,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              )),
             ],
           ),
         ),
@@ -179,7 +175,9 @@ class _ChatScreenState extends State<ChatScreen> {
             Text(
               chat['time'],
               style: TextStyle(
-                color: chat['unreadCount'] > 0 ?const Color(0xFFFF3E68) : const Color(0xFF8F8F8F),
+                color: chat['unreadCount'] > 0
+                    ? const Color(0xFFFF3E68)
+                    : const Color(0xFF8F8F8F),
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
@@ -187,7 +185,7 @@ class _ChatScreenState extends State<ChatScreen> {
             if (chat['unreadCount'] > 0)
               CircleAvatar(
                 radius: 10,
-                backgroundColor:const Color(0xFFFF3E68),
+                backgroundColor: const Color(0xFFFF3E68),
                 child: Text(
                   '${chat['unreadCount']}',
                   style: const TextStyle(
@@ -208,7 +206,8 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget _buildCategoryButton(String text, Color bgColor, Color textColor) {
     return SizedBox(
       height: 35,
-      width: text == 'Alle' ? 52 : 104, // Adjust width for 'Alle' and 'Ongelezen'
+      width: text == 'Alle' ? 52 : 104,
+      // Adjust width for 'Alle' and 'Ongelezen'
       child: TextButton(
         onPressed: () {},
         style: TextButton.styleFrom(

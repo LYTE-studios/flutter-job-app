@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/ui/theme/text_styles.dart';
+import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
@@ -18,6 +18,7 @@ class JobrIconButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const JobrIconButton({
+    super.key,
     this.width,
     this.height = 52.0,
     this.textColor,

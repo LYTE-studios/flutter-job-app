@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/ui/theme/jobr_icons.dart';
-import 'package:flutter_exam/ui/theme/padding_sizes.dart';
-import 'package:flutter_exam/ui/theme/text_styles.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/ui/theme/jobr_icons.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
+import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
 class BaseAuthScreen extends StatelessWidget {
