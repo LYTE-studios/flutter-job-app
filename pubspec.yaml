@@ -43,8 +43,9 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  flutter_svg: ^2.0.16
   dio: ^5.0.0
-  flutter_secure_storage: ^8.0.0 
+  flutter_secure_storage: ^8.0.0
   logger: ^2.5.0
 
 dev_dependencies:
@@ -108,6 +109,10 @@ flutter:
       fonts:
         - asset: assets/fonts/Inter.ttf
           weight: 700
+    - family: DMSans
+      fonts:
+        - asset: assets/fonts/DMSans-Regular.ttf
+          weight: 500
     - family: Eloquia
       fonts:
         - asset: assets/fonts/Eloquia Display ExtBd.ttf
