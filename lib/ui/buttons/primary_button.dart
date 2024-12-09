@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
+  final Function()? onTap;
+
   final String buttonText;
   final Color buttonColor;
   final Color textColor;
@@ -10,6 +12,7 @@ class PrimaryButton extends StatelessWidget {
 
   const PrimaryButton({
     super.key,
+    this.onTap,
     required this.buttonText,
     this.buttonColor = const Color(0xFFFF3E68),
     this.textColor = Colors.white,
@@ -24,9 +27,7 @@ class PrimaryButton extends StatelessWidget {
       width: width,
       height: height,
       child: ElevatedButton(
-        onPressed: () {
-          // Add your button functionality here
-        },
+        onPressed: onTap,
         style: ElevatedButton.styleFrom(
           backgroundColor: buttonColor,
           shape: RoundedRectangleBorder(

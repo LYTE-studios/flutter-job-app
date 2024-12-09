@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
+import 'package:jobr/features/chat/screens/chat_screen.dart';
 import 'package:jobr/ui/buttons/jobr_icon_button.dart';
 
 class FirstGlanceScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
         JobrIconButton(
           label: "⚡ Ik zoek een job",
           onPressed: () {
-            context.push(LoginScreen.route);
+            context.pushReplacement(ChatScreen.route);
           },
         ),
         const SizedBox(

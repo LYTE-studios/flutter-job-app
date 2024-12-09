@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
 import '../../../data/models/message.dart';
 
@@ -27,8 +29,16 @@ class _ChatScreenState extends State<ChatRequest> {
             const SizedBox(
               width: 22,
             ),
-            const Icon(Icons.arrow_back_ios,
-                size: 30, color: Color(0xFF000000)),
+            ClearInkWell(
+              onTap: () {
+                context.pop();
+              },
+              child: const Icon(
+                Icons.arrow_back_ios,
+                size: 30,
+                color: Color(0xFF000000),
+              ),
+            ),
             const SizedBox(
               width: 10,
             ),

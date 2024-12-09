@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jobr/features/chat/screens/chat_request.dart';
+import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 
 class ChatScreen extends StatefulWidget {
+  static const String route = '${BaseDashboardScreen.route}/$location';
+  static const String location = 'chat';
+
   const ChatScreen({super.key});
 
   @override
@@ -35,15 +39,16 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Padding(
-            padding: EdgeInsets.only(left: 6),
-            child: Text(
-              'Chat',
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Eloquia',
-              ),
-            )),
+          padding: EdgeInsets.only(left: 6),
+          child: Text(
+            'Chat',
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Eloquia',
+            ),
+          ),
+        ),
         centerTitle: false, // Ensures the title is aligned to the left
       ),
       body: Container(

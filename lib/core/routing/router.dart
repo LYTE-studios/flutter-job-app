@@ -5,10 +5,28 @@ import 'package:jobr/features/authentication/screens/email_login_screen.dart';
 import 'package:jobr/features/authentication/screens/email_register_screen.dart';
 import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
+import 'package:jobr/features/chat/screens/chat_screen.dart';
+import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 
 GoRouter router = GoRouter(
   initialLocation: FirstGlanceScreen.route,
   routes: <RouteBase>[
+    ShellRoute(
+      builder: (context, state, child) {
+        return BaseDashboardScreen(
+          child: child,
+        );
+      },
+      routes: [
+        GoRoute(
+          path: ChatScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: ChatScreen(),
+          ),
+        ),
+      ],
+    ),
     ShellRoute(
       builder: (context, state, child) {
         return BaseAuthScreen(
