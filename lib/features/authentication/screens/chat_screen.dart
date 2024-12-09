@@ -46,14 +46,14 @@ class _ChatScreenState extends State<ChatScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: const Padding(padding: EdgeInsets.only(left:6),child: Text(
           'Chat',
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.w700,
             fontFamily: 'Eloquia',
           ),
-        ),
+        )),
         centerTitle: false, // Ensures the title is aligned to the left
       ),
       body: Container(
@@ -91,7 +91,7 @@ class _ChatScreenState extends State<ChatScreen> {
                const Divider(
                 color:   Color(0x0F000000),
                 height: 20,
-                thickness: 2,
+                thickness: 1.5,
                 indent: 74,
               ),
               Expanded(
@@ -112,7 +112,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           const Divider(
                             color:   Color(0x0F000000),
                             height: 20,
-                            thickness: 2,
+                            thickness: 1.5,
                             indent: 74,
                           ),
                         ],

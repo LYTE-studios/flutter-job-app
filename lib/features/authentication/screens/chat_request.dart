@@ -33,6 +33,7 @@ class _ChatScreenState extends State<ChatRequest> {
           children: [
             const SizedBox(width: 22,),
             const Icon(Icons.arrow_back_ios,size: 30,color:  Color(0xFF000000)),
+            const SizedBox(width: 10,),
             Container(
               width: 33,
               height: 33,
@@ -44,7 +45,7 @@ class _ChatScreenState extends State<ChatRequest> {
                 ),
               ),
             ),
-            const SizedBox(width:11,),
+            const SizedBox(width:10,),
             const Text(
               'Spicy Lemon',
               style: TextStyle(
@@ -105,8 +106,8 @@ class _ChatScreenState extends State<ChatRequest> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFF6F6F6), // Button background color
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(19),
-                          side: const BorderSide(color: Color(0xFFFF3E68), width: 2), // Border style
+                          borderRadius: BorderRadius.circular(19.21),
+                          side: const BorderSide(color: Color(0xFFFF3E68), width: 1.92), // Border style
                         ),
                       ),
                       child: const Text(
@@ -155,7 +156,7 @@ class _ChatScreenState extends State<ChatRequest> {
                             child: Text(
                               "Verzonden",
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: const Color(0xFF6B6B6B),
                                 fontSize: 13,
                                 fontFamily: 'DMSans',
                               ),
@@ -177,7 +178,7 @@ class _ChatScreenState extends State<ChatRequest> {
                     height: 39,
                     // Adjust the width as needed
                     child: TextField(
-                      style: TextStyle(fontSize: 17,fontWeight: FontWeight.normal,color: Color(0xFFBABABA)),
+                      style: TextStyle(fontSize: 19.5,fontWeight: FontWeight.normal,color: Color(0xFFBABABA)),
                       decoration: InputDecoration(
                         hintText: 'Hier typen...',
                         border: OutlineInputBorder(),
