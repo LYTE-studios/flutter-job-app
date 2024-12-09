@@ -46,6 +46,7 @@ dependencies:
   dio: ^5.0.0
   flutter_secure_storage: ^8.0.0 
   logger: ^2.5.0
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,7 @@ flutter:
     - assets/images/background/
     - assets/images/icons/
     - assets/images/logos/
+    - assets/images/images/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
