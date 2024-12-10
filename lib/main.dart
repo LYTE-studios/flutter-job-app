@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import './login_screen.dart';
-import 'features/authentication/screens/profile_screen.dart';
+import 'features/profile/screens/profile_screen.dart';
 
 void main() {
   runApp(

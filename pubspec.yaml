@@ -47,6 +47,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0 
   logger: ^2.5.0
   flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.0.16
 
 dev_dependencies:
   flutter_test:
@@ -112,5 +113,6 @@ flutter:
           weight: 700
     - family: Eloquia
       fonts:
+        - asset: assets/fonts/EloquiaText-ExtraLight.otf
         - asset: assets/fonts/Eloquia Display ExtBd.ttf
           weight: 700
