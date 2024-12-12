@@ -27,15 +27,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
     GeneralItemsWidget(),
     MediaItemWidget(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       body: NestedScrollView(
+        physics: const BouncingScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
               expandedHeight: 300.h,
-              floating: true,
+              floating: false,
+              pinned: true,
+              title: innerBoxIsScrolled
+                  ? Text(
+                      "Louis Ottevaere",
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  : null,
+              scrolledUnderElevation: 0,
+              elevation: 0,
+              leading: innerBoxIsScrolled
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 70.r,
+                        height: 70.r,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 4.r),
+                          image: const DecorationImage(
+                            image:
+                                AssetImage('assets/images/images/profile.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    )
+                  : null,
+              backgroundColor: AppColors.white,
               clipBehavior: Clip.none,
               flexibleSpace: FlexibleSpaceBar(
                 background: Stack(
@@ -53,17 +87,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: 0.r, // Adjust based on desired overlap
+                      bottom: 0.r,
                       left: 10,
                       child: Container(
                         width: 123.r,
                         height: 123.r,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 4
-                                  .r), // Border to separate the profile picture
+                          border: Border.all(color: Colors.white, width: 4.r),
                           image: const DecorationImage(
                             image:
                                 AssetImage('assets/images/images/profile.png'),
@@ -102,6 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         },
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 20.r),
+          physics: const ClampingScrollPhysics(),
           children: [
             Text(
               "Louis Ottevaere",
