@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import './login_screen.dart';
-import 'features/profile/screens/profile_screen.dart';
+import 'package:flutter_exam/features/authentication/screens/chat_screen.dart';
+import 'package:flutter_exam/ui/theme/jobr_theme.dart';
 
 void main() {
   runApp(
-    const ScreenUtilInit(
-      designSize: Size(393, 1317),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        // theme: AppTheme.lightTheme,
-        home: ProfileScreen(),
-      ),
+    MaterialApp(
+      title: 'Jobr',
+      theme: jobrTheme,
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: TextScaler.noScaling,
+          ),
+          child: child ?? const SizedBox(),
+        );
+      },
+      home: ChatScreen(), // Replace this with your home screen widget
     ),
   );
 }
