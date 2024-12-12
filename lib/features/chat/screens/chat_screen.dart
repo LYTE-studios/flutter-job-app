@@ -45,7 +45,6 @@ class _ChatScreenState extends State<ChatScreen> {
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.w700,
-              fontFamily: 'Eloquia',
             ),
           ),
         ),
@@ -197,7 +196,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     color: Colors.white,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Eloquia',
                   ),
                 ),
               ),

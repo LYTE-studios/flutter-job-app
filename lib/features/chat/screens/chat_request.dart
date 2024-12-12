@@ -61,7 +61,6 @@ class _ChatScreenState extends State<ChatRequest> {
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                fontFamily: 'Eloquia',
               ),
             ),
           ],
@@ -114,7 +113,6 @@ class _ChatScreenState extends State<ChatRequest> {
                           style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
-                            fontFamily: 'Eloquia',
                           ),
                         ),
                         Text(
@@ -141,7 +139,6 @@ class _ChatScreenState extends State<ChatRequest> {
                           color: Color(0xFFFF3E68),
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          fontFamily: 'Eloquia',
                         ),
                       ),
                     ),
@@ -178,7 +175,6 @@ class _ChatScreenState extends State<ChatRequest> {
                                 //     ? Colors.white
                                 //     : Colors.black,
                                 fontSize: 16.74,
-                                fontFamily: 'DMSans',
                               ),
                             ),
                           ),
@@ -191,7 +187,6 @@ class _ChatScreenState extends State<ChatRequest> {
                         //       style: TextStyle(
                         //         color: Color(0xFF6B6B6B),
                         //         fontSize: 13,
-                        //         fontFamily: 'DMSans',
                         //       ),
                         //     ),
                         //   ),

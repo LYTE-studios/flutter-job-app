@@ -37,98 +37,100 @@ class BaseAuthScreen extends StatelessWidget {
           filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            body: LayoutBuilder(builder: (context, constraints) {
-              return Column(
-                children: [
-                  SizedBox(
-                    height: constraints.maxHeight * 0.4,
-                    child: Stack(
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              height: 90,
-                              decoration: const BoxDecoration(),
-                              child: const Center(
-                                child: SvgIcon(
-                                  JobrIcons.logoLight,
-                                  size: 90,
-                                  leaveUnaltered: true,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 15,
-                            ),
-                            RichText(
-                              text: TextSpan(
-                                style: TextStyles.titleMedium.copyWith(
-                                  color: TextStyles.clearText,
-                                ),
-                                children: [
-                                  const TextSpan(
-                                    text: 'Making ',
-                                  ),
-                                  TextSpan(
-                                    text: 'matches',
-                                    style: TextStyles.titleMedium.copyWith(
-                                      color: theme.colorScheme.primary,
-                                    ),
-                                  ),
-                                  const TextSpan(
-                                    text: ' that work.',
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Positioned(
-                          top: PaddingSizes.large,
-                          left: PaddingSizes.large,
-                          child: SafeArea(
-                            bottom: false,
-                            top: true,
-                            child: Visibility(
-                              visible: canPop,
-                              child: ClearInkWell(
-                                onTap: () {
-                                  context.pop();
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.all(4.0),
+            body: LayoutBuilder(
+              builder: (context, constraints) {
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: constraints.maxHeight * 0.4,
+                      child: Stack(
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                height: 90,
+                                decoration: const BoxDecoration(),
+                                child: const Center(
                                   child: SvgIcon(
-                                    JobrIcons.chevronLeftIcon,
-                                    size: 24,
-                                    color: Colors.white,
+                                    JobrIcons.logoLight,
+                                    size: 90,
+                                    leaveUnaltered: true,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              RichText(
+                                text: TextSpan(
+                                  style: TextStyles.titleMedium.copyWith(
+                                    color: TextStyles.clearText,
+                                  ),
+                                  children: [
+                                    const TextSpan(
+                                      text: 'Making ',
+                                    ),
+                                    TextSpan(
+                                      text: 'matches',
+                                      style: TextStyles.titleMedium.copyWith(
+                                        color: theme.colorScheme.primary,
+                                      ),
+                                    ),
+                                    const TextSpan(
+                                      text: ' that work.',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Positioned(
+                            top: PaddingSizes.large,
+                            left: PaddingSizes.large,
+                            child: SafeArea(
+                              bottom: false,
+                              top: true,
+                              child: Visibility(
+                                visible: canPop,
+                                child: ClearInkWell(
+                                  onTap: () {
+                                    context.pop();
+                                  },
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(4.0),
+                                    child: SvgIcon(
+                                      JobrIcons.chevronLeftIcon,
+                                      size: 24,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Expanded(
-                    child: SafeArea(
-                      top: false,
-                      bottom: true,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: PaddingSizes.xxl,
-                        ),
-                        child: child,
+                        ],
                       ),
                     ),
-                  )
-                ],
-              );
-            }),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Expanded(
+                      child: SafeArea(
+                        top: false,
+                        bottom: true,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: PaddingSizes.xxl,
+                          ),
+                          child: child,
+                        ),
+                      ),
+                    )
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

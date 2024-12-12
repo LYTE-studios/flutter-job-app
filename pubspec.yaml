@@ -26,7 +26,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   logger: ^2.5.0
 
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -44,12 +44,3 @@ flutter:
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter.ttf
-          weight: 700
-    - family: DMSans
-      fonts:
-        - asset: assets/fonts/DMSans-Regular.ttf
-          weight: 500
-    - family: Eloquia
-      fonts:
-        - asset: assets/fonts/Eloquia Display ExtBd.ttf
-          weight: 700
