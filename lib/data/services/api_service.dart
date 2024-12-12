@@ -24,7 +24,7 @@ class ApiService {
 
   static String _getBaseUrl() {
     return const String.fromEnvironment('BASE_URL',
-        defaultValue: "http://localhost:8000/api/");
+        defaultValue: "http://api.jobr.lytestudios.be/api/");
   }
 
   void _setupInterceptors() {
