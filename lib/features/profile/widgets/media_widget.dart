@@ -13,9 +13,10 @@ class MediaWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    double width  = MediaQuery.sizeOf(context).width;
     return Container(
-      height: 300,
+      height: 200,
+      width: width * .44,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: image == null ? theme.colorScheme.surface : null,
@@ -26,8 +27,8 @@ class MediaWidget extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
       ),
-      margin: EdgeInsets.only(bottom: 20),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.all(10),
       alignment: image == null ? Alignment.center : Alignment.topRight,
       child: image == null
           ? Icon(
@@ -40,7 +41,7 @@ class MediaWidget extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: theme.primaryColor,
               ),
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Icon(
                 CupertinoIcons.person_fill,
                 color: TextStyles.clearText,

@@ -41,11 +41,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              expandedHeight: 300,
+              expandedHeight: 200,
               floating: false,
               pinned: true,
               title: innerBoxIsScrolled
-                  ? Text(
+                  ? const Text(
                       "Louis Ottevaere",
                       style: TextStyle(
                         fontSize: 18,
@@ -87,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Image.asset(
                         'assets/images/images/image-4.png',
                         fit: BoxFit.cover,
-                        height: 280,
+                        height: 180,
                       ),
                     ),
                     Positioned(
@@ -139,10 +139,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ];
         },
         body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           physics: const ClampingScrollPhysics(),
           children: [
-            Text(
+            const Text(
               "Louis Ottevaere",
               style: TextStyle(
                 fontSize: 24,
@@ -168,7 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: theme.primaryColor,
                 ),
                 const SizedBox(width: 4),
-                Text(
+                const Text(
                   "Kortrijk",
                   style: TextStyle(
                     fontSize: 17,
@@ -178,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             const SizedBox(height: 16),
-            Text(
+            const Text(
               "Ik ben Louis, 30 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste service geven.",
               style: TextStyle(
                 fontSize: 15,
@@ -193,24 +193,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: 1,
                   height: 70,
                   color: theme.colorScheme.primaryContainer,
-                  margin: EdgeInsets.symmetric(horizontal: 25),
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
                 ),
                 _buildStat("12", "sessies", JobrIcons.phone),
                 Container(
                   width: 1,
                   height: 70,
                   color: theme.colorScheme.primaryContainer,
-                  margin: EdgeInsets.symmetric(horizontal: 25),
+                  margin: const EdgeInsets.symmetric(horizontal: 25),
                 ),
                 _buildStat("22", "verzoeken", JobrIcons.chat),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               children: List.generate(
                 tabData.length,
                 (index) => Container(
-                  margin: EdgeInsets.only(right: 20),
+                  margin: const EdgeInsets.only(right: 20),
                   child: ElevatedButton.icon(
                     onPressed: () {
                       setState(() {
@@ -251,7 +251,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: tabs[selectedIndex],
@@ -269,14 +269,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             SvgIcon(
               icon,
-              size: 16,
+              size: 24,
               leaveUnaltered: true,
               color: TextStyles.mainText,
             ),
-            SizedBox(width: 5),
+            const SizedBox(width: 5),
             Text(
               number,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
