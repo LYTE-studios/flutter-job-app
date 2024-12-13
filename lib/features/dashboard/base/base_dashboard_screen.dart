@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/chat/screens/chat_screen.dart';
+import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
@@ -7,9 +10,12 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 class BaseDashboardScreen extends StatelessWidget {
   final Widget child;
 
+  final int selectedIndex;
+
   const BaseDashboardScreen({
     super.key,
     required this.child,
+    required this.selectedIndex,
   });
 
   static const String route = '/home';
@@ -19,7 +25,23 @@ class BaseDashboardScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: 2,
+        currentIndex: selectedIndex,
+        onTap: (int index) {
+          String route = BaseDashboardScreen.route;
+
+          switch (index) {
+            case 3:
+              route = ProfileScreen.route;
+            case 2:
+              route = ChatScreen.route;
+            case 1:
+              route = ChatScreen.route;
+            case 0:
+              route = ChatScreen.route;
+          }
+
+          router.pushReplacement(route);
+        },
         selectedLabelStyle: TextStyles.bodySmall.copyWith(
           color: Theme.of(context).primaryColor,
           fontSize: 12,
@@ -27,7 +49,7 @@ class BaseDashboardScreen extends StatelessWidget {
         unselectedLabelStyle: TextStyles.bodySmall.copyWith(
           fontSize: 12,
         ),
-        items: [
+        items: const [
           BottomNavigationBarItem(
             label: 'Jobs',
             icon: _NavigationBarIcon(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
@@ -8,7 +9,7 @@ import 'tabs/general_item_widget.dart';
 import 'tabs/media_item_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
-  static const String route = '/$location';
+  static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'profile';
 
   const ProfileScreen({super.key});
@@ -97,7 +98,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         height: 123,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 4),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 4,
+                          ),
                           image: const DecorationImage(
                             image:
                                 AssetImage('assets/images/images/profile.png'),
@@ -117,13 +121,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         label: Text(
                           "Aanpassen",
                           style: TextStyle(
-                            color: theme.colorScheme.surface,
+                            color: TextStyles.clearText,
                             fontSize: 16,
                           ),
                         ),
                         icon: Icon(
                           Icons.edit,
-                          color: theme.colorScheme.surface,
+                          color: TextStyles.clearText,
                           size: 24,
                         ),
                       ),
@@ -188,14 +192,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Container(
                   width: 1,
                   height: 70,
-                  color: theme.colorScheme.surface,
+                  color: theme.colorScheme.primaryContainer,
                   margin: EdgeInsets.symmetric(horizontal: 25),
                 ),
                 _buildStat("12", "sessies", JobrIcons.phone),
                 Container(
                   width: 1,
                   height: 70,
-                  color: theme.colorScheme.surface,
+                  color: theme.colorScheme.primaryContainer,
                   margin: EdgeInsets.symmetric(horizontal: 25),
                 ),
                 _buildStat("22", "verzoeken", JobrIcons.chat),
