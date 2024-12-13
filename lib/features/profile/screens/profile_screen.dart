@@ -286,7 +286,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         const SizedBox(height: 4),
         Text(
           label,
-          style: const TextStyle(color: Colors.grey),
+          style: TextStyle(
+            color: TextStyles.unselectedText,
+          ),
         ),
       ],
     );

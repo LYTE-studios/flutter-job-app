@@ -49,33 +49,33 @@ class BaseDashboardScreen extends StatelessWidget {
         unselectedLabelStyle: TextStyles.bodySmall.copyWith(
           fontSize: 12,
         ),
-        items: const [
+        items: [
           BottomNavigationBarItem(
             label: 'Jobs',
             icon: _NavigationBarIcon(
               icon: JobrIcons.magnifyingGlass,
-              selected: false,
+              selected: selectedIndex == 0,
             ),
           ),
           BottomNavigationBarItem(
             label: 'Sollicitaties',
             icon: _NavigationBarIcon(
               icon: JobrIcons.sheet,
-              selected: false,
+              selected: selectedIndex == 1,
             ),
           ),
           BottomNavigationBarItem(
             label: 'Chat',
             icon: _NavigationBarIcon(
               icon: JobrIcons.chat,
-              selected: true,
+              selected: selectedIndex == 2,
             ),
           ),
           BottomNavigationBarItem(
             label: 'Mijn profiel',
             icon: _NavigationBarIcon(
               icon: JobrIcons.profile,
-              selected: false,
+              selected: selectedIndex == 3,
             ),
           ),
         ],
