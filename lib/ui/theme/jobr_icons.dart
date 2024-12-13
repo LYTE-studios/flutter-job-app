@@ -32,6 +32,12 @@ class JobrIcons {
   static const String profile = '$_baseIconPath/profile.svg';
   static const String magnifyingGlass = '$_baseIconPath/magnifying_glass.svg';
   static const String sheet = '$_baseIconPath/sheet.svg';
+  static const String location = '$_baseIconPath/location.svg';
+  static const String jobApplications = '$_baseIconPath/job_applications.svg';
+  static const String phone = '$_baseIconPath/phone.svg';
+  static const String camera = '$_baseIconPath/camera.svg';
+  static const String dashboard = '$_baseIconPath/dashboard.svg';
+  static const String blockquote = '$_baseIconPath/blockquote.svg';
 
   static const List<String> icons = [
     logoLight,

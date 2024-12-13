@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:jobr/ui/theme/text_styles.dart';
 
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/fonts.dart';
 import '../../widgets/media_widget.dart';
 
 class MediaItemWidget extends StatefulWidget {
@@ -14,6 +14,8 @@ class MediaItemWidget extends StatefulWidget {
 class _MediaItemWidgetState extends State<MediaItemWidget> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,17 +25,15 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.mainFont,
             ),
           ),
           SizedBox(height: 5),
           Text(
             'Voeg foto\'s of video\'s toe van jezelf.',
             style: TextStyle(
-              color: AppColors.grey,
+              color: TextStyles.unselectedText,
               fontSize: 15,
               fontWeight: FontWeight.w500,
-              fontFamily: AppFonts.mainFont,
             ),
           ),
           SizedBox(height: 10),
@@ -55,17 +55,15 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              fontFamily: AppFonts.mainFont,
             ),
           ),
           SizedBox(height: 5),
           Text(
             'Voeg hier je portfolio of belangrijke prestaties',
             style: TextStyle(
-              color: AppColors.grey,
+              color: TextStyles.unselectedText,
               fontSize: 15,
               fontWeight: FontWeight.w500,
-              fontFamily: AppFonts.mainFont,
             ),
           ),
           SizedBox(height: 10),
@@ -73,7 +71,7 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             height: 170,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: AppColors.whiteShade,
+              color: theme.colorScheme.surface,
             ),
             margin: EdgeInsets.only(bottom: 20),
             padding: EdgeInsets.all(10),
@@ -82,17 +80,16 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
               children: [
                 Icon(
                   CupertinoIcons.plus_circle_fill,
-                  color: AppColors.grey.withOpacity(.6),
+                  color: TextStyles.unselectedText.withOpacity(.6),
                   size: 32,
                 ),
                 SizedBox(height: 5),
                 Text(
                   'Voeg PDF, PNG toe',
                   style: TextStyle(
-                    color: AppColors.grey,
+                    color: TextStyles.unselectedText,
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    fontFamily: AppFonts.mainFont,
                   ),
                 ),
               ],
