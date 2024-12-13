@@ -13,13 +13,13 @@ class MediaWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    double width  = MediaQuery.sizeOf(context).width;
+    double width = MediaQuery.sizeOf(context).width;
     return Container(
       height: 200,
       width: width * .44,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: image == null ? theme.colorScheme.surface : null,
+        color: image == null ? theme.colorScheme.primaryContainer : null,
         image: image == null
             ? null
             : DecorationImage(

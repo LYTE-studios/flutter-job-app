@@ -169,7 +169,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: theme.colorScheme.surface,
+            color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -263,7 +263,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: theme.colorScheme.surface,
+            color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -323,7 +323,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: theme.colorScheme.surface,
+            color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -368,7 +368,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: theme.colorScheme.surface,
+            color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(

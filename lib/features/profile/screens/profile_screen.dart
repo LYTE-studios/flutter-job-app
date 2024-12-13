@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 import '../../../ui/theme/jobr_icons.dart';
@@ -84,10 +85,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       top: 0,
                       left: 0,
                       right: 0,
-                      child: Image.asset(
-                        'assets/images/images/image-4.png',
-                        fit: BoxFit.cover,
-                        height: 180,
+                      child: SizedBox(
+                        height: 171,
+                        child: Image.asset(
+                          'assets/images/images/image-4.png',
+                          fit: BoxFit.cover,
+                          height: 180,
+                        ),
                       ),
                     ),
                     Positioned(
@@ -111,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: 25,
+                      top: 150,
                       right: 10,
                       child: ElevatedButton.icon(
                         onPressed: () {},
@@ -189,18 +193,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Row(
               children: [
                 _buildStat("36", "sollicitaties", JobrIcons.jobApplications),
-                Container(
-                  width: 1,
-                  height: 70,
-                  color: theme.colorScheme.primaryContainer,
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                SizedBox(
+                  height: 46,
+                  child: VerticalDivider(
+                    thickness: 1.5,
+                    width: 36,
+                    color: HexColor.fromHex('#F0F1F3'),
+                  ),
                 ),
                 _buildStat("12", "sessies", JobrIcons.phone),
-                Container(
-                  width: 1,
-                  height: 70,
-                  color: theme.colorScheme.primaryContainer,
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
+                SizedBox(
+                  height: 46,
+                  child: VerticalDivider(
+                    thickness: 1.5,
+                    width: 36,
+                    color: HexColor.fromHex('#F0F1F3'),
+                  ),
                 ),
                 _buildStat("22", "verzoeken", JobrIcons.chat),
               ],
@@ -266,27 +274,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgIcon(
               icon,
-              size: 24,
-              leaveUnaltered: true,
+              size: 17,
               color: TextStyles.mainText,
             ),
             const SizedBox(width: 5),
             Text(
               number,
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 4),
         Text(
           label,
           style: TextStyle(
+            fontSize: 15,
             color: TextStyles.unselectedText,
           ),
         ),

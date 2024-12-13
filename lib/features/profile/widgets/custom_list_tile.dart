@@ -24,7 +24,9 @@ class CustomListTile extends StatelessWidget {
       children: <Widget>[
         Image.asset(
           image,
-          width: 100,
+          fit: BoxFit.contain,
+          width: 57,
+          height: 57,
         ),
         const SizedBox(width: 10),
         Column(

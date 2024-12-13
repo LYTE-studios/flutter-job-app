@@ -16,7 +16,7 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    double width  = MediaQuery.sizeOf(context).width;
+    double width = MediaQuery.sizeOf(context).width;
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +72,7 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             height: 170,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: theme.colorScheme.surface,
+              color: theme.colorScheme.primaryContainer,
             ),
             width: width,
             margin: const EdgeInsets.only(bottom: 20),
