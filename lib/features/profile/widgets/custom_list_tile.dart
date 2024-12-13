@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/fonts.dart';
@@ -27,16 +26,16 @@ class CustomListTile extends StatelessWidget {
       children: <Widget>[
         Image.asset(
           image,
-          width: 120.r,
+          width: 120,
         ),
-        SizedBox(width: 10.w),
+        SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
               title,
               style: TextStyle(
-                fontSize: 16.sp,
+                fontSize: 16,
                 fontWeight: FontWeight.w600,
                 fontFamily: AppFonts.mainFont,
               ),
@@ -44,7 +43,7 @@ class CustomListTile extends StatelessWidget {
             Text(
               subTitle,
               style: TextStyle(
-                fontSize: 15.sp,
+                fontSize: 15,
                 fontWeight: FontWeight.w500,
                 fontFamily: AppFonts.mainFont,
               ),
@@ -54,7 +53,7 @@ class CustomListTile extends StatelessWidget {
                 Text(
                   duration,
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: AppColors.grey,
                     fontFamily: AppFonts.mainFont,
@@ -62,9 +61,9 @@ class CustomListTile extends StatelessWidget {
                 ),
                 if (time != null) ...[
                   Container(
-                    margin: EdgeInsets.all(10.r),
-                    width: 10.r,
-                    height: 10.r,
+                    margin: EdgeInsets.all(10),
+                    width: 10,
+                    height: 10,
                     decoration: const BoxDecoration(
                       color: AppColors.grey,
                       shape: BoxShape.circle,
@@ -73,7 +72,7 @@ class CustomListTile extends StatelessWidget {
                   Text(
                     time ?? '',
                     style: TextStyle(
-                      fontSize: 14.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: AppColors.grey,
                       fontFamily: AppFonts.mainFont,

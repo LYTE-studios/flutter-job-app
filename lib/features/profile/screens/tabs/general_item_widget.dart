@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/colors.dart';
@@ -65,17 +64,17 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
   ];
 
   List<String> skills = ['📝 Schrijven', '📷 Content creation', '💄 Make-up'];
+
   @override
   Widget build(BuildContext context) {
-    double width = ScreenUtil().screenWidth;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(10.r),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: AppColors.whiteShade,
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +85,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   Text(
                     'Ervaring',
                     style: TextStyle(
-                      fontSize: 17.sp,
+                      fontSize: 17,
                       fontWeight: FontWeight.w600,
                       fontFamily: AppFonts.mainFont,
                     ),
@@ -98,7 +97,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                         icon: Icon(
                           Icons.edit,
                           color: AppColors.grey,
-                          size: 24.sp,
+                          size: 24,
                         ),
                       ),
                       IconButton(
@@ -106,7 +105,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                         icon: Icon(
                           Icons.add,
                           color: AppColors.grey,
-                          size: 28.sp,
+                          size: 28,
                         ),
                       ),
                     ],
@@ -121,11 +120,11 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   itemCount: experience.length,
                   separatorBuilder: (context, index) => Column(
                     children: <Widget>[
-                      SizedBox(height: 10.h),
+                      SizedBox(height: 10),
                       Divider(
                         color: AppColors.black.withOpacity(.3),
                       ),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: 10),
                     ],
                   ),
                   itemBuilder: (context, index) => CustomListTile(
@@ -140,15 +139,14 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                 Text(
                   'Laat zien voor welke functies en bij welke bedrijven je ervaring hebt',
                   style: TextStyle(
-                    fontSize: 15.sp,
+                    fontSize: 15,
                     fontWeight: FontWeight.w500,
                     fontFamily: AppFonts.mainFont,
                   ),
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 10),
                 SizedBox(
-                  width: width,
-                  height: 72.r,
+                  height: 72,
                   child: FilledButton(
                     onPressed: () {},
                     style: FilledButton.styleFrom(
@@ -157,7 +155,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                     child: Text(
                       'Toevoegen',
                       style: TextStyle(
-                        fontSize: 15.sp,
+                        fontSize: 15,
                         color: AppColors.primaryColor,
                         fontWeight: FontWeight.w800,
                         fontFamily: AppFonts.primaryFont,
@@ -169,12 +167,12 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
             ],
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(10.r),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: AppColors.whiteShade,
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -185,7 +183,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   Text(
                     'Onderwijs & certificaten',
                     style: TextStyle(
-                      fontSize: 17.sp,
+                      fontSize: 17,
                       fontWeight: FontWeight.w600,
                       fontFamily: AppFonts.mainFont,
                     ),
@@ -197,7 +195,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                         icon: Icon(
                           Icons.edit,
                           color: AppColors.grey,
-                          size: 24.sp,
+                          size: 24,
                         ),
                       ),
                       IconButton(
@@ -205,7 +203,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                         icon: Icon(
                           Icons.add,
                           color: AppColors.grey,
-                          size: 28.sp,
+                          size: 28,
                         ),
                       ),
                     ],
@@ -220,11 +218,11 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   itemCount: education.length,
                   separatorBuilder: (context, index) => Column(
                     children: <Widget>[
-                      SizedBox(height: 10.h),
+                      SizedBox(height: 10),
                       Divider(
                         color: AppColors.black.withOpacity(.3),
                       ),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: 10),
                     ],
                   ),
                   itemBuilder: (context, index) => CustomListTile(
@@ -239,15 +237,14 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                 Text(
                   'Laat zien voor welke functies en bij welke bedrijven je ervaring hebt',
                   style: TextStyle(
-                    fontSize: 15.sp,
+                    fontSize: 15,
                     fontWeight: FontWeight.w500,
                     fontFamily: AppFonts.mainFont,
                   ),
                 ),
-                SizedBox(height: 10.h),
+                SizedBox(height: 10),
                 SizedBox(
-                  width: width,
-                  height: 72.r,
+                  height: 72,
                   child: FilledButton(
                     onPressed: () {},
                     style: FilledButton.styleFrom(
@@ -256,7 +253,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                     child: Text(
                       'Toevoegen',
                       style: TextStyle(
-                        fontSize: 15.sp,
+                        fontSize: 15,
                         color: AppColors.primaryColor,
                         fontWeight: FontWeight.w800,
                         fontFamily: AppFonts.primaryFont,
@@ -268,12 +265,12 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
             ],
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(10.r),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: AppColors.whiteShade,
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,7 +281,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   Text(
                     'Mijn skills',
                     style: TextStyle(
-                      fontSize: 17.sp,
+                      fontSize: 17,
                       fontWeight: FontWeight.w600,
                       fontFamily: AppFonts.mainFont,
                     ),
@@ -296,28 +293,28 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                         icon: Icon(
                           Icons.edit,
                           color: AppColors.grey,
-                          size: 24.sp,
+                          size: 24,
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 10),
               Wrap(
                 children: [
                   ...skills.map(
                     (skill) => Container(
-                      margin: EdgeInsets.all(5.r),
+                      margin: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         color: AppColors.black,
-                        borderRadius: BorderRadius.circular(30.r),
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      padding: EdgeInsets.all(10.r),
+                      padding: EdgeInsets.all(10),
                       child: Text(
                         skill,
                         style: TextStyle(
-                          fontSize: 15.sp,
+                          fontSize: 15,
                           color: AppColors.white,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -329,12 +326,12 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
             ],
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(10.r),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: AppColors.whiteShade,
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -345,7 +342,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   Text(
                     'Talen',
                     style: TextStyle(
-                      fontSize: 17.sp,
+                      fontSize: 17,
                       fontWeight: FontWeight.w600,
                       fontFamily: AppFonts.mainFont,
                     ),
@@ -357,18 +354,18 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                         icon: Icon(
                           Icons.edit,
                           color: AppColors.grey,
-                          size: 24.sp,
+                          size: 24,
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 10),
               Text(
                 'Engels, Italiaans',
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 16,
                   fontWeight: FontWeight.w500,
                   fontFamily: AppFonts.mainFont,
                 ),
@@ -376,12 +373,12 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
             ],
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(10.r),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: AppColors.whiteShade,
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -392,7 +389,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   Text(
                     'Meer over mezelf',
                     style: TextStyle(
-                      fontSize: 17.sp,
+                      fontSize: 17,
                       fontWeight: FontWeight.w600,
                       fontFamily: AppFonts.mainFont,
                     ),
@@ -404,7 +401,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                         icon: Icon(
                           Icons.edit,
                           color: AppColors.grey,
-                          size: 24.sp,
+                          size: 24,
                         ),
                       ),
                       IconButton(
@@ -412,22 +409,22 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                         icon: Icon(
                           Icons.add,
                           color: AppColors.grey,
-                          size: 28.sp,
+                          size: 28,
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 10),
               SvgPicture.asset(
                 JobrIcons.blockquote,
               ),
-              SizedBox(height: 5.h),
+              SizedBox(height: 5),
               Text(
                 'Ik haal mijn energie uit...',
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 16,
                   fontWeight: FontWeight.w700,
                   fontFamily: AppFonts.mainFont,
                 ),
@@ -435,20 +432,20 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
               Text(
                 'Ik sport heel veel en ik vind het leuk om uit te gaan.',
                 style: TextStyle(
-                  fontSize: 15.sp,
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
                   fontFamily: AppFonts.mainFont,
                 ),
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 20),
               SvgPicture.asset(
                 JobrIcons.blockquote,
               ),
-              SizedBox(height: 5.h),
+              SizedBox(height: 5),
               Text(
                 'Mijn favoriete boek is...',
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 16,
                   fontWeight: FontWeight.w700,
                   fontFamily: AppFonts.mainFont,
                 ),
@@ -456,7 +453,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
               Text(
                 'Hier typen...',
                 style: TextStyle(
-                  fontSize: 15.sp,
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
                   fontFamily: AppFonts.mainFont,
                 ),
@@ -464,7 +461,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
             ],
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 20),
       ],
     );
   }

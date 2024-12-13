@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
@@ -10,6 +9,9 @@ import 'tabs/general_item_widget.dart';
 import 'tabs/media_item_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
+  static const String route = '/$location';
+  static const String location = 'profile';
+
   const ProfileScreen({super.key});
 
   @override
@@ -37,14 +39,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              expandedHeight: 300.h,
+              expandedHeight: 300,
               floating: false,
               pinned: true,
               title: innerBoxIsScrolled
                   ? Text(
                       "Louis Ottevaere",
                       style: TextStyle(
-                        fontSize: 18.sp,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     )
@@ -55,11 +57,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ? Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        width: 70.r,
-                        height: 70.r,
+                        width: 70,
+                        height: 70,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 4.r),
+                          border: Border.all(color: Colors.white, width: 4),
                           image: const DecorationImage(
                             image:
                                 AssetImage('assets/images/images/profile.png'),
@@ -83,18 +85,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Image.asset(
                         'assets/images/images/image-4.png',
                         fit: BoxFit.cover,
-                        height: 280.h,
+                        height: 280,
                       ),
                     ),
                     Positioned(
-                      bottom: 0.r,
+                      bottom: 0,
                       left: 10,
                       child: Container(
-                        width: 123.r,
-                        height: 123.r,
+                        width: 123,
+                        height: 123,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 4.r),
+                          border: Border.all(color: Colors.white, width: 4),
                           image: const DecorationImage(
                             image:
                                 AssetImage('assets/images/images/profile.png'),
@@ -104,8 +106,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: 25.r,
-                      right: 10.r,
+                      bottom: 25,
+                      right: 10,
                       child: ElevatedButton.icon(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
@@ -115,13 +117,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           "Aanpassen",
                           style: TextStyle(
                             color: AppColors.white,
-                            fontSize: 16.sp,
+                            fontSize: 16,
                           ),
                         ),
                         icon: Icon(
                           Icons.edit,
                           color: AppColors.white,
-                          size: 24.sp,
+                          size: 24,
                         ),
                       ),
                     ),
@@ -132,13 +134,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ];
         },
         body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 20.r),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           physics: const ClampingScrollPhysics(),
           children: [
             Text(
               "Louis Ottevaere",
               style: TextStyle(
-                fontSize: 24.sp,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
                 fontFamily: AppFonts.primaryFont,
               ),
@@ -147,7 +149,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Text(
               "louisottevaere@gmail.com",
               style: TextStyle(
-                fontSize: 17.sp,
+                fontSize: 17,
                 fontFamily: AppFonts.primaryFont,
                 fontWeight: FontWeight.w500,
                 color: AppColors.grey,
@@ -158,7 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 SvgIcon(
                   JobrIcons.location,
-                  size: 16.sp,
+                  size: 16,
                   leaveUnaltered: true,
                   color: AppColors.primaryColor,
                 ),
@@ -166,7 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Text(
                   "Kortrijk",
                   style: TextStyle(
-                    fontSize: 17.sp,
+                    fontSize: 17,
                     fontWeight: FontWeight.w500,
                     fontFamily: AppFonts.primaryFont,
                   ),
@@ -177,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Text(
               "Ik ben Louis, 30 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste service geven.",
               style: TextStyle(
-                fontSize: 15.sp,
+                fontSize: 15,
                 fontWeight: FontWeight.w500,
                 fontFamily: AppFonts.primaryFont,
               ),
@@ -187,27 +189,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 _buildStat("36", "sollicitaties", JobrIcons.jobApplications),
                 Container(
-                  width: 1.r,
-                  height: 70.h,
+                  width: 1,
+                  height: 70,
                   color: AppColors.grey.withOpacity(.6),
-                  margin: EdgeInsets.symmetric(horizontal: 25.w),
+                  margin: EdgeInsets.symmetric(horizontal: 25),
                 ),
                 _buildStat("12", "sessies", JobrIcons.phone),
                 Container(
-                  width: 1.r,
-                  height: 70.h,
+                  width: 1,
+                  height: 70,
                   color: AppColors.grey.withOpacity(.6),
-                  margin: EdgeInsets.symmetric(horizontal: 25.w),
+                  margin: EdgeInsets.symmetric(horizontal: 25),
                 ),
                 _buildStat("22", "verzoeken", JobrIcons.chat),
               ],
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 20),
             Row(
               children: List.generate(
                 tabData.length,
                 (index) => Container(
-                  margin: EdgeInsets.only(right: 20.r),
+                  margin: EdgeInsets.only(right: 20),
                   child: ElevatedButton.icon(
                     onPressed: () {
                       setState(() {
@@ -229,13 +231,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: selectedIndex == index
                             ? AppColors.white
                             : AppColors.grey,
-                        fontSize: 16.sp,
+                        fontSize: 16,
                       ),
                     ),
                     icon: SvgPicture.asset(
                       tabData[index].icon,
-                      width: 16.sp,
-                      height: 16.sp,
+                      width: 16,
+                      height: 16,
                       colorFilter: ColorFilter.mode(
                           selectedIndex == index
                               ? AppColors.white
@@ -246,7 +248,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 20),
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: tabs[selectedIndex],
@@ -264,15 +266,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             SvgIcon(
               icon,
-              size: 16.sp,
+              size: 16,
               leaveUnaltered: true,
               color: AppColors.black,
             ),
-            SizedBox(width: 5.w),
+            SizedBox(width: 5),
             Text(
               number,
               style: TextStyle(
-                fontSize: 20.sp,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),

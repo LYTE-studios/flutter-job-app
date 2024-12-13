@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/fonts.dart';
@@ -15,88 +14,83 @@ class MediaItemWidget extends StatefulWidget {
 class _MediaItemWidgetState extends State<MediaItemWidget> {
   @override
   Widget build(BuildContext context) {
-    double width = ScreenUtil().screenWidth;
     return SizedBox(
-      width: width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             'Foto\'s & videos',
             style: TextStyle(
-              fontSize: 18.sp,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               fontFamily: AppFonts.mainFont,
             ),
           ),
-          SizedBox(height: 5.h),
+          SizedBox(height: 5),
           Text(
             'Voeg foto\'s of video\'s toe van jezelf.',
             style: TextStyle(
               color: AppColors.grey,
-              fontSize: 15.sp,
+              fontSize: 15,
               fontWeight: FontWeight.w500,
               fontFamily: AppFonts.mainFont,
             ),
           ),
-          SizedBox(height: 10.h),
+          SizedBox(height: 10),
           SizedBox(
-            width: width,
             child: Wrap(
               alignment: WrapAlignment.spaceBetween,
               children: [
                 MediaWidget(
-                  width: width,
                   image: 'assets/images/images/image.png',
                 ),
-                MediaWidget(width: width),
-                MediaWidget(width: width),
-                MediaWidget(width: width),
+                MediaWidget(),
+                MediaWidget(),
+                MediaWidget(),
               ],
             ),
           ),
           Text(
             'Portfolio',
             style: TextStyle(
-              fontSize: 18.sp,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               fontFamily: AppFonts.mainFont,
             ),
           ),
-          SizedBox(height: 5.h),
+          SizedBox(height: 5),
           Text(
             'Voeg hier je portfolio of belangrijke prestaties',
             style: TextStyle(
               color: AppColors.grey,
-              fontSize: 15.sp,
+              fontSize: 15,
               fontWeight: FontWeight.w500,
               fontFamily: AppFonts.mainFont,
             ),
           ),
-          SizedBox(height: 10.h),
+          SizedBox(height: 10),
           Container(
-            width: width,
-            height: 170.h,
+            height: 170,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.r),
+              borderRadius: BorderRadius.circular(15),
               color: AppColors.whiteShade,
             ),
-            margin: EdgeInsets.only(bottom: 20.h),
-            padding: EdgeInsets.all(10.r),
+            margin: EdgeInsets.only(bottom: 20),
+            padding: EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
                   CupertinoIcons.plus_circle_fill,
                   color: AppColors.grey.withOpacity(.6),
-                  size: 32.sp,
+                  size: 32,
                 ),
-                SizedBox(height: 5.h),
+                SizedBox(height: 5),
                 Text(
                   'Voeg PDF, PNG toe',
                   style: TextStyle(
                     color: AppColors.grey,
-                    fontSize: 15.sp,
+                    fontSize: 15,
                     fontWeight: FontWeight.w600,
                     fontFamily: AppFonts.mainFont,
                   ),
