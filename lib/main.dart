@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/features/authentication/screens/chat_screen.dart';
+import 'package:flutter_exam/features/profile/screens/profile_screen.dart';
 import 'package:flutter_exam/ui/theme/jobr_theme.dart';
 
 void main() {
@@ -15,7 +15,7 @@ void main() {
           child: child ?? const SizedBox(),
         );
       },
-      home: ChatScreen(), // Replace this with your home screen widget
+      home: ProfileScreen(),
     ),
   );
 }

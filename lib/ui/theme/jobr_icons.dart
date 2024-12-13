@@ -28,6 +28,13 @@ class JobrIcons {
   static const String appleIcon = '$_baseIconPath/apple.svg';
   static const String emailIcon = '$_baseIconPath/email.svg';
   static const String chevronLeftIcon = '$_baseIconPath/chevron_left.svg';
+  static const String location = '$_baseIconPath/location.svg';
+  static const String jobApplications = '$_baseIconPath/job_applications.svg';
+  static const String phone = '$_baseIconPath/phone.svg';
+  static const String chat = '$_baseIconPath/chat.svg';
+  static const String camera = '$_baseIconPath/camera.svg';
+  static const String dashboard = '$_baseIconPath/dashboard.svg';
+  static const String blockquote = '$_baseIconPath/blockquote.svg';
 
   static const List<String> icons = [
     logoLight,
