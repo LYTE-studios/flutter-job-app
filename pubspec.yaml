@@ -19,6 +19,7 @@ dependencies:
   # NAVIGATION
   go_router: ^14.2.3
   flutter_svg_provider: ^1.0.7
+  flutter_launcher_icons: ^0.13.1
   url_launcher: ^6.3.1
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.16
@@ -39,6 +40,8 @@ flutter:
     - assets/images/background/
     - assets/images/icons/
     - assets/images/logos/
+    - assets/images/images/
+    - assets/images/
 
   fonts:
     - family: Inter
