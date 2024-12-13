@@ -20,7 +20,7 @@ final jobrTheme = ThemeData(
     onError: Colors.white,
     errorContainer: HexColor.fromHex('#F62C2C'),
     onErrorContainer: Colors.white,
-    surface: Colors.white,
+    surface: HexColor.fromHex('#C4C4C4'),
     onSurface: Colors.black,
     primaryContainer: Colors.black.withOpacity(0.03),
     onPrimaryContainer: Colors.black,

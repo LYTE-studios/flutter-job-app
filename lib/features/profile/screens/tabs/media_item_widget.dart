@@ -1,0 +1,105 @@
+import 'package:flutter/cupertino.dart';
+
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/fonts.dart';
+import '../../widgets/media_widget.dart';
+
+class MediaItemWidget extends StatefulWidget {
+  const MediaItemWidget({super.key});
+
+  @override
+  State<MediaItemWidget> createState() => _MediaItemWidgetState();
+}
+
+class _MediaItemWidgetState extends State<MediaItemWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Foto\'s & videos',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: AppFonts.mainFont,
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(
+            'Voeg foto\'s of video\'s toe van jezelf.',
+            style: TextStyle(
+              color: AppColors.grey,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              fontFamily: AppFonts.mainFont,
+            ),
+          ),
+          SizedBox(height: 10),
+          SizedBox(
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              children: [
+                MediaWidget(
+                  image: 'assets/images/images/image.png',
+                ),
+                MediaWidget(),
+                MediaWidget(),
+                MediaWidget(),
+              ],
+            ),
+          ),
+          Text(
+            'Portfolio',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              fontFamily: AppFonts.mainFont,
+            ),
+          ),
+          SizedBox(height: 5),
+          Text(
+            'Voeg hier je portfolio of belangrijke prestaties',
+            style: TextStyle(
+              color: AppColors.grey,
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              fontFamily: AppFonts.mainFont,
+            ),
+          ),
+          SizedBox(height: 10),
+          Container(
+            height: 170,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: AppColors.whiteShade,
+            ),
+            margin: EdgeInsets.only(bottom: 20),
+            padding: EdgeInsets.all(10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  CupertinoIcons.plus_circle_fill,
+                  color: AppColors.grey.withOpacity(.6),
+                  size: 32,
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'Voeg PDF, PNG toe',
+                  style: TextStyle(
+                    color: AppColors.grey,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: AppFonts.mainFont,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
