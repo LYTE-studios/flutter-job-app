@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobr/ui/base/base_container.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
@@ -72,12 +74,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-          ),
+        BaseContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -94,28 +91,23 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      SvgPicture.asset(
+                      SvgIcon(
                         JobrIcons.edit,
-                        width: 17,
-                        height: 17,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
-                        ),
+                        size: 17,
+                        color: TextStyles.unselectedText,
                       ),
                       const SizedBox(width: 10),
-                      SvgPicture.asset(
+                      SvgIcon(
                         JobrIcons.add,
-                        width: 20,
-                        height: 20,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
-                        ),
+                        size: 17,
+                        color: TextStyles.secondaryText,
                       ),
                     ],
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 14,
               ),
               if (experience.isNotEmpty)
                 ListView.separated(
@@ -172,12 +164,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
           ),
         ),
         const SizedBox(height: 20),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-          ),
+        BaseContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -194,28 +181,23 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      SvgPicture.asset(
+                      SvgIcon(
                         JobrIcons.edit,
-                        width: 17,
-                        height: 17,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
-                        ),
+                        size: 17,
+                        color: TextStyles.unselectedText,
                       ),
                       const SizedBox(width: 10),
-                      SvgPicture.asset(
+                      SvgIcon(
                         JobrIcons.add,
-                        width: 20,
-                        height: 20,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
-                        ),
+                        size: 17,
+                        color: TextStyles.secondaryText,
                       ),
                     ],
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 14,
               ),
               if (education.isNotEmpty)
                 ListView.separated(
@@ -271,12 +253,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
           ),
         ),
         const SizedBox(height: 20),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-          ),
+        BaseContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -293,18 +270,17 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      SvgPicture.asset(
+                      SvgIcon(
                         JobrIcons.edit,
-                        width: 17,
-                        height: 17,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
-                        ),
+                        size: 17,
+                        color: TextStyles.unselectedText,
                       ),
                     ],
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 14,
               ),
               const SizedBox(height: 10),
               Wrap(
@@ -335,12 +311,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
           ),
         ),
         const SizedBox(height: 20),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-          ),
+        BaseContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -357,20 +328,18 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      SvgPicture.asset(
+                      SvgIcon(
                         JobrIcons.edit,
-                        width: 17,
-                        height: 17,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
-                        ),
+                        size: 17,
+                        color: TextStyles.unselectedText,
                       ),
                     ],
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(
+                height: 14,
+              ),
               const Text(
                 'Engels, Italiaans',
                 style: TextStyle(
@@ -383,12 +352,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
           ),
         ),
         const SizedBox(height: 20),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-          ),
+        BaseContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -405,30 +369,24 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      SvgPicture.asset(
+                      SvgIcon(
                         JobrIcons.edit,
-                        width: 17,
-                        height: 17,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
-                        ),
+                        size: 17,
+                        color: TextStyles.unselectedText,
                       ),
                       const SizedBox(width: 10),
-                      SvgPicture.asset(
+                      SvgIcon(
                         JobrIcons.add,
-                        width: 20,
-                        height: 20,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
-                        ),
+                        size: 17,
+                        color: TextStyles.secondaryText,
                       ),
                     ],
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(
+                height: 14,
+              ),
               SvgPicture.asset(
                 JobrIcons.blockquote,
               ),
