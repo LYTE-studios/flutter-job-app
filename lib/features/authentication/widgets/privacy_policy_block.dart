@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/configuration.dart';
-import 'package:flutter_exam/ui/theme/padding_sizes.dart';
-import 'package:flutter_exam/ui/theme/text_styles.dart';
+import 'package:jobr/configuration.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
+import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PrivacyPolicyBlock extends StatelessWidget {
@@ -16,46 +16,50 @@ class PrivacyPolicyBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: PaddingSizes.xxl,
-        horizontal: PaddingSizes.large,
-      ),
-      child: RichText(
-        textAlign: TextAlign.center,
-        maxLines: 2,
-        text: TextSpan(
-          style: TextStyles.bodySmall.copyWith(
-            color: Colors.white,
-            fontSize: 13,
+    return SizedBox(
+      height: 81,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: PaddingSizes.large,
           ),
-          children: [
-            const TextSpan(
-              text: 'Door door te gaan ga je akkoord met onze \n',
-            ),
-            TextSpan(
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchUrl(tosUrl),
-              style: const TextStyle(
-                decoration: TextDecoration.underline,
+          child: RichText(
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            text: TextSpan(
+              style: TextStyles.bodySmall.copyWith(
+                color: Colors.white,
+                fontSize: 13,
               ),
-              text: 'algemene voorwaarden',
+              children: [
+                const TextSpan(
+                  text: 'Door door te gaan ga je akkoord met onze \n',
+                ),
+                TextSpan(
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => _launchUrl(tosUrl),
+                  style: const TextStyle(
+                    decoration: TextDecoration.underline,
+                  ),
+                  text: 'algemene voorwaarden',
+                ),
+                const TextSpan(
+                  text: ' en onze ',
+                ),
+                TextSpan(
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => _launchUrl(privacyPolicyUrl),
+                  style: const TextStyle(
+                    decoration: TextDecoration.underline,
+                  ),
+                  text: 'privacy policy',
+                ),
+                const TextSpan(
+                  text: '.',
+                ),
+              ],
             ),
-            const TextSpan(
-              text: ' en onze ',
-            ),
-            TextSpan(
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => _launchUrl(privacyPolicyUrl),
-              style: const TextStyle(
-                decoration: TextDecoration.underline,
-              ),
-              text: 'privacy policy',
-            ),
-            const TextSpan(
-              text: '.',
-            ),
-          ],
+          ),
         ),
       ),
     );

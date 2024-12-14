@@ -8,7 +8,7 @@ class ApiService {
   final Logger logger = Logger();
 
   ApiService({FlutterSecureStorage? secureStorage})
-      : storage = secureStorage ?? FlutterSecureStorage() {
+      : storage = secureStorage ?? const FlutterSecureStorage() {
     BaseOptions options = BaseOptions(
       baseUrl: _getBaseUrl(),
       connectTimeout: const Duration(seconds: 10),
@@ -24,7 +24,7 @@ class ApiService {
 
   static String _getBaseUrl() {
     return const String.fromEnvironment('BASE_URL',
-        defaultValue: "http://localhost:8000/api/");
+        defaultValue: "http://api.jobr.lytestudios.be/api/");
   }
 
   void _setupInterceptors() {
@@ -38,7 +38,7 @@ class ApiService {
         logger.d("Headers: ${options.headers}");
         return handler.next(options);
       },
-      onError: (DioError error, handler) async {
+      onError: (DioException error, handler) async {
         if (error.response?.statusCode == 401) {
           final refreshed = await _refreshToken();
           if (refreshed) {

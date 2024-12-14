@@ -22,7 +22,7 @@ final jobrTheme = ThemeData(
     onErrorContainer: Colors.white,
     surface: Colors.white,
     onSurface: Colors.black,
-    primaryContainer: Colors.black.withOpacity(0.03),
+    primaryContainer: HexColor.fromHex('#F9F9F9'),
     onPrimaryContainer: Colors.black,
     secondaryContainer: Colors.black.withOpacity(0.03),
     onSecondaryContainer: Colors.black,

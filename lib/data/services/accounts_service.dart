@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:flutter_exam/data/services/api_service.dart';
+import 'package:jobr/data/services/api_service.dart';
 
 class AccountsService {
   final ApiService apiService;
@@ -8,7 +8,7 @@ class AccountsService {
 
   // Updated constructor with optional storage parameter
   AccountsService(this.apiService, [FlutterSecureStorage? secureStorage])
-      : storage = secureStorage ?? FlutterSecureStorage();
+      : storage = secureStorage ?? const FlutterSecureStorage();
 
   Future<Map<String, dynamic>> login(String username, String password) async {
     try {
@@ -41,7 +41,7 @@ class AccountsService {
       );
 
       return loginResponse.data;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
         throw Exception("Invalid username or password");
       }
@@ -65,7 +65,7 @@ class AccountsService {
         data: employeeData,
       );
       return response.data;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response?.statusCode == 400) {
         throw Exception("Validation error: ${e.response?.data}");
       }
@@ -89,7 +89,7 @@ class AccountsService {
         data: employerData,
       );
       return response.data;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response?.statusCode == 400) {
         throw Exception("Validation error: ${e.response?.data}");
       }
