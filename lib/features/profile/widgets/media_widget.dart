@@ -16,7 +16,7 @@ class MediaWidget extends StatelessWidget {
     double width = MediaQuery.sizeOf(context).width;
     return Container(
       height: 200,
-      width: width * .44,
+      width: width * .43,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: image == null ? theme.colorScheme.primaryContainer : null,
@@ -41,10 +41,11 @@ class MediaWidget extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: theme.primaryColor,
               ),
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(5),
               child: Icon(
                 CupertinoIcons.person_fill,
                 color: TextStyles.clearText,
+                size: 28,
               ),
             ),
     );

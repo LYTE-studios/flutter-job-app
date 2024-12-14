@@ -25,7 +25,8 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             'Foto\'s & videos',
             style: TextStyle(
               fontSize: 18,
-              fontWeight: FontWeight.bold,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w900,
             ),
           ),
           const SizedBox(height: 5),
@@ -34,12 +35,14 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             style: TextStyle(
               color: TextStyles.unselectedText,
               fontSize: 15,
-              fontWeight: FontWeight.w500,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 10),
-          const SizedBox(
-            child: Wrap(
+          SizedBox(
+            width: width,
+            child: const Wrap(
               alignment: WrapAlignment.spaceBetween,
               children: [
                 MediaWidget(
@@ -55,7 +58,8 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             'Portfolio',
             style: TextStyle(
               fontSize: 18,
-              fontWeight: FontWeight.bold,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w900,
             ),
           ),
           const SizedBox(height: 5),
@@ -64,7 +68,8 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             style: TextStyle(
               color: TextStyles.unselectedText,
               fontSize: 15,
-              fontWeight: FontWeight.w500,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 10),
@@ -91,6 +96,7 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
                   style: TextStyle(
                     color: TextStyles.unselectedText,
                     fontSize: 15,
+                    fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
                   ),
                 ),

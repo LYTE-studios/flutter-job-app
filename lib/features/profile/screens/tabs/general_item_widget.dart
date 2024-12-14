@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 import '../../models/list_model.dart';
@@ -72,7 +73,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(10),
@@ -83,29 +84,33 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Ervaring',
                     style: TextStyle(
                       fontSize: 17,
-                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   Row(
                     children: <Widget>[
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.edit,
-                          color: TextStyles.unselectedText,
-                          size: 24,
+                      SvgPicture.asset(
+                        JobrIcons.edit,
+                        width: 17,
+                        height: 17,
+                        colorFilter: ColorFilter.mode(
+                          HexColor.fromHex('#A4A4A4'),
+                          BlendMode.srcIn,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.add,
-                          color: TextStyles.unselectedText,
-                          size: 28,
+                      const SizedBox(width: 10),
+                      SvgPicture.asset(
+                        JobrIcons.add,
+                        width: 20,
+                        height: 20,
+                        colorFilter: ColorFilter.mode(
+                          HexColor.fromHex('#A4A4A4'),
+                          BlendMode.srcIn,
                         ),
                       ),
                     ],
@@ -120,11 +125,11 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   itemCount: experience.length,
                   separatorBuilder: (context, index) => Column(
                     children: <Widget>[
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Divider(
                         color: Colors.black.withOpacity(0.07),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                     ],
                   ),
                   itemBuilder: (context, index) => CustomListTile(
@@ -136,14 +141,15 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                 )
               else ...[
-                Text(
+                const Text(
                   'Laat zien voor welke functies en bij welke bedrijven je ervaring hebt',
                   style: TextStyle(
                     fontSize: 15,
-                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 SizedBox(
                   height: 72,
                   child: FilledButton(
@@ -165,9 +171,9 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
             ],
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(10),
@@ -178,29 +184,33 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Onderwijs & certificaten',
                     style: TextStyle(
                       fontSize: 17,
-                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   Row(
                     children: <Widget>[
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.edit,
-                          color: TextStyles.unselectedText,
-                          size: 24,
+                      SvgPicture.asset(
+                        JobrIcons.edit,
+                        width: 17,
+                        height: 17,
+                        colorFilter: ColorFilter.mode(
+                          HexColor.fromHex('#A4A4A4'),
+                          BlendMode.srcIn,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.add,
-                          color: TextStyles.unselectedText,
-                          size: 28,
+                      const SizedBox(width: 10),
+                      SvgPicture.asset(
+                        JobrIcons.add,
+                        width: 20,
+                        height: 20,
+                        colorFilter: ColorFilter.mode(
+                          HexColor.fromHex('#A4A4A4'),
+                          BlendMode.srcIn,
                         ),
                       ),
                     ],
@@ -215,11 +225,11 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   itemCount: education.length,
                   separatorBuilder: (context, index) => Column(
                     children: <Widget>[
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Divider(
                         color: Colors.black.withOpacity(0.07),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                     ],
                   ),
                   itemBuilder: (context, index) => CustomListTile(
@@ -231,14 +241,15 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                 )
               else ...[
-                Text(
+                const Text(
                   'Laat zien voor welke functies en bij welke bedrijven je ervaring hebt',
                   style: TextStyle(
                     fontSize: 15,
-                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 SizedBox(
                   height: 72,
                   child: FilledButton(
@@ -259,9 +270,9 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
             ],
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(10),
@@ -272,43 +283,47 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Mijn skills',
                     style: TextStyle(
                       fontSize: 17,
-                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   Row(
                     children: <Widget>[
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.edit,
-                          color: TextStyles.unselectedText,
-                          size: 24,
+                      SvgPicture.asset(
+                        JobrIcons.edit,
+                        width: 17,
+                        height: 17,
+                        colorFilter: ColorFilter.mode(
+                          HexColor.fromHex('#A4A4A4'),
+                          BlendMode.srcIn,
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Wrap(
                 children: [
                   ...skills.map(
                     (skill) => Container(
-                      margin: EdgeInsets.all(5),
+                      margin: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                        color: TextStyles.mainText,
+                        color: HexColor.fromHex('#191919'),
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Text(
                         skill,
                         style: TextStyle(
                           fontSize: 15,
                           color: TextStyles.clearText,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -319,9 +334,9 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
             ],
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(10),
@@ -332,41 +347,44 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Talen',
                     style: TextStyle(
                       fontSize: 17,
-                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   Row(
                     children: <Widget>[
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.edit,
-                          color: TextStyles.unselectedText,
-                          size: 24,
+                      SvgPicture.asset(
+                        JobrIcons.edit,
+                        width: 17,
+                        height: 17,
+                        colorFilter: ColorFilter.mode(
+                          HexColor.fromHex('#A4A4A4'),
+                          BlendMode.srcIn,
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 'Engels, Italiaans',
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: theme.colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(10),
@@ -377,77 +395,87 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Meer over mezelf',
                     style: TextStyle(
                       fontSize: 17,
-                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                   Row(
                     children: <Widget>[
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.edit,
-                          color: TextStyles.unselectedText,
-                          size: 24,
+                      SvgPicture.asset(
+                        JobrIcons.edit,
+                        width: 17,
+                        height: 17,
+                        colorFilter: ColorFilter.mode(
+                          HexColor.fromHex('#A4A4A4'),
+                          BlendMode.srcIn,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.add,
-                          color: TextStyles.unselectedText,
-                          size: 28,
+                      const SizedBox(width: 10),
+                      SvgPicture.asset(
+                        JobrIcons.add,
+                        width: 20,
+                        height: 20,
+                        colorFilter: ColorFilter.mode(
+                          HexColor.fromHex('#A4A4A4'),
+                          BlendMode.srcIn,
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               SvgPicture.asset(
                 JobrIcons.blockquote,
               ),
-              SizedBox(height: 5),
-              Text(
+              const SizedBox(height: 5),
+              const Text(
                 'Ik haal mijn energie uit...',
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'Inter',
                 ),
               ),
               Text(
                 'Ik sport heel veel en ik vind het leuk om uit te gaan.',
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                  color: HexColor.fromHex('#00000000').withOpacity(.6),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               SvgPicture.asset(
                 JobrIcons.blockquote,
               ),
-              SizedBox(height: 5),
-              Text(
+              const SizedBox(height: 5),
+              const Text(
                 'Mijn favoriete boek is...',
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: 'Inter',
                 ),
               ),
               Text(
                 'Hier typen...',
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                  color: HexColor.fromHex('#00000000').withOpacity(.4),
                 ),
               ),
             ],
           ),
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
       ],
     );
   }

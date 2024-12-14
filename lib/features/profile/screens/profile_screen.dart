@@ -50,6 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       "Louis Ottevaere",
                       style: TextStyle(
                         fontSize: 18,
+                        fontFamily: 'Inter',
                         fontWeight: FontWeight.w600,
                       ),
                     )
@@ -85,21 +86,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       top: 0,
                       left: 0,
                       right: 0,
-                      child: SizedBox(
-                        height: 171,
-                        child: Image.asset(
-                          'assets/images/images/image-4.png',
-                          fit: BoxFit.cover,
-                          height: 180,
-                        ),
+                      child: Image.asset(
+                        'assets/images/images/image-4.png',
+                        fit: BoxFit.cover,
+                        height: 180,
                       ),
                     ),
                     Positioned(
                       bottom: 0,
                       left: 10,
                       child: Container(
-                        width: 123,
-                        height: 123,
+                        width: 135,
+                        height: 135,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
@@ -115,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Positioned(
-                      top: 150,
+                      bottom: 25,
                       right: 10,
                       child: ElevatedButton.icon(
                         onPressed: () {},
@@ -127,12 +125,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           style: TextStyle(
                             color: TextStyles.clearText,
                             fontSize: 16,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                        icon: Icon(
-                          Icons.edit,
-                          color: TextStyles.clearText,
-                          size: 24,
+                        icon: SvgPicture.asset(
+                          JobrIcons.edit,
+                          width: 16,
+                          height: 16,
+                          colorFilter: ColorFilter.mode(
+                            TextStyles.clearText,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ),
@@ -149,8 +153,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const Text(
               "Louis Ottevaere",
               style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w900,
               ),
             ),
             const SizedBox(height: 8),
@@ -158,7 +163,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               "louisottevaere@gmail.com",
               style: TextStyle(
                 fontSize: 17,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Inter',
                 color: TextStyles.unselectedText,
               ),
             ),
@@ -176,7 +182,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   "Kortrijk",
                   style: TextStyle(
                     fontSize: 17,
-                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -186,7 +193,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               "Ik ben Louis, 30 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste service geven.",
               style: TextStyle(
                 fontSize: 15,
-                fontWeight: FontWeight.w500,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: 16),
@@ -218,14 +226,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: List.generate(
                 tabData.length,
                 (index) => Container(
-                  margin: const EdgeInsets.only(right: 20),
-                  child: ElevatedButton.icon(
+                  margin: const EdgeInsets.only(right: 10),
+                  child: FilledButton.icon(
                     onPressed: () {
                       setState(() {
                         selectedIndex = index;
                       });
                     },
-                    style: ElevatedButton.styleFrom(
+                    style: FilledButton.styleFrom(
                       backgroundColor: selectedIndex == index
                           ? theme.primaryColor
                           : TextStyles.clearText,
@@ -241,6 +249,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: selectedIndex == index
                             ? TextStyles.clearText
                             : TextStyles.unselectedText,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Inter',
                         fontSize: 16,
                       ),
                     ),
@@ -284,9 +294,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(width: 5),
             Text(
               number,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 17,
-                fontWeight: FontWeight.bold,
+                fontFamily: 'Inter',
+                color: HexColor.fromHex('#494A54'),
+                fontWeight: FontWeight.w700,
               ),
             ),
           ],
@@ -295,6 +307,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           label,
           style: TextStyle(
             fontSize: 15,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
             color: TextStyles.unselectedText,
           ),
         ),

@@ -38,6 +38,8 @@ class JobrIcons {
   static const String camera = '$_baseIconPath/camera.svg';
   static const String dashboard = '$_baseIconPath/dashboard.svg';
   static const String blockquote = '$_baseIconPath/blockquote.svg';
+  static const String add = '$_baseIconPath/add.svg';
+  static const String edit = '$_baseIconPath/edit.svg';
 
   static const List<String> icons = [
     logoLight,
