@@ -9,8 +9,10 @@ import 'package:jobr/features/chat/screens/chat_screen.dart';
 import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 
+import '../../features/profile/screens/create_profile_screen.dart';
+
 GoRouter router = GoRouter(
-  initialLocation: FirstGlanceScreen.route,
+  initialLocation: CreateProfileScreen.route,
   routes: <RouteBase>[
     ShellRoute(
       builder: (context, state, child) {
@@ -45,6 +47,13 @@ GoRouter router = GoRouter(
           ),
         ),
       ],
+    ),
+    GoRoute(
+      path: CreateProfileScreen.route,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const NoTransitionPage(
+        child: CreateProfileScreen(),
+      ),
     ),
     ShellRoute(
       builder: (context, state, child) {
