@@ -27,7 +27,8 @@ class _FirstFormState extends State<FirstForm> {
         const SizedBox(height: 20),
         _buildInlineCupertinoDatePicker(widget.width),
         const SizedBox(height: 20),
-        _buildDropdownField('Geslacht', selectedGender ?? 'Kies een optie', context),
+        _buildDropdownField(
+            'Geslacht', selectedGender ?? 'Kies een optie', context),
         const SizedBox(height: 20),
         _buildTextField('Email', 'voorbeeld@mail.com',
             keyboardType: TextInputType.emailAddress),
@@ -187,6 +188,14 @@ class _FirstFormState extends State<FirstForm> {
             fillColor: HexColor.fromHex('#F7F7F7'),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
               borderSide: BorderSide.none,
             ),
             contentPadding: const EdgeInsets.symmetric(

@@ -126,7 +126,7 @@ class CustomDatePickerState extends State<CustomDatePicker> {
             child: Container(
               height: 40,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(12),
                 color: widget.selectorColor ?? Colors.grey.withOpacity(0.1),
               ),
             ),
