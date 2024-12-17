@@ -44,6 +44,7 @@ class _SecondFormState extends State<SecondForm> {
     final theme = Theme.of(context);
     return Column(
       children: <Widget>[
+        const SizedBox(height: 20),
         SizedBox(
           width: 188,
           height: 188,

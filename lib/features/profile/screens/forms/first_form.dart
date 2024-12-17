@@ -23,6 +23,7 @@ class _FirstFormState extends State<FirstForm> {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
+        const SizedBox(height: 20),
         _buildTextField('Naam', 'Vul je naam in'),
         const SizedBox(height: 20),
         _buildInlineCupertinoDatePicker(widget.width),
@@ -35,6 +36,7 @@ class _FirstFormState extends State<FirstForm> {
         const SizedBox(height: 20),
         _buildTextField('Telefoonnummer', '0400 00 00 00',
             keyboardType: TextInputType.phone),
+        const SizedBox(height: 20),
       ],
     );
   }

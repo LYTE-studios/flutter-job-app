@@ -70,7 +70,6 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
             ),
             const SizedBox(height: 5),
             Divider(color: Colors.grey[300]),
-            const SizedBox(height: 20),
             Flexible(
               child: PageView(
                 onPageChanged: (value) {
@@ -93,9 +92,9 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
         child: SizedBox(
           width: width,
-          height: 10,
           child: FilledButton(
             style: FilledButton.styleFrom(
               backgroundColor: currentForm == 1
