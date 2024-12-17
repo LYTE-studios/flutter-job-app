@@ -3,28 +3,49 @@ import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
 import 'package:jobr/ui/buttons/primary_button.dart';
 import 'package:jobr/ui/input/custom_textfield.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:jobr/data/providers/auth_providers.dart';
 
-class EmailRegisterScreen extends StatefulWidget {
+class EmailRegisterScreen extends ConsumerStatefulWidget {
   static const String route = '${LoginScreen.route}/$location';
   static const String location = 'email-register';
 
   const EmailRegisterScreen({super.key});
 
   @override
-  State<EmailRegisterScreen> createState() => _EmailRegisterScreenState();
+  ConsumerState<EmailRegisterScreen> createState() =>
+      _EmailRegisterScreenState();
 }
 
-class _EmailRegisterScreenState extends State<EmailRegisterScreen> {
+class _EmailRegisterScreenState extends ConsumerState<EmailRegisterScreen> {
   // Text editing controllers
-  TextEditingController tecEmail = TextEditingController();
-  TextEditingController tecPassword = TextEditingController();
+  final TextEditingController tecEmail = TextEditingController();
+  final TextEditingController tecPassword = TextEditingController();
+  final TextEditingController tecConfirmPassword = TextEditingController();
+
+  void _register() {
+    final data = {
+      "email": tecEmail.text,
+      "password": tecPassword.text,
+      "confirm_password": tecConfirmPassword.text,
+    };
+
+    // Call the provider to register the employee (or employer if needed)
+    ref.read(authProvider.notifier).registerEmployee(data);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        if (authState.error != null)
+          Text(
+            authState.error!,
+            style: const TextStyle(color: Colors.red),
+          ),
         CustomTextField(
           controller: tecEmail,
           hintText: "Jouw email",
@@ -33,21 +54,24 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen> {
           height: 10,
         ),
         CustomTextField(
-          controller: tecEmail,
+          controller: tecPassword,
           hintText: "Wachtwoord",
+          obscureText: true,
         ),
         const SizedBox(
           height: 10,
         ),
         CustomTextField(
-          controller: tecEmail,
+          controller: tecConfirmPassword,
           hintText: "Herhaal wachtwoord",
+          obscureText: true,
         ),
         const SizedBox(
           height: 10,
         ),
-        const PrimaryButton(
-          buttonText: 'Account maken',
+        PrimaryButton(
+          onTap: authState.isLoading ? null : _register,
+          buttonText: authState.isLoading ? 'Laden...' : 'Account maken',
         ),
         const PrivacyPolicyBlock(),
       ],
