@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class TextStyles {
   static Color mainText = Colors.black;
   static Color clearText = Colors.white;
+  static Color unselectedText = HexColor.fromHex('#9FA0A5');
 
   // --------------------------------------
   // Title
@@ -11,6 +13,7 @@ class TextStyles {
     fontWeight: FontWeight.w900,
     fontSize: 27,
     color: mainText,
+    letterSpacing: -0.352,
   );
 
   static TextStyle titleMedium = TextStyle(
@@ -18,12 +21,14 @@ class TextStyles {
     fontFamily: 'Inter',
     fontWeight: FontWeight.w700,
     color: mainText,
+    letterSpacing: -0.352,
   );
 
   static TextStyle titleSmall = TextStyle(
     fontFamily: 'Inter',
     fontSize: 18,
     fontWeight: FontWeight.w500,
+    letterSpacing: -0.352,
     color: mainText,
   );
 
@@ -35,6 +40,7 @@ class TextStyles {
     fontSize: 27,
     color: mainText,
     fontWeight: FontWeight.w600,
+    letterSpacing: -0.352,
   );
 
   /// medium text in body
@@ -43,6 +49,7 @@ class TextStyles {
     fontSize: 20,
     fontWeight: FontWeight.w500,
     color: mainText,
+    letterSpacing: -0.352,
   );
 
   static TextStyle bodySmall = TextStyle(
@@ -50,6 +57,7 @@ class TextStyles {
     fontSize: 18,
     fontWeight: FontWeight.w500,
     color: mainText,
+    letterSpacing: -0.352,
   );
 
   // --------------------------------------
@@ -60,6 +68,7 @@ class TextStyles {
     fontSize: 27,
     fontFamily: 'Inter',
     fontWeight: FontWeight.w500,
+    letterSpacing: -0.352,
   );
 
   /// tool tip text
@@ -67,6 +76,7 @@ class TextStyles {
     fontFamily: 'Inter',
     fontSize: 18,
     fontWeight: FontWeight.w500,
+    letterSpacing: -0.352,
     color: mainText,
   );
 
@@ -76,5 +86,6 @@ class TextStyles {
     fontSize: 16,
     fontWeight: FontWeight.w500,
     color: mainText,
+    letterSpacing: -0.352,
   );
 }

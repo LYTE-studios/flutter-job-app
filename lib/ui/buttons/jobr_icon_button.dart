@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/ui/theme/text_styles.dart';
+import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
@@ -10,6 +10,7 @@ class JobrIconButton extends StatelessWidget {
   final Color? buttonColor;
   final String label;
   final String? icon;
+  final String? textIcon;
   final double fontSize;
   final double radius;
 
@@ -18,9 +19,11 @@ class JobrIconButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   const JobrIconButton({
+    super.key,
     this.width,
     this.height = 52.0,
     this.textColor,
+    this.textIcon,
     this.buttonColor,
     this.fontSize = 18,
     this.radius = 27,
@@ -56,11 +59,24 @@ class JobrIconButton extends StatelessWidget {
                       leaveUnaltered: true,
                     ),
                   ),
+            textIcon == null
+                ? const SizedBox()
+                : Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Text(
+                      '$textIcon ',
+                      style: TextStyles.bodyMedium.copyWith(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
             Text(
               label,
               style: TextStyles.bodyMedium.copyWith(
                 fontSize: fontSize,
                 color: textColor,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
