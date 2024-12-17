@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
@@ -93,32 +92,35 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-        child: SizedBox(
-          width: width,
-          child: FilledButton(
-            style: FilledButton.styleFrom(
-              backgroundColor: currentForm == 1
-                  ? theme.primaryColor
-                  : HexColor.fromHex('#DADADA'),
-              shape: RoundedRectangleBorder(
-                borderRadius: currentForm == 1
-                    ? BorderRadius.circular(50)
-                    : BorderRadius.circular(19.2),
+        child: Center(
+          child: SizedBox(
+            width: width,
+            height: 58,
+            child: FilledButton(
+              style: FilledButton.styleFrom(
+                backgroundColor: currentForm == 1
+                    ? theme.primaryColor
+                    : HexColor.fromHex('#DADADA'),
+                shape: RoundedRectangleBorder(
+                  borderRadius: currentForm == 1
+                      ? BorderRadius.circular(50)
+                      : BorderRadius.circular(19.2),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 10),
               ),
-              padding: const EdgeInsets.symmetric(vertical: 10),
-            ),
-            onPressed: () {
-              controller.nextPage(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-              );
-            },
-            child: const Text(
-              "Toon resultaten",
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w800,
+              onPressed: () {
+                controller.nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+              child: const Text(
+                "Toon resultaten",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
           ),
