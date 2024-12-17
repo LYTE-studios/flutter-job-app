@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
+import '../../../../ui/theme/jobr_icons.dart';
 import '../../widgets/custom_date_picker.dart';
+import '../../widgets/custom_list_picker.dart';
 
-class FirstForm extends StatelessWidget {
+class FirstForm extends StatefulWidget {
   const FirstForm({
     super.key,
     required this.width,
@@ -11,14 +14,20 @@ class FirstForm extends StatelessWidget {
   final double width;
 
   @override
+  State<FirstForm> createState() => _FirstFormState();
+}
+
+class _FirstFormState extends State<FirstForm> {
+  String? selectedGender;
+  @override
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
         _buildTextField('Naam', 'Vul je naam in'),
         const SizedBox(height: 20),
-        _buildInlineCupertinoDatePicker(width),
+        _buildInlineCupertinoDatePicker(widget.width),
         const SizedBox(height: 20),
-        _buildDropdownField('Geslacht', 'Kies een optie'),
+        _buildDropdownField('Geslacht', selectedGender ?? 'Kies een optie', context),
         const SizedBox(height: 20),
         _buildTextField('Email', 'voorbeeld@mail.com',
             keyboardType: TextInputType.emailAddress),
@@ -29,7 +38,7 @@ class FirstForm extends StatelessWidget {
     );
   }
 
-  Widget _buildDropdownField(String label, String hint) {
+  Widget _buildDropdownField(String label, String hint, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -54,39 +63,51 @@ class FirstForm extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        DropdownButtonFormField<String>(
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: HexColor.fromHex('#F7F7F7'),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide.none,
+        InkWell(
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return CustomListPicker(
+                  hint: hint,
+                  options: const ['Mannelijk', 'Vrouwelijk'],
+                  onOptionSelected: (selectedOption) {
+                    setState(() {
+                      selectedGender = selectedOption;
+                    });
+                  },
+                );
+              },
+            );
+          },
+          borderRadius: BorderRadius.circular(30),
+          child: Container(
+            decoration: BoxDecoration(
+              color: HexColor.fromHex('#F7F7F7'),
+              borderRadius: BorderRadius.circular(20),
             ),
-            contentPadding: const EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 20,
               horizontal: 16,
             ),
-          ),
-          hint: Text(
-            hint,
-            style: TextStyle(
-              color: Colors.grey.shade400,
-              fontSize: 16,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  hint,
+                  style: TextStyle(
+                    color: HexColor.fromHex('#B7B7B7'),
+                    fontSize: 16,
+                  ),
+                ),
+                SvgPicture.asset(
+                  JobrIcons.chevronDown,
+                  width: 10,
+                  height: 10,
+                ),
+              ],
             ),
           ),
-          items: const [
-            DropdownMenuItem(value: 'Mannelijk', child: Text('Mannelijk')),
-            DropdownMenuItem(value: 'Vrouwelijk', child: Text('Vrouwelijk')),
-          ],
-          icon: const Icon(Icons.keyboard_arrow_down_outlined),
-          style: const TextStyle(
-            fontSize: 16,
-            color: Colors.black,
-          ),
-          dropdownColor: Colors.white,
-          onChanged: (value) {
-            // Handle dropdown selection here
-          },
         ),
       ],
     );

@@ -90,10 +90,14 @@ class _SecondFormState extends State<SecondForm> {
                   },
                   padding: const EdgeInsets.all(5),
                   icon: selectedFile == null
-                      ? Icon(
-                          Icons.add,
-                          color: HexColor.fromHex('#FFFFFF'),
-                          size: 28,
+                      ? SvgPicture.asset(
+                          JobrIcons.addIcon,
+                          width: 21,
+                          height: 21,
+                          colorFilter: ColorFilter.mode(
+                            HexColor.fromHex('#FFFFFF'),
+                            BlendMode.srcIn,
+                          ),
                         )
                       : SvgPicture.asset(
                           JobrIcons.edit,
@@ -134,7 +138,7 @@ class _SecondFormState extends State<SecondForm> {
               style: TextStyle(
                 fontSize: 17,
                 fontFamily: 'Inter',
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],
