@@ -47,6 +47,8 @@ dependencies:
   dio: ^5.0.0
   flutter_secure_storage: ^8.0.0
   logger: ^2.5.0
+  mockito: 
+  build_runner: 
 
 dev_dependencies:
   flutter_test:
