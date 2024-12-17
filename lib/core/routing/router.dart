@@ -12,7 +12,7 @@ import 'package:jobr/features/profile/screens/profile_screen.dart';
 import '../../features/profile/screens/create_profile_screen.dart';
 
 GoRouter router = GoRouter(
-  initialLocation: CreateProfileScreen.route,
+  initialLocation: FirstGlanceScreen.route,
   routes: <RouteBase>[
     ShellRoute(
       builder: (context, state, child) {
