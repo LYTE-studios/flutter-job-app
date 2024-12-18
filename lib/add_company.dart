@@ -180,73 +180,101 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      'Algemene gegevens',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 16,
-                          fontFamily: 'Poppins'),
-                    ),
-                    SizedBox(height: 7),
-                    Divider(
-                      color: Colors.grey.shade100,
-                      thickness: 1,
-                    ),
-                    buildInputField('Naam*', 'bv. Carrefour'),
-                    SizedBox(height: 15),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Adres',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.black87,
-                              fontFamily: 'Poppins',
+                    Stack(
+                      children: [
+                        Column(
+                          children: [
+                            Align(
+                              alignment: Alignment
+                                  .centerLeft, // Align text to the start
+                              child: Text(
+                                'Algemene gegevens',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 16,
+                                    fontFamily: 'Poppins'),
+                              ),
+                            ),
+
+                            SizedBox(height: 7),
+                            Divider(
+                              color: Colors.grey.shade100,
+                              thickness: 1,
+                            ),
+                            // Blurred section with conditional overlay
+
+                            buildInputField('Naam', 'bv. Carrefour'),
+                            SizedBox(height: 15),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: 'Adres',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w800,
+                                          color: Colors.black87,
+                                          fontFamily: 'Poppins',
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: '*',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w800,
+                                          color: Colors.red,
+                                          fontFamily: 'Poppins',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 4,
+                                  child: buildInputField(null, 'Straatnaam'),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  flex: 2,
+                                  child: buildInputField(null, 'Nummer'),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: buildInputField(null, 'Stad'),
+                                ),
+                                SizedBox(width: 10),
+                                Expanded(
+                                  flex: 2,
+                                  child: buildInputField(null, 'Postcode'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        if (!isBtwValid)
+                          Positioned.fill(
+                            child: IgnorePointer(
+                              ignoring: true,
+                              child: Container(
+                                color: Colors.white.withOpacity(0.7),
+                              ),
                             ),
                           ),
-                          TextSpan(
-                            text: '*',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.red,
-                              fontFamily: 'Poppins',
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 4,
-                          child: buildInputField(null, 'Straatnaam'),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          flex: 2,
-                          child: buildInputField(null, 'Nummer'),
-                        ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: buildInputField(null, 'Stad'),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          flex: 2,
-                          child: buildInputField(null, 'Postcode'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30),
                   ],
                 ),
               ),
