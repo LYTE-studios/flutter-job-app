@@ -37,6 +37,7 @@ dependencies:
   # NAVIGATION
   go_router: ^14.2.3
   flutter_svg_provider: ^1.0.7
+  flutter_screenutil: ^5.9.3
 
   url_launcher: ^6.3.1
 
