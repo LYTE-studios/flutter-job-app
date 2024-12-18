@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_exam/core/routing/mixins/screen_state_mixin.dart';
 import 'package:flutter_exam/features/authentication/screens/chat_request.dart';
 import 'package:flutter_exam/features/authentication/screens/chat_request_job_seeker.dart';
+import 'package:flutter_exam/features/authentication/screens/chat_request_job_seeker_verzoeken.dart';
 import 'package:flutter_exam/features/authentication/screens/email_register_screen.dart';
 import 'package:flutter_exam/features/authentication/widgets/privacy_policy_block.dart';
 import 'package:flutter_exam/ui/buttons/jobr_icon_button.dart';
@@ -76,7 +77,14 @@ class _ChatScreenJobSeekerState extends State<ChatScreenJobSeeker> {
                     ],
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ChatRequestJobSeekerVerzoeken(),
+                        ),
+                      );
+                    },
                     child: const Text(
                       '3 verzoeken',
                       style: TextStyle(

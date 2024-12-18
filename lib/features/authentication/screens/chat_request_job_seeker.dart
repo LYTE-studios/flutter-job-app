@@ -7,10 +7,10 @@ class ChatRequestJobSeeker extends StatefulWidget {
   const ChatRequestJobSeeker({super.key});
 
   @override
-  State<ChatRequestJobSeeker> createState() => _ChatScreenState();
+  State<ChatRequestJobSeeker> createState() => _ChatRequestJobSeeker();
 }
 
-class _ChatScreenState extends State<ChatRequestJobSeeker> {
+class _ChatRequestJobSeeker extends State<ChatRequestJobSeeker> {
   final List<ChatMessage> messages = [
     ChatMessage(
         message: 'Perfect, kom dan maar af!', isSentByMe: true, showSeen: true),
@@ -38,8 +38,12 @@ class _ChatScreenState extends State<ChatRequestJobSeeker> {
             const SizedBox(
               width: 22,
             ),
-             Icon(Icons.arrow_back_ios,
-                size: 21.w, color: const Color(0xFF000000)),
+             GestureDetector(
+               onTap: () {Navigator.pop(context);
+               },
+               child: Icon(Icons.arrow_back_ios,
+                   size: 21.w, color: const Color(0xFF000000)),
+             ),
             const SizedBox(
               width: 10,
             ),
