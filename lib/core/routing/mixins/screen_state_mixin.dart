@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 mixin ScreenStateMixin<T extends StatefulWidget> on State<T> {
   bool loading = false;
 
+  String? errorMessage;
+
   void setLoading(bool value) {
     setState(() {
       loading = value;

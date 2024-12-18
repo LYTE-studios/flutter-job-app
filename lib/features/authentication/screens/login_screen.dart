@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/core/routing/mixins/screen_state_mixin.dart';
-import 'package:flutter_exam/features/authentication/screens/email_register_screen.dart';
-import 'package:flutter_exam/features/authentication/widgets/privacy_policy_block.dart';
-import 'package:flutter_exam/ui/buttons/jobr_icon_button.dart';
-import 'package:flutter_exam/ui/theme/jobr_icons.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/mixins/screen_state_mixin.dart';
+import 'package:jobr/features/authentication/screens/email_register_screen.dart';
+import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
+import 'package:jobr/ui/buttons/jobr_icon_button.dart';
+import 'package:jobr/ui/theme/jobr_icons.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String route = '/$location';

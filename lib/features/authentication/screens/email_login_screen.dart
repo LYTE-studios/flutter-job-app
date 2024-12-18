@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/features/authentication/screens/login_screen.dart';
-import 'package:flutter_exam/features/authentication/widgets/privacy_policy_block.dart';
-import 'package:flutter_exam/ui/common_widgets/custom_textfield.dart';
-import 'package:flutter_exam/ui/common_widgets/primary_button.dart';
+import 'package:jobr/core/routing/mixins/screen_state_mixin.dart';
+import 'package:jobr/data/services/accounts_service.dart';
+import 'package:jobr/data/services/api_service.dart';
+import 'package:jobr/features/authentication/screens/login_screen.dart';
+import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
+import 'package:jobr/ui/buttons/primary_button.dart';
+import 'package:jobr/ui/input/custom_textfield.dart';
 
 class EmailLoginScreen extends StatefulWidget {
   static const String route = '${LoginScreen.route}/$location';
@@ -14,31 +17,53 @@ class EmailLoginScreen extends StatefulWidget {
   State<EmailLoginScreen> createState() => _EmailLoginScreenState();
 }
 
-class _EmailLoginScreenState extends State<EmailLoginScreen> {
+class _EmailLoginScreenState extends State<EmailLoginScreen>
+    with ScreenStateMixin {
   // Text editing controllers
   TextEditingController tecEmail = TextEditingController();
   TextEditingController tecPassword = TextEditingController();
+
+  // Login function
+  Future<void> _login() async {
+    final accountsService = AccountsService(ApiService());
+
+    setState(() {
+      loading = true;
+      errorMessage = null;
+    });
+
+    try {
+      final response = await accountsService.login(
+        tecEmail.text,
+        tecPassword.text,
+      );
+
+      // Assuming response['success'] is true if login is successful
+      if (response['success'] == true) {
+        // Navigate to home screen or dashboard
+        Navigator.of(context).pushReplacementNamed(
+          '/home',
+        ); // Replace '/home' with actual route name
+      } else {
+        setState(() {
+          errorMessage = response['message'] ?? 'Login failed';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        errorMessage = e.toString();
+      });
+    } finally {
+      setState(() {
+        loading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'that work.',
-              style: TextStyle(
-                fontSize: 21,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 124,
-        ),
         Container(
           alignment: Alignment.center,
           child: CustomTextField(
@@ -46,33 +71,23 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
             hintText: "Jouw email",
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
           alignment: Alignment.center,
           // width: 340,
           child: CustomTextField(
-            controller: tecEmail,
-            hintText: "Jouw email",
+            controller: tecPassword,
+            hintText: "Wachtwoord",
           ),
         ),
-        SizedBox(
-          height: 10,
-        ),
-        Container(
-          alignment: Alignment.center,
-          // width: 340,
-          child: CustomTextField(
-            controller: tecEmail,
-            hintText: "Jouw email",
-          ),
-        ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         PrimaryButton(
-          buttonText: 'Account maken',
+          onTap: _login,
+          buttonText: 'Inloggen',
         ),
         const PrivacyPolicyBlock(),
       ],

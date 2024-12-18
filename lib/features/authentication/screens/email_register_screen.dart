@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_exam/features/authentication/screens/login_screen.dart';
-import 'package:flutter_exam/features/authentication/widgets/privacy_policy_block.dart';
-import 'package:flutter_exam/ui/common_widgets/custom_textfield.dart';
-import 'package:flutter_exam/ui/common_widgets/primary_button.dart';
+import 'package:jobr/features/authentication/screens/login_screen.dart';
+import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
+import 'package:jobr/ui/buttons/primary_button.dart';
+import 'package:jobr/ui/input/custom_textfield.dart';
 
 class EmailRegisterScreen extends StatefulWidget {
   static const String route = '${LoginScreen.route}/$location';
