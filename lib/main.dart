@@ -16,7 +16,7 @@ void main() {
           child: child ?? const SizedBox(),
         );
       },
-      home: ChatScreen(), // Replace this with your home screen widget
+      home: ChatScreenJobSeeker(), // Replace this with your home screen widget
     ),
   );
 }
