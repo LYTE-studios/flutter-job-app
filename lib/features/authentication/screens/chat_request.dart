@@ -154,9 +154,9 @@ class _ChatScreenState extends State<ChatRequest> {
                           const Padding(
                             padding: EdgeInsets.only(top: 2.0, right: 8.0),
                             child: Text(
-                              "Verzonden",
+                              "Gelezen",
                               style: TextStyle(
-                                color: const Color(0xFF6B6B6B),
+                                color: const Color(0xFF3976FF),
                                 fontSize: 13,
                                 fontFamily: 'DMSans',
                               ),
