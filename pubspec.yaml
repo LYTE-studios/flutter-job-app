@@ -2,7 +2,7 @@ name: jobr
 description: ""
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+2
+version: 1.0.0+4
 
 environment:
   sdk: ^3.5.4
@@ -50,4 +50,14 @@ flutter:
   fonts:
     - family: Inter
       fonts:
+        - asset: assets/fonts/Inter_18pt-Regular.ttf
+        - asset: assets/fonts/Inter_18pt-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Inter_18pt-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Inter_18pt-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Inter_18pt-Light.ttf
+          weight: 300
         - asset: assets/fonts/Inter.ttf

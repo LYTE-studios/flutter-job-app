@@ -4,6 +4,7 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 class TextStyles {
   static Color mainText = Colors.black;
   static Color clearText = Colors.white;
+  static Color secondaryText = HexColor.fromHex('#494A54');
   static Color unselectedText = HexColor.fromHex('#9FA0A5');
 
   // --------------------------------------

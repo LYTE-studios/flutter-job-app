@@ -16,29 +16,33 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    double width = MediaQuery.sizeOf(context).width;
     return SizedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
+          const Text(
             'Foto\'s & videos',
             style: TextStyle(
               fontSize: 18,
-              fontWeight: FontWeight.bold,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w900,
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(
             'Voeg foto\'s of video\'s toe van jezelf.',
             style: TextStyle(
               color: TextStyles.unselectedText,
               fontSize: 15,
-              fontWeight: FontWeight.w500,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w600,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           SizedBox(
-            child: Wrap(
+            width: width,
+            child: const Wrap(
               alignment: WrapAlignment.spaceBetween,
               children: [
                 MediaWidget(
@@ -50,31 +54,34 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
               ],
             ),
           ),
-          Text(
+          const Text(
             'Portfolio',
             style: TextStyle(
               fontSize: 18,
-              fontWeight: FontWeight.bold,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w900,
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(
             'Voeg hier je portfolio of belangrijke prestaties',
             style: TextStyle(
               color: TextStyles.unselectedText,
               fontSize: 15,
-              fontWeight: FontWeight.w500,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w600,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Container(
             height: 170,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: theme.colorScheme.surface,
+              color: theme.colorScheme.primaryContainer,
             ),
-            margin: EdgeInsets.only(bottom: 20),
-            padding: EdgeInsets.all(10),
+            width: width,
+            margin: const EdgeInsets.only(bottom: 20),
+            padding: const EdgeInsets.all(10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -83,12 +90,13 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
                   color: TextStyles.unselectedText.withOpacity(.6),
                   size: 32,
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   'Voeg PDF, PNG toe',
                   style: TextStyle(
                     color: TextStyles.unselectedText,
                     fontSize: 15,
+                    fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
                   ),
                 ),

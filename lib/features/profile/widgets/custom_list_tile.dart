@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class CustomListTile extends StatelessWidget {
   const CustomListTile({
@@ -24,7 +25,9 @@ class CustomListTile extends StatelessWidget {
       children: <Widget>[
         Image.asset(
           image,
-          width: 120,
+          fit: BoxFit.contain,
+          width: 57,
+          height: 57,
         ),
         const SizedBox(width: 10),
         Column(
@@ -33,15 +36,18 @@ class CustomListTile extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+                fontSize: 16.5,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w800,
               ),
             ),
             Text(
               subTitle,
-              style: const TextStyle(
+              style:  TextStyle(
                 fontSize: 15,
-                fontWeight: FontWeight.w500,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w600,
+                color: HexColor.fromHex('#00000000').withOpacity(.6),
               ),
             ),
             Row(
@@ -50,7 +56,8 @@ class CustomListTile extends StatelessWidget {
                   duration,
                   style: TextStyle(
                     fontSize: 14,
-                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
                     color: TextStyles.unselectedText,
                   ),
                 ),
@@ -68,7 +75,8 @@ class CustomListTile extends StatelessWidget {
                     time ?? '',
                     style: TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
                       color: TextStyles.unselectedText,
                     ),
                   ),
