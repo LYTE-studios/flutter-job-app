@@ -99,7 +99,7 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                         ),
                         hintText: 'BE 0000.000.000',
                         contentPadding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                         suffixIcon: isBtwFilled
                             ? Icon(
                                 isBtwValid ? Icons.check_circle : Icons.cancel,
@@ -109,25 +109,24 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
                           borderSide: BorderSide(
-                            color: isBtwFilled
-                                ? (isBtwValid
-                                    ? Colors.green
-                                    : Colors.red.withOpacity(0.5))
-                                : Colors.grey.shade200,
+                            color: Colors.grey.shade200,
                             width: 1,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
                           borderSide: BorderSide(
-                            color: Colors.red,
+                            color: btwFocusNode.hasFocus &&
+                                    btwController.text.isEmpty
+                                ? Colors.red
+                                : Colors.grey.shade400,
                             width: 1,
                           ),
                         ),
                         filled: true,
                         fillColor:
                             btwFocusNode.hasFocus && btwController.text.isEmpty
-                                ? Colors.red.shade50.withOpacity(0.7)
+                                ? Colors.red.shade50.withOpacity(0.4)
                                 : Colors.grey.shade100,
                       ),
                     ),
@@ -173,9 +172,7 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                       child: Text(
                           'We vragen je BTW nummer om te verifiëren dat het gaat om een bestaand bedrijf. Onderstaande gegevens worden dan ook automatisch ingevuld.',
                           style: TextStyle(
-                            color: isBtwFilled && !isBtwValid
-                                ? Colors.red
-                                : Colors.black54,
+                            color: Colors.black54,
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
                           )),
@@ -273,13 +270,13 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                   'Volgende stap',
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 17,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins'),
                 ),
               ),
             ),
-            SizedBox(height: 10), // Add some space at the bottom
+            SizedBox(height: 25), // Add some space at the bottom
           ],
         ),
       ),
