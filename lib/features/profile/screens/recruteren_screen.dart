@@ -14,6 +14,7 @@ class RecruterenScreen extends StatefulWidget {
   static const String location = 'sollicitaties';
 
   const RecruterenScreen({super.key});
+
   @override
   State createState() => _RecruterenScreenState();
 }
@@ -32,7 +33,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
     },
     {
       "text": "Flexi's",
-      "image": "assets/images/recruteren/flexi’s.png",
+      "image": "assets/images/recruteren/flexis.png",
       "category": "flexi"
     },
     {
