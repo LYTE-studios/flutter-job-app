@@ -54,7 +54,7 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
                   color: TextStyles.clearText,
                 ),
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: 'Heb je al een account? ',
                   ),
                   TextSpan(

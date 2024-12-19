@@ -5,7 +5,7 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 import '../../models/list_model.dart';
-import '../../widgets/custom_list_tile.dart';
+import '../widgets/custom_list_tile.dart';
 
 class GeneralItemsWidget extends StatefulWidget {
   const GeneralItemsWidget({

@@ -7,6 +7,9 @@ import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
+import '../../profile/screens/job_screen.dart';
+import '../../profile/screens/recruteren_screen.dart';
+
 class BaseDashboardScreen extends StatelessWidget {
   final Widget child;
 
@@ -35,9 +38,9 @@ class BaseDashboardScreen extends StatelessWidget {
             case 2:
               route = ChatScreen.route;
             case 1:
-              route = ChatScreen.route;
+              route = RecruterenScreen.route;
             case 0:
-              route = ChatScreen.route;
+              route = JobScreen.route;
           }
 
           router.pushReplacement(route);
@@ -58,9 +61,9 @@ class BaseDashboardScreen extends StatelessWidget {
             ),
           ),
           BottomNavigationBarItem(
-            label: 'Sollicitaties',
+            label: 'Recruteren',
             icon: _NavigationBarIcon(
-              icon: JobrIcons.sheet,
+              icon: JobrIcons.magnifyingGlass,
               selected: selectedIndex == 1,
             ),
           ),
@@ -91,7 +94,6 @@ class _NavigationBarIcon extends StatelessWidget {
   final bool selected;
 
   const _NavigationBarIcon({
-    super.key,
     required this.icon,
     required this.selected,
   });
