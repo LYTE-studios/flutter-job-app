@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
-import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
-import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
-
 import '../../../ui/theme/jobr_icons.dart';
 import 'tabs/general_item_widget.dart';
 import 'tabs/media_item_widget.dart';
@@ -277,42 +274,6 @@ class _SollicitatiesScreenState extends State<SollicitatiesScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildStat(String number, String label, String icon) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgIcon(
-              icon,
-              size: 17,
-              color: TextStyles.mainText,
-            ),
-            const SizedBox(width: 5),
-            Text(
-              number,
-              style: TextStyle(
-                fontSize: 17,
-                fontFamily: 'Inter',
-                color: HexColor.fromHex('#494A54'),
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 15,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w600,
-            color: TextStyles.unselectedText,
-          ),
-        ),
-      ],
     );
   }
 }

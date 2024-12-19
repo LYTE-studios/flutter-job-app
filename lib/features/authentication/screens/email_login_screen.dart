@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:jobr/core/routing/mixins/screen_state_mixin.dart';
 import 'package:jobr/data/services/accounts_service.dart';

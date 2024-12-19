@@ -94,7 +94,6 @@ class _NavigationBarIcon extends StatelessWidget {
   final bool selected;
 
   const _NavigationBarIcon({
-    super.key,
     required this.icon,
     required this.selected,
   });
