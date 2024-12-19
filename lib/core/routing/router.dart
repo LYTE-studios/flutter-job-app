@@ -7,9 +7,11 @@ import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
 import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
+import 'package:jobr/features/profile/screens/job_screen.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 
 import '../../features/profile/screens/create_profile_screen.dart';
+import '../../features/profile/screens/sollicitaties_screen.dart';
 
 GoRouter router = GoRouter(
   initialLocation: FirstGlanceScreen.route,
@@ -24,6 +26,10 @@ GoRouter router = GoRouter(
           index = 3;
         } else if (route.contains(ChatScreen.location)) {
           index = 2;
+        } else if (route.contains(SollicitatiesScreen.location)) {
+          index = 1;
+        } else if (route.contains(JobScreen.location)) {
+          index = 0;
         }
 
         return BaseDashboardScreen(
@@ -44,6 +50,20 @@ GoRouter router = GoRouter(
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(
             child: ProfileScreen(),
+          ),
+        ),
+        GoRoute(
+          path: SollicitatiesScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: SollicitatiesScreen(),
+          ),
+        ),
+        GoRoute(
+          path: JobScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: JobScreen(),
           ),
         ),
       ],
