@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
-import '../../widgets/custom_date_picker.dart';
-import '../../widgets/custom_list_picker.dart';
+import '../widgets/custom_date_picker.dart';
+import '../widgets/custom_list_picker.dart';
 
 class FirstForm extends StatefulWidget {
   const FirstForm({

@@ -11,7 +11,9 @@ import 'package:jobr/features/profile/screens/job_screen.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 
 import '../../features/profile/screens/create_profile_screen.dart';
-import '../../features/profile/screens/sollicitaties_screen.dart';
+import '../../features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
+import '../../features/profile/screens/recruteren/recruitment_detail_screen.dart';
+import '../../features/profile/screens/recruteren_screen.dart';
 
 GoRouter router = GoRouter(
   initialLocation: FirstGlanceScreen.route,
@@ -26,7 +28,7 @@ GoRouter router = GoRouter(
           index = 3;
         } else if (route.contains(ChatScreen.location)) {
           index = 2;
-        } else if (route.contains(SollicitatiesScreen.location)) {
+        } else if (route.contains(RecruterenScreen.location)) {
           index = 1;
         } else if (route.contains(JobScreen.location)) {
           index = 0;
@@ -53,10 +55,10 @@ GoRouter router = GoRouter(
           ),
         ),
         GoRoute(
-          path: SollicitatiesScreen.route,
+          path: RecruterenScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(
-            child: SollicitatiesScreen(),
+            child: RecruterenScreen(),
           ),
         ),
         GoRoute(
@@ -73,6 +75,28 @@ GoRouter router = GoRouter(
       pageBuilder: (BuildContext context, GoRouterState state) =>
           const NoTransitionPage(
         child: CreateProfileScreen(),
+      ),
+    ),
+    GoRoute(
+      path: '/recruitment/:category',
+      pageBuilder: (BuildContext context, GoRouterState state) {
+        final category = state.pathParameters['category'] ?? '';
+        final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
+
+        return NoTransitionPage(
+          child: RecruitmentDetailScreen(
+            category: category,
+            title: extra['title'],
+            image: extra['image'],
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: JobrAiSuggestionsScreen.route,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const NoTransitionPage(
+        child: JobrAiSuggestionsScreen(),
       ),
     ),
     ShellRoute(

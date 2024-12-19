@@ -29,6 +29,7 @@ class JobrIcons {
   static const String emailIcon = '$_baseIconPath/email.svg';
   static const String chevronLeftIcon = '$_baseIconPath/chevron_left.svg';
   static const String chat = '$_baseIconPath/chat.svg';
+  static const String send = '$_baseIconPath/send.svg';
   static const String profile = '$_baseIconPath/profile.svg';
   static const String magnifyingGlass = '$_baseIconPath/magnifying_glass.svg';
   static const String sheet = '$_baseIconPath/sheet.svg';
