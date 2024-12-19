@@ -43,6 +43,9 @@ class JobrIcons {
   static const String chevronDown = '$_baseIconPath/chevron-down.svg';
   static const String edit = '$_baseIconPath/edit.svg';
   static const String backArrow = '$_baseIconPath/back-arrow.svg';
+  static const String close = '$_baseIconPath/close.svg';
+  static const String check = '$_baseIconPath/check.svg';
+  static const String calenda = '$_baseIconPath/calenda.svg';
 
   static const List<String> icons = [
     logoLight,
