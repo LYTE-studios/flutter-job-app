@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
-import 'package:jobr/features/profile/screens/create_profile_screen.dart';
 import 'package:jobr/ui/buttons/jobr_icon_button.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FirstGlanceScreen extends StatefulWidget {
+final navigationProvider = Provider<NavigationNotifier>((ref) {
+  return NavigationNotifier();
+});
+
+class NavigationNotifier {
+  void goToChatScreen(BuildContext context) {
+    context.pushReplacement(ChatScreen.route);
+  }
+
+  void goToLoginScreen(BuildContext context) {
+    context.push(LoginScreen.route);
+  }
+}
+
+class FirstGlanceScreen extends ConsumerWidget {
   static const String route = '/$location';
   static const String location = '';
 
   const FirstGlanceScreen({super.key});
 
   @override
-  State<FirstGlanceScreen> createState() => _FirstGlanceScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final navigation = ref.read(navigationProvider);
 
-class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
-  @override
-  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -28,9 +40,7 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
         JobrIconButton(
           textIcon: "⚡",
           label: "Ik zoek een job",
-          onPressed: () {
-            context.pushReplacement(ChatScreen.route);
-          },
+          onPressed: () => navigation.goToChatScreen(context),
         ),
         const SizedBox(
           height: 10,
@@ -38,9 +48,7 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
         JobrIconButton(
           textIcon: "💼",
           label: "Ik zoek talent",
-          onPressed: () {
-            context.push(CreateProfileScreen.route);
-          },
+          onPressed: () => navigation.goToLoginScreen(context),
         ),
         SizedBox(
           height: 81,
