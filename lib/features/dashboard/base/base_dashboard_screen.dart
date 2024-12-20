@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
+import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-import '../../profile/screens/job_screen.dart';
+import '../../jobs/job_screen_verified.dart';
 import '../../profile/screens/recruteren_screen.dart';
 
 class BaseDashboardScreen extends StatelessWidget {

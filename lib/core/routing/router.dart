@@ -7,7 +7,11 @@ import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
 import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
-import 'package:jobr/features/profile/screens/job_screen.dart';
+import 'package:jobr/features/jobs/filter.dart';
+import 'package:jobr/features/jobs/job_listing.dart';
+import 'package:jobr/features/jobs/job_screen.dart';
+import 'package:jobr/features/jobs/job_screen_verified.dart';
+import 'package:jobr/features/jobs/jobdetail_screen.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 
 import '../../features/profile/screens/create_profile_screen.dart';
@@ -65,7 +69,7 @@ GoRouter router = GoRouter(
           path: JobScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(
-            child: JobScreen(),
+            child: JobVerifiedScreen(),
           ),
         ),
       ],
@@ -89,6 +93,34 @@ GoRouter router = GoRouter(
             title: extra['title'],
             image: extra['image'],
           ),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/jobs/:category',
+      pageBuilder: (BuildContext context, GoRouterState state) {
+        final category = state.pathParameters['category'] ?? '';
+        if (category == 'filters') {
+          return NoTransitionPage(
+            child: FilterScreen(),
+          );
+        }
+        final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
+
+        return NoTransitionPage(
+          child: JobDetailScreen(
+            category: category,
+            title: extra['title'],
+            image: extra['image'],
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/jobs/filters/jobupdates',
+      pageBuilder: (BuildContext context, GoRouterState state) {
+        return NoTransitionPage(
+          child: JobListScreen(),
         );
       },
     ),

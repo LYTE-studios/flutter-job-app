@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/features/jobs/filter.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
@@ -8,6 +7,7 @@ import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:jobr/ui/widget/common_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import '../dashboard/base/base_dashboard_screen.dart';
 
 class JobScreen extends StatefulWidget {
   static const String route = '${BaseDashboardScreen.route}/$location';

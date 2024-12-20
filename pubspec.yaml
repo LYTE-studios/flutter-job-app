@@ -43,6 +43,7 @@ flutter:
   assets:
     - assets/images/background/
     - assets/images/icons/
+    - assets/images/jobs/
     - assets/images/logos/
     - assets/images/recruteren/
     - assets/images/images/

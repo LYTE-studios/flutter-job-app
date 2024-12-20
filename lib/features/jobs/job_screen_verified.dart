@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/features/jobs/filter.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
@@ -8,18 +7,19 @@ import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:jobr/ui/widget/common_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import '../dashboard/base/base_dashboard_screen.dart';
 
-class JobScreen extends StatefulWidget {
+class JobVerifiedScreen extends StatefulWidget {
   static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'jobs';
 
-  const JobScreen({super.key});
+  const JobVerifiedScreen({super.key});
 
   @override
-  State<JobScreen> createState() => _JobScreenState();
+  State<JobVerifiedScreen> createState() => _JobVerifiedScreenState();
 }
 
-class _JobScreenState extends State<JobScreen> {
+class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
   final List<Map<String, dynamic>> items = const [
     {
       "text": "Horeca",
@@ -27,33 +27,38 @@ class _JobScreenState extends State<JobScreen> {
       "category": "permanent"
     },
     {
-      "text": "Winkel",
+      "text": "Tech/ICT",
       "image": "assets/images/jobs/Shopping Basket.png",
       "category": "students"
     },
     {
       "text": "Event",
-      "image": "assets/images/jobs/Star grey.png",
+      "image": "assets/images/jobs/Star.png",
       "category": "flexi"
     },
     {
       "text": "Telecom",
-      "image": "assets/images/jobs/Phone grey.png",
+      "image": "assets/images/jobs/Phone.png",
       "category": "interns"
     },
     {
       "text": "Zorg",
-      "image": "assets/images/jobs/Doctors Bag grey.png",
+      "image": "assets/images/jobs/DoctorsBag.png",
       "category": "freelancers"
     },
     {
       "text": "IT",
-      "image": "assets/images/jobs/iMac grey.png",
+      "image": "assets/images/jobs/iMac.png",
       "category": "freelancers"
     },
     {
       "text": "Auto",
-      "image": "assets/images/jobs/Car grey.png",
+      "image": "assets/images/jobs/Car.png",
+      "category": "freelancers"
+    },
+    {
+      "text": "Meer",
+      "image": "assets/images/jobs/Vector.png",
       "category": "freelancers"
     },
   ];
@@ -63,7 +68,10 @@ class _JobScreenState extends State<JobScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: const CommonAppbarNavigation(appbarTitle: "Vind jouw job"),
+      appBar: const CommonAppbarNavigation(
+        appbarTitle: "Vind jouw job",
+        icon: Icons.favorite_rounded,
+      ),
       backgroundColor: theme.colorScheme.surface,
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -79,7 +87,7 @@ class _JobScreenState extends State<JobScreen> {
             _buildFilterRow(theme),
             const SizedBox(height: 20),
             _buildJobrAISection(theme),
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
             _buildJobrAISuggestions(),
             SizedBox(height: 15),
           ],
@@ -107,7 +115,7 @@ class _JobScreenState extends State<JobScreen> {
 
   Widget _buildGridItem(Map<String, dynamic> item, {required index}) {
     return GestureDetector(
-      onTap: index >= 2
+      onTap: index >= 7
           ? () {}
           : () {
               context.push(
@@ -122,8 +130,7 @@ class _JobScreenState extends State<JobScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
         decoration: BoxDecoration(
-          color:
-              index >= 2 ? Colors.black12.withOpacity(0.01) : Colors.grey[100],
+          color: HexColor.fromHex('#F3F3F3'),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
@@ -143,7 +150,7 @@ class _JobScreenState extends State<JobScreen> {
               child: Text(
                 item["text"]!,
                 style: TextStyle(
-                  color: (index >= 2) ? Colors.grey[500] : Colors.black,
+                  color: index < 7 ? Colors.black : Colors.grey[500],
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                 ),
@@ -161,8 +168,7 @@ class _JobScreenState extends State<JobScreen> {
       onTap: () {
         context.push(
           '/jobs/filters',
-        );
-        // Push to FilterScreen
+        ); // Push to FilterScreen
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -210,7 +216,7 @@ class _JobScreenState extends State<JobScreen> {
             Text(
               "Jobr-AI suggesties",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.w700,
                 color: theme.colorScheme.onPrimaryContainer,
               ),
@@ -224,7 +230,7 @@ class _JobScreenState extends State<JobScreen> {
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: Colors.grey[400],
+              color: Colors.pink.withOpacity(0.8),
             ),
           ),
         ),
@@ -233,109 +239,141 @@ class _JobScreenState extends State<JobScreen> {
   }
 
   Widget _buildJobrAISuggestions() {
-    return Stack(
-      clipBehavior: Clip.none, // Allow overflow
-      children: [
-        // Scrollable cards
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(5, (index) {
-              return Container(
-                width: 300, // Fixed width for uniformity
-                height: 250, // Fixed height for uniformity
-                margin: const EdgeInsets.symmetric(horizontal: 8),
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.grey[50], // Light background color
-                  borderRadius: BorderRadius.circular(12),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: List.generate(5, (index) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: _buildJobCard(),
+          );
+        }),
+      ),
+    );
+  }
+
+  Widget _buildJobCard() {
+    return Container(
+      width: 300,
+      height: 240, // Adjust card width as needed
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.grey[50], // Light background color
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Top Rich Text Description
+          RichText(
+            text: TextSpan(
+              text: 'Op basis van je profiel past deze barman-vacature',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500),
+              children: [
+                TextSpan(
+                  text: 'goed bij je, dankzij je ',
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                TextSpan(
+                  text: 'horeca-ervaring ',
+                  style: TextStyle(
+                      color: Colors.pink.withOpacity(0.8),
+                      fontWeight: FontWeight.w500),
+                ),
+                TextSpan(
+                  text: 'en sterke ',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                ),
+                TextSpan(
+                  text: 'klantgerichtheid.',
+                  style: TextStyle(
+                      color: Colors.pink.withOpacity(0.8),
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.2),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 70),
+          // Job Title and Suggestion Percentage
+          Row(
+            children: [
+              // Profile Image
+              Container(
+                width: 40, // double the radius for the container width
+                height: 40, // double the radius for the container height
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.black,
+                    width: 10,
+                  ),
+                ),
+                child: CircleAvatar(
+                  backgroundColor: Colors.black,
+                  radius: 20,
+                  child: Image.asset(
+                      'assets/images/jobs/sample_image.png'), // Replace with actual path
+                ),
+              ),
+              SizedBox(width: 12),
+              // Job Title and Group
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Bartender',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  Text(
+                    'Kurkumama group',
+                    style: TextStyle(color: Colors.grey, fontSize: 14),
+                  ),
+                ],
+              ),
+              Spacer(),
+              // Suggestion Percentage
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  border: Border.all(color: Colors.pink, width: 2),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
                   children: [
-                    Text(
-                      "Vervolledig je profiel om gebruik\nte maken van onze AI \nmatchmaking",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey[400], // Muted text color
-                      ),
+                    Image.asset(
+                      height: 20,
+                      width: 20,
+                      "assets/images/recruteren/jobrAI_suggesties.png",
                     ),
-                    const SizedBox(height: 12),
-                    TextButton(
-                      onPressed: () {
-                        // Navigate to the profile screen
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey[100],
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        side: BorderSide(
-                          color: Colors.grey[100]!, // Set boundary color
-                          width: 2,
-                        ),
-                      ),
-                      child: const Text(
-                        "Ga naar profiel",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins',
-                          color: Colors.pinkAccent,
-                        ),
-                      ),
+                    SizedBox(width: 4),
+                    Text(
+                      '98%',
+                      style: TextStyle(
+                          color: Colors.pink,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16),
                     ),
                   ],
                 ),
-              );
-            }),
+              ),
+            ],
           ),
-        ),
-        // Static "Sector binnenkort beschikbaar" container
-        Positioned(
-          bottom: -20, // Move the container lower to show the button properly
-          left: 40, // Adjust left position for smaller width
-          right: 50, // Adjust right position for smaller width
-          child: Container(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 16, vertical: 7), // Adjust padding
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(50),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  blurRadius: 5,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
-                  "Sector binnenkort beschikbaar",
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Inter'),
-                ),
-                Icon(
-                  Icons.notifications,
-                  color: Colors.pink,
-                  size: 22,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
