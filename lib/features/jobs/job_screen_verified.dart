@@ -74,7 +74,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
       ),
       backgroundColor: theme.colorScheme.surface,
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -170,32 +170,29 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
           '/jobs/filters',
         ); // Push to FilterScreen
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          decoration: BoxDecoration(
-            color: theme.primaryColor,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Zoek met filters ",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: theme.colorScheme.onPrimary,
-                ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 11),
+        decoration: BoxDecoration(
+          color: theme.primaryColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Zoek met filters ",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: theme.colorScheme.onPrimary,
               ),
-              Image.asset(
-                height: 20,
-                width: 20,
-                "assets/images/recruteren/filter.png",
-              ),
-            ],
-          ),
+            ),
+            Image.asset(
+              height: 20,
+              width: 20,
+              "assets/images/recruteren/filter.png",
+            ),
+          ],
         ),
       ),
     );
@@ -228,7 +225,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
           child: Text(
             "Bekijk alle",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 15,
               fontWeight: FontWeight.w600,
               color: Colors.pink.withOpacity(0.8),
             ),
@@ -258,6 +255,9 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
       height: 240, // Adjust card width as needed
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey[50]!, // Light background color
+        ),
         color: Colors.grey[50], // Light background color
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
@@ -312,8 +312,8 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
             children: [
               // Profile Image
               Container(
-                width: 40, // double the radius for the container width
-                height: 40, // double the radius for the container height
+                width: 50, // double the radius for the container width
+                height: 50, // double the radius for the container height
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
@@ -323,7 +323,6 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                 ),
                 child: CircleAvatar(
                   backgroundColor: Colors.black,
-                  radius: 20,
                   child: Image.asset(
                       'assets/images/jobs/sample_image.png'), // Replace with actual path
                 ),
@@ -346,10 +345,10 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
               Spacer(),
               // Suggestion Percentage
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                 decoration: BoxDecoration(
                   color: Colors.grey[50],
-                  border: Border.all(color: Colors.pink, width: 2),
+                  border: Border.all(color: Colors.pinkAccent, width: 2),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -363,9 +362,9 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                     Text(
                       '98%',
                       style: TextStyle(
-                          color: Colors.pink,
+                          color: Colors.pinkAccent,
                           fontWeight: FontWeight.bold,
-                          fontSize: 16),
+                          fontSize: 15),
                     ),
                   ],
                 ),

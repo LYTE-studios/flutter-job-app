@@ -9,7 +9,7 @@ class JobListScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios_new,
             color: Colors.black,
             size: 22,
@@ -19,10 +19,10 @@ class JobListScreen extends StatelessWidget {
           },
         ),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "Zoekresultaten",
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
         ),
         actions: [
           Padding(
@@ -41,8 +41,8 @@ class JobListScreen extends StatelessWidget {
       body: Column(
         children: [
           // Filter buttons
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -51,12 +51,12 @@ class JobListScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           // Job cards
           Expanded(
             child: ListView.builder(
               itemCount: 1, // Replace with dynamic count
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
@@ -74,14 +74,14 @@ class JobListScreen extends StatelessWidget {
 class FilterButton extends StatelessWidget {
   final String label;
 
-  FilterButton({required this.label});
+  const FilterButton({required this.label});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(4.0), // Reduce padding around the button
       child: Container(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
             horizontal: 8, vertical: 1), // Reduce padding inside the button
         decoration: BoxDecoration(
           border: Border.all(color: Colors.pink, width: 1.3), // Pink border
@@ -92,13 +92,13 @@ class FilterButton extends StatelessWidget {
           children: [
             Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.pink,
                   fontWeight: FontWeight.w500,
                   fontSize: 14),
             ),
-            SizedBox(width: 4),
-            Icon(
+            const SizedBox(width: 4),
+            const Icon(
               Icons.keyboard_arrow_down,
               color: Colors.pink,
               size: 24, // Slightly smaller icon

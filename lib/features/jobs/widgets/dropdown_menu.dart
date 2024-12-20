@@ -28,7 +28,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
             widget.hintText,
             style: TextStyle(
                 color: Colors.grey[500],
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.w500,
                 letterSpacing: 0.1,
                 fontFamily: 'Poppins'),

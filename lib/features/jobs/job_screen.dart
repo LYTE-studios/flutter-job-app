@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/jobs/filter.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
@@ -66,7 +67,7 @@ class _JobScreenState extends State<JobScreen> {
       appBar: const CommonAppbarNavigation(appbarTitle: "Vind jouw job"),
       backgroundColor: theme.colorScheme.surface,
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -167,7 +168,7 @@ class _JobScreenState extends State<JobScreen> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 11),
           decoration: BoxDecoration(
             color: theme.primaryColor,
             borderRadius: BorderRadius.circular(12),
@@ -210,7 +211,7 @@ class _JobScreenState extends State<JobScreen> {
             Text(
               "Jobr-AI suggesties",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.w700,
                 color: theme.colorScheme.onPrimaryContainer,
               ),
@@ -222,7 +223,7 @@ class _JobScreenState extends State<JobScreen> {
           child: Text(
             "Bekijk alle",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 15,
               fontWeight: FontWeight.w600,
               color: Colors.grey[400],
             ),
@@ -243,11 +244,11 @@ class _JobScreenState extends State<JobScreen> {
             children: List.generate(5, (index) {
               return Container(
                 width: 300, // Fixed width for uniformity
-                height: 250, // Fixed height for uniformity
+                height: 230, // Fixed height for uniformity
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.grey[50], // Light background color
+                  color: Colors.grey[100], // Light background color
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -262,20 +263,20 @@ class _JobScreenState extends State<JobScreen> {
                         color: Colors.grey[400], // Muted text color
                       ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 8),
                     TextButton(
                       onPressed: () {
                         // Navigate to the profile screen
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey[100],
+                        backgroundColor: Colors.grey.shade200.withOpacity(0.2),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                         side: BorderSide(
-                          color: Colors.grey[100]!, // Set boundary color
+                          color: Colors.grey[200]!, // Set boundary color
                           width: 2,
                         ),
                       ),
@@ -317,19 +318,20 @@ class _JobScreenState extends State<JobScreen> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
-                  "Sector binnenkort beschikbaar",
+              children: [
+                const Text(
+                  "Sector binnenkort beschikbaar ",
                   style: TextStyle(
                       fontSize: 14,
                       color: Colors.black,
                       fontWeight: FontWeight.w500,
-                      fontFamily: 'Inter'),
+                      fontFamily: 'Poppins'),
                 ),
-                Icon(
-                  Icons.notifications,
-                  color: Colors.pink,
-                  size: 22,
+                SvgPicture.asset(
+                  'assets/images/icons/bell.svg',
+                  color: Colors.pinkAccent,
+                  height: 20,
+                  width: 20,
                 ),
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobr/features/jobs/widgets/job_card.dart';
+import 'package:jobr/features/jobs/widgets/return_arrow.dart';
 
 class JobListScreen extends StatelessWidget {
   @override
@@ -8,29 +9,20 @@ class JobListScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: Colors.black,
-            size: 22,
-          ),
-          onPressed: () {
-            Navigator.pop(context); // Pops the screen
-          },
-        ),
+        leading: ReturnArrow(),
         centerTitle: true,
         title: Text(
           "Zoekresultaten",
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: Container(
               child: Image.asset(
-                height: 25,
-                width: 25,
+                height: 20,
+                width: 20,
                 color: Colors.black,
                 "assets/images/recruteren/filter.png",
               ),
@@ -79,12 +71,14 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0), // Reduce padding around the button
+      padding:
+          const EdgeInsets.only(left: 4.0), // Reduce padding around the button
       child: Container(
         padding: EdgeInsets.symmetric(
             horizontal: 8, vertical: 1), // Reduce padding inside the button
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.pink, width: 1.3), // Pink border
+          border:
+              Border.all(color: Colors.pinkAccent, width: 1.3), // Pink border
           borderRadius: BorderRadius.circular(20),
           color: Colors.white, // White background
         ),
@@ -93,15 +87,15 @@ class FilterButton extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                  color: Colors.pink,
+                  color: Colors.pinkAccent,
                   fontWeight: FontWeight.w500,
                   fontSize: 14),
             ),
             SizedBox(width: 4),
             Icon(
               Icons.keyboard_arrow_down,
-              color: Colors.pink,
-              size: 24, // Slightly smaller icon
+              color: Colors.pinkAccent,
+              size: 25, // Slightly smaller icon
             ),
           ],
         ),

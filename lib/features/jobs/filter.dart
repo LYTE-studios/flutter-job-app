@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart'; // Add this import
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/jobs/widgets/custom_slider.dart';
 import 'package:jobr/features/jobs/widgets/dropdown_menu.dart';
@@ -22,7 +23,7 @@ class _FilterScreenState extends State<FilterScreen> {
         title: Text(
           'Filters',
           style: const TextStyle(
-            fontSize: 22,
+            fontSize: 18,
             fontWeight: FontWeight.w700,
             fontFamily: 'Inter',
           ),
@@ -30,7 +31,12 @@ class _FilterScreenState extends State<FilterScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.close, color: Colors.black),
+          icon: SvgPicture.asset(
+            'assets/images/icons/cross.svg',
+            color: Colors.black,
+            height: 15,
+            width: 15,
+          ),
           onPressed: () {
             Navigator.pop(context); // Pops the screen
           },
@@ -89,15 +95,20 @@ class _FilterScreenState extends State<FilterScreen> {
                 // Handle sector selection
               },
               child: Container(
-                height: 90,
-                width: 90,
+                height: 80,
+                width: 80,
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
                   border: Border.all(color: Colors.grey[100]!),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Center(
-                  child: Icon(Icons.add, color: Colors.grey, size: 50),
+                  child: SvgPicture.asset(
+                    'assets/images/icons/add.svg',
+                    color: Colors.black87,
+                    height: 30,
+                    width: 30,
+                  ),
                 ),
               ),
             ),
@@ -188,8 +199,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       '/jobs/filters/jobupdates',
                     );
                   },
-                  buttonColor: Colors.pink.withOpacity(0.9),
-                  height: 50,
+                  buttonColor: Colors.pinkAccent,
+                  height: 55,
                   textStyle: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,

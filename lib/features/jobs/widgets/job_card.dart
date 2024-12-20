@@ -10,13 +10,6 @@ class JobCard extends StatelessWidget {
         color: Colors.grey[100],
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.transparent),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: Offset(0, 4),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +19,7 @@ class JobCard extends StatelessWidget {
             borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
             child: Image.asset(
               'assets/images/jobs/brussels.png', // Replace with your image path
-              height: 130,
+              height: 120,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
@@ -137,9 +130,9 @@ class JobCard extends StatelessWidget {
                           Text(
                             '98%',
                             style: TextStyle(
-                                color: Colors.pink,
+                                color: Colors.pinkAccent,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16),
+                                fontSize: 15),
                           ),
                         ],
                       ),
