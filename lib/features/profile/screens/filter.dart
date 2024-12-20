@@ -4,6 +4,8 @@ import 'package:jobr/features/jobs/widgets/custom_slider.dart';
 import 'package:jobr/ui/buttons/primary_button.dart';
 
 class FilterScreen extends StatefulWidget {
+  const FilterScreen({super.key});
+
   @override
   _FilterScreenState createState() => _FilterScreenState();
 }
@@ -18,9 +20,9 @@ class _FilterScreenState extends State<FilterScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Filters',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w700,
             fontFamily: 'Inter',
@@ -29,7 +31,7 @@ class _FilterScreenState extends State<FilterScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.close, color: Colors.black),
+          icon: const Icon(Icons.close, color: Colors.black),
           onPressed: () {
             Navigator.pop(context); // Pops the screen
           },
@@ -41,20 +43,20 @@ class _FilterScreenState extends State<FilterScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Contract Type Dropdown
-            Text(
+            const Text(
               'Contracttype',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 hintText: 'Maak een keuze',
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: 0, horizontal: 20), // Center vertically
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                     color: Colors.grey,
                     fontSize: 18,
                     fontWeight: FontWeight.w400),
@@ -68,32 +70,32 @@ class _FilterScreenState extends State<FilterScreen> {
                 fontWeight: FontWeight.w600,
                 color: Colors.grey[400],
               ),
-              items: [
+              items: const [
                 DropdownMenuItem(value: '1', child: Text('Option 1')),
                 DropdownMenuItem(value: '2', child: Text('Option 2')),
               ],
               onChanged: (value) {},
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Divider(
               color: Colors.grey.shade200,
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             // Function Dropdown
-            Text(
+            const Text(
               'Functie',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 hintText: 'Maak een keuze',
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: 0, horizontal: 20), // Center vertically
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                     color: Colors.grey,
                     fontSize: 18,
                     fontWeight: FontWeight.w400),
@@ -107,26 +109,26 @@ class _FilterScreenState extends State<FilterScreen> {
                 fontWeight: FontWeight.w600,
                 color: Colors.grey[400],
               ),
-              items: [
+              items: const [
                 DropdownMenuItem(value: '1', child: Text('Option 1')),
                 DropdownMenuItem(value: '2', child: Text('Option 2')),
               ],
               onChanged: (value) {},
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Divider(
               color: Colors.grey[200],
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             //Si Sector Selection
-            Text(
+            const Text(
               'Sector',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             GestureDetector(
               onTap: () {
                 // Handle sector selection
@@ -139,31 +141,31 @@ class _FilterScreenState extends State<FilterScreen> {
                   border: Border.all(color: Colors.grey[100]!),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Center(
+                child: const Center(
                   child: Icon(Icons.add, color: Colors.grey, size: 40),
                 ),
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Divider(
               color: Colors.grey[200],
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             // Required Experience Dropdown
-            Text(
+            const Text(
               'Benodigde ervaring',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
                 hintText: 'Maak een keuze',
                 contentPadding: const EdgeInsets.symmetric(
                     vertical: 0, horizontal: 20), // Center vertically
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                     color: Colors.grey,
                     fontSize: 18,
                     fontWeight: FontWeight.w400),
@@ -177,22 +179,22 @@ class _FilterScreenState extends State<FilterScreen> {
                 fontWeight: FontWeight.w600,
                 color: Colors.grey[400],
               ),
-              items: [
+              items: const [
                 DropdownMenuItem(value: '1', child: Text('Option 1')),
                 DropdownMenuItem(value: '2', child: Text('Option 2')),
               ],
               onChanged: (value) {},
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             // Distance Slider
             Divider(
               color: Colors.grey[200],
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Afstand',
                   style: TextStyle(
                     fontSize: 16,
@@ -219,7 +221,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   enabledThumbRadius: 12.0, // Adjust size
                   borderColor: Colors.white, // White border
                 ),
-                overlayShape: RoundSliderOverlayShape(overlayRadius: 24.0),
+                overlayShape: const RoundSliderOverlayShape(overlayRadius: 24.0),
               ),
               child: Slider(
                 value: _sliderValue,
@@ -234,7 +236,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 },
               ),
             ),
-            Spacer(),
+            const Spacer(),
             // Show Results Button
             SizedBox(
               width: double.infinity,
@@ -247,7 +249,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   },
                 buttonColor: Colors.pink.withOpacity(0.9),
                 height: 50,
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
                   fontSize: 18,

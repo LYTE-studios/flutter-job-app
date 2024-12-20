@@ -1,9 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:jobr/core/routing/mixins/screen_state_mixin.dart';
-import 'package:jobr/data/services/accounts_service.dart';
-import 'package:jobr/data/services/api_service.dart';
+import 'package:jobr/data/models/user.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
 import 'package:jobr/ui/buttons/primary_button.dart';
@@ -12,10 +10,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jobr/data/providers/auth_providers.dart';
 
 class EmailLoginScreen extends ConsumerStatefulWidget {
+  final UserType userType;
+
+  const EmailLoginScreen({
+    super.key,
+    required this.userType,
+  });
   static const String route = '${LoginScreen.route}/$location';
   static const String location = 'email';
-
-  const EmailLoginScreen({super.key});
 
   @override
   ConsumerState<EmailLoginScreen> createState() => _EmailLoginScreenState();
@@ -35,6 +37,7 @@ class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
   Widget build(BuildContext context) {
     final authState = ref.watch(authProvider);
     return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         if (authState.error != null)
           Text(

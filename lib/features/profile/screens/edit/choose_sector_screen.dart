@@ -5,7 +5,7 @@ import '../../../../ui/theme/jobr_icons.dart';
 import '../../../dashboard/base/base_dashboard_screen.dart';
 
 class ChooseSectorScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
+  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'choose-sector';
   const ChooseSectorScreen({super.key});
 
@@ -101,7 +101,7 @@ class _ChooseSectorScreenState extends State<ChooseSectorScreen> {
       ),
       body: Container(
         width: width,
-        height: height * .9, 
+        height: height * .9,
         padding: const EdgeInsets.all(20.0),
         child: Wrap(
           runSpacing: 10,
@@ -110,36 +110,35 @@ class _ChooseSectorScreenState extends State<ChooseSectorScreen> {
           children: List.generate(
             sectors.length,
             (index) => Container(
-              width: 85.8,
-              height: 85.8,
-              decoration: BoxDecoration(
-                color: const Color(0xFFF3F3F3),
-                borderRadius: BorderRadius.circular(12.92),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    sectors[index].image,
-                    width: 41.35,
-                    height: 41.35,
-                    fit: BoxFit.contain,
-                  ),
-                  FittedBox(
-                    child: Text(
-                      sectors[index].name,
-                      style: const TextStyle(
-                        fontSize: 14.47,
-                        fontFamily: 'Inter',
-                        // height: 17.5,
-                        fontWeight: FontWeight.w600,
+                width: 85.8,
+                height: 85.8,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF3F3F3),
+                  borderRadius: BorderRadius.circular(12.92),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      sectors[index].image,
+                      width: 41.35,
+                      height: 41.35,
+                      fit: BoxFit.contain,
+                    ),
+                    FittedBox(
+                      child: Text(
+                        sectors[index].name,
+                        style: const TextStyle(
+                          fontSize: 14.47,
+                          fontFamily: 'Inter',
+                          // height: 17.5,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              )
-            ),
+                  ],
+                )),
           ),
         ),
       ),

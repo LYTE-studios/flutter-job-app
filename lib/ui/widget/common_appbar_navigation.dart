@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 class CommonAppbarNavigation extends StatelessWidget
     implements PreferredSizeWidget {
   final String appbarTitle;
-  final icon;
+  final IconData? icon;
 
-  const CommonAppbarNavigation(
-      {super.key, required this.appbarTitle, this.icon});
+  const CommonAppbarNavigation({
+    super.key,
+    required this.appbarTitle,
+    this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {

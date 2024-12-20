@@ -110,17 +110,17 @@ class AuthNotifier extends StateNotifier<AuthState> {
 // Auth Provider
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final accountsService = ref.read(accountsServiceProvider);
-  final storage = FlutterSecureStorage();
+  const storage = FlutterSecureStorage();
   return AuthNotifier(accountsService, storage);
 });
 
 // Token Providers
 final accessTokenProvider = FutureProvider<String?>((ref) async {
-  final storage = FlutterSecureStorage();
+  const storage = FlutterSecureStorage();
   return await storage.read(key: 'access_token');
 });
 
 final refreshTokenProvider = FutureProvider<String?>((ref) async {
-  final storage = FlutterSecureStorage();
+  const storage = FlutterSecureStorage();
   return await storage.read(key: 'refresh_token');
 });

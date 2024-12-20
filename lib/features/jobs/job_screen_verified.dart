@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/jobs/filter.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
-import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
-import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:jobr/ui/widget/common_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import '../dashboard/base/base_dashboard_screen.dart';
 
 class JobVerifiedScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
+  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'jobs';
 
   const JobVerifiedScreen({super.key});
@@ -89,7 +86,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
             _buildJobrAISection(theme),
             const SizedBox(height: 10),
             _buildJobrAISuggestions(),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
           ],
         ),
       ),
@@ -253,7 +250,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
     return Container(
       width: 300,
       height: 240, // Adjust card width as needed
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey[100], // Light background color
         borderRadius: BorderRadius.circular(12),
@@ -265,12 +262,12 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
           RichText(
             text: TextSpan(
               text: 'Op basis van je profiel past deze barman-vacature',
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                   fontWeight: FontWeight.w500),
               children: [
-                TextSpan(
+                const TextSpan(
                   text: 'goed bij je, dankzij je ',
                 ),
                 TextSpan(
@@ -279,7 +276,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                       color: Colors.pink.withOpacity(0.8),
                       fontWeight: FontWeight.w500),
                 ),
-                TextSpan(
+                const TextSpan(
                   text: 'en sterke ',
                   style: TextStyle(
                       color: Colors.black,
@@ -296,7 +293,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
               ],
             ),
           ),
-          SizedBox(height: 70),
+          const SizedBox(height: 70),
           // Job Title and Suggestion Percentage
           Row(
             children: [
@@ -317,9 +314,9 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                       'assets/images/jobs/sample_image.png'), // Replace with actual path
                 ),
               ),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               // Job Title and Group
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -332,10 +329,10 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               // Suggestion Percentage
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                 decoration: BoxDecoration(
                   color: Colors.grey[50],
                   borderRadius: BorderRadius.circular(20),
@@ -348,8 +345,8 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                       width: 20,
                       "assets/images/recruteren/jobrAI_suggesties.png",
                     ),
-                    SizedBox(width: 4),
-                    Text(
+                    const SizedBox(width: 4),
+                    const Text(
                       '98%',
                       style: TextStyle(
                           color: Colors.pinkAccent,

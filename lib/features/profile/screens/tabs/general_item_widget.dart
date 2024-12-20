@@ -12,7 +12,7 @@ import '../widgets/custom_list_tile.dart';
 import '../edit/choose_company_screen.dart';
 import '../edit/choose_sector_screen.dart';
 import '../edit/make_a_choice_screen.dart';
-import '../edit/new_expereince_screen.dart';
+import '../edit/new_experience_screen.dart';
 
 class GeneralItemsWidget extends StatefulWidget {
   const GeneralItemsWidget({

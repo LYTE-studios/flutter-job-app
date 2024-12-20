@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomThumbShape extends RoundSliderThumbShape {
+  @override
   final double enabledThumbRadius;
   final Color borderColor;
 

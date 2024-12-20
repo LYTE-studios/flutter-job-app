@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:jobr/features/jobs/job_listing.dart';
 import 'package:jobr/features/jobs/widgets/return_arrow.dart';
-import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-import '../../../ui/theme/jobr_icons.dart';
 
 class JobDetailScreen extends StatelessWidget {
   final String category;
   final String title;
   final String image;
 
-  JobDetailScreen({
+  const JobDetailScreen({
     super.key,
     required this.category,
     required this.title,
@@ -34,7 +32,7 @@ class JobDetailScreen extends StatelessWidget {
             ),
           ),
         ],
-        leading: ReturnArrow(),
+        leading: const ReturnArrow(),
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -51,10 +49,10 @@ class JobDetailScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Column(
+      body: const Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

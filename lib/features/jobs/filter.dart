@@ -6,6 +6,8 @@ import 'package:jobr/features/jobs/widgets/dropdown_menu.dart';
 import 'package:jobr/ui/buttons/primary_button.dart';
 
 class FilterScreen extends StatefulWidget {
+  const FilterScreen({super.key});
+
   @override
   _FilterScreenState createState() => _FilterScreenState();
 }
@@ -20,9 +22,9 @@ class _FilterScreenState extends State<FilterScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Filters',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,
             fontFamily: 'Inter',
@@ -48,48 +50,48 @@ class _FilterScreenState extends State<FilterScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Contract Type Dropdown
-            Text(
+            const Text(
               'Contracttype',
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 4),
-            CustomDropdown(
+            const SizedBox(height: 4),
+            const CustomDropdown(
                 items: ["Option1", "`Option2"], hintText: 'Maak een keuze'),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
 
             Divider(
               color: Colors.grey.shade200,
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             // Function Dropdown
-            Text(
+            const Text(
               'Functie',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 4),
-            CustomDropdown(
+            const SizedBox(height: 4),
+            const CustomDropdown(
                 items: ["Option1", "`Option2"], hintText: 'Maak een keuze'),
 
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Divider(
               color: Colors.grey[200],
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             //Si Sector Selection
-            Text(
+            const Text(
               'Sector',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             GestureDetector(
               onTap: () {
                 // Handle sector selection
@@ -112,33 +114,33 @@ class _FilterScreenState extends State<FilterScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Divider(
               color: Colors.grey[200],
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             // Required Experience Dropdown
-            Text(
+            const Text(
               'Benodigde ervaring',
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 4),
-            CustomDropdown(
+            const SizedBox(height: 4),
+            const CustomDropdown(
                 items: ["Option1", "`Option2"], hintText: 'Maak een keuze'),
 
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             // Distance Slider
             Divider(
               color: Colors.grey[200],
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   'Afstand',
                   style: TextStyle(
                     fontSize: 16,
@@ -150,7 +152,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     Image.asset('assets/images/jobs/map.png'),
                     Text(
                       '  ${_sliderValue.toInt()}km',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'Poppins'),
@@ -171,7 +173,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   enabledThumbRadius: 12.0, // Adjust size
                   borderColor: Colors.white, // White border
                 ),
-                overlayShape: RoundSliderOverlayShape(overlayRadius: 24.0),
+                overlayShape: const RoundSliderOverlayShape(overlayRadius: 24.0),
               ),
               child: Slider(
                 value: _sliderValue,
@@ -186,7 +188,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 },
               ),
             ),
-            Spacer(),
+            const Spacer(),
             // Show Results Button
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -201,7 +203,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   },
                   buttonColor: Colors.pinkAccent,
                   height: 55,
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
                     fontSize: 18,
@@ -209,7 +211,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
           ],
         ),
       ),

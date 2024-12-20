@@ -1,3 +1,5 @@
+enum UserType { employee, employer }
+
 class User {
   final int id;
   final String username;

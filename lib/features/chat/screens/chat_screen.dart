@@ -4,7 +4,7 @@ import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 
 class ChatScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
+  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'chat';
 
   const ChatScreen({super.key});

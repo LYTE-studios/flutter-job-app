@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:jobr/features/jobs/widgets/job_card.dart';
 
 class JobListScreen extends StatelessWidget {
+  const JobListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,8 +60,8 @@ class JobListScreen extends StatelessWidget {
               itemCount: 1, // Replace with dynamic count
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
+                return const Padding(
+                  padding: EdgeInsets.only(bottom: 16.0),
                   child: JobCard(),
                 );
               },
@@ -74,7 +76,7 @@ class JobListScreen extends StatelessWidget {
 class FilterButton extends StatelessWidget {
   final String label;
 
-  const FilterButton({required this.label});
+  const FilterButton({super.key, required this.label});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/data/models/user.dart';
 import 'package:jobr/features/authentication/base/base_auth_screen.dart';
 import 'package:jobr/features/authentication/screens/email_login_screen.dart';
 import 'package:jobr/features/authentication/screens/email_register_screen.dart';
@@ -23,11 +24,12 @@ import '../../features/profile/screens/edit/choose_sector_screen.dart';
 import '../../features/profile/screens/edit/create_new_company_screen.dart';
 import '../../features/profile/screens/edit/edit_profile_details_screen.dart';
 import '../../features/profile/screens/edit/make_a_choice_screen.dart';
-import '../../features/profile/screens/edit/new_expereince_screen.dart';
+import '../../features/profile/screens/edit/new_experience_screen.dart';
 
 GoRouter router = GoRouter(
   initialLocation: FirstGlanceScreen.route,
   routes: <RouteBase>[
+    // Employee
     ShellRoute(
       builder: (context, state, child) {
         String route = state.fullPath ?? '';
@@ -44,7 +46,60 @@ GoRouter router = GoRouter(
           index = 0;
         }
 
-        return BaseDashboardScreen(
+        return BaseEmployeeDashboard(
+          selectedIndex: index,
+          child: child,
+        );
+      },
+      routes: [
+        GoRoute(
+          path: ChatScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: ChatScreen(),
+          ),
+        ),
+        GoRoute(
+          path: ProfileScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: ProfileScreen(),
+          ),
+        ),
+        GoRoute(
+          path: RecruterenScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: RecruterenScreen(),
+          ),
+        ),
+        GoRoute(
+          path: JobScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: JobVerifiedScreen(),
+          ),
+        ),
+      ],
+    ),
+    // Employer
+    ShellRoute(
+      builder: (context, state, child) {
+        String route = state.fullPath ?? '';
+
+        int index = 0;
+
+        if (route.contains(ProfileScreen.location)) {
+          index = 3;
+        } else if (route.contains(ChatScreen.location)) {
+          index = 2;
+        } else if (route.contains(RecruterenScreen.location)) {
+          index = 1;
+        } else if (route.contains(JobScreen.location)) {
+          index = 0;
+        }
+
+        return BaseEmployerDashboard(
           selectedIndex: index,
           child: child,
         );
@@ -107,7 +162,7 @@ GoRouter router = GoRouter(
       pageBuilder: (BuildContext context, GoRouterState state) {
         final category = state.pathParameters['category'] ?? '';
         if (category == 'filters') {
-          return NoTransitionPage(
+          return const NoTransitionPage(
             child: FilterScreen(),
           );
         }
@@ -125,7 +180,7 @@ GoRouter router = GoRouter(
     GoRoute(
       path: '/jobs/filters/jobupdates',
       pageBuilder: (BuildContext context, GoRouterState state) {
-        return NoTransitionPage(
+        return const NoTransitionPage(
           child: JobListScreen(),
         );
       },
@@ -196,24 +251,43 @@ GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: LoginScreen.location,
-              pageBuilder: (BuildContext context, GoRouterState state) =>
-                  const NoTransitionPage(
-                child: LoginScreen(),
-              ),
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                final Map<String, dynamic> params =
+                    state.extra as Map<String, dynamic>;
+
+                return NoTransitionPage(
+                  child: LoginScreen(
+                    userType: params['userType'] as UserType,
+                    isNewUser: params['isNewUser'] as bool,
+                  ),
+                );
+              },
               routes: [
                 GoRoute(
                   path: EmailLoginScreen.location,
-                  pageBuilder: (BuildContext context, GoRouterState state) =>
-                      const NoTransitionPage(
-                    child: EmailLoginScreen(),
-                  ),
+                  pageBuilder: (BuildContext context, GoRouterState state) {
+                    final Map<String, dynamic> params =
+                        state.extra as Map<String, dynamic>;
+
+                    return NoTransitionPage(
+                      child: EmailLoginScreen(
+                        userType: params['userType'] as UserType,
+                      ),
+                    );
+                  },
                 ),
                 GoRoute(
                   path: EmailRegisterScreen.location,
-                  pageBuilder: (BuildContext context, GoRouterState state) =>
-                      const NoTransitionPage(
-                    child: EmailRegisterScreen(),
-                  ),
+                  pageBuilder: (BuildContext context, GoRouterState state) {
+                    final Map<String, dynamic> params =
+                        state.extra as Map<String, dynamic>;
+
+                    return NoTransitionPage(
+                      child: EmailRegisterScreen(
+                        userType: params['userType'] as UserType,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

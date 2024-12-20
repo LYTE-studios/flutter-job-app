@@ -3,15 +3,17 @@ import 'package:jobr/features/jobs/widgets/job_card.dart';
 import 'package:jobr/features/jobs/widgets/return_arrow.dart';
 
 class JobListScreen extends StatelessWidget {
+  const JobListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: ReturnArrow(),
+        leading: const ReturnArrow(),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "Zoekresultaten",
           style: TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
@@ -33,8 +35,8 @@ class JobListScreen extends StatelessWidget {
       body: Column(
         children: [
           // Filter buttons
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -43,15 +45,15 @@ class JobListScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           // Job cards
           Expanded(
             child: ListView.builder(
               itemCount: 1, // Replace with dynamic count
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
+                return const Padding(
+                  padding: EdgeInsets.only(bottom: 16.0),
                   child: JobCard(),
                 );
               },
@@ -66,7 +68,7 @@ class JobListScreen extends StatelessWidget {
 class FilterButton extends StatelessWidget {
   final String label;
 
-  FilterButton({required this.label});
+  const FilterButton({super.key, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +76,7 @@ class FilterButton extends StatelessWidget {
       padding:
           const EdgeInsets.only(left: 4.0), // Reduce padding around the button
       child: Container(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
             horizontal: 8, vertical: 1), // Reduce padding inside the button
         decoration: BoxDecoration(
           border:
@@ -86,13 +88,13 @@ class FilterButton extends StatelessWidget {
           children: [
             Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.pinkAccent,
                   fontWeight: FontWeight.w500,
                   fontSize: 14),
             ),
-            SizedBox(width: 4),
-            Icon(
+            const SizedBox(width: 4),
+            const Icon(
               Icons.keyboard_arrow_down,
               color: Colors.pinkAccent,
               size: 25, // Slightly smaller icon

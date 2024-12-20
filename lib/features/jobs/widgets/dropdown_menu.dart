@@ -4,7 +4,7 @@ class CustomDropdown extends StatefulWidget {
   final List<String> items;
   final String hintText;
 
-  CustomDropdown({required this.items, required this.hintText});
+  const CustomDropdown({super.key, required this.items, required this.hintText});
 
   @override
   _CustomDropdownState createState() => _CustomDropdownState();
@@ -16,7 +16,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.grey[50], // Light grey background
         borderRadius: BorderRadius.circular(12), // Rounded corners
@@ -39,7 +39,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
             size: 25,
           ),
           isExpanded: true, // Full width
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
           items: widget.items.map((String item) {
             return DropdownMenuItem<String>(
               value: item,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/profile/screens/job_screen.dart';
 
 class ReturnArrow extends StatelessWidget {
   const ReturnArrow({super.key});

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class JobCard extends StatelessWidget {
+  const JobCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.symmetric(vertical: 8.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
       decoration: BoxDecoration(
         color: Colors.grey[100],
         borderRadius: BorderRadius.circular(16),
@@ -16,7 +18,7 @@ class JobCard extends StatelessWidget {
         children: [
           // Image at the top
           ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
             child: Image.asset(
               'assets/images/jobs/brussels.png', // Replace with your image path
               height: 120,
@@ -30,7 +32,7 @@ class JobCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Location, job type, and salary
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
@@ -78,12 +80,12 @@ class JobCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 // Job title and company
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    const Row(
                       children: [
                         // Company logo
                         CircleAvatar(
@@ -113,7 +115,7 @@ class JobCard extends StatelessWidget {
                     ),
                     // Suggestion percentage
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
@@ -126,8 +128,8 @@ class JobCard extends StatelessWidget {
                             width: 20,
                             "assets/images/recruteren/jobrAI_suggesties.png",
                           ),
-                          SizedBox(width: 4),
-                          Text(
+                          const SizedBox(width: 4),
+                          const Text(
                             '98%',
                             style: TextStyle(
                                 color: Colors.pinkAccent,

@@ -11,7 +11,7 @@ class CommonSearchBar extends StatelessWidget {
   const CommonSearchBar({
     super.key,
     this.onChanged,
-    this.hintText = 'Zoek op naam, school, andere zaken, ...',
+    required this.hintText,
   });
 
   @override

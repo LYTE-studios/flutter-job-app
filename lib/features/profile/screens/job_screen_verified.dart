@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
-import 'package:jobr/features/jobs/filter.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
-import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
-import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:jobr/ui/widget/common_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class JobVerifiedScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
+  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'jobs';
 
   const JobVerifiedScreen({super.key});
@@ -89,7 +86,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
             _buildJobrAISection(theme),
             const SizedBox(height: 10),
             _buildJobrAISuggestions(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -253,7 +250,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
     return Container(
       width: 300,
       height: 240, // Adjust card width as needed
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey[50], // Light background color
         borderRadius: BorderRadius.circular(12),
@@ -261,7 +258,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
             blurRadius: 10,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -270,7 +267,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
         children: [
           // Top Rich Text Description
           RichText(
-            text: TextSpan(
+            text: const TextSpan(
               text: 'Op basis van je profiel past deze barman-vacature',
               style: TextStyle(color: Colors.black, fontSize: 16),
               children: [
@@ -293,19 +290,19 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
               ],
             ),
           ),
-          SizedBox(height: 70),
+          const SizedBox(height: 70),
           // Job Title and Suggestion Percentage
           Row(
             children: [
               // Profile Image
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 20,
                 backgroundImage: AssetImage(
                     'assets/images/jobs/sample_image.png'), // Replace with actual path
               ),
-              SizedBox(width: 12),
+              const SizedBox(width: 12),
               // Job Title and Group
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -318,10 +315,10 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               // Suggestion Percentage
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
                   color: Colors.grey[50],
                   border: Border.all(color: Colors.pink, width: 2),
@@ -334,8 +331,8 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                       width: 20,
                       "assets/images/recruteren/jobrAI_suggesties.png",
                     ),
-                    SizedBox(width: 4),
-                    Text(
+                    const SizedBox(width: 4),
+                    const Text(
                       '98%',
                       style: TextStyle(
                           color: Colors.pink, fontWeight: FontWeight.bold),

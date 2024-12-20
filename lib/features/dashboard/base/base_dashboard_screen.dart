@@ -8,21 +8,20 @@ import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-import '../../jobs/job_screen_verified.dart';
 import '../../profile/screens/recruteren_screen.dart';
 
-class BaseDashboardScreen extends StatelessWidget {
+class BaseEmployeeDashboard extends StatelessWidget {
   final Widget child;
 
   final int selectedIndex;
 
-  const BaseDashboardScreen({
+  const BaseEmployeeDashboard({
     super.key,
     required this.child,
     required this.selectedIndex,
   });
 
-  static const String route = '/home';
+  static const String route = '/employee';
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,7 @@ class BaseDashboardScreen extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
         onTap: (int index) {
-          String route = BaseDashboardScreen.route;
+          String route = BaseEmployeeDashboard.route;
 
           switch (index) {
             case 3:
@@ -39,7 +38,7 @@ class BaseDashboardScreen extends StatelessWidget {
             case 2:
               route = ChatScreen.route;
             case 1:
-              route = RecruterenScreen.route;
+              route = JobScreen.route;
             case 0:
               route = JobScreen.route;
           }
@@ -62,7 +61,7 @@ class BaseDashboardScreen extends StatelessWidget {
             ),
           ),
           BottomNavigationBarItem(
-            label: 'Recruteren',
+            label: 'Sollicitaties',
             icon: _NavigationBarIcon(
               icon: JobrIcons.magnifyingGlass,
               selected: selectedIndex == 1,
@@ -77,6 +76,84 @@ class BaseDashboardScreen extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             label: 'Mijn profiel',
+            icon: _NavigationBarIcon(
+              icon: JobrIcons.profile,
+              selected: selectedIndex == 3,
+            ),
+          ),
+        ],
+      ),
+      body: child,
+    );
+  }
+}
+
+class BaseEmployerDashboard extends StatelessWidget {
+  final Widget child;
+
+  final int selectedIndex;
+
+  const BaseEmployerDashboard({
+    super.key,
+    required this.child,
+    required this.selectedIndex,
+  });
+
+  static const String route = '/employer';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: selectedIndex,
+        onTap: (int index) {
+          String route = BaseEmployerDashboard.route;
+
+          switch (index) {
+            case 3:
+              route = ProfileScreen.route;
+            case 2:
+              route = ChatScreen.route;
+            case 1:
+              route = RecruterenScreen.route;
+            case 0:
+              route = RecruterenScreen.route;
+          }
+
+          router.pushReplacement(route);
+        },
+        selectedLabelStyle: TextStyles.bodySmall.copyWith(
+          color: Theme.of(context).primaryColor,
+          fontSize: 12,
+        ),
+        unselectedLabelStyle: TextStyles.bodySmall.copyWith(
+          fontSize: 12,
+        ),
+        items: [
+          BottomNavigationBarItem(
+            label: 'Vacatures',
+            icon: _NavigationBarIcon(
+              icon: JobrIcons.magnifyingGlass,
+              selected: selectedIndex == 0,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: 'Recruteren',
+            icon: _NavigationBarIcon(
+              icon: JobrIcons.magnifyingGlass,
+              selected: selectedIndex == 1,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: 'Chat',
+            icon: _NavigationBarIcon(
+              icon: JobrIcons.chat,
+              selected: selectedIndex == 2,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: 'Over Ons',
             icon: _NavigationBarIcon(
               icon: JobrIcons.profile,
               selected: selectedIndex == 3,
