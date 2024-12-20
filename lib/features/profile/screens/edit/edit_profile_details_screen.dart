@@ -402,6 +402,10 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                     color: Colors.black.withOpacity(.2),
                   ),
                 ),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 0,
+                ),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.black.withOpacity(.2),
