@@ -20,6 +20,18 @@ class RecruterenScreen extends StatefulWidget {
 }
 
 class _RecruterenScreenState extends State<RecruterenScreen> {
+  final FocusNode _searchFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _searchFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _unfocus() {
+    _searchFocusNode.unfocus();
+  }
+
   final List<Map<String, dynamic>> items = const [
     {
       "text": "Vast",
@@ -51,24 +63,47 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final keyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
 
-    return Scaffold(
-      appBar: const CommonAppbarNavigation(appbarTitle: "Recruteren"),
-      backgroundColor: theme.colorScheme.surface,
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return GestureDetector(
+      onTap: _unfocus,
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: const CommonAppbarNavigation(appbarTitle: "Recruteren"),
+        backgroundColor: theme.colorScheme.surface,
+        body: Column(
           children: [
-            const CommonSearchBar(),
-            const SizedBox(height: 14),
-            _buildGridView(),
-            const SizedBox(height: 10),
-            _buildFilterRow(theme),
-            const SizedBox(height: 30),
-            _buildJobrAISection(theme),
-            const SizedBox(height: 10),
-            _buildJobrAISuggestions(),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                    top: 10,
+                    bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CommonSearchBar(
+                        focusNode: _searchFocusNode,
+                      ),
+                      const SizedBox(height: 14),
+                      if (!keyboardOpen) ...[
+                        _buildGridView(),
+                        const SizedBox(height: 10),
+                        _buildFilterRow(theme),
+                        const SizedBox(height: 30),
+                        _buildJobrAISection(theme),
+                        const SizedBox(height: 10),
+                        _buildJobrAISuggestions(),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -105,7 +140,6 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
         );
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
         decoration: BoxDecoration(
           color: HexColor.fromHex('#F3F3F3'),
           borderRadius: BorderRadius.circular(12),
@@ -116,8 +150,8 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
           children: [
             Center(
               child: Image.asset(
-                height: 30,
-                width: 30,
+                height: 36,
+                width: 36,
                 item["image"]!,
               ),
             ),
@@ -127,6 +161,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
               child: Text(
                 item["text"]!,
                 style: const TextStyle(
+                  fontFamily: 'Inter',
                   color: Colors.black,
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
@@ -142,6 +177,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
 
   Widget _buildFilterRow(ThemeData theme) {
     return Container(
+      height: 42,
       padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
         color: theme.primaryColor,
@@ -153,10 +189,14 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
           Text(
             "Zoek met filters",
             style: TextStyle(
+              fontFamily: 'Inter',
               fontSize: 16,
               fontWeight: FontWeight.w700,
               color: theme.colorScheme.onPrimary,
             ),
+          ),
+          const SizedBox(
+            width: 5,
           ),
           Image.asset(
             height: 20,
@@ -183,6 +223,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
             Text(
               "Jobr-AI suggesties",
               style: TextStyle(
+                fontFamily: 'Inter',
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 color: theme.colorScheme.onPrimaryContainer,
@@ -195,6 +236,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
           child: Text(
             "Bekijk alle",
             style: TextStyle(
+              fontFamily: 'Inter',
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: theme.primaryColor,

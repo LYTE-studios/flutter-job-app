@@ -32,7 +32,7 @@ class CustomJobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.sizeOf(context).width * 0.9,
+      width: MediaQuery.sizeOf(context).width * 0.8,
       decoration: BoxDecoration(
         color: HexColor.fromHex('#F6F6F6'),
         borderRadius: BorderRadius.circular(20),
@@ -67,8 +67,8 @@ class CustomJobCard extends StatelessWidget {
 
   Container _buildProfileImage() {
     return Container(
-      width: 70,
-      height: 70,
+      width: 82,
+      height: 82,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white, width: 4),
@@ -87,6 +87,7 @@ class CustomJobCard extends StatelessWidget {
         Text(
           userName,
           style: TextStyle(
+            fontFamily: 'Inter',
             fontSize: 18,
             fontWeight: FontWeight.w700,
             color: theme.colorScheme.onPrimaryContainer,
@@ -115,6 +116,7 @@ class CustomJobCard extends StatelessWidget {
         Text(
           location,
           style: TextStyle(
+            fontFamily: 'Inter',
             color: HexColor.fromHex('#666666'),
             fontSize: 15,
             fontWeight: FontWeight.w500,
@@ -136,6 +138,7 @@ class CustomJobCard extends StatelessWidget {
         Text(
           "$age jaar",
           style: TextStyle(
+            fontFamily: 'Inter',
             color: HexColor.fromHex('#666666'),
             fontSize: 15,
             fontWeight: FontWeight.w500,
@@ -151,16 +154,23 @@ class CustomJobCard extends StatelessWidget {
     return ReadMoreText(
       description,
       trimLines: 3,
-      style: TextStyle(color: HexColor.fromHex('#4A4C53'), fontSize: 16),
+      style: TextStyle(
+        fontFamily: 'Inter',
+        color: HexColor.fromHex('#4A4C53'),
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
       trimMode: TrimMode.Line,
       trimCollapsedText: '\nleer meer',
       trimExpandedText: '...Toon minder',
       lessStyle: TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryColor,
         fontSize: 15,
         fontWeight: FontWeight.w600,
       ),
       moreStyle: TextStyle(
+        fontFamily: 'Inter',
         color: theme.primaryColor,
         fontSize: 15,
         fontWeight: FontWeight.w600,
@@ -174,7 +184,7 @@ class CustomJobCard extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          flex: 3,
+          flex: 2,
           child: CommonButton(
             onButtonPressed: () => onButtonPressed,
             buttonText: buttonText,
@@ -209,6 +219,7 @@ class CustomJobCard extends StatelessWidget {
             child: Text(
               "$suggestionPercentage%",
               style: TextStyle(
+                fontFamily: 'Inter',
                 color: theme.primaryColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w700,

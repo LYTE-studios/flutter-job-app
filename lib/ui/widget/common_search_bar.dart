@@ -7,30 +7,41 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 class CommonSearchBar extends StatelessWidget {
   final Function(String)? onChanged;
   final String hintText;
+  final FocusNode? focusNode;
 
   const CommonSearchBar({
     super.key,
     this.onChanged,
     this.hintText = 'Zoek op naam, school, andere zaken, ...',
+    this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle interTextStyle = TextStyle(
+      fontFamily: 'Inter',
+      fontSize: TextStyles.labelSmall.fontSize,
+      fontWeight: TextStyles.labelSmall.fontWeight,
+      color: TextStyles.labelSmall.color,
+    );
+
     return Container(
-      height: 40,
+      height: 42,
       decoration: BoxDecoration(
         color: HexColor.fromHex('#D9D9D9').withOpacity(0.3),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Center(
         child: TextField(
+          focusNode: focusNode,
           onChanged: onChanged,
           cursorHeight: 20,
-          style: TextStyles.labelSmall,
+          style: interTextStyle,
+          textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
             isDense: true,
             hintText: hintText,
-            hintStyle: TextStyles.labelSmall.copyWith(
+            hintStyle: interTextStyle.copyWith(
               color: HexColor.fromHex('#000000').withOpacity(0.33),
             ),
             border: InputBorder.none,
@@ -41,7 +52,7 @@ class CommonSearchBar extends StatelessWidget {
               child: Center(
                 child: SvgIcon(
                   JobrIcons.magnifyingGlass,
-                  size: 20,
+                  size: 21,
                   color: HexColor.fromHex('#999999'),
                 ),
               ),

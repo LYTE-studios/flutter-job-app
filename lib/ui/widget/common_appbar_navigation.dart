@@ -9,15 +9,10 @@ class CommonAppbarNavigation extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Padding(
-        padding: const EdgeInsets.only(left: 6),
-        child: Text(
-          appbarTitle,
-          style: const TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
+      title: Text(
+        appbarTitle,
+        style: const TextStyle(
+            fontSize: 25, fontWeight: FontWeight.w700, fontFamily: 'inter'),
       ),
       centerTitle: false,
     );
