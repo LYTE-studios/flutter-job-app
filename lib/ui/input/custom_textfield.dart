@@ -21,6 +21,9 @@ class CustomTextField extends StatelessWidget {
 
   final EdgeInsets contentPadding;
 
+  /// Determines whether the text field hides input
+  final bool obscureText;
+
   const CustomTextField({
     super.key,
     required this.controller,
@@ -33,6 +36,7 @@ class CustomTextField extends StatelessWidget {
     this.contentPadding = const EdgeInsets.symmetric(
       horizontal: 23,
     ),
+    this.obscureText = false, // Default to false
   });
 
   @override
@@ -41,13 +45,13 @@ class CustomTextField extends StatelessWidget {
       cursorHeight: 27,
       style: TextStyles.bodySmall,
       controller: controller,
+      obscureText: obscureText, // New property to obscure text
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
           horizontal: PaddingSizes.large,
         ),
         hintText: hintText,
       ),
-      // Add other properties as needed, e.g., controller, onChanged, etc.
     );
   }
 }

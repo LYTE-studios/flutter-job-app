@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/ui/base/base_container.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 import '../../models/list_model.dart';
 import '../widgets/custom_list_tile.dart';
+import '../edit/choose_company_screen.dart';
+import '../edit/choose_sector_screen.dart';
+import '../edit/make_a_choice_screen.dart';
+import '../edit/new_expereince_screen.dart';
 
 class GeneralItemsWidget extends StatefulWidget {
   const GeneralItemsWidget({
@@ -64,6 +71,8 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
   ];
 
   List<String> skills = ['📝 Schrijven', '📷 Content creation', '💄 Make-up'];
+  bool editExperience = false;
+  bool editSkills = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,12 +81,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-          ),
+        BaseContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -94,29 +98,63 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      SvgPicture.asset(
-                        JobrIcons.edit,
-                        width: 17,
-                        height: 17,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
+                      if (!editExperience)
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              editExperience = !editExperience;
+                            });
+                          },
+                          child: SvgPicture.asset(
+                            JobrIcons.edit,
+                            width: 17,
+                            height: 17,
+                            colorFilter: ColorFilter.mode(
+                              HexColor.fromHex('#A4A4A4'),
+                              BlendMode.srcIn,
+                            ),
+                          ),
                         ),
-                      ),
                       const SizedBox(width: 10),
-                      SvgPicture.asset(
-                        JobrIcons.add,
-                        width: 20,
-                        height: 20,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
+                      InkWell(
+                        onTap: () {
+                          // context.push(CreateNewCompanyScreen.route);
+                          context.push(NewExpereinceScreen.route);
+                        },
+                        child: SvgPicture.asset(
+                          JobrIcons.add,
+                          width: 20,
+                          height: 20,
+                          colorFilter: ColorFilter.mode(
+                            HexColor.fromHex('#A4A4A4'),
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
+                      if (editExperience) ...[
+                        const SizedBox(width: 10),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              editExperience = !editExperience;
+                            });
+                          },
+                          child: SvgPicture.asset(
+                            JobrIcons.check,
+                            width: 17,
+                            height: 17,
+                            colorFilter: ColorFilter.mode(
+                              theme.primaryColor,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
+                      ]
                     ],
                   ),
                 ],
               ),
+              const SizedBox(height: 10),
               if (experience.isNotEmpty)
                 ListView.separated(
                   shrinkWrap: true,
@@ -138,6 +176,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                     subTitle: experience[index].subTitle,
                     duration: experience[index].duration,
                     time: experience[index].time,
+                    edit: editExperience,
                   ),
                 )
               else ...[
@@ -172,12 +211,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
           ),
         ),
         const SizedBox(height: 20),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-          ),
+        BaseContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -194,28 +228,32 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      SvgPicture.asset(
+                      SvgIcon(
                         JobrIcons.edit,
-                        width: 17,
-                        height: 17,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
-                        ),
+                        size: 17,
+                        color: TextStyles.unselectedText,
                       ),
                       const SizedBox(width: 10),
-                      SvgPicture.asset(
-                        JobrIcons.add,
-                        width: 20,
-                        height: 20,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
+                      InkWell(
+                        onTap: () {
+                          context.push(ChooseCompanyScreen.route);
+                        },
+                        child: SvgPicture.asset(
+                          JobrIcons.add,
+                          width: 20,
+                          height: 20,
+                          colorFilter: ColorFilter.mode(
+                            HexColor.fromHex('#A4A4A4'),
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ],
+              ),
+              const SizedBox(
+                height: 14,
               ),
               if (education.isNotEmpty)
                 ListView.separated(
@@ -271,12 +309,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
           ),
         ),
         const SizedBox(height: 20),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-          ),
+        BaseContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -293,20 +326,45 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      SvgPicture.asset(
-                        JobrIcons.edit,
-                        width: 17,
-                        height: 17,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
+                      if (!editSkills)
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              editSkills = !editSkills;
+                            });
+                          },
+                          child: SvgPicture.asset(
+                            JobrIcons.edit,
+                            width: 17,
+                            height: 17,
+                            colorFilter: ColorFilter.mode(
+                              HexColor.fromHex('#A4A4A4'),
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        )
+                      else
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              editSkills = !editSkills;
+                            });
+                          },
+                          child: Text(
+                            'Aanpassen',
+                            style: TextStyle(
+                              color: theme.primaryColor,
+                              fontSize: 16,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              if (!editExperience) const SizedBox(height: 10),
               Wrap(
                 children: [
                   ...skills.map(
@@ -335,12 +393,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
           ),
         ),
         const SizedBox(height: 20),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-          ),
+        BaseContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -357,20 +410,27 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      SvgPicture.asset(
-                        JobrIcons.edit,
-                        width: 17,
-                        height: 17,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
+                      InkWell(
+                        onTap: () {
+                          context.push(ChooseSectorScreen.route);
+                        },
+                        child: SvgPicture.asset(
+                          JobrIcons.edit,
+                          width: 17,
+                          height: 17,
+                          colorFilter: ColorFilter.mode(
+                            HexColor.fromHex('#A4A4A4'),
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(
+                height: 14,
+              ),
               const Text(
                 'Engels, Italiaans',
                 style: TextStyle(
@@ -383,12 +443,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
           ),
         ),
         const SizedBox(height: 20),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-          ),
+        BaseContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -405,30 +460,33 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      SvgPicture.asset(
+                      SvgIcon(
                         JobrIcons.edit,
-                        width: 17,
-                        height: 17,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
-                        ),
+                        size: 17,
+                        color: TextStyles.unselectedText,
                       ),
                       const SizedBox(width: 10),
-                      SvgPicture.asset(
-                        JobrIcons.add,
-                        width: 20,
-                        height: 20,
-                        colorFilter: ColorFilter.mode(
-                          HexColor.fromHex('#A4A4A4'),
-                          BlendMode.srcIn,
+                      InkWell(
+                        onTap: () {
+                          context.push(MakeAChoiceScreen.route);
+                        },
+                        child: SvgPicture.asset(
+                          JobrIcons.add,
+                          width: 20,
+                          height: 20,
+                          colorFilter: ColorFilter.mode(
+                            HexColor.fromHex('#A4A4A4'),
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(
+                height: 14,
+              ),
               SvgPicture.asset(
                 JobrIcons.blockquote,
               ),
