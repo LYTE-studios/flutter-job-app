@@ -179,18 +179,18 @@ class _ChatScreenState extends State<ChatRequest> {
                             ),
                           ),
                         ),
-                        if (message.showSeen == true)
-                          const Padding(
-                            padding: EdgeInsets.only(top: 2.0, right: 8.0),
-                            child: Text(
-                              "Gelezen",
-                              style: TextStyle(
-                                color: const Color(0xFF3976FF),
-                                fontSize: 13,
-                                fontFamily: 'DMSans',
-                              ),
-                            ),
-                          ),
+                        // if (message.showSeen == true)
+                        //   const Padding(
+                        //     padding: EdgeInsets.only(top: 2.0, right: 8.0),
+                        //     child: Text(
+                        //       "Gelezen",
+                        //       style: TextStyle(
+                        //         color: const Color(0xFF3976FF),
+                        //         fontSize: 13,
+                        //         fontFamily: 'DMSans',
+                        //       ),
+                        //     ),
+                        //   ),
                       ],
                     );
                   },
