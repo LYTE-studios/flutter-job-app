@@ -255,18 +255,8 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
       height: 240, // Adjust card width as needed
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey[50]!, // Light background color
-        ),
-        color: Colors.grey[50], // Light background color
+        color: Colors.grey[100], // Light background color
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: Offset(0, 4),
-          ),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -348,8 +338,8 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                 decoration: BoxDecoration(
                   color: Colors.grey[50],
-                  border: Border.all(color: Colors.pinkAccent, width: 2),
                   borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.pinkAccent, width: 2),
                 ),
                 child: Row(
                   children: [

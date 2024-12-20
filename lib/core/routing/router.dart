@@ -75,7 +75,7 @@ GoRouter router = GoRouter(
           path: JobScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(
-            child: JobScreen(),
+            child: JobVerifiedScreen(),
           ),
         ),
       ],
