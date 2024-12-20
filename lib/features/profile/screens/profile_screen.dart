@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 import '../../../ui/theme/jobr_icons.dart';
+import 'edit/edit_profile_details_screen.dart';
 import 'tabs/general_item_widget.dart';
 import 'tabs/media_item_widget.dart';
 
@@ -41,14 +45,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              expandedHeight: 300,
+              expandedHeight: 200,
               floating: false,
               pinned: true,
               title: innerBoxIsScrolled
-                  ? Text(
+                  ? const Text(
                       "Louis Ottevaere",
                       style: TextStyle(
                         fontSize: 18,
+                        fontFamily: 'Inter',
                         fontWeight: FontWeight.w600,
                       ),
                     )
@@ -87,15 +92,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Image.asset(
                         'assets/images/images/image-4.png',
                         fit: BoxFit.cover,
-                        height: 280,
+                        height: 180,
                       ),
                     ),
                     Positioned(
                       bottom: 0,
                       left: 10,
                       child: Container(
-                        width: 123,
-                        height: 123,
+                        width: 135,
+                        height: 135,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
@@ -111,10 +116,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: 25,
+                      top: 156,
                       right: 10,
                       child: ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.push(EditProfileDetailsScreen.route);
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.primaryColor,
                         ),
@@ -123,12 +130,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           style: TextStyle(
                             color: TextStyles.clearText,
                             fontSize: 16,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                        icon: Icon(
-                          Icons.edit,
-                          color: TextStyles.clearText,
-                          size: 24,
+                        icon: Padding(
+                          padding: const EdgeInsets.only(left: 4.0),
+                          child: SvgPicture.asset(
+                            JobrIcons.edit,
+                            width: 16,
+                            height: 16,
+                            colorFilter: ColorFilter.mode(
+                              TextStyles.clearText,
+                              BlendMode.srcIn,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -139,14 +155,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ];
         },
         body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           physics: const ClampingScrollPhysics(),
           children: [
-            Text(
+            const Text(
               "Louis Ottevaere",
               style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w800,
               ),
             ),
             const SizedBox(height: 8),
@@ -154,11 +171,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               "louisottevaere@gmail.com",
               style: TextStyle(
                 fontSize: 17,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Inter',
                 color: TextStyles.unselectedText,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
             Row(
               children: [
                 SvgIcon(
@@ -168,7 +186,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: theme.primaryColor,
                 ),
                 const SizedBox(width: 4),
-                Text(
+                const Text(
                   "Kortrijk",
                   style: TextStyle(
                     fontSize: 17,
@@ -177,47 +195,61 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            Text(
-              "Ik ben Louis, 30 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste service geven.",
-              style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
+            const SizedBox(height: 22),
+            const Padding(
+              padding: EdgeInsets.only(
+                right: 72,
+              ),
+              child: Text(
+                "Ik ben Louis, 30 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste service geven.",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                _buildStat("36", "sollicitaties", JobrIcons.jobApplications),
-                Container(
-                  width: 1,
-                  height: 70,
-                  color: theme.colorScheme.primaryContainer,
-                  margin: EdgeInsets.symmetric(horizontal: 25),
-                ),
-                _buildStat("12", "sessies", JobrIcons.phone),
-                Container(
-                  width: 1,
-                  height: 70,
-                  color: theme.colorScheme.primaryContainer,
-                  margin: EdgeInsets.symmetric(horizontal: 25),
-                ),
-                _buildStat("22", "verzoeken", JobrIcons.chat),
-              ],
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: PaddingSizes.small,
+              ),
+              child: Row(
+                children: [
+                  _buildStat("36", "sollicitaties", JobrIcons.jobApplications),
+                  SizedBox(
+                    height: 46,
+                    child: VerticalDivider(
+                      thickness: 1.5,
+                      width: 42,
+                      color: HexColor.fromHex('#F0F1F3'),
+                    ),
+                  ),
+                  _buildStat("12", "sessies", JobrIcons.phone),
+                  SizedBox(
+                    height: 46,
+                    child: VerticalDivider(
+                      thickness: 1.5,
+                      width: 42,
+                      color: HexColor.fromHex('#F0F1F3'),
+                    ),
+                  ),
+                  _buildStat("22", "verzoeken", JobrIcons.chat),
+                ],
+              ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 27),
             Row(
               children: List.generate(
                 tabData.length,
                 (index) => Container(
-                  margin: EdgeInsets.only(right: 20),
-                  child: ElevatedButton.icon(
+                  margin: const EdgeInsets.only(right: 10),
+                  child: FilledButton.icon(
                     onPressed: () {
                       setState(() {
                         selectedIndex = index;
                       });
                     },
-                    style: ElevatedButton.styleFrom(
+                    style: FilledButton.styleFrom(
                       backgroundColor: selectedIndex == index
                           ? theme.primaryColor
                           : TextStyles.clearText,
@@ -233,25 +265,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: selectedIndex == index
                             ? TextStyles.clearText
                             : TextStyles.unselectedText,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Inter',
                         fontSize: 16,
                       ),
                     ),
-                    icon: SvgPicture.asset(
-                      tabData[index].icon,
-                      width: 16,
-                      height: 16,
-                      colorFilter: ColorFilter.mode(
-                        selectedIndex == index
-                            ? TextStyles.clearText
-                            : TextStyles.unselectedText,
-                        BlendMode.srcIn,
+                    icon: Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: SvgPicture.asset(
+                        tabData[index].icon,
+                        width: 16,
+                        height: 16,
+                        colorFilter: ColorFilter.mode(
+                          selectedIndex == index
+                              ? TextStyles.clearText
+                              : TextStyles.unselectedText,
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: tabs[selectedIndex],
@@ -266,28 +303,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgIcon(
               icon,
-              size: 16,
-              leaveUnaltered: true,
-              color: TextStyles.mainText,
+              size: 17,
+              color: TextStyles.secondaryText,
             ),
-            SizedBox(width: 5),
+            const SizedBox(width: 6),
             Text(
               number,
               style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+                fontSize: 19,
+                fontFamily: 'Inter',
+                color: TextStyles.secondaryText,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ],
         ),
-        const SizedBox(height: 4),
         Text(
           label,
           style: TextStyle(
-            color: TextStyles.unselectedText,
+            fontSize: 15,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w500,
+            color: HexColor.fromHex('#82838C'),
           ),
         ),
       ],
