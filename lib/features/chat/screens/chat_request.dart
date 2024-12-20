@@ -170,7 +170,7 @@ class _ChatScreenState extends State<ChatRequest> {
                             ),
                             child: Text(
                               message.content,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 // color: message.isSentByMe
                                 //     ? Colors.white
                                 //     : Colors.black,
