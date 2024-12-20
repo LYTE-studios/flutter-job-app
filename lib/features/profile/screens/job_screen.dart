@@ -163,6 +163,7 @@ class _JobScreenState extends State<JobScreen> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Container(
+          height: 48,
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
             color: theme.primaryColor,

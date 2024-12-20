@@ -173,7 +173,8 @@ class _FilterScreenState extends State<FilterScreen> {
                   enabledThumbRadius: 12.0, // Adjust size
                   borderColor: Colors.white, // White border
                 ),
-                overlayShape: const RoundSliderOverlayShape(overlayRadius: 24.0),
+                overlayShape:
+                    const RoundSliderOverlayShape(overlayRadius: 24.0),
               ),
               child: Slider(
                 value: _sliderValue,

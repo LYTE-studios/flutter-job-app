@@ -38,7 +38,7 @@ class BaseEmployeeDashboard extends StatelessWidget {
             case 2:
               route = ChatScreen.route;
             case 1:
-              route = JobScreen.route;
+              route = RecruterenScreen.route;
             case 0:
               route = JobScreen.route;
           }
@@ -63,7 +63,7 @@ class BaseEmployeeDashboard extends StatelessWidget {
           BottomNavigationBarItem(
             label: 'Sollicitaties',
             icon: _NavigationBarIcon(
-              icon: JobrIcons.magnifyingGlass,
+              icon: JobrIcons.sheet,
               selected: selectedIndex == 1,
             ),
           ),

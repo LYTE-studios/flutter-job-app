@@ -61,7 +61,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const CommonSearchBar(
-              hintText: '',
+              hintText: 'Zoek op naam, school, andere zaken, ...',
             ),
             const SizedBox(height: 14),
             _buildGridView(),
@@ -143,29 +143,33 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
   }
 
   Widget _buildFilterRow(ThemeData theme) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      decoration: BoxDecoration(
-        color: theme.primaryColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Zoek met filters",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: theme.colorScheme.onPrimary,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Container(
+        height: 48,
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: theme.primaryColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Zoek met filters ",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: theme.colorScheme.onPrimary,
+              ),
             ),
-          ),
-          Image.asset(
-            height: 20,
-            width: 20,
-            "assets/images/recruteren/filter.png",
-          ),
-        ],
+            Image.asset(
+              height: 20,
+              width: 20,
+              "assets/images/recruteren/filter.png",
+            ),
+          ],
+        ),
       ),
     );
   }
