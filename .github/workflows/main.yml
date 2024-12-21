@@ -18,8 +18,10 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
     
-    - name: Build iOS app
-      run: flutter build ios --release
+    - name: Build iOS IPA
+      run: |
+        flutter build ipa --release \
+        --export-options-plist=ios/Runner/ExportOptions.plist
     
     - name: Deploy to TestFlight
       uses: apple-actions/upload-testflight-build@v1
