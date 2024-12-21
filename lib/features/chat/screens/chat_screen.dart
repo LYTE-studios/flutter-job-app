@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jobr/features/chat/screens/chat_request.dart';
 import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
+import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 
 class ChatScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
+  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'chat';
 
   const ChatScreen({super.key});
@@ -37,25 +38,13 @@ class _ChatScreenState extends State<ChatScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(left: 6),
-          child: Text(
-            'Chat',
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
-        centerTitle: false, // Ensures the title is aligned to the left
-      ),
+      appBar: const CommonAppbarNavigation(appbarTitle: "Chat"),
       body: Container(
         width: screenWidth,
         height: screenHeight,
         color: const Color(0xFFFFFFFF),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 17.0), // Add padding
+          padding: const EdgeInsets.symmetric(horizontal: 17.0),
           child: Column(
             children: [
               Row(

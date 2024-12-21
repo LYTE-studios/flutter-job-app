@@ -3,8 +3,8 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class JobrIcons {
   static const String _basePath = 'assets/images';
-  static const String _baseIconPath = 'assets/images/icons';
-  static const String _baseLogoPath = 'assets/images/logos';
+  static const String _baseIconPath = '$_basePath/icons';
+  static const String _baseLogoPath = '$_basePath/logos';
 
   static Future<void> preload(BuildContext context) async {
     for (String icon in icons) {
@@ -29,6 +29,7 @@ class JobrIcons {
   static const String emailIcon = '$_baseIconPath/email.svg';
   static const String chevronLeftIcon = '$_baseIconPath/chevron_left.svg';
   static const String chat = '$_baseIconPath/chat.svg';
+  static const String send = '$_baseIconPath/send.svg';
   static const String profile = '$_baseIconPath/profile.svg';
   static const String magnifyingGlass = '$_baseIconPath/magnifying_glass.svg';
   static const String sheet = '$_baseIconPath/sheet.svg';
@@ -46,6 +47,8 @@ class JobrIcons {
   static const String close = '$_baseIconPath/close.svg';
   static const String check = '$_baseIconPath/check.svg';
   static const String calenda = '$_baseIconPath/calenda.svg';
+  static const String people = '$_baseIconPath/people.svg';
+  static const String company = '$_baseIconPath/company.svg';
 
   static const List<String> icons = [
     logoLight,

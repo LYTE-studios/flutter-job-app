@@ -1,35 +1,21 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/data/models/user.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
 import 'package:jobr/ui/buttons/jobr_icon_button.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final navigationProvider = Provider<NavigationNotifier>((ref) {
-  return NavigationNotifier();
-});
-
-class NavigationNotifier {
-  void goToChatScreen(BuildContext context) {
-    context.pushReplacement(ChatScreen.route);
-  }
-
-  void goToLoginScreen(BuildContext context) {
-    context.push(LoginScreen.route);
-  }
-}
-
-class FirstGlanceScreen extends ConsumerWidget {
+class FirstGlanceScreen extends StatelessWidget {
   static const String route = '/$location';
   static const String location = '';
 
   const FirstGlanceScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final navigation = ref.read(navigationProvider);
-
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -40,7 +26,15 @@ class FirstGlanceScreen extends ConsumerWidget {
         JobrIconButton(
           textIcon: "⚡",
           label: "Ik zoek een job",
-          onPressed: () => navigation.goToChatScreen(context),
+          onPressed: () {
+            context.push(
+              LoginScreen.route,
+              extra: {
+                'userType': UserType.employee,
+                'isNewUser': true,
+              },
+            );
+          },
         ),
         const SizedBox(
           height: 10,
@@ -48,7 +42,15 @@ class FirstGlanceScreen extends ConsumerWidget {
         JobrIconButton(
           textIcon: "💼",
           label: "Ik zoek talent",
-          onPressed: () => navigation.goToLoginScreen(context),
+          onPressed: () {
+            context.push(
+              LoginScreen.route,
+              extra: {
+                'userType': UserType.employer,
+                'isNewUser': true,
+              },
+            );
+          },
         ),
         SizedBox(
           height: 81,
@@ -66,6 +68,16 @@ class FirstGlanceScreen extends ConsumerWidget {
                     text: 'Heb je al een account? ',
                   ),
                   TextSpan(
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        context.push(
+                          LoginScreen.route,
+                          extra: {
+                            'userType': UserType.employer,
+                            'isNewUser': false,
+                          },
+                        );
+                      },
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Theme.of(context).primaryColor,

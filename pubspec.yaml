@@ -2,7 +2,7 @@ name: jobr
 description: ""
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+10
+version: 1.0.0+14
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -29,6 +29,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   logger: ^2.5.0
   file_picker: ^8.0.6
+  readmore: ^3.0.0
 
 dependency_overrides:
   file_picker: 8.0.6
@@ -46,9 +47,13 @@ flutter:
   assets:
     - assets/images/background/
     - assets/images/icons/
+    - assets/images/jobs/
     - assets/images/logos/
+    - assets/images/recruteren/
     - assets/images/images/
     - assets/images/
+  
+
 
   fonts:
     - family: Inter

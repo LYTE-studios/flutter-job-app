@@ -44,7 +44,7 @@ class SubscriptionPage extends StatefulWidget {
   const SubscriptionPage({super.key});
 
   @override
-  _SubscriptionPageState createState() => _SubscriptionPageState();
+  State<SubscriptionPage> createState() => _SubscriptionPageState();
 }
 
 class _SubscriptionPageState extends State<SubscriptionPage> {
@@ -234,7 +234,8 @@ class PlanCard extends StatelessWidget {
   final Color backgroundColor;
   final bool isPopular;
 
-  const PlanCard({super.key, 
+  const PlanCard({
+    super.key,
     required this.title,
     required this.price,
     required this.description,

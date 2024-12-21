@@ -6,7 +6,7 @@ import '../../../../ui/theme/jobr_icons.dart';
 import '../../../dashboard/base/base_dashboard_screen.dart';
 
 class MakeAChoiceScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
+  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'make-a-choice';
   const MakeAChoiceScreen({super.key});
 
@@ -104,7 +104,7 @@ class _MakeAChoiceScreenState extends State<MakeAChoiceScreen> {
                           const SizedBox(height: 5),
                           Text(
                             item.text,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Inter',

@@ -9,6 +9,7 @@ class PrimaryButton extends StatelessWidget {
   final double borderRadius;
   final double width;
   final double height;
+  final TextStyle? textStyle;
 
   const PrimaryButton({
     super.key,
@@ -16,9 +17,10 @@ class PrimaryButton extends StatelessWidget {
     required this.buttonText,
     this.buttonColor = const Color(0xFFFF3E68),
     this.textColor = Colors.white,
-    this.borderRadius = 27,
-    this.width = 346,
-    this.height = 50,
+    this.borderRadius = 18,
+    this.width = double.infinity,
+    this.height = 56,
+    this.textStyle,
   });
 
   @override
@@ -26,9 +28,9 @@ class PrimaryButton extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: ElevatedButton(
+      child: FilledButton(
         onPressed: onTap,
-        style: ElevatedButton.styleFrom(
+        style: FilledButton.styleFrom(
           backgroundColor: buttonColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
@@ -38,10 +40,12 @@ class PrimaryButton extends StatelessWidget {
         child: Center(
           child: Text(
             buttonText,
-            style: TextStyle(
-              color: textColor,
-              fontWeight: FontWeight.bold,
-            ),
+            style: textStyle ??
+                TextStyle(
+                  fontSize: 18,
+                  color: textColor,
+                  fontWeight: FontWeight.w600,
+                ),
           ),
         ),
       ),

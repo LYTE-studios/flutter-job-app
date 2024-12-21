@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/data/models/user.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
+import 'package:jobr/features/chat/screens/chat_screen.dart';
+import 'package:jobr/features/jobs/job_screen.dart';
+import 'package:jobr/features/profile/screens/recruteren_screen.dart';
 import 'package:jobr/ui/buttons/primary_button.dart';
 import 'package:jobr/ui/input/custom_textfield.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jobr/data/providers/auth_providers.dart';
 
 class EmailRegisterScreen extends ConsumerStatefulWidget {
+  final UserType userType;
+
+  const EmailRegisterScreen({
+    super.key,
+    required this.userType,
+  });
+
   static const String route = '${LoginScreen.route}/$location';
   static const String location = 'email-register';
-
-  const EmailRegisterScreen({super.key});
 
   @override
   ConsumerState<EmailRegisterScreen> createState() =>
@@ -24,6 +34,13 @@ class _EmailRegisterScreenState extends ConsumerState<EmailRegisterScreen> {
   final TextEditingController tecConfirmPassword = TextEditingController();
 
   void _register() {
+    if (widget.userType == UserType.employee) {
+      context.go(JobScreen.route);
+    } else {
+      context.go(RecruterenScreen.route);
+    }
+
+    return;
     final data = {
       "email": tecEmail.text,
       "password": tecPassword.text,
