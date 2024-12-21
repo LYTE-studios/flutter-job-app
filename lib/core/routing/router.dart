@@ -14,6 +14,8 @@ import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/jobs/job_screen_verified.dart';
 import 'package:jobr/features/jobs/jobdetail_screen.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
+import 'package:jobr/features/vacatures/delete_vacancy.dart';
+import 'package:jobr/features/vacatures/vacatures.dart';
 
 import '../../features/profile/screens/create_profile_screen.dart';
 import '../../features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
@@ -76,8 +78,8 @@ GoRouter router = GoRouter(
         GoRoute(
           path: JobScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
-            child: JobScreen(),
+              NoTransitionPage(
+            child: VacaturesPage(),
           ),
         ),
       ],
@@ -185,6 +187,12 @@ GoRouter router = GoRouter(
         );
       },
     ),
+    GoRoute(
+        path: '/vacancies/delete_vacancy',
+        pageBuilder: (BuildContext context, GoRouterState state) =>
+            NoTransitionPage(
+              child: DeleteVacancyPage(),
+            )),
     GoRoute(
       path: JobrAiSuggestionsScreen.route,
       pageBuilder: (BuildContext context, GoRouterState state) =>
