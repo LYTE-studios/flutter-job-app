@@ -27,7 +27,7 @@ import '../../features/profile/screens/edit/make_a_choice_screen.dart';
 import '../../features/profile/screens/edit/new_experience_screen.dart';
 
 GoRouter router = GoRouter(
-  initialLocation: FirstGlanceScreen.route,
+  initialLocation: ProfileScreen.route,
   routes: <RouteBase>[
     // Employee
     ShellRoute(
