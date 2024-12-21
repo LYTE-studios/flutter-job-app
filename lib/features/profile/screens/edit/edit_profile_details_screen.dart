@@ -53,7 +53,6 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       body: NestedScrollView(
@@ -114,21 +113,21 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                       child: Image.asset(
                         'assets/images/images/image-4.png',
                         fit: BoxFit.cover,
-                        height: 160,
+                        height: 180,
                       ),
                     ),
                     Positioned(
-                      bottom: 10,
+                      bottom: 0,
                       left: 10,
                       child: SizedBox(
-                        width: 135,
-                        height: 135,
+                        width: 140,
+                        height: 140,
                         child: Stack(
                           children: [
                             Positioned.fill(
                               child: Container(
-                                width: 135,
-                                height: 135,
+                                width: 140,
+                                height: 140,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
@@ -172,7 +171,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: height * .09,
+                      top: 120,
                       right: 10,
                       child: IconButton(
                         onPressed: () {},
@@ -186,8 +185,8 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                         ),
                         icon: SvgPicture.asset(
                           JobrIcons.edit,
-                          width: 20.68,
-                          height: 20.68,
+                          width: 21.68,
+                          height: 21.68,
                           colorFilter: ColorFilter.mode(
                             TextStyles.clearText,
                             BlendMode.srcIn,
@@ -196,7 +195,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: height * .03,
+                      bottom: 10,
                       right: 10,
                       child: TextButton(
                         onPressed: () {},
@@ -272,7 +271,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 5),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(8),
                           color: theme.primaryColor,
                         ),
                         child: Row(
@@ -283,13 +282,13 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                               colorFilter: const ColorFilter.mode(
                                   Colors.white, BlendMode.srcIn),
                             ),
-                            const SizedBox(width: 2),
+                            const SizedBox(width: 4),
                             Text(
                               locationController.text,
                               style: const TextStyle(
-                                fontSize: 14,
+                                fontSize: 15.36,
                                 fontFamily: 'Inter',
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.white,
                               ),
                             ),
