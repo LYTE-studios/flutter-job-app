@@ -10,7 +10,7 @@ import '../../../../ui/theme/text_styles.dart';
 import '../../../dashboard/base/base_dashboard_screen.dart';
 
 class EditProfileDetailsScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
+  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'edit-profile';
   const EditProfileDetailsScreen({super.key});
 

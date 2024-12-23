@@ -13,46 +13,66 @@ class JobrAiSuggestionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: const Row(
+        automaticallyImplyLeading: false,
+        title: Row(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Jobr-AI Suggesties",
-              style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w700,
-              ),
+            Row(
+              children: [
+                InkWell(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Image.asset(
+                    height: 15,
+                    width: 15,
+                    "assets/images/icons/cross_icon.png",
+                  ),
+                ),
+              ],
             ),
+            const Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Jobr-AI Suggesties",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
         centerTitle: true,
       ),
-      body: ListView.separated(
-        separatorBuilder: (context, index) => const Divider(
-          height: 10,
-          color: Colors.transparent,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView.separated(
+          separatorBuilder: (context, index) => const Divider(
+            height: 10,
+            color: Colors.transparent,
+          ),
+          itemCount: 5,
+          itemBuilder: (context, index) {
+            return CustomJobCard(
+              description:
+                  "Ik ben Yassine, 20 jaar en super gemotiveerd om doen waar ik het beste in ben: mensen de beste serv klasjdnas sdakldnas dalskdnalksn lkasjdlks lmasndklnasl dlasndlknasl dasln",
+              age: "20",
+              buttonColor: HexColor.fromHex('#3976FF'),
+              buttonText: "Chat starten",
+              buttonIcon: JobrIcons.send,
+              location: "Brussel",
+              userName: "Yassine Vuran",
+              onButtonPressed: () {},
+              profileImagePath: "assets/images/images/image-3.png",
+              suggestionPercentage: "74",
+              showBottomText: true,
+            );
+          },
         ),
-        padding: const EdgeInsets.all(16),
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return CustomJobCard(
-            description:
-                "Ik ben Yassine, 20 jaar en super gemotiveerd om doen waar ik het beste in ben: mensen de beste serv",
-            age: "20",
-            buttonColor: HexColor.fromHex('#3976FF'),
-            buttonText: "Chat starten",
-            buttonIcon: JobrIcons.send,
-            location: "Brussel",
-            userName: "Yassine Vuran",
-            onButtonPressed: () {},
-            profileImagePath: "assets/images/images/image-3.png",
-            suggestionPercentage: "74",
-          );
-        },
       ),
     );
   }

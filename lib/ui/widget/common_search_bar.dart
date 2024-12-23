@@ -7,13 +7,11 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 class CommonSearchBar extends StatelessWidget {
   final Function(String)? onChanged;
   final String hintText;
-  final FocusNode? focusNode;
 
   const CommonSearchBar({
     super.key,
     this.onChanged,
-    this.hintText = 'Zoek op naam, school, andere zaken, ...',
-    this.focusNode,
+    required this.hintText,
   });
 
   @override
@@ -33,7 +31,6 @@ class CommonSearchBar extends StatelessWidget {
       ),
       child: Center(
         child: TextField(
-          focusNode: focusNode,
           onChanged: onChanged,
           cursorHeight: 20,
           style: interTextStyle,

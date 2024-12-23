@@ -66,27 +66,44 @@ class RecruitmentDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(
-              image,
-              height: 30,
-              width: 30,
-              fit: BoxFit.contain,
+            Row(
+              children: [
+                InkWell(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Image.asset(
+                    height: 15,
+                    width: 15,
+                    "assets/images/icons/cross_icon.png",
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(width: 8),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.w700,
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    image,
+                    height: 30,
+                    width: 30,
+                    fit: BoxFit.contain,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ),
         centerTitle: true,
@@ -108,6 +125,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
               buttonColor: HexColor.fromHex('#3976FF'),
               buttonText: "Chat starten",
               buttonIcon: JobrIcons.send,
+              showBottomText: true,
               location: card["location"]!,
               userName: card["userName"]!,
               onButtonPressed: () {},

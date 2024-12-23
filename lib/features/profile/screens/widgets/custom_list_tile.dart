@@ -82,7 +82,7 @@ class CustomListTile extends StatelessWidget {
                         JobrIcons.close,
                         width: 18,
                         height: 18,
-                        colorFilter: ColorFilter.mode(
+                        colorFilter: const ColorFilter.mode(
                           Colors.white,
                           BlendMode.srcIn,
                         ),

@@ -40,52 +40,27 @@ final jobrTheme = ThemeData(
     labelSmall: TextStyles.labelSmall,
   ),
   inputDecorationTheme: InputDecorationTheme(
-    hintStyle: TextStyles.labelSmall.copyWith(
-      fontSize: 14,
-      color: Colors.black.withOpacity(0.8),
+    hintStyle: TextStyle(
+      color: HexColor.fromHex('#B7B7B7'),
+      fontSize: 16,
     ),
     filled: true,
-    fillColor: HexColor.fromHex("#F6F6F6"),
-    enabledBorder: OutlineInputBorder(
-      borderSide: const BorderSide(
-        color: Colors.transparent,
-      ),
-      borderRadius: BorderRadius.circular(
-        27,
-      ),
-    ),
+    fillColor: HexColor.fromHex('#F7F7F7'),
     border: OutlineInputBorder(
-      borderSide: const BorderSide(
-        color: Colors.transparent,
-      ),
-      borderRadius: BorderRadius.circular(
-        27,
-      ),
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide.none,
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide.none,
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: HexColor.fromHex('#FF3E68'),
-      ),
-      borderRadius: BorderRadius.circular(
-        27,
-      ),
+      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide.none,
     ),
-    focusedErrorBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: HexColor.fromHex("#E13232"),
-      ),
-      borderRadius: BorderRadius.circular(
-        27,
-      ),
+    contentPadding: const EdgeInsets.symmetric(
+      vertical: 20,
+      horizontal: 16,
     ),
-    errorBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: HexColor.fromHex("#E13232"),
-      ),
-      borderRadius: BorderRadius.circular(
-        BorderRadii.small,
-      ),
-    ),
-    hoverColor: null,
   ),
 );

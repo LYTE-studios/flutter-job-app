@@ -32,7 +32,7 @@ class CustomTextField extends StatelessWidget {
     this.formColor,
     this.borderRadius = 27,
     this.width = 346,
-    this.height = 50,
+    this.height = 42,
     this.contentPadding = const EdgeInsets.symmetric(
       horizontal: 23,
     ),
@@ -45,11 +45,8 @@ class CustomTextField extends StatelessWidget {
       cursorHeight: 27,
       style: TextStyles.bodySmall,
       controller: controller,
-      obscureText: obscureText, // New property to obscure text
+      obscureText: obscureText,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: PaddingSizes.large,
-        ),
         hintText: hintText,
       ),
     );

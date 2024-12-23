@@ -10,7 +10,7 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'recruteren/jobr_ai_suggestions_screen.dart';
 
 class RecruterenScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
+  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'sollicitaties';
 
   const RecruterenScreen({super.key});
@@ -20,18 +20,6 @@ class RecruterenScreen extends StatefulWidget {
 }
 
 class _RecruterenScreenState extends State<RecruterenScreen> {
-  final FocusNode _searchFocusNode = FocusNode();
-
-  @override
-  void dispose() {
-    _searchFocusNode.dispose();
-    super.dispose();
-  }
-
-  void _unfocus() {
-    _searchFocusNode.unfocus();
-  }
-
   final List<Map<String, dynamic>> items = const [
     {
       "text": "Vast",
@@ -63,47 +51,25 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final keyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
 
-    return GestureDetector(
-      onTap: _unfocus,
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: const CommonAppbarNavigation(appbarTitle: "Recruteren"),
-        backgroundColor: theme.colorScheme.surface,
-        body: Column(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: const CommonAppbarNavigation(appbarTitle: "Recruteren"),
+      backgroundColor: theme.colorScheme.surface,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: 10,
-                    right: 10,
-                    top: 10,
-                    bottom: MediaQuery.of(context).viewInsets.bottom + 10,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CommonSearchBar(
-                        focusNode: _searchFocusNode,
-                      ),
-                      const SizedBox(height: 14),
-                      if (!keyboardOpen) ...[
-                        _buildGridView(),
-                        const SizedBox(height: 10),
-                        _buildFilterRow(theme),
-                        const SizedBox(height: 30),
-                        _buildJobrAISection(theme),
-                        const SizedBox(height: 10),
-                        _buildJobrAISuggestions(),
-                      ],
-                    ],
-                  ),
-                ),
-              ),
+            const CommonSearchBar(
+              hintText: 'Zoek op naam, school, andere zaken, ...',
             ),
+            _buildGridView(),
+            _buildFilterRow(theme),
+            const SizedBox(height: 20),
+            _buildJobrAISection(theme),
+            _buildJobrAISuggestions(),
           ],
         ),
       ),
@@ -117,7 +83,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
+        mainAxisSpacing: 10,
         childAspectRatio: 1.4,
       ),
       itemCount: items.length,
@@ -176,34 +142,34 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
   }
 
   Widget _buildFilterRow(ThemeData theme) {
-    return Container(
-      height: 42,
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      decoration: BoxDecoration(
-        color: theme.primaryColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Zoek met filters",
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: theme.colorScheme.onPrimary,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Container(
+        height: 48,
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: theme.primaryColor,
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Zoek met filters ",
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: theme.colorScheme.onPrimary,
+              ),
             ),
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Image.asset(
-            height: 20,
-            width: 20,
-            "assets/images/recruteren/filter.png",
-          ),
-        ],
+            Image.asset(
+              height: 20,
+              width: 20,
+              "assets/images/recruteren/filter.png",
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -253,7 +219,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
       child: Row(
         children: List.generate(5, (index) {
           return Padding(
-            padding: const EdgeInsets.only(right: 12),
+            padding: const EdgeInsets.only(right: 10),
             child: CustomJobCard(
               description:
                   "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
@@ -266,6 +232,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
               onButtonPressed: () {},
               profileImagePath: "assets/images/images/image-3.png",
               suggestionPercentage: "74",
+              showBottomText: false,
             ),
           );
         }),

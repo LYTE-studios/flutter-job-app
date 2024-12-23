@@ -7,12 +7,14 @@ class CommonButton extends StatelessWidget {
   final String? icon;
   final Color? backgroundColor;
   final VoidCallback onButtonPressed;
-  const CommonButton(
-      {super.key,
-      required this.buttonText,
-      required this.icon,
-      required this.onButtonPressed,
-      required this.backgroundColor});
+
+  const CommonButton({
+    super.key,
+    required this.buttonText,
+    required this.icon,
+    required this.onButtonPressed,
+    required this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {

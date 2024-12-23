@@ -14,6 +14,7 @@ class CustomJobCard extends StatelessWidget {
   final Color buttonColor;
   final String suggestionPercentage;
   final VoidCallback onButtonPressed;
+  final bool showBottomText;
 
   const CustomJobCard({
     super.key,
@@ -27,12 +28,13 @@ class CustomJobCard extends StatelessWidget {
     required this.buttonColor,
     required this.suggestionPercentage,
     required this.onButtonPressed,
+    required this.showBottomText,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.sizeOf(context).width * 0.8,
+      width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
         color: HexColor.fromHex('#F6F6F6'),
         borderRadius: BorderRadius.circular(20),
@@ -47,6 +49,7 @@ class CustomJobCard extends StatelessWidget {
             _buildDescription(context),
             const SizedBox(height: 10),
             _buildActionRow(context),
+            if (showBottomText == true) _buildBottomRow(context)
           ],
         ),
       ),
@@ -55,7 +58,6 @@ class CustomJobCard extends StatelessWidget {
 
   Row _buildProfileHeader(BuildContext context) {
     final theme = Theme.of(context);
-
     return Row(
       children: [
         _buildProfileImage(),
@@ -150,7 +152,6 @@ class CustomJobCard extends StatelessWidget {
 
   ReadMoreText _buildDescription(BuildContext context) {
     final theme = Theme.of(context);
-
     return ReadMoreText(
       description,
       trimLines: 3,
@@ -180,13 +181,12 @@ class CustomJobCard extends StatelessWidget {
 
   Row _buildActionRow(BuildContext context) {
     final theme = Theme.of(context);
-
     return Row(
       children: [
         Expanded(
           flex: 2,
           child: CommonButton(
-            onButtonPressed: () => onButtonPressed,
+            onButtonPressed: onButtonPressed,
             buttonText: buttonText,
             icon: buttonIcon,
             backgroundColor: buttonColor,
@@ -196,6 +196,38 @@ class CustomJobCard extends StatelessWidget {
         Expanded(
           flex: 1,
           child: _buildSuggestionPercentage(theme),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBottomRow(BuildContext context) {
+    return Column(
+      children: [
+        Divider(
+          color: HexColor.fromHex('#000000').withOpacity(0.1),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Profiel bekijken',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                color: HexColor.fromHex('#4A4C53'),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: 12,
+              color: HexColor.fromHex('#4A4C53'),
+            )
+          ],
         ),
       ],
     );

@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/mixins/screen_state_mixin.dart';
+import 'package:jobr/data/models/user.dart';
+import 'package:jobr/features/authentication/screens/email_login_screen.dart';
 import 'package:jobr/features/authentication/screens/email_register_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
 import 'package:jobr/ui/buttons/jobr_icon_button.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 
 class LoginScreen extends StatefulWidget {
+  final UserType userType;
+
+  final bool isNewUser;
+
+  const LoginScreen({
+    super.key,
+    required this.userType,
+    required this.isNewUser,
+  });
+
   static const String route = '/$location';
   static const String location = 'login';
-
-  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -50,7 +60,17 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           icon: JobrIcons.emailIcon,
           label: "Doorgaan met Email",
           onPressed: () {
-            context.push(EmailRegisterScreen.route);
+            if (widget.isNewUser) {
+              context.push(EmailRegisterScreen.route, extra: {
+                'userType': widget.userType,
+                'isNewUser': widget.isNewUser,
+              });
+            } else {
+              context.push(EmailLoginScreen.route, extra: {
+                'userType': widget.userType,
+                'isNewUser': widget.isNewUser,
+              });
+            }
           },
         ),
         const PrivacyPolicyBlock(),

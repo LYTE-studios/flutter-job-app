@@ -8,7 +8,7 @@ import '../../../dashboard/base/base_dashboard_screen.dart';
 import '../../models/list_model.dart';
 
 class NewExpereinceScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
+  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'new-experience';
   const NewExpereinceScreen({super.key});
 
