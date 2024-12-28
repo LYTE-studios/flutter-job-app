@@ -14,6 +14,10 @@ class CommonAppbarNavigation extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.white,
+      surfaceTintColor:
+          Colors.white, // Add this to prevent color blend on scroll
+      scrolledUnderElevation: 0, // Add this to prevent elevation shadow
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
