@@ -5,7 +5,7 @@ import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
-import 'package:jobr/features/profile/screens/recruteren_screen.dart';
+import 'package:jobr/features/Sollicitaties/recruteren_screen.dart';
 import 'package:jobr/ui/buttons/primary_button.dart';
 import 'package:jobr/ui/input/custom_textfield.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

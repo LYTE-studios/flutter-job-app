@@ -8,7 +8,7 @@ import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-import '../../profile/screens/recruteren_screen.dart';
+import '../../Sollicitaties/recruteren_screen.dart';
 
 class BaseEmployeeDashboard extends StatelessWidget {
   final Widget child;

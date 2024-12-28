@@ -18,7 +18,7 @@ import 'package:jobr/features/profile/screens/profile_screen.dart';
 import '../../features/profile/screens/create_profile_screen.dart';
 import '../../features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
 import '../../features/profile/screens/recruteren/recruitment_detail_screen.dart';
-import '../../features/profile/screens/recruteren_screen.dart';
+import '../../features/Sollicitaties/recruteren_screen.dart';
 import '../../features/profile/screens/edit/choose_company_screen.dart';
 import '../../features/profile/screens/edit/choose_sector_screen.dart';
 import '../../features/profile/screens/edit/create_new_company_screen.dart';
