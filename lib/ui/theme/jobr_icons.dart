@@ -43,6 +43,19 @@ class JobrIcons {
   static const String chevronDown = '$_baseIconPath/chevron-down.svg';
   static const String edit = '$_baseIconPath/edit.svg';
   static const String backArrow = '$_baseIconPath/back-arrow.svg';
+  static const String instagram = '$_baseIconPath/instagram.svg';
+  static const String facebook = '$_baseIconPath/facebook.svg';
+  static const String tiktok = '$_baseIconPath/tiktok.svg';
+  static const String web = '$_baseIconPath/web.svg';
+  static const String dot = '$_baseIconPath/dot.svg';
+  static const String message1 = '$_baseIconPath/message1.svg';
+  static const String settings1 = '$_baseIconPath/setting1.svg';
+  static const String plus = '$_baseIconPath/plus.svg';
+  static const String close = '$_baseIconPath/close.svg';
+  static const String profile3 = '$_baseIconPath/profile3.svg';
+
+
+
 
   static const List<String> icons = [
     logoLight,

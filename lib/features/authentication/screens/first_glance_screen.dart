@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
+import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/create_profile_screen.dart';
 import 'package:jobr/ui/buttons/jobr_icon_button.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
@@ -29,7 +30,7 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
           textIcon: "⚡",
           label: "Ik zoek een job",
           onPressed: () {
-            context.pushReplacement(ChatScreen.route);
+            context.pushReplacement(CompanyProfileScreen.route);
           },
         ),
         const SizedBox(

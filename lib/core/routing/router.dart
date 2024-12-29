@@ -6,7 +6,8 @@ import 'package:jobr/features/authentication/screens/email_register_screen.dart'
 import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
-import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
+import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
+import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 
 import '../../features/profile/screens/create_profile_screen.dart';
@@ -26,7 +27,7 @@ GoRouter router = GoRouter(
           index = 2;
         }
 
-        return BaseDashboardScreen(
+        return BaseNavBarScreen(
           selectedIndex: index,
           child: child,
         );
@@ -40,10 +41,10 @@ GoRouter router = GoRouter(
           ),
         ),
         GoRoute(
-          path: ProfileScreen.route,
+          path: CompanyProfileScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(
-            child: ProfileScreen(),
+            child: CompanyProfileScreen(),
           ),
         ),
       ],
