@@ -24,7 +24,7 @@ class DeleteVacancyPage extends StatelessWidget {
         title: Text(
           'Vacature verwijderen',
           style: TextStyle(
-            color: Colors.pinkAccent,
+            color: Colors.red,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -45,7 +45,8 @@ class DeleteVacancyPage extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: 'via Jobr',
-                        style: TextStyle(color: Colors.pink, fontSize: 16),
+                        style:
+                            TextStyle(color: Colors.pinkAccent, fontSize: 16),
                       ),
                       TextSpan(
                         text: ' iemand gevonden voor deze vacature',
@@ -99,10 +100,13 @@ class DeleteVacancyPage extends StatelessWidget {
   Widget buildListTile(BuildContext context, {required Widget title}) {
     return ListTile(
       title: title,
-      trailing: Icon(
-        Icons.chevron_right,
-        color: Colors.black.withOpacity(0.7),
-        size: 30,
+      trailing: Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: Icon(
+          Icons.chevron_right,
+          color: Colors.red.withOpacity(0.7),
+          size: 30,
+        ),
       ),
       onTap: () {
         _showDeleteDialog(context);
@@ -132,11 +136,11 @@ class DeleteVacancyPage extends StatelessWidget {
             child: Stack(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(height: 16),
+                      SizedBox(height: 10),
                       Text(
                         'Ben je zeker dat je deze \nvacature wilt verwijderen?',
                         textAlign: TextAlign.center,
@@ -160,7 +164,7 @@ class DeleteVacancyPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 13),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: ElevatedButton(
@@ -169,7 +173,7 @@ class DeleteVacancyPage extends StatelessWidget {
                             Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.redAccent,
+                            backgroundColor: Colors.red,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(24),
                             ),

@@ -55,15 +55,19 @@ class VacaturesPage extends StatelessWidget {
                 icon: Icon(
                   Icons.add,
                   color: Colors.white,
+                  size: 30, // Increased icon size
                 ),
                 label: Text(
                   'Nieuwe vacature',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold), // Increased font size
                 ),
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
-                  backgroundColor: Colors.pinkAccent,
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                  backgroundColor: Colors.pink[500],
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 8), // Increased padding
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -74,21 +78,21 @@ class VacaturesPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.red.shade50.withOpacity(0.7),
+                  color: Colors.red.shade100.withOpacity(0.4),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.check, color: Colors.red),
+                    Icon(Icons.check, color: Colors.red.withOpacity(0.9)),
                     SizedBox(width: 4),
                     Text(
                       'Vacature verwijderd',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.red.withOpacity(0.8),
+                        color: Colors.red.withOpacity(0.9),
                       ),
                     ),
                   ],
