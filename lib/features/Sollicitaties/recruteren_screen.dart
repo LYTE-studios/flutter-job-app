@@ -59,6 +59,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
                 suggestionPercentage: '98%',
                 suggestionIconPath:
                     'assets/images/recruteren/jobrAI_suggesties.png',
+                isSalaryTextBlack: true,
               ),
               const JobCardSollicitaties(
                 backgroundImagePath: 'assets/images/recruteren/0,80.png',
@@ -71,6 +72,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
                 suggestionPercentage: '85%',
                 suggestionIconPath:
                     'assets/images/recruteren/jobrAI_suggesties.png',
+                isJobTypeTextBlack: true,
               ),
               const JobCardSollicitaties(
                 backgroundImagePath: 'assets/images/recruteren/2,32.png',
@@ -83,6 +85,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
                 suggestionPercentage: '79%',
                 suggestionIconPath:
                     'assets/images/recruteren/jobrAI_suggesties.png',
+                isJobTypeTextBlack: true,
               ),
               const JobCardSollicitaties(
                 backgroundImagePath: 'assets/images/recruteren/7,99.png',
@@ -95,6 +98,8 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
                 suggestionPercentage: '67%',
                 suggestionIconPath:
                     'assets/images/recruteren/jobrAI_suggesties.png',
+                isSalaryTextBlack: true,
+                isJobTypeTextBlack: true,
               ),
             ],
           ),

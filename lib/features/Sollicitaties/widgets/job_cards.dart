@@ -11,6 +11,8 @@ class JobCardSollicitaties extends StatefulWidget {
   final String companyName;
   final String suggestionPercentage;
   final String suggestionIconPath;
+  final bool? isJobTypeTextBlack; // Make optional
+  final bool? isSalaryTextBlack; // Make optional
 
   const JobCardSollicitaties({
     super.key,
@@ -23,6 +25,8 @@ class JobCardSollicitaties extends StatefulWidget {
     required this.companyName,
     required this.suggestionPercentage,
     required this.suggestionIconPath,
+    this.isJobTypeTextBlack, // Make optional
+    this.isSalaryTextBlack, // Make optional
   });
 
   @override
@@ -125,18 +129,23 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                         Text(
                           widget.jobType,
                           style: TextStyle(
-                              color: Colors.grey[500],
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Inter',
-                              fontSize: 17,
-                              letterSpacing: 0.1),
+                            color: widget.isJobTypeTextBlack == true
+                                ? Colors.black
+                                : Colors.grey[500],
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Inter',
+                            fontSize: 17,
+                            letterSpacing: 0.1,
+                          ),
                         ),
                       ],
                     ),
                     Text(
                       widget.salaryText,
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: widget.isSalaryTextBlack == true
+                            ? Colors.black
+                            : Colors.grey[500],
                         fontWeight: FontWeight.w500,
                         fontFamily: 'Poppins',
                         fontSize: 17,
@@ -181,6 +190,8 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                     ),
                     // Suggestion percentage
                     Container(
+                      margin: const EdgeInsets.only(
+                          top: 12), // Add top margin to move it lower
                       padding: const EdgeInsets.symmetric(
                           horizontal: 6, vertical: 4),
                       decoration: BoxDecoration(
@@ -192,8 +203,8 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                         children: [
                           Image.asset(
                             widget.suggestionIconPath,
-                            height: 20,
-                            width: 20,
+                            height: 17,
+                            width: 17,
                           ),
                           const SizedBox(width: 4),
                           Text(
