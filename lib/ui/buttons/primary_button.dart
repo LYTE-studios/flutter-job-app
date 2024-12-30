@@ -9,7 +9,7 @@ class PrimaryButton extends StatelessWidget {
   final double width;
   final double height;
   final TextStyle? textStyle;
-  final Icon? suffixIcon; // Make suffixIcon optional
+  final suffixIcon; // Make suffixIcon optional
 
   const PrimaryButton({
     super.key,

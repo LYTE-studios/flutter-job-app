@@ -99,6 +99,7 @@ class DeleteVacancyPage extends StatelessWidget {
 
   Widget buildListTile(BuildContext context, {required Widget title}) {
     return ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 17),
       title: title,
       trailing: Padding(
         padding: const EdgeInsets.only(left: 10.0),
@@ -132,42 +133,42 @@ class DeleteVacancyPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            insetPadding: EdgeInsets.symmetric(horizontal: 20),
-            child: Stack(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(height: 10),
-                      Text(
-                        'Ben je zeker dat je deze \nvacature wilt verwijderen?',
-                        textAlign: TextAlign.center,
-                        maxLines: 8,
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Text(
-                          'Verwijderen is een permanente actie \nen kan niet worden teruggedraaid',
+            insetPadding: EdgeInsets.symmetric(horizontal: 10),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.95,
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Ben je zeker dat je deze \nvacature wilt verwijderen?',
                           textAlign: TextAlign.center,
+                          maxLines: 8,
                           style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[400],
-                            fontWeight: FontWeight.w400,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
                           ),
                         ),
-                      ),
-                      SizedBox(height: 13),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: ElevatedButton(
+                        SizedBox(height: 12),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 29.0),
+                          child: Text(
+                            'Verwijderen is een permanente actie '
+                            'en kan niet worden teruggedraaid',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[500],
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
                           onPressed: () {
                             // Handle delete action
                             Navigator.pop(context);
@@ -178,7 +179,7 @@ class DeleteVacancyPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(24),
                             ),
                             padding: EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 12),
+                                horizontal: 50, vertical: 14),
                           ),
                           child: Text(
                             'Vacature verwijderen',
@@ -189,24 +190,24 @@ class DeleteVacancyPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Positioned(
-                  top: 10,
-                  right: 0,
-                  child: IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/images/icons/cross.svg',
-                      color: Colors.grey,
+                      ],
                     ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
                   ),
-                ),
-              ],
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: IconButton(
+                      icon: SvgPicture.asset(
+                        'assets/images/icons/cross.svg',
+                        color: Colors.grey,
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
