@@ -122,7 +122,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                           context.push(NewExpereinceScreen.route);
                         },
                         child: SvgPicture.asset(
-                          JobrIcons.addIcon,
+                          JobrIcons.add,
                           width: 20,
                           height: 20,
                           colorFilter: ColorFilter.mode(
@@ -239,7 +239,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                           context.push(ChooseCompanyScreen.route);
                         },
                         child: SvgPicture.asset(
-                          JobrIcons.addIcon,
+                          JobrIcons.add,
                           width: 20,
                           height: 20,
                           colorFilter: ColorFilter.mode(
@@ -344,8 +344,8 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                           ),
                         )
                       else
-                        GestureDetector(
-                          onTap: () {
+                        TextButton(
+                          onPressed: () {
                             setState(() {
                               editSkills = !editSkills;
                             });
@@ -364,7 +364,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              if (!editExperience) const SizedBox(height: 10),
               Wrap(
                 children: [
                   ...skills.map(
@@ -471,7 +471,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                           context.push(MakeAChoiceScreen.route);
                         },
                         child: SvgPicture.asset(
-                          JobrIcons.addIcon,
+                          JobrIcons.add,
                           width: 20,
                           height: 20,
                           colorFilter: ColorFilter.mode(

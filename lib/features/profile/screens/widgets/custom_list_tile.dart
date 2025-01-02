@@ -32,21 +32,18 @@ class CustomListTile extends StatelessWidget {
       crossAxisAlignment:
           centerImage ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: <Widget>[
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.asset(
-            image,
-            fit: BoxFit.contain,
-            width: 57,
-            height: 57,
-          ),
+        Image.asset(
+          image,
+          fit: BoxFit.contain,
+          width: 57,
+          height: 57,
         ),
         const SizedBox(width: 10),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-              width: width * .65,
+              width: width * .67,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +56,7 @@ class CustomListTile extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 16.5,
                           fontFamily: 'Inter',
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
                       Text(
@@ -67,7 +64,7 @@ class CustomListTile extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 15,
                           fontFamily: 'Inter',
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           color: HexColor.fromHex('#00000000').withOpacity(.6),
                         ),
                       ),
@@ -78,7 +75,7 @@ class CustomListTile extends StatelessWidget {
                       padding: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: HexColor.fromHex('#F62C2C'),
+                        color: theme.primaryColor,
                       ),
                       alignment: Alignment.center,
                       child: SvgPicture.asset(
@@ -99,9 +96,9 @@ class CustomListTile extends StatelessWidget {
                 Text(
                   duration,
                   style: TextStyle(
-                    fontSize: 14.5,
+                    fontSize: 14,
                     fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     color: TextStyles.unselectedText,
                   ),
                 ),
@@ -118,9 +115,9 @@ class CustomListTile extends StatelessWidget {
                   Text(
                     time ?? '',
                     style: TextStyle(
-                      fontSize: 14.5,
+                      fontSize: 14,
                       fontFamily: 'Inter',
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       color: TextStyles.unselectedText,
                     ),
                   ),

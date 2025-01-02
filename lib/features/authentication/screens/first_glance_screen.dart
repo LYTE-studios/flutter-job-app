@@ -1,22 +1,19 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/data/models/user.dart';
+import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
-import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
-import 'package:jobr/features/profile/screens/create_profile_screen.dart';
 import 'package:jobr/ui/buttons/jobr_icon_button.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FirstGlanceScreen extends StatefulWidget {
+class FirstGlanceScreen extends StatelessWidget {
   static const String route = '/$location';
   static const String location = '';
 
   const FirstGlanceScreen({super.key});
 
-  @override
-  State<FirstGlanceScreen> createState() => _FirstGlanceScreenState();
-}
-
-class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,7 +27,13 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
           textIcon: "⚡",
           label: "Ik zoek een job",
           onPressed: () {
-            context.pushReplacement(CompanyProfileScreen.route);
+            context.push(
+              LoginScreen.route,
+              extra: {
+                'userType': UserType.employee,
+                'isNewUser': true,
+              },
+            );
           },
         ),
         const SizedBox(
@@ -40,7 +43,13 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
           textIcon: "💼",
           label: "Ik zoek talent",
           onPressed: () {
-            context.push(CreateProfileScreen.route);
+            context.push(
+              LoginScreen.route,
+              extra: {
+                'userType': UserType.employer,
+                'isNewUser': true,
+              },
+            );
           },
         ),
         SizedBox(
@@ -55,10 +64,20 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
                   color: TextStyles.clearText,
                 ),
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: 'Heb je al een account? ',
                   ),
                   TextSpan(
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        context.push(
+                          LoginScreen.route,
+                          extra: {
+                            'userType': UserType.employer,
+                            'isNewUser': false,
+                          },
+                        );
+                      },
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Theme.of(context).primaryColor,

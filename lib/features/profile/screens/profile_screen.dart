@@ -49,41 +49,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
               floating: false,
               pinned: true,
               title: innerBoxIsScrolled
-                  ? Row(
-                      children: [
-                        if (innerBoxIsScrolled)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 15),
-                            child: Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(color: Colors.white, width: 4),
-                                image: const DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/images/profile.png'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          )
-                        else
-                          const SizedBox.shrink(),
-                        const Text(
-                          "Louis Ottevaere",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
+                  ? const Text(
+                      "Louis Ottevaere",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w600,
+                      ),
                     )
                   : null,
               scrolledUnderElevation: 0,
               elevation: 0,
+              leading: innerBoxIsScrolled
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        width: 70,
+                        height: 70,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 4),
+                          image: const DecorationImage(
+                            image:
+                                AssetImage('assets/images/images/profile.png'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    )
+                  : null,
               backgroundColor: theme.colorScheme.surface,
               clipBehavior: Clip.none,
               flexibleSpace: FlexibleSpaceBar(
@@ -313,7 +307,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             SvgIcon(
               icon,
-              size: 20,
+              size: 17,
               color: TextStyles.secondaryText,
             ),
             const SizedBox(width: 6),

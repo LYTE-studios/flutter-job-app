@@ -53,6 +53,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    double height = MediaQuery.sizeOf(context).height;
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       body: NestedScrollView(
@@ -113,21 +114,21 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                       child: Image.asset(
                         'assets/images/images/image-4.png',
                         fit: BoxFit.cover,
-                        height: 180,
+                        height: 160,
                       ),
                     ),
                     Positioned(
-                      bottom: 0,
+                      bottom: 10,
                       left: 10,
                       child: SizedBox(
-                        width: 140,
-                        height: 140,
+                        width: 135,
+                        height: 135,
                         child: Stack(
                           children: [
                             Positioned.fill(
                               child: Container(
-                                width: 140,
-                                height: 140,
+                                width: 135,
+                                height: 135,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
@@ -171,7 +172,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                       ),
                     ),
                     Positioned(
-                      top: 120,
+                      bottom: height * .09,
                       right: 10,
                       child: IconButton(
                         onPressed: () {},
@@ -185,8 +186,8 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                         ),
                         icon: SvgPicture.asset(
                           JobrIcons.edit,
-                          width: 21.68,
-                          height: 21.68,
+                          width: 20.68,
+                          height: 20.68,
                           colorFilter: ColorFilter.mode(
                             TextStyles.clearText,
                             BlendMode.srcIn,
@@ -195,7 +196,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: 10,
+                      bottom: height * .03,
                       right: 10,
                       child: TextButton(
                         onPressed: () {},
@@ -271,7 +272,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 5),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(12),
                           color: theme.primaryColor,
                         ),
                         child: Row(
@@ -282,13 +283,13 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                               colorFilter: const ColorFilter.mode(
                                   Colors.white, BlendMode.srcIn),
                             ),
-                            const SizedBox(width: 4),
+                            const SizedBox(width: 2),
                             Text(
                               locationController.text,
                               style: const TextStyle(
-                                fontSize: 15.36,
+                                fontSize: 14,
                                 fontFamily: 'Inter',
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                                 color: Colors.white,
                               ),
                             ),
@@ -400,10 +401,6 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                   borderSide: BorderSide(
                     color: Colors.black.withOpacity(.2),
                   ),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 0,
                 ),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(

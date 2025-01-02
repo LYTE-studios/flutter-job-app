@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../ui/theme/jobr_icons.dart';
+import '../../dashboard/base/base_dashboard_screen.dart';
 import 'forms/first_form.dart';
 import 'forms/second_form.dart';
 
 class CreateProfileScreen extends StatefulWidget {
-  static const String route = '${BaseNavBarScreen.route}/$location';
+  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'create-profile';
   const CreateProfileScreen({super.key});
 
