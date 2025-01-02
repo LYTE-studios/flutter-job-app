@@ -8,12 +8,12 @@ import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-class BaseDashboardScreen extends StatelessWidget {
+class BaseNavBarScreen extends StatelessWidget {
   final Widget child;
 
   final int selectedIndex;
 
-  const BaseDashboardScreen({
+  const BaseNavBarScreen({
     super.key,
     required this.child,
     required this.selectedIndex,
@@ -28,7 +28,7 @@ class BaseDashboardScreen extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
         onTap: (int index) {
-          String route = BaseDashboardScreen.route;
+          String route = BaseNavBarScreen.route;
 
           switch (index) {
             case 3:
@@ -57,16 +57,16 @@ class BaseDashboardScreen extends StatelessWidget {
         ),
         items: [
           BottomNavigationBarItem(
-            label: 'Jobs',
+            label: 'Vacatures',
             icon: _NavigationBarIcon(
-              icon: JobrIcons.magnifyingGlass,
+              icon: JobrIcons.profile3,
               selected: selectedIndex == 0,
             ),
           ),
           BottomNavigationBarItem(
-            label: 'Sollicitaties',
+            label: 'Recruteren',
             icon: _NavigationBarIcon(
-              icon: JobrIcons.sheet,
+              icon: JobrIcons.magnifyingGlass,
               selected: selectedIndex == 1,
             ),
           ),
@@ -78,9 +78,9 @@ class BaseDashboardScreen extends StatelessWidget {
             ),
           ),
           BottomNavigationBarItem(
-            label: 'Mijn profiel',
+            label: 'Over ons',
             icon: _NavigationBarIcon(
-              icon: JobrIcons.profile,
+              icon: JobrIcons.location,
               selected: selectedIndex == 3,
             ),
           ),
