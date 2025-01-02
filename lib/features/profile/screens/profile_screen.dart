@@ -13,7 +13,7 @@ import 'tabs/general_item_widget.dart';
 import 'tabs/media_item_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
+  static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'profile';
 
   const ProfileScreen({super.key});

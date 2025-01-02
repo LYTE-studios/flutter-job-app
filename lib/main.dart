@@ -1,30 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:jobr/core/routing/router.dart';
-import 'package:jobr/features/job_listing/general_page.dart';
 import 'package:jobr/ui/theme/jobr_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: GeneralPage(),
+  runApp(ProviderScope(
+    child: MaterialApp.router(
+      title: 'Jobr',
+      theme: jobrTheme,
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: TextScaler.noScaling,
+          ),
+          child: child ?? const SizedBox(),
+        );
+      },
+      routerConfig: router,
+    ),
   ));
 }
-
-// void main() {
-//   runApp(ProviderScope(
-//     child: MaterialApp.router(
-//       title: 'Jobr',
-//       theme: jobrTheme,
-//       builder: (context, child) {
-//         return MediaQuery(
-//           data: MediaQuery.of(context).copyWith(
-//             textScaler: TextScaler.noScaling,
-//           ),
-//           child: child ?? const SizedBox(),
-//         );
-//       },
-//       routerConfig: router,
-//     ),
-//   ));
-// }

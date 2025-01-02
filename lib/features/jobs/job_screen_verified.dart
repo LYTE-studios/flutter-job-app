@@ -7,7 +7,7 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import '../dashboard/base/base_dashboard_screen.dart';
 
 class JobVerifiedScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
+  static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'jobs';
 
   const JobVerifiedScreen({super.key});

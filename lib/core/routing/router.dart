@@ -13,7 +13,7 @@ import 'package:jobr/features/profile/screens/profile_screen.dart';
 import '../../features/profile/screens/create_profile_screen.dart';
 
 GoRouter router = GoRouter(
-  initialLocation: ProfileScreen.route,
+  initialLocation: FirstGlanceScreen.route,
   routes: <RouteBase>[
     ShellRoute(
       builder: (context, state, child) {
@@ -73,24 +73,42 @@ GoRouter router = GoRouter(
           routes: [
             GoRoute(
               path: LoginScreen.location,
-              pageBuilder: (BuildContext context, GoRouterState state) =>
-                  const NoTransitionPage(
-                child: LoginScreen(),
-              ),
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+
+                return NoTransitionPage(
+                  child: LoginScreen(
+                    userType: data["userType"],
+                    isNewUser: data["isNewUser"],
+                  ),
+                );
+              },
               routes: [
                 GoRoute(
                   path: EmailLoginScreen.location,
-                  pageBuilder: (BuildContext context, GoRouterState state) =>
-                      const NoTransitionPage(
-                    child: EmailLoginScreen(),
-                  ),
+                  pageBuilder: (BuildContext context, GoRouterState state) {
+                    Map<String, dynamic> data =
+                        state.extra as Map<String, dynamic>;
+
+                    return NoTransitionPage(
+                      child: EmailLoginScreen(
+                        userType: data["userType"],
+                      ),
+                    );
+                  },
                 ),
                 GoRoute(
                   path: EmailRegisterScreen.location,
-                  pageBuilder: (BuildContext context, GoRouterState state) =>
-                      const NoTransitionPage(
-                    child: EmailRegisterScreen(),
-                  ),
+                  pageBuilder: (BuildContext context, GoRouterState state) {
+                    Map<String, dynamic> data =
+                        state.extra as Map<String, dynamic>;
+
+                    return NoTransitionPage(
+                      child: EmailRegisterScreen(
+                        userType: data["userType"],
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

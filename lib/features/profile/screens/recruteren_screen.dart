@@ -10,7 +10,7 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'recruteren/jobr_ai_suggestions_screen.dart';
 
 class RecruterenScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
+  static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'sollicitaties';
 
   const RecruterenScreen({super.key});

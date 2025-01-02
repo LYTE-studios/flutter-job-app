@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobr/features/profile/screens/widgets/custom_list_tile.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 import '../../models/list_model.dart';
-import '../../widgets/custom_list_tile.dart';
 
 class GeneralItems extends StatefulWidget {
   const GeneralItems({

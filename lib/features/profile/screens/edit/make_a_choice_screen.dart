@@ -6,7 +6,7 @@ import '../../../../ui/theme/jobr_icons.dart';
 import '../../../dashboard/base/base_dashboard_screen.dart';
 
 class MakeAChoiceScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
+  static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'make-a-choice';
   const MakeAChoiceScreen({super.key});
 

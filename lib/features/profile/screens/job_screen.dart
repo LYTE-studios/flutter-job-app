@@ -6,7 +6,7 @@ import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:jobr/ui/widget/common_search_bar.dart';
 
 class JobScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
+  static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'jobs';
 
   const JobScreen({super.key});
