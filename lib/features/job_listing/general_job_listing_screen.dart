@@ -7,14 +7,17 @@ import 'package:jobr/features/job_listing/widgets/bottom_sheet_with_search.dart'
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-class GeneralPage extends StatefulWidget {
-  const GeneralPage({super.key});
+class GeneralJobListingScreen extends StatefulWidget {
+  const GeneralJobListingScreen({super.key});
+
+  static const String location = 'job-listings';
 
   @override
-  State<GeneralPage> createState() => _GeneralPageState();
+  State<GeneralJobListingScreen> createState() =>
+      _GeneralJobListingScreenState();
 }
 
-class _GeneralPageState extends State<GeneralPage> {
+class _GeneralJobListingScreenState extends State<GeneralJobListingScreen> {
   // Dropdown selections
   String? _selectedContractType;
   String? _selectedFunction;
@@ -44,7 +47,7 @@ class _GeneralPageState extends State<GeneralPage> {
           child: Row(
             children: [
               Container(
-                decoration:  BoxDecoration(
+                decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(8),
                       bottomRight: Radius.circular(8)),
@@ -194,10 +197,11 @@ class _GeneralPageState extends State<GeneralPage> {
                       padding: const EdgeInsets.symmetric(vertical: 10),
                     ),
                     onPressed: () {
-                       Navigator.of(context).push(
-    MaterialPageRoute(builder: (context) => const SkillsPage()),
-  );
-
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const JobListingSkillsScreen()),
+                      );
                     },
                     child: Text(
                       _isButtonEnabled

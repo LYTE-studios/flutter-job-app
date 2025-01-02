@@ -4,10 +4,8 @@ import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_scr
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:jobr/ui/widget/common_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
-import '../dashboard/base/base_dashboard_screen.dart';
 
 class JobVerifiedScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'jobs';
 
   const JobVerifiedScreen({super.key});

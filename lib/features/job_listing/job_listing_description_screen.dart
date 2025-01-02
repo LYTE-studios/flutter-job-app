@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-class DescriptionPage extends StatefulWidget {
-  const DescriptionPage({super.key});
+class JobListingDescriptionScreen extends StatefulWidget {
+  const JobListingDescriptionScreen({super.key});
+
+  static const String location = 'job-listing-description';
 
   @override
-  State<DescriptionPage> createState() => _DescriptionPageState();
+  State<JobListingDescriptionScreen> createState() =>
+      _JobListingDescriptionScreenState();
 }
 
-class _DescriptionPageState extends State<DescriptionPage> {
+class _JobListingDescriptionScreenState
+    extends State<JobListingDescriptionScreen> {
   List<Map<String, String>> options = [];
   List<bool> isExpanded = [];
   List<TextEditingController> descriptionControllers = [];
@@ -100,7 +104,9 @@ class _DescriptionPageState extends State<DescriptionPage> {
               style: TextStyles.bodyMedium
                   .copyWith(fontSize: 14.5, color: HexColor.fromHex("#6D6D6D")),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             GestureDetector(
               // onTap: showOptionsBottomSheet,
               child: Container(

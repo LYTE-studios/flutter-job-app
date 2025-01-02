@@ -8,7 +8,6 @@ import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 class CompanyProfileScreen extends StatefulWidget {
-  static const String route = '${BaseNavBarScreen.route}/$location';
   static const String location = 'company-profile';
 
   const CompanyProfileScreen({super.key});

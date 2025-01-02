@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
+import 'package:jobr/features/job_listing/general_job_listing_screen.dart';
+import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/create_profile_screen.dart';
+import 'package:jobr/features/profile/screens/recruteren_screen.dart';
 import 'package:jobr/ui/buttons/jobr_icon_button.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 
@@ -30,7 +34,12 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
           textIcon: "⚡",
           label: "Ik zoek een job",
           onPressed: () {
-            context.pushReplacement(CompanyProfileScreen.route);
+            context.go(
+              JobrRouter.getRoute(
+                JobScreen.location,
+                JobrRouter.employeeInitialroute,
+              ),
+            );
           },
         ),
         const SizedBox(
@@ -40,7 +49,12 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
           textIcon: "💼",
           label: "Ik zoek talent",
           onPressed: () {
-            context.push(CreateProfileScreen.route);
+            context.go(
+              JobrRouter.getRoute(
+                RecruterenScreen.location,
+                JobrRouter.employerInitialroute,
+              ),
+            );
           },
         ),
         SizedBox(

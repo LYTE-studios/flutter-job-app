@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -13,7 +12,6 @@ import 'tabs/general_item_widget.dart';
 import 'tabs/media_item_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'profile';
 
   const ProfileScreen({super.key});
@@ -126,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       right: 10,
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          context.push(EditProfileDetailsScreen.route);
+                          // context.push(EditProfileDetailsScreen.route);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.primaryColor,

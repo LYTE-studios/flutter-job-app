@@ -16,6 +16,7 @@ class EmailLoginScreen extends ConsumerStatefulWidget {
     super.key,
     required this.userType,
   });
+
   static const String route = '${LoginScreen.route}/$location';
   static const String location = 'email';
 

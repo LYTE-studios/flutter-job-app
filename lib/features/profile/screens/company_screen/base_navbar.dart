@@ -1,91 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:jobr/core/routing/router.dart';
-import 'package:jobr/features/chat/screens/chat_screen.dart';
-import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
-import 'package:jobr/features/profile/screens/profile_screen.dart';
-import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
+class JobrNavigationItem {
+  String route;
+  String icon;
+  String name;
+
+  JobrNavigationItem({
+    required this.route,
+    required this.icon,
+    required this.name,
+  });
+}
+
 class BaseNavBarScreen extends StatelessWidget {
   final Widget child;
 
-  final int selectedIndex;
+  final int? selectedIndex;
+
+  final List<JobrNavigationItem> routes;
 
   const BaseNavBarScreen({
     super.key,
     required this.child,
     required this.selectedIndex,
+    required this.routes,
   });
-
-  static const String route = '/home';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: selectedIndex,
-        onTap: (int index) {
-          String route = BaseNavBarScreen.route;
+      bottomNavigationBar: selectedIndex == null
+          ? null
+          : BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: selectedIndex ?? 0,
+              onTap: (int index) {
+                String route = routes[index].route;
 
-          switch (index) {
-            case 3:
-              route = CompanyProfileScreen.route;
-              break;
-            case 2:
-              route = ChatScreen.route;
-              break;
-            case 1:
-              route = ProfileScreen.route;
-              break;
-            case 0:
-              route = ChatScreen.route;
-              break;
-          }
-
-          // Use GoRouter for navigation
-          router.pushReplacement(route);
-        },
-        selectedLabelStyle: TextStyles.bodySmall.copyWith(
-          color: Theme.of(context).primaryColor,
-          fontSize: 12,
-        ),
-        unselectedLabelStyle: TextStyles.bodySmall.copyWith(
-          fontSize: 12,
-        ),
-        items: [
-          BottomNavigationBarItem(
-            label: 'Vacatures',
-            icon: _NavigationBarIcon(
-              icon: JobrIcons.profile3,
-              selected: selectedIndex == 0,
+                // Use GoRouter for navigation
+                router.pushReplacement(route);
+              },
+              selectedLabelStyle: TextStyles.bodySmall.copyWith(
+                color: Theme.of(context).primaryColor,
+                fontSize: 12,
+              ),
+              unselectedLabelStyle: TextStyles.bodySmall.copyWith(
+                fontSize: 12,
+              ),
+              items: routes
+                  .map((route) => BottomNavigationBarItem(
+                        label: route.name,
+                        icon: _NavigationBarIcon(
+                          icon: route.icon,
+                          selected: selectedIndex == routes.indexOf(route),
+                        ),
+                      ))
+                  .toList(),
             ),
-          ),
-          BottomNavigationBarItem(
-            label: 'Recruteren',
-            icon: _NavigationBarIcon(
-              icon: JobrIcons.magnifyingGlass,
-              selected: selectedIndex == 1,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: 'Chat',
-            icon: _NavigationBarIcon(
-              icon: JobrIcons.chat,
-              selected: selectedIndex == 2,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: 'Over ons',
-            icon: _NavigationBarIcon(
-              icon: JobrIcons.location,
-              selected: selectedIndex == 3,
-            ),
-          ),
-        ],
-      ),
       body: child,
     );
   }
@@ -97,7 +72,6 @@ class _NavigationBarIcon extends StatelessWidget {
   final bool selected;
 
   const _NavigationBarIcon({
-    super.key,
     required this.icon,
     required this.selected,
   });

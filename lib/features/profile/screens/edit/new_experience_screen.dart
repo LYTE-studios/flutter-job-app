@@ -4,11 +4,9 @@ import 'package:jobr/features/profile/screens/widgets/custom_list_tile.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
-import '../../../dashboard/base/base_dashboard_screen.dart';
 import '../../models/list_model.dart';
 
 class NewExpereinceScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'new-experience';
   const NewExpereinceScreen({super.key});
 

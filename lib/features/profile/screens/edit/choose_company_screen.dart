@@ -4,10 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
-import '../../../dashboard/base/base_dashboard_screen.dart';
 
 class ChooseCompanyScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'choose-company';
   const ChooseCompanyScreen({super.key});
 

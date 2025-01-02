@@ -1,19 +1,21 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:jobr/features/job_listing/widgets/custom_radio.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-class AvailabilityPage extends StatefulWidget {
-  const AvailabilityPage({super.key});
+class JobListingAvailabilityScreen extends StatefulWidget {
+  const JobListingAvailabilityScreen({super.key});
+
+  static const String location = 'job-listing-availability';
 
   @override
-  State<AvailabilityPage> createState() => _AvailabilityPageState();
+  State<JobListingAvailabilityScreen> createState() =>
+      _JobListingAvailabilityScreenState();
 }
 
-class _AvailabilityPageState extends State<AvailabilityPage> {
-  final bool  _isButtonEnabled = true;
+class _JobListingAvailabilityScreenState
+    extends State<JobListingAvailabilityScreen> {
+  final bool _isButtonEnabled = true;
   int selectedRadio = 6;
   List<String> selectedDays = [];
 
@@ -98,7 +100,9 @@ class _AvailabilityPageState extends State<AvailabilityPage> {
                         style: TextStyle(
                           fontFamily: "Inter",
                           fontWeight: FontWeight.w600,
-                          color: isSelected ? Colors.white : HexColor.fromHex("#BEBEBE"),
+                          color: isSelected
+                              ? Colors.white
+                              : HexColor.fromHex("#BEBEBE"),
                         ),
                       ),
                     ),
@@ -195,26 +199,28 @@ class _AvailabilityPageState extends State<AvailabilityPage> {
             if (selectedRadio == 1) ...[
               const SizedBox(height: 16),
               TextFormField(
-                decoration:  InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Kies een datum',
-                  labelStyle: TextStyles.titleMedium.copyWith(fontWeight: FontWeight.w600,fontSize: 16.16,color: HexColor.fromHex("#000000").withOpacity(0.4)),
-                  suffixIcon: Icon(Icons.calendar_month,color: HexColor.fromHex("#8B8B8B"),),
-                  
-                    filled: true,
-                fillColor: HexColor.fromHex("#00000008").withOpacity(0.03),
-                  
-                  
-                  enabledBorder:  UnderlineInputBorder(   
-                    borderRadius: BorderRadius.circular(15),   
-    borderSide: const BorderSide(color: Colors.transparent),   
-  ),  
-  focusedBorder: const UnderlineInputBorder(
-    borderSide: BorderSide(color: Colors.transparent),
-  ),
-  border: const UnderlineInputBorder(
-    borderSide: BorderSide(color: Colors.transparent),
-  ),
-                  
+                  labelStyle: TextStyles.titleMedium.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.16,
+                      color: HexColor.fromHex("#000000").withOpacity(0.4)),
+                  suffixIcon: Icon(
+                    Icons.calendar_month,
+                    color: HexColor.fromHex("#8B8B8B"),
+                  ),
+                  filled: true,
+                  fillColor: HexColor.fromHex("#00000008").withOpacity(0.03),
+                  enabledBorder: UnderlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.transparent),
+                  ),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  border: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
                 ),
                 readOnly: true,
                 onTap: () {
@@ -223,76 +229,74 @@ class _AvailabilityPageState extends State<AvailabilityPage> {
               ),
               const SizedBox(height: 8),
               TextFormField(
-                
-                decoration:  InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Kies een tijdstip',
-                  labelStyle: TextStyles.bodyMedium.copyWith(fontWeight: FontWeight.w600,fontSize: 16.16,color: HexColor.fromHex("#000000").withOpacity(0.4)),
-                  suffixIcon: Icon(Icons.timer_outlined,color: HexColor.fromHex("#8B8B8B")),
+                  labelStyle: TextStyles.bodyMedium.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16.16,
+                      color: HexColor.fromHex("#000000").withOpacity(0.4)),
+                  suffixIcon: Icon(Icons.timer_outlined,
+                      color: HexColor.fromHex("#8B8B8B")),
                   filled: true,
-                fillColor: HexColor.fromHex("#00000008").withOpacity(0.03),
-                  
-                  
-                  enabledBorder:  UnderlineInputBorder( 
-                    borderRadius: BorderRadius.circular(15),     
-    borderSide: const BorderSide(color: Colors.transparent),   
-  ),  
-  focusedBorder: const UnderlineInputBorder(
-    borderSide: BorderSide(color: Colors.transparent),
-  ),
-  border: const UnderlineInputBorder(
-    borderSide: BorderSide(color: Colors.transparent),
-  ),
+                  fillColor: HexColor.fromHex("#00000008").withOpacity(0.03),
+                  enabledBorder: UnderlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: const BorderSide(color: Colors.transparent),
+                  ),
+                  focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  border: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
                 ),
                 readOnly: true,
                 onTap: () {
-                  
                   // Handle time selection
                 },
               ),
             ],
-            
           ],
         ),
       ),
-       bottomNavigationBar:BottomAppBar(
+      bottomNavigationBar: BottomAppBar(
         color: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-              child: Center(
-                child: SizedBox(
-                  width: MediaQuery.sizeOf(context).width,
-                  height: 58,
-                  child: FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: _isButtonEnabled
-                          ? HexColor.fromHex("#FF3E68")
-                          : HexColor.fromHex('#DADADA'),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: _isButtonEnabled
-                            ? BorderRadius.circular(65)
-                            : BorderRadius.circular(65),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                    ),
-                    onPressed: () {
-                       Navigator.of(context).push(
-    MaterialPageRoute(builder: (context) => const AvailabilityPage()),
-  );
-
-                    },
-                    child: const Text(
-                      
-                           "Naar talen"
-                          ,
-                      style: TextStyle(
-                        fontSize: 17.5,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+        child: Center(
+          child: SizedBox(
+            width: MediaQuery.sizeOf(context).width,
+            height: 58,
+            child: FilledButton(
+              style: FilledButton.styleFrom(
+                backgroundColor: _isButtonEnabled
+                    ? HexColor.fromHex("#FF3E68")
+                    : HexColor.fromHex('#DADADA'),
+                shape: RoundedRectangleBorder(
+                  borderRadius: _isButtonEnabled
+                      ? BorderRadius.circular(65)
+                      : BorderRadius.circular(65),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 10),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const JobListingAvailabilityScreen()),
+                );
+              },
+              child: const Text(
+                "Naar talen",
+                style: TextStyle(
+                  fontSize: 17.5,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jobr/features/chat/screens/chat_request.dart';
-import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
+import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 
 class ChatScreen extends StatefulWidget {
-  static const String route = '${BaseDashboardScreen.route}/$location';
   static const String location = 'chat';
 
   const ChatScreen({super.key});
@@ -88,7 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ChatRequest(),
+                      builder: (context) => const ChatRequestScreen(),
                     ),
                   );
                 },

@@ -1,20 +1,21 @@
-
 import 'package:flutter/material.dart';
-import 'package:jobr/features/job_listing/availability_page.dart';
+import 'package:jobr/features/job_listing/job_listing_availability_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-class SkillsPage extends StatefulWidget {
-  const SkillsPage({super.key});
+class JobListingSkillsScreen extends StatefulWidget {
+  const JobListingSkillsScreen({super.key});
+
+  static const String location = 'job-listing-skills';
 
   @override
-  State<SkillsPage> createState() => _SkillsPageState();
+  State<JobListingSkillsScreen> createState() => _JobListingSkillsScreenState();
 }
 
-class _SkillsPageState extends State<SkillsPage> {
+class _JobListingSkillsScreenState extends State<JobListingSkillsScreen> {
   List<String> selectedSoftSkills = [];
   List<String> selectedHardSkills = [];
-  final bool  _isButtonEnabled = true;
+  final bool _isButtonEnabled = true;
   double werkervaringValue = 1; // Initial value for slider
 
   @override
@@ -22,7 +23,6 @@ class _SkillsPageState extends State<SkillsPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
@@ -108,51 +108,49 @@ class _SkillsPageState extends State<SkillsPage> {
                     isSoftSkills: false),
 
                 // Bottom Button
-                
               ],
             ),
           ),
         ),
       ),
-      bottomNavigationBar:BottomAppBar(
+      bottomNavigationBar: BottomAppBar(
         color: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-              child: Center(
-                child: SizedBox(
-                  width: MediaQuery.sizeOf(context).width,
-                  height: 58,
-                  child: FilledButton(
-                    style: FilledButton.styleFrom(
-                      backgroundColor: _isButtonEnabled
-                          ? HexColor.fromHex("#FF3E68")
-                          : HexColor.fromHex('#DADADA'),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: _isButtonEnabled
-                            ? BorderRadius.circular(65)
-                            : BorderRadius.circular(65),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                    ),
-                    onPressed: () {
-                       Navigator.of(context).push(
-    MaterialPageRoute(builder: (context) => const AvailabilityPage()),
-  );
-
-                    },
-                    child: const Text(
-                      
-                           "Naar beschikbaarheid"
-                          ,
-                      style: TextStyle(
-                        fontSize: 17.5,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+        child: Center(
+          child: SizedBox(
+            width: MediaQuery.sizeOf(context).width,
+            height: 58,
+            child: FilledButton(
+              style: FilledButton.styleFrom(
+                backgroundColor: _isButtonEnabled
+                    ? HexColor.fromHex("#FF3E68")
+                    : HexColor.fromHex('#DADADA'),
+                shape: RoundedRectangleBorder(
+                  borderRadius: _isButtonEnabled
+                      ? BorderRadius.circular(65)
+                      : BorderRadius.circular(65),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 10),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const JobListingAvailabilityScreen()),
+                );
+              },
+              child: const Text(
+                "Naar beschikbaarheid",
+                style: TextStyle(
+                  fontSize: 17.5,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -170,9 +168,10 @@ class _SkillsPageState extends State<SkillsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text(
+                Text(
                   'Vereiste werkervaring',
-                  style: TextStyles.titleMedium.copyWith(fontSize: 17,fontWeight: FontWeight.w700),
+                  style: TextStyles.titleMedium
+                      .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
                 ),
                 Icon(
                   Icons.info_outline,
@@ -211,16 +210,36 @@ class _SkillsPageState extends State<SkillsPage> {
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.85,
-                  child:  Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Geen',style: TextStyles.titleMedium.copyWith(fontSize: 15.63,fontWeight: FontWeight.w600,color: HexColor.fromHex("#8A8989")),),
+                      Text(
+                        'Geen',
+                        style: TextStyles.titleMedium.copyWith(
+                            fontSize: 15.63,
+                            fontWeight: FontWeight.w600,
+                            color: HexColor.fromHex("#8A8989")),
+                      ),
                       const SizedBox(width: 8),
-                      Text('Starter',style: TextStyles.titleMedium.copyWith(fontSize: 15.63,fontWeight: FontWeight.w600),),
-                      
-                      Text('⭐Ervaren',style: TextStyles.titleMedium.copyWith(fontSize: 15.63,fontWeight: FontWeight.w600,color: HexColor.fromHex("#F9AA16")),),
-                      
-                      Text('💎Expert',style: TextStyles.titleMedium.copyWith(fontSize: 15.63,fontWeight: FontWeight.w600,color: HexColor.fromHex("#61C5FF")),),
+                      Text(
+                        'Starter',
+                        style: TextStyles.titleMedium.copyWith(
+                            fontSize: 15.63, fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        '⭐Ervaren',
+                        style: TextStyles.titleMedium.copyWith(
+                            fontSize: 15.63,
+                            fontWeight: FontWeight.w600,
+                            color: HexColor.fromHex("#F9AA16")),
+                      ),
+                      Text(
+                        '💎Expert',
+                        style: TextStyles.titleMedium.copyWith(
+                            fontSize: 15.63,
+                            fontWeight: FontWeight.w600,
+                            color: HexColor.fromHex("#61C5FF")),
+                      ),
                     ],
                   ),
                 ),
@@ -244,23 +263,25 @@ class _SkillsPageState extends State<SkillsPage> {
           children: [
             Text(
               title,
-              style:TextStyles.titleMedium.copyWith(fontSize: 17,fontWeight: FontWeight.w700),
+              style: TextStyles.titleMedium
+                  .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
             ),
             Text(
               'Kies er $maxSelection',
-              style: TextStyles.titleMedium.copyWith(fontSize: 15.4,fontWeight: FontWeight.w600,color: HexColor.fromHex("#0000003B").withOpacity(0.23)),
+              style: TextStyles.titleMedium.copyWith(
+                  fontSize: 15.4,
+                  fontWeight: FontWeight.w600,
+                  color: HexColor.fromHex("#0000003B").withOpacity(0.23)),
             ),
           ],
         ),
         const SizedBox(height: 8),
         Wrap(
-        
           spacing: 4,
           runSpacing: 2,
           children: skills.map((skill) {
             return ChoiceChip(
-            
-            showCheckmark: false,
+              showCheckmark: false,
               label: Text(skill),
               selected: selectedSkills.contains(skill),
               onSelected: (selected) {
@@ -275,9 +296,9 @@ class _SkillsPageState extends State<SkillsPage> {
                 });
               },
               selectedColor: Colors.white,
-            backgroundColor: Colors.white,
+              backgroundColor: Colors.white,
               labelStyle: TextStyle(
-              fontFamily: 'Inter',
+                fontFamily: 'Inter',
                 color: selectedSkills.contains(skill)
                     ? HexColor.fromHex("#FF3E68")
                     : HexColor.fromHex("#A0A0A0"),
