@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-//import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
-import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 import '../../../ui/theme/jobr_icons.dart';
+import 'edit/edit_profile_details_screen.dart';
 import 'tabs/general_item_widget.dart';
 import 'tabs/media_item_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
-  static const String route = '${BaseNavBarScreen.route}/$location';
+  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'profile';
 
   const ProfileScreen({super.key});
@@ -47,35 +49,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
               floating: false,
               pinned: true,
               title: innerBoxIsScrolled
-                  ? const Text(
-                      "Louis Ottevaere",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                      ),
+                  ? Row(
+                      children: [
+                        if (innerBoxIsScrolled)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 15),
+                            child: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(color: Colors.white, width: 4),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/images/profile.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          )
+                        else
+                          const SizedBox.shrink(),
+                        const Text(
+                          "Louis Ottevaere",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     )
                   : null,
               scrolledUnderElevation: 0,
               elevation: 0,
-              leading: innerBoxIsScrolled
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 4),
-                          image: const DecorationImage(
-                            image:
-                                AssetImage('assets/images/images/profile.png'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    )
-                  : null,
               backgroundColor: theme.colorScheme.surface,
               clipBehavior: Clip.none,
               flexibleSpace: FlexibleSpaceBar(
@@ -114,10 +122,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: 25,
+                      top: 156,
                       right: 10,
                       child: ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.push(EditProfileDetailsScreen.route);
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.primaryColor,
                         ),
@@ -130,13 +140,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        icon: SvgPicture.asset(
-                          JobrIcons.edit,
-                          width: 16,
-                          height: 16,
-                          colorFilter: ColorFilter.mode(
-                            TextStyles.clearText,
-                            BlendMode.srcIn,
+                        icon: Padding(
+                          padding: const EdgeInsets.only(left: 4.0),
+                          child: SvgPicture.asset(
+                            JobrIcons.edit,
+                            width: 16,
+                            height: 16,
+                            colorFilter: ColorFilter.mode(
+                              TextStyles.clearText,
+                              BlendMode.srcIn,
+                            ),
                           ),
                         ),
                       ),
@@ -156,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: TextStyle(
                 fontSize: 25,
                 fontFamily: 'Inter',
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w800,
               ),
             ),
             const SizedBox(height: 8),
@@ -169,7 +182,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 color: TextStyles.unselectedText,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
             Row(
               children: [
                 SvgIcon(
@@ -183,46 +196,54 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   "Kortrijk",
                   style: TextStyle(
                     fontSize: 17,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            const Text(
-              "Ik ben Louis, 30 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste service geven.",
-              style: TextStyle(
-                fontSize: 15,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w600,
+            const SizedBox(height: 22),
+            const Padding(
+              padding: EdgeInsets.only(
+                right: 72,
+              ),
+              child: Text(
+                "Ik ben Louis, 30 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste service geven.",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                _buildStat("36", "sollicitaties", JobrIcons.jobApplications),
-                SizedBox(
-                  height: 46,
-                  child: VerticalDivider(
-                    thickness: 1.5,
-                    width: 36,
-                    color: HexColor.fromHex('#F0F1F3'),
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: PaddingSizes.small,
+              ),
+              child: Row(
+                children: [
+                  _buildStat("36", "sollicitaties", JobrIcons.jobApplications),
+                  SizedBox(
+                    height: 46,
+                    child: VerticalDivider(
+                      thickness: 1.5,
+                      width: 42,
+                      color: HexColor.fromHex('#F0F1F3'),
+                    ),
                   ),
-                ),
-                _buildStat("12", "sessies", JobrIcons.phone),
-                SizedBox(
-                  height: 46,
-                  child: VerticalDivider(
-                    thickness: 1.5,
-                    width: 36,
-                    color: HexColor.fromHex('#F0F1F3'),
+                  _buildStat("12", "sessies", JobrIcons.phone),
+                  SizedBox(
+                    height: 46,
+                    child: VerticalDivider(
+                      thickness: 1.5,
+                      width: 42,
+                      color: HexColor.fromHex('#F0F1F3'),
+                    ),
                   ),
-                ),
-                _buildStat("22", "verzoeken", JobrIcons.chat),
-              ],
+                  _buildStat("22", "verzoeken", JobrIcons.chat),
+                ],
+              ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 27),
             Row(
               children: List.generate(
                 tabData.length,
@@ -255,15 +276,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         fontSize: 16,
                       ),
                     ),
-                    icon: SvgPicture.asset(
-                      tabData[index].icon,
-                      width: 16,
-                      height: 16,
-                      colorFilter: ColorFilter.mode(
-                        selectedIndex == index
-                            ? TextStyles.clearText
-                            : TextStyles.unselectedText,
-                        BlendMode.srcIn,
+                    icon: Padding(
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: SvgPicture.asset(
+                        tabData[index].icon,
+                        width: 16,
+                        height: 16,
+                        colorFilter: ColorFilter.mode(
+                          selectedIndex == index
+                              ? TextStyles.clearText
+                              : TextStyles.unselectedText,
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                   ),
@@ -289,16 +313,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             SvgIcon(
               icon,
-              size: 17,
-              color: TextStyles.mainText,
+              size: 20,
+              color: TextStyles.secondaryText,
             ),
-            const SizedBox(width: 5),
+            const SizedBox(width: 6),
             Text(
               number,
               style: TextStyle(
-                fontSize: 17,
+                fontSize: 19,
                 fontFamily: 'Inter',
-                color: HexColor.fromHex('#494A54'),
+                color: TextStyles.secondaryText,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -309,8 +333,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           style: TextStyle(
             fontSize: 15,
             fontFamily: 'Inter',
-            fontWeight: FontWeight.w600,
-            color: TextStyles.unselectedText,
+            fontWeight: FontWeight.w500,
+            color: HexColor.fromHex('#82838C'),
           ),
         ),
       ],
