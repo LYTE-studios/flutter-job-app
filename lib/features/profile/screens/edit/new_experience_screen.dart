@@ -51,7 +51,7 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
           child: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: SvgPicture.asset(
-              JobrIcons.close,
+              JobrIcons.backArrow,
               width: 30,
               height: 30,
             ),
@@ -70,12 +70,13 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         children: [
+          const SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(
               color: theme.colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(10),
             ),
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: CustomListTile2(
               image: initialExperience.image,
               title: initialExperience.title,
@@ -209,7 +210,7 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
           controller: controller,
           textAlignVertical: TextAlignVertical.center,
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: 16.5,
             fontFamily: 'Inter',
             fontWeight: FontWeight.w500,
           ),
@@ -217,7 +218,7 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
             hintText: hint,
             hintStyle: TextStyle(
               color: HexColor.fromHex('#B7B7B7'),
-              fontSize: 16,
+              fontSize: 16.5,
               fontFamily: 'Inter',
               fontWeight: FontWeight.w500,
             ),
