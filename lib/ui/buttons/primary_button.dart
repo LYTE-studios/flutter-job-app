@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
   final Function()? onTap;
-
   final String buttonText;
   final Color buttonColor;
   final Color textColor;
@@ -10,11 +9,13 @@ class PrimaryButton extends StatelessWidget {
   final double width;
   final double height;
   final TextStyle? textStyle;
+  final suffixIcon; // Make suffixIcon optional
 
   const PrimaryButton({
     super.key,
     this.onTap,
     required this.buttonText,
+    this.suffixIcon, // Make suffixIcon optional
     this.buttonColor = const Color(0xFFFF3E68),
     this.textColor = Colors.white,
     this.borderRadius = 18,
@@ -38,14 +39,23 @@ class PrimaryButton extends StatelessWidget {
           padding: EdgeInsets.zero,
         ),
         child: Center(
-          child: Text(
-            buttonText,
-            style: textStyle ??
-                TextStyle(
-                  fontSize: 18,
-                  color: textColor,
-                  fontWeight: FontWeight.w600,
-                ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (suffixIcon != null) ...[
+                SizedBox(width: 8),
+                suffixIcon!,
+              ],
+              Text(
+                buttonText,
+                style: textStyle ??
+                    TextStyle(
+                      fontSize: 18,
+                      color: textColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+            ],
           ),
         ),
       ),
