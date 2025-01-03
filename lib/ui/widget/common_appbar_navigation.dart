@@ -14,16 +14,47 @@ class CommonAppbarNavigation extends StatelessWidget
   const CommonAppbarNavigation({
     super.key,
     required this.appbarTitle,
-    this.canGoBack = true,
+    this.canGoBack = false,
     this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      surfaceTintColor: Colors.transparent,
+      shadowColor: Colors.transparent,
       automaticallyImplyLeading: false,
-      title: Row(
+      title: Stack(
         children: [
+          Center(
+            child: SizedBox(
+              height: 45,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: Text(
+                      appbarTitle,
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'inter',
+                      ),
+                    ),
+                  ),
+                  if (icon != null)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 4,
+                      ),
+                      child: icon!,
+                    ),
+                ],
+              ),
+            ),
+          ),
           if (canGoBack)
             IconButton(
               icon: const SvgIcon(
@@ -32,17 +63,6 @@ class CommonAppbarNavigation extends StatelessWidget
               ),
               onPressed: () => context.pop(),
             ),
-          const Spacer(),
-          Text(
-            appbarTitle,
-            style: const TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'inter',
-            ),
-          ),
-          if (icon != null) icon!,
-          const Spacer(),
         ],
       ),
       centerTitle: false,

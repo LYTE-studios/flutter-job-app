@@ -177,6 +177,16 @@ GoRouter router = GoRouter(
                 );
               },
             ),
+            GoRoute(
+              path: JobrAiSuggestionsScreen.location,
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                return buildPageWithSlideUpTransition(
+                  context: context,
+                  state: state,
+                  child: const JobrAiSuggestionsScreen(),
+                );
+              },
+            ),
           ],
         ),
         GoRoute(

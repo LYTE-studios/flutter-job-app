@@ -4,6 +4,7 @@ import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/profile/screens/recruteren/recruitment_detail_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:jobr/ui/widget/common_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -54,22 +55,59 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const CommonAppbarNavigation(appbarTitle: "Recruteren"),
       backgroundColor: theme.colorScheme.surface,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+      body: SafeArea(
+        top: true,
+        bottom: false,
         child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const CommonSearchBar(
-              hintText: 'Zoek op naam, school, andere zaken, ...',
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: PaddingSizes.medium,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(
+                    height: PaddingSizes.medium,
+                  ),
+                  const Text(
+                    'Recruteren',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: PaddingSizes.extraSmall,
+                  ),
+                  const CommonSearchBar(
+                    hintText: 'Zoek op naam, school, andere zaken, ...',
+                  ),
+                  const SizedBox(
+                    height: PaddingSizes.medium,
+                  ),
+                  _buildGridView(),
+                  const SizedBox(
+                    height: PaddingSizes.medium,
+                  ),
+                  _buildFilterRow(theme),
+                  const SizedBox(
+                    height: PaddingSizes.extraLarge * 2,
+                  ),
+                  _buildJobrAISection(theme),
+                  const SizedBox(
+                    height: PaddingSizes.medium,
+                  ),
+                ],
+              ),
             ),
-            _buildGridView(),
-            _buildFilterRow(theme),
-            const SizedBox(height: 20),
-            _buildJobrAISection(theme),
-            _buildJobrAISuggestions(),
+            Expanded(
+              child: _buildJobrAISuggestions(),
+            ),
           ],
         ),
       ),
@@ -142,34 +180,31 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
   }
 
   Widget _buildFilterRow(ThemeData theme) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Container(
-        height: 48,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        decoration: BoxDecoration(
-          color: theme.primaryColor,
-          borderRadius: BorderRadius.circular(14),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Zoek met filters ",
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: theme.colorScheme.onPrimary,
-              ),
+    return Container(
+      height: 48,
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      decoration: BoxDecoration(
+        color: theme.primaryColor,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Zoek met filters ",
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: theme.colorScheme.onPrimary,
             ),
-            Image.asset(
-              height: 20,
-              width: 20,
-              "assets/images/recruteren/filter.png",
-            ),
-          ],
-        ),
+          ),
+          Image.asset(
+            height: 20,
+            width: 20,
+            "assets/images/recruteren/filter.png",
+          ),
+        ],
       ),
     );
   }
@@ -198,7 +233,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
           ],
         ),
         GestureDetector(
-          onTap: () => context.push(JobrAiSuggestionsScreen.route),
+          onTap: () => context.push(JobrAiSuggestionsScreen.employerRoute),
           child: Text(
             "Bekijk alle",
             style: TextStyle(
@@ -214,28 +249,35 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
   }
 
   Widget _buildJobrAISuggestions() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(5, (index) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: CustomJobCard(
-              description:
-                  "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
-              age: "20",
-              buttonColor: HexColor.fromHex('#3976FF'),
-              buttonText: "Chat starten",
-              buttonIcon: JobrIcons.send,
-              location: "Brussel",
-              userName: "Yassine Vuran",
-              onButtonPressed: () {},
-              profileImagePath: "assets/images/images/image-3.png",
-              suggestionPercentage: "74",
-              showBottomText: false,
-            ),
-          );
-        }),
+    return SizedBox(
+      height: 272,
+      child: ListView(
+        padding: const EdgeInsets.all(
+          PaddingSizes.medium,
+        ),
+        scrollDirection: Axis.horizontal,
+        children: List.generate(
+          5,
+          (index) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: CustomJobCard(
+                description:
+                    "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
+                age: "20",
+                buttonColor: HexColor.fromHex('#3976FF'),
+                buttonText: "Chat starten",
+                buttonIcon: JobrIcons.send,
+                location: "Brussel",
+                userName: "Yassine Vuran",
+                onButtonPressed: () {},
+                profileImagePath: "assets/images/images/image-3.png",
+                suggestionPercentage: "74",
+                showBottomText: false,
+              ),
+            );
+          },
+        ),
       ),
     );
   }

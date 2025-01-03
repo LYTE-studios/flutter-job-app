@@ -46,7 +46,7 @@ class CustomJobCard extends StatelessWidget {
           children: [
             _buildProfileHeader(context),
             const SizedBox(height: 10),
-            _buildDescription(context),
+            Expanded(child: _buildDescription(context)),
             const SizedBox(height: 10),
             _buildActionRow(context),
             if (showBottomText == true) _buildBottomRow(context)

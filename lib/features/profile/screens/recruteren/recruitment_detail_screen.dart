@@ -78,10 +78,13 @@ class RecruitmentDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppbarNavigation(
+        canGoBack: true,
         appbarTitle: title,
-        icon: SvgIcon(
+        icon: Image.asset(
           image,
-          leaveUnaltered: true,
+          height: 30,
+          width: 30,
+          fit: BoxFit.contain,
         ),
       ),
       body: ListView.separated(

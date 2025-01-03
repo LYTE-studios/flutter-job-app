@@ -213,7 +213,7 @@ class _JobScreenState extends State<JobScreen> {
           ],
         ),
         GestureDetector(
-          onTap: () => context.push(JobrAiSuggestionsScreen.route),
+          onTap: () => context.push(JobrAiSuggestionsScreen.employerRoute),
           child: Text(
             "Bekijk alle",
             style: TextStyle(
