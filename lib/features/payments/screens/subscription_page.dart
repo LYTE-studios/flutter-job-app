@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:jobr/configuration.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TermsAndConditionsWidget extends StatelessWidget {
@@ -25,7 +26,7 @@ class TermsAndConditionsWidget extends StatelessWidget {
               ),
               recognizer: TapGestureRecognizer()
                 ..onTap = () async {
-                  const url = 'https://lytestudios.be';
+                  const url = tosUrl;
                   if (await canLaunchUrl(Uri.parse(url))) {
                     await launchUrl(Uri.parse(url));
                   } else {

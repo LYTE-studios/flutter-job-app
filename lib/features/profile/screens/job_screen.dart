@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:jobr/ui/widget/common_search_bar.dart';
 
 class JobScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'jobs';
 
   const JobScreen({super.key});
@@ -215,7 +213,7 @@ class _JobScreenState extends State<JobScreen> {
           ],
         ),
         GestureDetector(
-          onTap: () => context.push(JobrAiSuggestionsScreen.route),
+          onTap: () => context.push(JobrAiSuggestionsScreen.employerRoute),
           child: Text(
             "Bekijk alle",
             style: TextStyle(

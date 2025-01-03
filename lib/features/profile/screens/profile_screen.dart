@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -13,7 +12,6 @@ import 'tabs/general_item_widget.dart';
 import 'tabs/media_item_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'profile';
 
   const ProfileScreen({super.key});
@@ -49,35 +47,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
               floating: false,
               pinned: true,
               title: innerBoxIsScrolled
-                  ? const Text(
-                      "Louis Ottevaere",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                      ),
+                  ? Row(
+                      children: [
+                        if (innerBoxIsScrolled)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 15),
+                            child: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(color: Colors.white, width: 4),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/images/profile.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          )
+                        else
+                          const SizedBox.shrink(),
+                        const Text(
+                          "Louis Ottevaere",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     )
                   : null,
               scrolledUnderElevation: 0,
               elevation: 0,
-              leading: innerBoxIsScrolled
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: 70,
-                        height: 70,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 4),
-                          image: const DecorationImage(
-                            image:
-                                AssetImage('assets/images/images/profile.png'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    )
-                  : null,
               backgroundColor: theme.colorScheme.surface,
               clipBehavior: Clip.none,
               flexibleSpace: FlexibleSpaceBar(
@@ -120,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       right: 10,
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          context.push(EditProfileDetailsScreen.route);
+                          // context.push(EditProfileDetailsScreen.route);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.primaryColor,
@@ -307,7 +311,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             SvgIcon(
               icon,
-              size: 17,
+              size: 20,
               color: TextStyles.secondaryText,
             ),
             const SizedBox(width: 6),

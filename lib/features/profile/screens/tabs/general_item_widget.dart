@@ -119,10 +119,10 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                       InkWell(
                         onTap: () {
                           // context.push(CreateNewCompanyScreen.route);
-                          context.push(NewExpereinceScreen.route);
+                          // context.push(NewExpereinceScreen.route);
                         },
                         child: SvgPicture.asset(
-                          JobrIcons.add,
+                          JobrIcons.addIcon,
                           width: 20,
                           height: 20,
                           colorFilter: ColorFilter.mode(
@@ -236,10 +236,10 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                       const SizedBox(width: 10),
                       InkWell(
                         onTap: () {
-                          context.push(ChooseCompanyScreen.route);
+                          // context.push(ChooseCompanyScreen.route);
                         },
                         child: SvgPicture.asset(
-                          JobrIcons.add,
+                          JobrIcons.addIcon,
                           width: 20,
                           height: 20,
                           colorFilter: ColorFilter.mode(
@@ -344,8 +344,8 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                           ),
                         )
                       else
-                        TextButton(
-                          onPressed: () {
+                        GestureDetector(
+                          onTap: () {
                             setState(() {
                               editSkills = !editSkills;
                             });
@@ -364,7 +364,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                 ],
               ),
-              if (!editExperience) const SizedBox(height: 10),
+              const SizedBox(height: 10),
               Wrap(
                 children: [
                   ...skills.map(
@@ -412,7 +412,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                     children: <Widget>[
                       InkWell(
                         onTap: () {
-                          context.push(ChooseSectorScreen.route);
+                          // context.push(ChooseSectorScreen.route);
                         },
                         child: SvgPicture.asset(
                           JobrIcons.edit,
@@ -468,10 +468,10 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                       const SizedBox(width: 10),
                       InkWell(
                         onTap: () {
-                          context.push(MakeAChoiceScreen.route);
+                          // context.push(MakeAChoiceScreen.route);
                         },
                         child: SvgPicture.asset(
-                          JobrIcons.add,
+                          JobrIcons.addIcon,
                           width: 20,
                           height: 20,
                           colorFilter: ColorFilter.mode(
