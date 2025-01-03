@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jobr/features/chat/screens/chat_request.dart';
-import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
+import 'package:jobr/features/chat/screens/chat_request_screen.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 
 class ChatScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'chat';
 
   const ChatScreen({super.key});
@@ -38,79 +37,94 @@ class _ChatScreenState extends State<ChatScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: const CommonAppbarNavigation(appbarTitle: "Chat"),
       body: Container(
         width: screenWidth,
         height: screenHeight,
         color: const Color(0xFFFFFFFF),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 17.0),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      _buildCategoryButton(
-                        'Alle',
-                        const Color(0xFFFFEEF1),
-                        const Color(0xFFFF3E68).withOpacity(0.9),
-                      ),
-                      const SizedBox(width: 6),
-                      _buildCategoryButton('Ongelezen', const Color(0xFFF8F8F8),
-                          const Color(0xFFA0A0A0)),
-                    ],
+          child: SafeArea(
+            top: true,
+            bottom: false,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(
+                  height: PaddingSizes.medium,
+                ),
+                const Text(
+                  'Chat',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      '3 verzoeken',
-                      style: TextStyle(
-                        color: Color(0xFFFF3E68),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 18),
-              const Divider(
-                color: Color(0x0F000000),
-                height: 20,
-                thickness: 1.5,
-                indent: 74,
-              ),
-              Expanded(
-                  child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ChatRequest(),
-                    ),
-                  );
-                },
-                child: ListView.builder(
-                  itemCount: chatData.length,
-                  itemBuilder: (context, index) {
-                    final chat = chatData[index];
-                    return Column(
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
                       children: [
-                        _buildChatItem(chat),
-                        const Divider(
-                          color: Color(0x0F000000),
-                          height: 20,
-                          thickness: 1.5,
-                          indent: 74,
+                        _buildCategoryButton(
+                          'Alle',
+                          const Color(0xFFFFEEF1),
+                          const Color(0xFFFF3E68).withOpacity(0.9),
                         ),
+                        const SizedBox(width: 6),
+                        _buildCategoryButton('Ongelezen',
+                            const Color(0xFFF8F8F8), const Color(0xFFA0A0A0)),
                       ],
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        '3 verzoeken',
+                        style: TextStyle(
+                          color: Color(0xFFFF3E68),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 18),
+                const Divider(
+                  color: Color(0x0F000000),
+                  height: 20,
+                  thickness: 1.5,
+                  indent: 74,
+                ),
+                Expanded(
+                    child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChatRequestScreen(),
+                      ),
                     );
                   },
-                ),
-              )),
-            ],
+                  child: ListView.builder(
+                    itemCount: chatData.length,
+                    itemBuilder: (context, index) {
+                      final chat = chatData[index];
+                      return Column(
+                        children: [
+                          _buildChatItem(chat),
+                          const Divider(
+                            color: Color(0x0F000000),
+                            height: 20,
+                            thickness: 1.5,
+                            indent: 74,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                )),
+              ],
+            ),
           ),
         ),
       ),

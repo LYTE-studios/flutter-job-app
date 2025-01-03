@@ -5,14 +5,16 @@ import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
 import '../../../data/models/message.dart';
 
-class ChatRequest extends StatefulWidget {
-  const ChatRequest({super.key});
+class ChatRequestScreen extends StatefulWidget {
+  const ChatRequestScreen({super.key});
+
+  static const String location = 'chat-request';
 
   @override
-  State<ChatRequest> createState() => _ChatScreenState();
+  State<ChatRequestScreen> createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatRequest> {
+class _ChatScreenState extends State<ChatRequestScreen> {
   final List<Message> messages = [];
 
   @override

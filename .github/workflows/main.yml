@@ -1,0 +1,32 @@
+name: Deploy to TestFlight
+
+on:
+  push:
+    branches: [ testflight ]
+
+jobs:
+  deploy:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.10.0'
+    
+    - name: Install dependencies
+      run: flutter pub get
+    
+    - name: Build iOS IPA
+      run: |
+        flutter build ipa --release \
+        --export-options-plist=ios/Runner/ExportOptions.plist
+    
+    - name: Deploy to TestFlight
+      uses: apple-actions/upload-testflight-build@v1
+      with:
+        app-path: build/ios/ipa/your-app-name.ipa
+        issuer-id: ${{ secrets.APPLE_ISSUER_ID }}
+        key-id: ${{ secrets.APPLE_KEY_ID }}
+        private-key: ${{ secrets.APPLE_PRIVATE_KEY }}

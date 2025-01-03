@@ -6,6 +6,17 @@ class TextStyles {
   static Color clearText = Colors.white;
   static Color secondaryText = HexColor.fromHex('#494A54');
   static Color unselectedText = HexColor.fromHex('#9FA0A5');
+  static Color selectedText = HexColor.fromHex('#666666');
+  static Color disabledText = const Color(0xFF4A4C53);
+   static Color brooklyn = const Color(0xFF6F717C);
+   static Color darkGray = const Color(0xFFF6F6F6);
+   static Color green = const Color(0xFF35BD78);
+   static Color lightgrey = const Color(0xFF616161);
+   static Color lightbg = const Color(0xFFE4E4E4);
+   static Color red = const Color(0xFFFF3E68);
+   static Color deepgrey = const Color(0xFF565656);    
+
+
 
   // --------------------------------------
   // Title

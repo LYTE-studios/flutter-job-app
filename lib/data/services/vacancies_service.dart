@@ -19,8 +19,12 @@ class VacanciesService {
 
   Future<Vacancy> applyForVacancy(int vacancyId, int employeeId) async {
     try {
-      final response = await _apiService.dio.post('vacancies/$vacancyId/apply/',
-          data: {'employee_id': employeeId});
+      final response = await _apiService.dio.post(
+        'vacancies/$vacancyId/apply/',
+        data: {
+          'employee_id': employeeId,
+        },
+      );
       return Vacancy.fromJson(response.data);
     } catch (e) {
       throw Exception('Failed to apply for vacancy: $e');
