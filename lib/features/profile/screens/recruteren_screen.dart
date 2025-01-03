@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/recruteren/recruitment_detail_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
@@ -95,7 +97,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
     return GestureDetector(
       onTap: () {
         context.push(
-          '/recruitment/${item["category"]}',
+          RecruitmentDetailScreen.employerRoute,
           extra: {
             'category': item["category"],
             'title': item["text"],

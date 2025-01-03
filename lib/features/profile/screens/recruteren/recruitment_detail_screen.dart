@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/recruteren_screen.dart';
+import 'package:jobr/ui/widget/common_appbar_navigation.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
@@ -9,11 +13,19 @@ class RecruitmentDetailScreen extends StatelessWidget {
   final String title;
   final String image;
 
-  RecruitmentDetailScreen(
-      {super.key,
-      required this.category,
-      required this.title,
-      required this.image});
+  static const String location = 'recruitment';
+
+  static String employerRoute = JobrRouter.getRoute(
+    '${RecruterenScreen.location}/$location',
+    JobrRouter.employerInitialroute,
+  );
+
+  RecruitmentDetailScreen({
+    super.key,
+    required this.category,
+    required this.title,
+    required this.image,
+  });
 
   // Sample data list
   final List<Map<String, String>> jobCards = [
@@ -65,75 +77,37 @@ class RecruitmentDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                InkWell(
-                  onTap: () => Navigator.of(context).pop(),
-                  child: Image.asset(
-                    height: 15,
-                    width: 15,
-                    "assets/images/icons/cross_icon.png",
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    image,
-                    height: 30,
-                    width: 30,
-                    fit: BoxFit.contain,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
+      appBar: CommonAppbarNavigation(
+        appbarTitle: title,
+        icon: SvgIcon(
+          image,
+          leaveUnaltered: true,
         ),
-        centerTitle: true,
       ),
-      body: Padding(
+      body: ListView.separated(
         padding: const EdgeInsets.all(16.0),
-        child: ListView.separated(
-          shrinkWrap: true,
-          itemCount: jobCards.length,
-          separatorBuilder: (context, index) => const Divider(
-            height: 10,
-            color: Colors.transparent,
-          ),
-          itemBuilder: (context, index) {
-            final card = jobCards[index];
-            return CustomJobCard(
-              description: card["description"]!,
-              age: card["age"]!,
-              buttonColor: HexColor.fromHex('#3976FF'),
-              buttonText: "Chat starten",
-              buttonIcon: JobrIcons.send,
-              showBottomText: true,
-              location: card["location"]!,
-              userName: card["userName"]!,
-              onButtonPressed: () {},
-              profileImagePath: card["profileImagePath"]!,
-              suggestionPercentage: card["suggestionPercentage"]!,
-            );
-          },
+        shrinkWrap: true,
+        itemCount: jobCards.length,
+        separatorBuilder: (context, index) => const Divider(
+          height: 10,
+          color: Colors.transparent,
         ),
+        itemBuilder: (context, index) {
+          final card = jobCards[index];
+          return CustomJobCard(
+            description: card["description"]!,
+            age: card["age"]!,
+            buttonColor: HexColor.fromHex('#3976FF'),
+            buttonText: "Chat starten",
+            buttonIcon: JobrIcons.send,
+            showBottomText: true,
+            location: card["location"]!,
+            userName: card["userName"]!,
+            onButtonPressed: () {},
+            profileImagePath: card["profileImagePath"]!,
+            suggestionPercentage: card["suggestionPercentage"]!,
+          );
+        },
       ),
     );
   }

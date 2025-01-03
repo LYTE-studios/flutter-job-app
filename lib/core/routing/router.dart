@@ -12,10 +12,44 @@ import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
+import 'package:jobr/features/profile/screens/recruteren/recruitment_detail_screen.dart';
 import 'package:jobr/features/profile/screens/recruteren_screen.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 
 import '../../features/profile/screens/create_profile_screen.dart';
+
+CustomTransitionPage buildPageWithSlideUpTransition<T>({
+  required BuildContext context,
+  required GoRouterState state,
+  required Widget child,
+}) {
+  return CustomTransitionPage<T>(
+    key: state.pageKey,
+    child: child,
+    transitionDuration: const Duration(milliseconds: 300),
+    transitionsBuilder: (
+      context,
+      animation,
+      secondaryAnimation,
+      child,
+    ) {
+      late final Animation<Offset> offsetAnimation = Tween<Offset>(
+        begin: const Offset(0, 1),
+        end: Offset.zero,
+      ).animate(
+        CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeOutCubic,
+        ),
+      );
+
+      return SlideTransition(
+        position: offsetAnimation,
+        child: child,
+      );
+    },
+  );
+}
 
 class JobrRouter {
   static const String initialRoute = '/';
@@ -41,7 +75,7 @@ class JobrRouter {
 
   static int? getSelectedIndex(String route, List<String> routes) {
     for (String r in routes) {
-      if (route.contains(r)) {
+      if (route.split('/').last == r) {
         return routes.indexOf(r);
       }
     }
@@ -85,7 +119,7 @@ GoRouter router = GoRouter(
                 CompanyProfileScreen.location,
                 JobrRouter.employerInitialroute,
               ),
-              icon: JobrIcons.web,
+              icon: JobrIcons.aboutUs,
               name: 'Over ons',
             ),
           ],
@@ -126,6 +160,24 @@ GoRouter router = GoRouter(
               const NoTransitionPage(
             child: RecruterenScreen(),
           ),
+          routes: [
+            GoRoute(
+              path: RecruitmentDetailScreen.location,
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                Map data = state.extra as Map;
+
+                return buildPageWithSlideUpTransition(
+                  context: context,
+                  state: state,
+                  child: RecruitmentDetailScreen(
+                    title: data["title"],
+                    image: data["image"],
+                    category: data["category"],
+                  ),
+                );
+              },
+            ),
+          ],
         ),
         GoRoute(
           path: JobrRouter.getRoute(
@@ -153,7 +205,7 @@ GoRouter router = GoRouter(
       builder: (context, state, child) {
         return BaseNavBarScreen(
           selectedIndex: JobrRouter.getSelectedIndex(
-            state.fullPath ?? '',
+            state.path ?? '',
             JobrRouter.employerNavigationLocations,
           ),
           routes: [

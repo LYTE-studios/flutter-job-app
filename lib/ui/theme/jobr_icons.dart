@@ -56,6 +56,7 @@ class JobrIcons {
   static const String calendar = '$_baseIconPath/calenda.svg';
   static const String check = '$_baseIconPath/check.svg';
   static const String send = '$_baseIconPath/send.svg';
+  static const String aboutUs = '$_baseIconPath/about_us.svg';
 
   static const List<String> icons = [
     logoLight,

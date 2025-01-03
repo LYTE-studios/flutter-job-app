@@ -65,7 +65,6 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
     return Scaffold(
       appBar: const CommonAppbarNavigation(
         appbarTitle: "Vind jouw job",
-        icon: Icons.favorite_rounded,
       ),
       backgroundColor: theme.colorScheme.surface,
       body: Padding(
