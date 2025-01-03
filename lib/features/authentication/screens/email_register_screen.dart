@@ -7,7 +7,7 @@ import 'package:jobr/data/providers/auth_providers.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
-import 'package:jobr/features/profile/screens/recruteren_screen.dart';
+import 'package:jobr/features/Sollicitaties/recruteren_screen.dart';
 import 'package:jobr/ui/buttons/primary_button.dart';
 import 'package:jobr/ui/input/custom_textfield.dart';
 
