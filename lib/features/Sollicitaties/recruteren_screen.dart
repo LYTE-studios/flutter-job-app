@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/Sollicitaties/widgets/job_cards.dart';
-import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/features/jobs/widgets/job_card.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class RecruterenScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'sollicitaties';
 
   const RecruterenScreen({super.key});
@@ -37,7 +35,6 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
     return Scaffold(
       appBar: const CommonAppbarNavigation(
         appbarTitle: "Mijn sollicitaties",
-        icon: Icons.favorite_rounded,
       ),
       backgroundColor: theme.colorScheme.surface,
       body: SingleChildScrollView(
