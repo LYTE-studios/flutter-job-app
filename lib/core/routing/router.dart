@@ -7,6 +7,8 @@ import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
 import 'package:jobr/features/job_listing/general_job_listing_screen.dart';
+import 'package:jobr/features/job_listing/job_listing_availability_screen.dart';
+import 'package:jobr/features/job_listing/skills_page.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
@@ -14,6 +16,7 @@ import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/features/profile/screens/recruteren/recruitment_detail_screen.dart';
 import 'package:jobr/features/profile/screens/recruteren_screen.dart';
+import 'package:jobr/features/vacatures/vacatures.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 
 import '../../features/profile/screens/create_profile_screen.dart';
@@ -67,7 +70,7 @@ class JobrRouter {
     ProfileScreen.location,
   ];
   static List<String> employerNavigationLocations = [
-    JobrAiSuggestionsScreen.location,
+    VacaturesPage.location,
     RecruterenScreen.location,
     ChatScreen.location,
     CompanyProfileScreen.location,
@@ -92,7 +95,7 @@ GoRouter router = GoRouter(
           routes: [
             JobrNavigationItem(
               route: JobrRouter.getRoute(
-                JobrAiSuggestionsScreen.location,
+                VacaturesPage.location,
                 JobrRouter.employerInitialroute,
               ),
               icon: JobrIcons.profile3,
@@ -133,13 +136,54 @@ GoRouter router = GoRouter(
       routes: [
         GoRoute(
           path: JobrRouter.getRoute(
-            JobrAiSuggestionsScreen.location,
+            VacaturesPage.location,
             JobrRouter.employerInitialroute,
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
-            child: JobrAiSuggestionsScreen(),
+              NoTransitionPage(
+            child: VacaturesPage(),
           ),
+          routes: [
+            GoRoute(
+              path: GeneralJobListingScreen.location,
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                return buildPageWithSlideUpTransition(
+                  context: context,
+                  state: state,
+                  child: const GeneralJobListingScreen(),
+                );
+              },
+              routes: [
+                GoRoute(
+                  path: JobListingSkillsScreen.location,
+                  pageBuilder: (BuildContext context, GoRouterState state) =>
+                      const NoTransitionPage(
+                    child: JobListingSkillsScreen(),
+                  ),
+                  routes: [
+                    GoRoute(
+                      path: JobListingSkillsScreen.location,
+                      pageBuilder:
+                          (BuildContext context, GoRouterState state) =>
+                              const NoTransitionPage(
+                        child: JobListingSkillsScreen(),
+                      ),
+                      routes: [
+                        GoRoute(
+                          path: JobListingAvailabilityScreen.location,
+                          pageBuilder:
+                              (BuildContext context, GoRouterState state) =>
+                                  const NoTransitionPage(
+                            child: JobListingAvailabilityScreen(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
         GoRoute(
           path: JobrRouter.getRoute(

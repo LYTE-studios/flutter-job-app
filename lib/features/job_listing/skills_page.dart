@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/job_listing/general_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/job_listing_availability_screen.dart';
+import 'package:jobr/features/vacatures/vacatures.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
@@ -7,6 +11,11 @@ class JobListingSkillsScreen extends StatefulWidget {
   const JobListingSkillsScreen({super.key});
 
   static const String location = 'job-listing-skills';
+
+  static String route = JobrRouter.getRoute(
+    '${VacaturesPage.location}/${GeneralJobListingScreen.location}/$location',
+    JobrRouter.employerInitialroute,
+  );
 
   @override
   State<JobListingSkillsScreen> createState() => _JobListingSkillsScreenState();
@@ -133,10 +142,8 @@ class _JobListingSkillsScreenState extends State<JobListingSkillsScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 10),
               ),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const JobListingAvailabilityScreen()),
+                context.push(
+                  JobListingAvailabilityScreen.route,
                 );
               },
               child: const Text(

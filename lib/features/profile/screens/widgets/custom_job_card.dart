@@ -34,6 +34,7 @@ class CustomJobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 256,
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
         color: HexColor.fromHex('#F6F6F6'),
