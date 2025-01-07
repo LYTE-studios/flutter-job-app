@@ -1,11 +1,11 @@
-name: Deploy to TestFlight
+name: Build and Test Flutter Project
 
 on:
   push:
     branches: [ testflight ]
 
 jobs:
-  deploy:
+  build-and-test:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v3
@@ -18,15 +18,21 @@ jobs:
     - name: Install dependencies
       run: flutter pub get
     
+    - name: Run tests
+      run: flutter test
+    
     - name: Build iOS IPA
       run: |
-        flutter build ipa --release \
-        --export-options-plist=ios/Runner/ExportOptions.plist
+        xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -sdk iphoneos -configuration Release archive -archivePath $PWD/build/Runner.xcarchive -allowProvisioningUpdates
+    
+    - name: Export IPA
+      run: |
+        xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive -exportOptionsPlist ios/Runner/ExportOptions.plist -allowProvisioningUpdates
     
     - name: Deploy to TestFlight
       uses: apple-actions/upload-testflight-build@v1
       with:
-        app-path: build/ios/ipa/your-app-name.ipa
+        app-path: build/ios/ipa/jobr.ipa
         issuer-id: ${{ secrets.APPLE_ISSUER_ID }}
         key-id: ${{ secrets.APPLE_KEY_ID }}
         private-key: ${{ secrets.APPLE_PRIVATE_KEY }}
