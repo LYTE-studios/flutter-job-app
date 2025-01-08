@@ -14,5 +14,10 @@
     <string>export</string>
     <key>signingStyle</key>
     <string>automatic</string>
+    <key>provisioningProfiles</key>
+<dict>
+    <key>jobr.lytestudios.be</key>
+    <string>YourProvisioningProfileName</string>
+</dict>
 </dict>
 </plist>
