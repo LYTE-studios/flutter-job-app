@@ -74,11 +74,10 @@ jobs:
             -exportOptionsPlist ios/ExportOptions.plist \
             -exportPath build/Runner.ipa
   
-      - name: Upload to TestFlight
-        uses: appleboy/app-store-release-action@v1.5.0
-        with:
-          api_key_id: ${{ secrets.APPLE_KEY_ID }}
-          api_issuer: ${{ secrets.APPLE_ISSUER_ID }}
-          api_private_key: ${{ secrets.APPLE_PRIVATE_KEY }}
-          ipa_path: build/Runner.ipa
-          submit_for_review: false
+      - name: 'Upload app to TestFlight'
+        uses: apple-actions/upload-testflight-build@v1
+        with: 
+          app-path: 'path/to/application.ipa' 
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }
