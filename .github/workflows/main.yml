@@ -1,13 +1,7 @@
 name: Build and Deploy to TestFlight
 
-permissions:
-  contents: read
-  pull-requests: read
-
 on:
-  pull_request_review:
-    types: [submitted]
-  pull_request:
+  push:
     branches:
       - release/*
 jobs:
@@ -19,28 +13,6 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Check approvals
-        id: check-approvals
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { data: reviews } = await github.pulls.listReviews({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-            });
-
-            // Count the number of approvals
-            const approvals = reviews.filter(review => review.state === "APPROVED").length;
-            console.log(`Approvals: ${approvals}`);
-            core.setOutput("approvals", approvals);
-
-          result-encoding: string
-
-      - name: Exit if approvals < 1
-        if: steps.check-approvals.outputs.approvals < 1
-        run: echo "Insufficient approvals. Exiting..."
-  
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
