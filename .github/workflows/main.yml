@@ -36,7 +36,7 @@ jobs:
 
       - name: Build IPA
         run: |
-          flutter build ipa --export-options-plist=ios/ExportOptions.plist --output build/Runner.ipa
+          flutter build ipa --export-options-plist=ios/ExportOptions.plist
   
       - name: 'Upload app to TestFlight'
         uses: apple-actions/upload-testflight-build@v1
