@@ -1,38 +1,61 @@
-name: Build and Test Flutter Project
+name: Build and Deploy to TestFlight
 
 on:
   push:
-    branches: [ testflight ]
-
+    branches:
+      - release/*
 jobs:
-  build-and-test:
+  build:
+    name: Build and Deploy Flutter App to TestFlight
     runs-on: macos-latest
+
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.10.0'
-    
-    - name: Install dependencies
-      run: flutter pub get
-    
-    - name: Run tests
-      run: flutter test
-    
-    - name: Build iOS IPA
-      run: |
-        xcodebuild -workspace ios/Runner.xcworkspace -scheme Runner -sdk iphoneos -configuration Release archive -archivePath $PWD/build/Runner.xcarchive -allowProvisioningUpdates
-    
-    - name: Export IPA
-      run: |
-        xcodebuild -exportArchive -archivePath $PWD/build/Runner.xcarchive -exportOptionsPlist ios/Runner/ExportOptions.plist -allowProvisioningUpdates
-    
-    - name: Deploy to TestFlight
-      uses: apple-actions/upload-testflight-build@v1
-      with:
-        app-path: build/ios/ipa/jobr.ipa
-        issuer-id: ${{ secrets.APPLE_ISSUER_ID }}
-        key-id: ${{ secrets.APPLE_KEY_ID }}
-        private-key: ${{ secrets.APPLE_PRIVATE_KEY }}
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+  
+      - name: Install Dependencies
+        run: flutter pub get
+  
+      - name: Build iOS Release
+        run: |
+          flutter build ios --release --no-codesign
+  
+      - name: Setup Keychain
+        run: |
+          echo $P12_CERTIFICATE | base64 --decode > certificate.p12
+          echo $PROVISIONING_PROFILE | base64 --decode > profile.mobileprovision
+          security create-keychain -p "" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "" build.keychain
+          security import certificate.p12 -P "$P12_PASSWORD" -A
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+  
+      - name: Archive with Xcode
+        run: |
+          xcodebuild -workspace ios/Runner.xcworkspace \
+            -scheme Runner \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath build/Runner.xcarchive archive \
+            DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }}
+  
+      - name: Export IPA
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath build/Runner.xcarchive \
+            -exportOptionsPlist ios/ExportOptions.plist \
+            -exportPath build/Runner.ipa
+  
+      - name: 'Upload app to TestFlight'
+        uses: apple-actions/upload-testflight-build@v1
+        with: 
+          app-path: 'build/Runner.ipa' 
+          issuer-id: ${{ secrets.APPLE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPLE_KEY_ID }}
+          api-private-key: ${{ secrets.APPLE_PRIVATE_KEY }}
