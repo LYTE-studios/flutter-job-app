@@ -29,12 +29,12 @@ jobs:
   
       - name: Setup Keychain
         run: |
-          echo $P12_CERTIFICATE | base64 --decode > certificate.p12
-          echo $PROVISIONING_PROFILE | base64 --decode > profile.mobileprovision
+          echo ${{ secrets.P12_CERTIFICATE }} | base64 --decode > certificate.p12
+          echo ${{ secrets.PROVISIONING_PROFILE }} | base64 --decode > profile.mobileprovision
           security create-keychain -p "" build.keychain
           security default-keychain -s build.keychain
           security unlock-keychain -p "" build.keychain
-          security import certificate.p12 -P "$P12_PASSWORD" -A
+          security import certificate.p12 -P "${{ secrets.P12_PASSWORD }}" -A
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
   
