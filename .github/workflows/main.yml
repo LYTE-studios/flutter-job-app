@@ -23,10 +23,6 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
   
-      - name: Build iOS Release
-        run: |
-          flutter build ios --release --no-codesign
-  
       - name: Setup Keychain
         run: |
           echo ${{ secrets.P12_CERTIFICATE }} | base64 --decode > certificate.p12
@@ -37,22 +33,10 @@ jobs:
           security import certificate.p12 -P "${{ secrets.P12_PASSWORD }}" -A
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
-  
-      - name: Archive with Xcode
+
+      - name: Build IPA
         run: |
-          xcodebuild -workspace ios/Runner.xcworkspace \
-            -scheme Runner \
-            -sdk iphoneos \
-            -configuration Release \
-            -archivePath build/Runner.xcarchive archive \
-            DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }}
-  
-      - name: Export IPA
-        run: |
-          xcodebuild -exportArchive \
-            -archivePath build/Runner.xcarchive \
-            -exportOptionsPlist ios/ExportOptions.plist \
-            -exportPath build/Runner.ipa
+          flutter build ipa --export-options-plist=ios/ExportOptions.plist --output build/Runner.ipa
   
       - name: 'Upload app to TestFlight'
         uses: apple-actions/upload-testflight-build@v1
