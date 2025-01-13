@@ -57,56 +57,56 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
       body: SafeArea(
         top: true,
         bottom: false,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: PaddingSizes.medium,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const SizedBox(
-                    height: PaddingSizes.medium,
-                  ),
-                  const Text(
-                    'Recruteren',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: PaddingSizes.medium,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(
+                      height: PaddingSizes.medium,
                     ),
-                  ),
-                  const SizedBox(
-                    height: PaddingSizes.extraSmall,
-                  ),
-                  const CommonSearchBar(
-                    hintText: 'Zoek op naam, school, andere zaken, ...',
-                  ),
-                  const SizedBox(
-                    height: PaddingSizes.medium,
-                  ),
-                  _buildGridView(),
-                  const SizedBox(
-                    height: PaddingSizes.medium,
-                  ),
-                  _buildFilterRow(theme),
-                  const SizedBox(
-                    height: PaddingSizes.extraLarge * 2,
-                  ),
-                  _buildJobrAISection(theme),
-                  const SizedBox(
-                    height: PaddingSizes.medium,
-                  ),
-                ],
+                    const Text(
+                      'Recruteren',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: PaddingSizes.extraSmall,
+                    ),
+                    const CommonSearchBar(
+                      hintText: 'Zoek op naam, school, andere zaken, ...',
+                    ),
+                    const SizedBox(
+                      height: PaddingSizes.medium,
+                    ),
+                    _buildGridView(),
+                    const SizedBox(
+                      height: PaddingSizes.medium,
+                    ),
+                    _buildFilterRow(theme),
+                    const SizedBox(
+                      height: PaddingSizes.extraLarge * 2,
+                    ),
+                    _buildJobrAISection(theme),
+                    const SizedBox(
+                      height: PaddingSizes.medium,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              child: _buildJobrAISuggestions(),
-            ),
-          ],
+              _buildJobrAISuggestions(),
+            ],
+          ),
         ),
       ),
     );
@@ -256,12 +256,12 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
         scrollDirection: Axis.horizontal,
         children: List.generate(
           5,
-          (index) {
+              (index) {
             return Padding(
               padding: const EdgeInsets.only(right: 10),
               child: CustomJobCard(
                 description:
-                    "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
+                "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
                 age: "20",
                 buttonColor: HexColor.fromHex('#3976FF'),
                 buttonText: "Chat starten",

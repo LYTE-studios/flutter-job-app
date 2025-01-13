@@ -19,68 +19,70 @@ class FirstGlanceScreen extends StatefulWidget {
 class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        const SizedBox(
-          height: 200,
-        ),
-        JobrIconButton(
-          textIcon: "⚡",
-          label: "Ik zoek een job",
-          onPressed: () {
-            context.go(
-              JobrRouter.getRoute(
-                JobScreen.location,
-                JobrRouter.employeeInitialroute,
-              ),
-            );
-          },
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        JobrIconButton(
-          textIcon: "💼",
-          label: "Ik zoek talent",
-          onPressed: () {
-            context.go(
-              JobrRouter.getRoute(
-                VacaturesPage.location,
-                JobrRouter.employerInitialroute,
-              ),
-            );
-          },
-        ),
-        SizedBox(
-          height: 81,
-          child: Center(
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: TextStyles.clearText,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          const SizedBox(
+            height: 200,
+          ),
+          JobrIconButton(
+            textIcon: "⚡",
+            label: "Ik zoek een job",
+            onPressed: () {
+              context.go(
+                JobrRouter.getRoute(
+                  JobScreen.location,
+                  JobrRouter.employeeInitialroute,
                 ),
-                children: [
-                  TextSpan(
-                    text: 'Heb je al een account? ',
+              );
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          JobrIconButton(
+            textIcon: "💼",
+            label: "Ik zoek talent",
+            onPressed: () {
+              context.go(
+                JobrRouter.getRoute(
+                  VacaturesPage.location,
+                  JobrRouter.employerInitialroute,
+                ),
+              );
+            },
+          ),
+          SizedBox(
+            height: 81,
+            child: Center(
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: TextStyles.clearText,
                   ),
-                  TextSpan(
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      color: Theme.of(context).primaryColor,
+                  children: [
+                    TextSpan(
+                      text: 'Heb je al een account? ',
                     ),
-                    text: 'Log in',
-                  ),
-                ],
+                    TextSpan(
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      text: 'Log in',
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
