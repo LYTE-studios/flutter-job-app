@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 
+/// A custom text input formatter for phone numbers.
 class PhoneNumberFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
@@ -60,8 +61,7 @@ class PhoneNumberFormatter extends TextInputFormatter {
         }
       } else {
         // Handle any other case or invalid format
-        formattedBuffer
-            .write(digitsOnly); // Just show as it is for invalid cases
+        formattedBuffer.write(digitsOnly); // Just show as it is for invalid cases
       }
     }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../models/chatUsersModel.dart';
-import '../widgets/conversationList.dart';
+import '../models/chat_users_model.dart';
+import '../widgets/conversation_list.dart';
 
 class ChatPage extends StatefulWidget {
   @override
