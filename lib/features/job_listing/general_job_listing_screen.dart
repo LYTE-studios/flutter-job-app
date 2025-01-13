@@ -2,13 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
-
 import 'package:jobr/features/job_listing/skills_page.dart';
 import 'package:jobr/features/job_listing/widgets/bottom_sheet_widget.dart';
 import 'package:jobr/features/job_listing/widgets/bottom_sheet_with_search.dart';
 import 'package:jobr/features/vacatures/vacatures.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
-import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class GeneralJobListingScreen extends StatefulWidget {

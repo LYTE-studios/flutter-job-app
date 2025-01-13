@@ -5,6 +5,7 @@ import '../../../../ui/theme/jobr_icons.dart';
 
 class ChooseSectorScreen extends StatefulWidget {
   static const String location = 'choose-sector';
+
   const ChooseSectorScreen({super.key});
 
   @override
@@ -70,6 +71,7 @@ class _ChooseSectorScreenState extends State<ChooseSectorScreen> {
       image: 'assets/images/images/andere.png',
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;

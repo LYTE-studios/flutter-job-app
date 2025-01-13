@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/profile/screens/recruteren_screen.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
-import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';

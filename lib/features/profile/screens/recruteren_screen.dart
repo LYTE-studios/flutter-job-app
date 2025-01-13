@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/profile/screens/recruteren/recruitment_detail_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
-import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:jobr/ui/widget/common_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 

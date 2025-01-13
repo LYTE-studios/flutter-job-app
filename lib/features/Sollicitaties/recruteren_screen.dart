@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/Sollicitaties/widgets/job_cards.dart';
-import 'package:jobr/features/jobs/widgets/job_card.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 

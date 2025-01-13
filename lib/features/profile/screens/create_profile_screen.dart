@@ -8,6 +8,7 @@ import 'forms/second_form.dart';
 
 class CreateProfileScreen extends StatefulWidget {
   static const String location = 'create-profile';
+
   const CreateProfileScreen({super.key});
 
   @override

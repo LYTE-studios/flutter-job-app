@@ -11,6 +11,7 @@ import '../../../../ui/theme/jobr_icons.dart';
 
 class SecondForm extends StatefulWidget {
   final double width;
+
   const SecondForm({super.key, required this.width});
 
   @override

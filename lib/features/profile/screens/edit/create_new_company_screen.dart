@@ -9,6 +9,7 @@ import '../../../../ui/theme/jobr_icons.dart';
 
 class CreateNewCompanyScreen extends StatefulWidget {
   static const String location = 'create-company';
+
   const CreateNewCompanyScreen({super.key});
 
   @override

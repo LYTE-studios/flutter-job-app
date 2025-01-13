@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
-import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String location = 'chat';
