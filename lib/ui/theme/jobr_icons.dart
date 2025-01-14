@@ -49,6 +49,10 @@ class JobrIcons {
   static const String calenda = '$_baseIconPath/calenda.svg';
   static const String people = '$_baseIconPath/people.svg';
   static const String company = '$_baseIconPath/company.svg';
+  static const String facebook = '$_baseIconPath/facebook.svg';
+  static const String instagram = '$_baseIconPath/instagram.svg';
+  static const String tiktok = '$_baseIconPath/tiktok.svg';
+  static const String placeholder1 = 'assets/images/images/placeholder-1.png';
 
   static const List<String> icons = [
     logoLight,

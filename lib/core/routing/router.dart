@@ -15,6 +15,8 @@ import 'package:jobr/features/jobs/job_screen_verified.dart';
 import 'package:jobr/features/jobs/jobdetail_screen.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 
+import '../../features/profile/screens/company/edit_company_profile_screen.dart';
+import '../../features/profile/screens/company/edit_company_profile_screen_two.dart';
 import '../../features/profile/screens/create_profile_screen.dart';
 import '../../features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
 import '../../features/profile/screens/recruteren/recruitment_detail_screen.dart';
@@ -27,7 +29,8 @@ import '../../features/profile/screens/edit/make_a_choice_screen.dart';
 import '../../features/profile/screens/edit/new_experience_screen.dart';
 
 GoRouter router = GoRouter(
-  initialLocation: ProfileScreen.route,
+  initialLocation: EditCompanyProfileScreenTwo.route,
+  // initialLocation: EditCompanyProfileScreen.route,
   routes: <RouteBase>[
     // Employee
     ShellRoute(
@@ -140,6 +143,20 @@ GoRouter router = GoRouter(
       pageBuilder: (BuildContext context, GoRouterState state) =>
           const NoTransitionPage(
         child: CreateProfileScreen(),
+      ),
+    ),
+    GoRoute(
+      path: EditCompanyProfileScreen.route,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const NoTransitionPage(
+        child: EditCompanyProfileScreen(),
+      ),
+    ),
+    GoRoute(
+      path: EditCompanyProfileScreenTwo.route,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const NoTransitionPage(
+        child: EditCompanyProfileScreenTwo(),
       ),
     ),
     GoRoute(
