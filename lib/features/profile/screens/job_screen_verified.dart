@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:jobr/ui/widget/common_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class JobVerifiedScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'jobs';
 
   const JobVerifiedScreen({super.key});
@@ -67,7 +65,6 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
     return Scaffold(
       appBar: const CommonAppbarNavigation(
         appbarTitle: "Vind jouw job",
-        icon: Icons.favorite_rounded,
       ),
       backgroundColor: theme.colorScheme.surface,
       body: Padding(
@@ -218,7 +215,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
           ],
         ),
         GestureDetector(
-          onTap: () => context.push(JobrAiSuggestionsScreen.route),
+          onTap: () => context.push(JobrAiSuggestionsScreen.employerRoute),
           child: Text(
             "Bekijk alle",
             style: TextStyle(

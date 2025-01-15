@@ -7,10 +7,8 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import '../../../../core/utils/input_formatters.dart';
 import '../../../../ui/theme/jobr_icons.dart';
 import '../../../../ui/theme/text_styles.dart';
-import '../../../dashboard/base/base_dashboard_screen.dart';
 
 class EditProfileDetailsScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'edit-profile';
   const EditProfileDetailsScreen({super.key});
 

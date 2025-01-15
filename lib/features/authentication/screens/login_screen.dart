@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/mixins/screen_state_mixin.dart';
@@ -39,9 +38,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           icon: JobrIcons.appleIcon,
           label: "Doorgaan met",
           onPressed: () {
-            if (kDebugMode) {
-              print("Icon-Label Button Pressed");
-            }
+            print("Icon-Label Button Pressed");
           },
         ),
         const SizedBox(
@@ -52,9 +49,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           icon: JobrIcons.googleIcon,
           label: "Doorgaan met",
           onPressed: () {
-            if (kDebugMode) {
-              print("Icon-Label Button Pressed");
-            }
+            print("Icon-Label Button Pressed");
           },
         ),
         const SizedBox(

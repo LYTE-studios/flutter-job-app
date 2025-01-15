@@ -2,7 +2,7 @@ name: jobr
 description: ""
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+14
+version: 1.0.0+17
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   flutter_riverpod: ^2.4.9
   riverpod_annotation: ^2.3.3
 
@@ -28,11 +29,8 @@ dependencies:
   dio: ^5.0.0
   flutter_secure_storage: ^8.0.0
   logger: ^2.5.0
-  file_picker: ^8.0.6
+  file_picker: ^8.1.6
   readmore: ^3.0.0
-
-dependency_overrides:
-  file_picker: 8.0.6
 
 dev_dependencies:
   flutter_test:

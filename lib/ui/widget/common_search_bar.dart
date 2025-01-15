@@ -16,8 +16,15 @@ class CommonSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextStyle interTextStyle = TextStyle(
+      fontFamily: 'Inter',
+      fontSize: TextStyles.labelSmall.fontSize,
+      fontWeight: TextStyles.labelSmall.fontWeight,
+      color: TextStyles.labelSmall.color,
+    );
+
     return Container(
-      height: 40,
+      height: 42,
       decoration: BoxDecoration(
         color: HexColor.fromHex('#D9D9D9').withOpacity(0.3),
         borderRadius: BorderRadius.circular(15),
@@ -26,11 +33,12 @@ class CommonSearchBar extends StatelessWidget {
         child: TextField(
           onChanged: onChanged,
           cursorHeight: 20,
-          style: TextStyles.labelSmall,
+          style: interTextStyle,
+          textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
             isDense: true,
             hintText: hintText,
-            hintStyle: TextStyles.labelSmall.copyWith(
+            hintStyle: interTextStyle.copyWith(
               color: HexColor.fromHex('#000000').withOpacity(0.33),
             ),
             border: InputBorder.none,
@@ -41,7 +49,7 @@ class CommonSearchBar extends StatelessWidget {
               child: Center(
                 child: SvgIcon(
                   JobrIcons.magnifyingGlass,
-                  size: 20,
+                  size: 21,
                   color: HexColor.fromHex('#999999'),
                 ),
               ),

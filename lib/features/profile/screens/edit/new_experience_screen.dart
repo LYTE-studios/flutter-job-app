@@ -4,11 +4,9 @@ import 'package:jobr/features/profile/screens/widgets/custom_list_tile.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
-import '../../../dashboard/base/base_dashboard_screen.dart';
 import '../../models/list_model.dart';
 
 class NewExpereinceScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'new-experience';
   const NewExpereinceScreen({super.key});
 
@@ -137,7 +135,7 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
               width: 20,
               height: 20,
               child: SvgPicture.asset(
-                JobrIcons.calenda,
+                JobrIcons.calendar,
                 width: 20,
                 height: 20,
               ),
