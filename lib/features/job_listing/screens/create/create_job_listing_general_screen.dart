@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 
-import 'package:jobr/features/job_listing/skills_page.dart';
-import 'package:jobr/features/job_listing/widgets/bottom_sheet_widget.dart';
-import 'package:jobr/features/job_listing/widgets/bottom_sheet_with_search.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
+import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
+import 'package:jobr/features/job_listing/widgets/search_function_bottom_sheet.dart';
 import 'package:jobr/features/vacatures/vacatures.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
-import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-class GeneralJobListingScreen extends StatefulWidget {
-  const GeneralJobListingScreen({super.key});
+class CreateJobListingGeneralScreen extends StatefulWidget {
+  const CreateJobListingGeneralScreen({super.key});
 
   static const String location = 'job-listings';
 
@@ -22,11 +21,12 @@ class GeneralJobListingScreen extends StatefulWidget {
   );
 
   @override
-  State<GeneralJobListingScreen> createState() =>
-      _GeneralJobListingScreenState();
+  State<CreateJobListingGeneralScreen> createState() =>
+      _CreateJobListingGeneralScreenState();
 }
 
-class _GeneralJobListingScreenState extends State<GeneralJobListingScreen> {
+class _CreateJobListingGeneralScreenState
+    extends State<CreateJobListingGeneralScreen> {
   // Dropdown selections
   String? _selectedContractType;
   String? _selectedFunction;
@@ -100,10 +100,15 @@ class _GeneralJobListingScreenState extends State<GeneralJobListingScreen> {
             buildDropdownSection(
               title: "Contract type",
               selectedValue: _selectedContractType,
-              onPressed: () => bottomSheet(
-                context: context,
+              onPressed: () => ContractTypeBottomSheet(
+                onSelected: (String value) {
+                  setState(() {
+                    _selectedContractType = value;
+                  });
+                  Navigator.pop(context);
+                },
                 title: "Kies één of meerdere",
-                options: [
+                options: const [
                   "Full-time",
                   "Half-time",
                   "Flexi",
@@ -111,13 +116,7 @@ class _GeneralJobListingScreenState extends State<GeneralJobListingScreen> {
                   "Stagair",
                   "Freelance",
                 ],
-                onSelected: (String value) {
-                  setState(() {
-                    _selectedContractType = value;
-                  });
-                  Navigator.pop(context);
-                },
-              ),
+              ).showBottomSheet(context: context),
               interneFunctie: false,
             ),
 
@@ -125,30 +124,30 @@ class _GeneralJobListingScreenState extends State<GeneralJobListingScreen> {
             buildDropdownSection(
               title: "Functie",
               selectedValue: _selectedFunction,
-              onPressed: () => bottomSheetWithsearch(
-                  context: context,
-                  title: "Kies een functie",
-                  onSelected: (String value) {
-                    setState(() {
-                      _selectedFunction = value;
-                    });
-                    Navigator.pop(context);
-                  },
-                  options: [
-                    "All-round",
-                    "Zaal",
-                    "Bar",
-                    "Keuken",
-                    "Management",
-                    "Back-office",
-                    "Financieel",
-                    "Hygiëne",
-                    "Afwasser",
-                    "Sommelier",
-                    "Barista",
-                    "Ober/Serveerster",
-                    "Cateringmanagement",
-                  ]),
+              onPressed: () => SearchFunctionBottomSheet(
+                title: "Kies een functie",
+                onSelected: (String value) {
+                  setState(() {
+                    _selectedFunction = value;
+                  });
+                  Navigator.pop(context);
+                },
+                options: const [
+                  "All-round",
+                  "Zaal",
+                  "Bar",
+                  "Keuken",
+                  "Management",
+                  "Back-office",
+                  "Financieel",
+                  "Hygiëne",
+                  "Afwasser",
+                  "Sommelier",
+                  "Barista",
+                  "Ober/Serveerster",
+                  "Cateringmanagement",
+                ],
+              ).showBottomSheet(context: context),
               interneFunctie: true,
             ),
 
@@ -157,17 +156,16 @@ class _GeneralJobListingScreenState extends State<GeneralJobListingScreen> {
                 title: "Locatie",
                 selectedValue: _selectedLocation,
                 // options: ["Op locatie", "Remote"],
-                onPressed: () => bottomSheet(
-                      context: context,
+                onPressed: () => ContractTypeBottomSheet(
                       title: "Kies een contract type",
-                      options: ["Op locatie", "Hybride", "Afstandswerk"],
+                      options: const ["Op locatie", "Hybride", "Afstandswerk"],
                       onSelected: (String value) {
                         setState(() {
                           _selectedLocation = value;
                         });
                         Navigator.pop(context);
                       },
-                    ),
+                    ).showBottomSheet(context: context),
                 interneFunctie: false),
 
             const Spacer(),
@@ -213,7 +211,7 @@ class _GeneralJobListingScreenState extends State<GeneralJobListingScreen> {
                     ),
                     onPressed: () {
                       context.push(
-                        JobListingSkillsScreen.route,
+                        CreateJobListingSkillsScreen.route,
                       );
                     },
                     child: Text(

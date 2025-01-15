@@ -6,9 +6,9 @@ import 'package:jobr/features/authentication/screens/email_register_screen.dart'
 import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
-import 'package:jobr/features/job_listing/general_job_listing_screen.dart';
-import 'package:jobr/features/job_listing/job_listing_availability_screen.dart';
-import 'package:jobr/features/job_listing/skills_page.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
@@ -145,36 +145,36 @@ GoRouter router = GoRouter(
           ),
           routes: [
             GoRoute(
-              path: GeneralJobListingScreen.location,
+              path: CreateJobListingGeneralScreen.location,
               pageBuilder: (BuildContext context, GoRouterState state) {
                 return buildPageWithSlideUpTransition(
                   context: context,
                   state: state,
-                  child: const GeneralJobListingScreen(),
+                  child: const CreateJobListingGeneralScreen(),
                 );
               },
               routes: [
                 GoRoute(
-                  path: JobListingSkillsScreen.location,
+                  path: CreateJobListingSkillsScreen.location,
                   pageBuilder: (BuildContext context, GoRouterState state) =>
                       const NoTransitionPage(
-                    child: JobListingSkillsScreen(),
+                    child: CreateJobListingSkillsScreen(),
                   ),
                   routes: [
                     GoRoute(
-                      path: JobListingSkillsScreen.location,
+                      path: CreateJobListingSkillsScreen.location,
                       pageBuilder:
                           (BuildContext context, GoRouterState state) =>
                               const NoTransitionPage(
-                        child: JobListingSkillsScreen(),
+                        child: CreateJobListingSkillsScreen(),
                       ),
                       routes: [
                         GoRoute(
-                          path: JobListingAvailabilityScreen.location,
+                          path: CreateJobListingAvailabilityScreen.location,
                           pageBuilder:
                               (BuildContext context, GoRouterState state) =>
                                   const NoTransitionPage(
-                            child: JobListingAvailabilityScreen(),
+                            child: CreateJobListingAvailabilityScreen(),
                           ),
                         ),
                       ],
@@ -187,12 +187,12 @@ GoRouter router = GoRouter(
         ),
         GoRoute(
           path: JobrRouter.getRoute(
-            GeneralJobListingScreen.location,
+            CreateJobListingGeneralScreen.location,
             JobrRouter.employerInitialroute,
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(
-            child: GeneralJobListingScreen(),
+            child: CreateJobListingGeneralScreen(),
           ),
         ),
         GoRoute(

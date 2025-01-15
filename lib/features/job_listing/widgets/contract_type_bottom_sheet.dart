@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
@@ -15,7 +16,7 @@ void bottomSheet({
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
     builder: (BuildContext context) {
-      return _ContractTypeBottomSheet(
+      return ContractTypeBottomSheet(
         onSelected: onSelected,
         options: options,
         title: title,
@@ -24,22 +25,17 @@ void bottomSheet({
   );
 }
 
-class _ContractTypeBottomSheet extends StatelessWidget {
+class ContractTypeBottomSheet extends StatelessWidget with BottomSheetMixin {
   final void Function(String value) onSelected;
   final List<String>? options;
   final String title;
 
-  const _ContractTypeBottomSheet(
-      {required this.onSelected, required this.options, required this.title});
-
-  // final List<String> options = const [
-  //   "Full-time",
-  //   "Half-time",
-  //   "Flexi",
-  //   "Student",
-  //   "Stagair",
-  //   "Freelance",
-  // ];
+  const ContractTypeBottomSheet({
+    super.key,
+    required this.onSelected,
+    required this.options,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
