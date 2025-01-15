@@ -6,12 +6,11 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 import '../../../ui/theme/jobr_icons.dart';
-import '../../dashboard/base/base_dashboard_screen.dart';
 import 'job_application_questions_screen.dart';
 import 'widgets/custom_list_tile.dart';
 
 class JobDetailsScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
+  static const String route = '/$location';
   static const String location = 'job-details';
   const JobDetailsScreen({super.key});
 
@@ -32,42 +31,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
           return <Widget>[
             SliverAppBar(
               expandedHeight: 200,
-              floating: false,
-              pinned: true,
-              title: innerBoxIsScrolled
-                  ? Row(
-                      children: [
-                        if (innerBoxIsScrolled)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 15),
-                            child: Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(color: Colors.white, width: 4),
-                                image: const DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/images/profile.png'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          )
-                        else
-                          const SizedBox.shrink(),
-                        const Text(
-                          "Louis Ottevaere",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    )
-                  : null,
               scrolledUnderElevation: 0,
               elevation: 0,
               backgroundColor: theme.colorScheme.surface,
@@ -134,8 +97,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           alignment: Alignment.center,
                           child: SvgPicture.asset(
                             JobrIcons.close,
-                            width: 30,
-                            height: 30,
+                            width: 20,
+                            height: 20,
                             colorFilter: const ColorFilter.mode(
                               Colors.black,
                               BlendMode.srcIn,

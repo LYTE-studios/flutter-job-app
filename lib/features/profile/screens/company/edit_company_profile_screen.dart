@@ -5,13 +5,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
-import '../../../dashboard/base/base_dashboard_screen.dart';
 import 'new_branch_screen.dart';
 
 typedef BadgeIcons = (String icon, String name);
 
 class EditCompanyProfileScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
+  static const String route = '/$location';
   static const String location = 'edit-company-profile';
   const EditCompanyProfileScreen({super.key});
 

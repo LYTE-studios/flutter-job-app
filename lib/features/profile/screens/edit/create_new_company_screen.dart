@@ -8,7 +8,7 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import '../../../../ui/theme/jobr_icons.dart';
 
 class CreateNewCompanyScreen extends StatefulWidget {
-  static const String location = 'create-company';
+  static const String location = '/create-company';
   const CreateNewCompanyScreen({super.key});
 
   @override

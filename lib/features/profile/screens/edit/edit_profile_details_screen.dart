@@ -9,7 +9,7 @@ import '../../../../ui/theme/jobr_icons.dart';
 import '../../../../ui/theme/text_styles.dart';
 
 class EditProfileDetailsScreen extends StatefulWidget {
-  static const String location = 'edit-profile';
+  static const String location = '/edit-profile';
   const EditProfileDetailsScreen({super.key});
 
   @override
