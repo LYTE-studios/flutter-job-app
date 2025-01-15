@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/dashboard/base/base_dashboard_screen.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/recruteren/recruitment_detail_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widget/common_appbar_navigation.dart';
 import 'package:jobr/ui/widget/common_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -10,7 +12,6 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'recruteren/jobr_ai_suggestions_screen.dart';
 
 class RecruterenScreen extends StatefulWidget {
-  static const String route = '${BaseEmployeeDashboard.route}/$location';
   static const String location = 'sollicitaties';
 
   const RecruterenScreen({super.key});
@@ -53,24 +54,60 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: const CommonAppbarNavigation(appbarTitle: "Recruteren"),
+      resizeToAvoidBottomInset: false,
       backgroundColor: theme.colorScheme.surface,
-      body: Padding(
-        padding: const EdgeInsets.all(10),
+      body: SafeArea(
+        top: true,
+        bottom: false,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const CommonSearchBar(
-              hintText: 'Zoek op naam, school, andere zaken, ...',
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: PaddingSizes.medium,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(
+                    height: PaddingSizes.medium,
+                  ),
+                  const Text(
+                    'Recruteren',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: PaddingSizes.extraSmall,
+                  ),
+                  const CommonSearchBar(
+                    hintText: 'Zoek op naam, school, andere zaken, ...',
+                  ),
+                  const SizedBox(
+                    height: PaddingSizes.medium,
+                  ),
+                  _buildGridView(),
+                  const SizedBox(
+                    height: PaddingSizes.medium,
+                  ),
+                  _buildFilterRow(theme),
+                  const SizedBox(
+                    height: PaddingSizes.extraLarge * 2,
+                  ),
+                  _buildJobrAISection(theme),
+                  const SizedBox(
+                    height: PaddingSizes.medium,
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 14),
-            _buildGridView(),
-            const SizedBox(height: 10),
-            _buildFilterRow(theme),
-            const SizedBox(height: 30),
-            _buildJobrAISection(theme),
-            const SizedBox(height: 10),
-            _buildJobrAISuggestions(),
+            Expanded(
+              child: _buildJobrAISuggestions(),
+            ),
           ],
         ),
       ),
@@ -84,7 +121,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
+        mainAxisSpacing: 10,
         childAspectRatio: 1.4,
       ),
       itemCount: items.length,
@@ -98,7 +135,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
     return GestureDetector(
       onTap: () {
         context.push(
-          '/recruitment/${item["category"]}',
+          RecruitmentDetailScreen.employerRoute,
           extra: {
             'category': item["category"],
             'title': item["text"],
@@ -107,7 +144,6 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
         );
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
         decoration: BoxDecoration(
           color: HexColor.fromHex('#F3F3F3'),
           borderRadius: BorderRadius.circular(12),
@@ -118,8 +154,8 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
           children: [
             Center(
               child: Image.asset(
-                height: 30,
-                width: 30,
+                height: 36,
+                width: 36,
                 item["image"]!,
               ),
             ),
@@ -129,6 +165,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
               child: Text(
                 item["text"]!,
                 style: const TextStyle(
+                  fontFamily: 'Inter',
                   color: Colors.black,
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
@@ -143,33 +180,31 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
   }
 
   Widget _buildFilterRow(ThemeData theme) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Container(
-        height: 48,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        decoration: BoxDecoration(
-          color: theme.primaryColor,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Zoek met filters ",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: theme.colorScheme.onPrimary,
-              ),
+    return Container(
+      height: 48,
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      decoration: BoxDecoration(
+        color: theme.primaryColor,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Zoek met filters ",
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: theme.colorScheme.onPrimary,
             ),
-            Image.asset(
-              height: 20,
-              width: 20,
-              "assets/images/recruteren/filter.png",
-            ),
-          ],
-        ),
+          ),
+          Image.asset(
+            height: 20,
+            width: 20,
+            "assets/images/recruteren/filter.png",
+          ),
+        ],
       ),
     );
   }
@@ -189,6 +224,7 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
             Text(
               "Jobr-AI suggesties",
               style: TextStyle(
+                fontFamily: 'Inter',
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
                 color: theme.colorScheme.onPrimaryContainer,
@@ -197,10 +233,11 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
           ],
         ),
         GestureDetector(
-          onTap: () => context.push(JobrAiSuggestionsScreen.route),
+          onTap: () => context.push(JobrAiSuggestionsScreen.employerRoute),
           child: Text(
             "Bekijk alle",
             style: TextStyle(
+              fontFamily: 'Inter',
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: theme.primaryColor,
@@ -212,27 +249,35 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
   }
 
   Widget _buildJobrAISuggestions() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(5, (index) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: CustomJobCard(
-              description:
-                  "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
-              age: "20",
-              buttonColor: HexColor.fromHex('#3976FF'),
-              buttonText: "Chat starten",
-              buttonIcon: JobrIcons.send,
-              location: "Brussel",
-              userName: "Yassine Vuran",
-              onButtonPressed: () {},
-              profileImagePath: "assets/images/images/image-3.png",
-              suggestionPercentage: "74",
-            ),
-          );
-        }),
+    return SizedBox(
+      height: 272,
+      child: ListView(
+        padding: const EdgeInsets.all(
+          PaddingSizes.medium,
+        ),
+        scrollDirection: Axis.horizontal,
+        children: List.generate(
+          5,
+          (index) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: CustomJobCard(
+                description:
+                    "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
+                age: "20",
+                buttonColor: HexColor.fromHex('#3976FF'),
+                buttonText: "Chat starten",
+                buttonIcon: JobrIcons.send,
+                location: "Brussel",
+                userName: "Yassine Vuran",
+                onButtonPressed: () {},
+                profileImagePath: "assets/images/images/image-3.png",
+                suggestionPercentage: "74",
+                showBottomText: false,
+              ),
+            );
+          },
+        ),
       ),
     );
   }

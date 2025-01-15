@@ -1,12 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jobr/data/models/user.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
 import 'package:jobr/ui/buttons/primary_button.dart';
 import 'package:jobr/ui/input/custom_textfield.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jobr/data/providers/auth_providers.dart';
 
 class EmailLoginScreen extends ConsumerStatefulWidget {
@@ -16,6 +16,7 @@ class EmailLoginScreen extends ConsumerStatefulWidget {
     super.key,
     required this.userType,
   });
+
   static const String route = '${LoginScreen.route}/$location';
   static const String location = 'email';
 
