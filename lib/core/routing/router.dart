@@ -98,8 +98,8 @@ class JobrRouter {
 }
 
 GoRouter router = GoRouter(
-  initialLocation: EditCompanyProfileScreenTwo.route,
-  // initialLocation: EditCompanyProfileScreen.route,
+  // initialLocation: EditCompanyProfileScreenTwo.route,
+  initialLocation: EditCompanyProfileScreen.route,
   routes: <RouteBase>[
     ShellRoute(
       builder: (context, state, child) {

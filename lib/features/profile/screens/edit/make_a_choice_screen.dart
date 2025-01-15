@@ -5,7 +5,7 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import '../../../../ui/theme/jobr_icons.dart';
 
 class MakeAChoiceScreen extends StatefulWidget {
-  static const String location = 'make-a-choice';
+  static const String location = '/make-a-choice';
   const MakeAChoiceScreen({super.key});
 
   @override
