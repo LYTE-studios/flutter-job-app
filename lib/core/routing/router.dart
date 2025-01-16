@@ -368,7 +368,7 @@ GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: '/recruitment/:category',
+      path: RecruitmentDetailScreen.employerRoute,
       pageBuilder: (BuildContext context, GoRouterState state) {
         final category = state.pathParameters['category'] ?? '';
         final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
