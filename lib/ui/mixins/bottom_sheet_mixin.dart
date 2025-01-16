@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-mixin BottomSheetMixin on StatelessWidget {
+mixin BottomSheetMixin on Widget {
   Future<dynamic> showBottomSheet({
     required BuildContext context,
   }) async {
@@ -10,7 +10,7 @@ mixin BottomSheetMixin on StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      builder: build,
+      builder: (context) => this,
     );
   }
 }

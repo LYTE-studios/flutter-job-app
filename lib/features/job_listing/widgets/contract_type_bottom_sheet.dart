@@ -3,34 +3,12 @@ import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-void bottomSheet({
-  required BuildContext context,
-  required Function(String value) onSelected,
-  required List<String> options,
-  required String title,
-}) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: false,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-    ),
-    builder: (BuildContext context) {
-      return ContractTypeBottomSheet(
-        onSelected: onSelected,
-        options: options,
-        title: title,
-      );
-    },
-  );
-}
-
 class ContractTypeBottomSheet extends StatelessWidget with BottomSheetMixin {
   final void Function(String value) onSelected;
   final List<String>? options;
   final String title;
 
-  const ContractTypeBottomSheet({
+  ContractTypeBottomSheet({
     super.key,
     required this.onSelected,
     required this.options,
