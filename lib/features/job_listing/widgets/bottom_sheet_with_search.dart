@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-void bottomSheetWithsearch(
-    {required BuildContext context,
-    required Function(String value) onSelected,
-    required List<String> options,
-    required String title,
-    }) {
+void bottomSheetWithsearch({
+  required BuildContext context,
+  required Function(String value) onSelected,
+  required List<String> options,
+  required String title,
+}) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -15,7 +15,8 @@ void bottomSheetWithsearch(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
     builder: (BuildContext context) {
-      return _FunctionBottomSheet(options: options, onSelected: onSelected,title: title);
+      return _FunctionBottomSheet(
+          options: options, onSelected: onSelected, title: title);
     },
   );
 }
@@ -25,7 +26,8 @@ class _FunctionBottomSheet extends StatefulWidget {
   final List<String> options;
   final String title;
 
-  const _FunctionBottomSheet({required this.onSelected, required this.options, required this.title});
+  const _FunctionBottomSheet(
+      {required this.onSelected, required this.options, required this.title});
 
   @override
   State<_FunctionBottomSheet> createState() => __FunctionBottomSheetState();
@@ -81,7 +83,7 @@ class __FunctionBottomSheetState extends State<_FunctionBottomSheet> {
               ),
               Center(
                 child: Text(
-                  widget.title ,
+                  widget.title,
                   style: TextStyles.titleMedium,
                 ),
               ),

@@ -8,6 +8,7 @@ import '../../models/list_model.dart';
 
 class NewExpereinceScreen extends StatefulWidget {
   static const String location = 'new-experience';
+
   const NewExpereinceScreen({super.key});
 
   @override

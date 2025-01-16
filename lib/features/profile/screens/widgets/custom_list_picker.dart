@@ -18,7 +18,6 @@ class CustomListPicker extends StatefulWidget {
 }
 
 class _CustomListPickerState extends State<CustomListPicker> {
-
   @override
   Widget build(BuildContext context) {
     return Container(

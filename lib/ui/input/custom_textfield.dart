@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 
 class CustomTextField extends StatelessWidget {

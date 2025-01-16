@@ -7,6 +7,7 @@ import '../../../../ui/theme/jobr_icons.dart';
 
 class ChooseCompanyScreen extends StatefulWidget {
   static const String location = 'choose-company';
+
   const ChooseCompanyScreen({super.key});
 
   @override

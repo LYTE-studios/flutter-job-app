@@ -1,5 +1,5 @@
-import '../services/api_service.dart';
 import '../models/message.dart';
+import '../services/api_service.dart';
 
 class ChatService {
   final ApiService _apiService;

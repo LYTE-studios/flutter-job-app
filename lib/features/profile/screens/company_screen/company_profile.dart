@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings.dart';
 import 'package:jobr/features/profile/screens/tabs/general_item_widget.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
@@ -363,7 +362,8 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.asset(
-                      'assets/images/images/Frame-m.png', // Replace with the actual map image path
+                      'assets/images/images/Frame-m.png',
+                      // Replace with the actual map image path
                       fit: BoxFit.cover,
                     ),
                   ),
