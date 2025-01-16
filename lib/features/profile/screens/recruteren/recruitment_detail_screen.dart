@@ -12,7 +12,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
   final String title;
   final String image;
 
-  static const String location = 'recruitment';
+  static const String location = 'recruitment/:category';
 
   static String employerRoute = JobrRouter.getRoute(
     '${RecruterenScreen.location}/$location',
