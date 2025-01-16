@@ -34,6 +34,7 @@ import '../../features/profile/screens/edit/edit_profile_details_screen.dart';
 import '../../features/profile/screens/edit/make_a_choice_screen.dart';
 import '../../features/profile/screens/edit/new_experience_screen.dart';
 
+/// Builds a custom transition page with a slide-up animation.
 CustomTransitionPage buildPageWithSlideUpTransition<T>({
   required BuildContext context,
   required GoRouterState state,
@@ -44,11 +45,11 @@ CustomTransitionPage buildPageWithSlideUpTransition<T>({
     child: child,
     transitionDuration: const Duration(milliseconds: 300),
     transitionsBuilder: (
-      context,
-      animation,
-      secondaryAnimation,
-      child,
-    ) {
+        context,
+        animation,
+        secondaryAnimation,
+        child,
+        ) {
       late final Animation<Offset> offsetAnimation = Tween<Offset>(
         begin: const Offset(0, 1),
         end: Offset.zero,
@@ -67,12 +68,13 @@ CustomTransitionPage buildPageWithSlideUpTransition<T>({
   );
 }
 
+/// Router class to manage application routes.
 class JobrRouter {
   static const String initialRoute = '/';
-
   static const String employeeInitialroute = '/employee';
   static const String employerInitialroute = '/employer';
 
+  /// Constructs a route string based on location and base.
   static String getRoute(String location, String base) {
     return "$base/$location";
   }
@@ -82,6 +84,7 @@ class JobrRouter {
     ChatScreen.location,
     ProfileScreen.location,
   ];
+
   static List<String> employerNavigationLocations = [
     VacaturesPage.location,
     RecruterenScreen.location,
@@ -89,6 +92,7 @@ class JobrRouter {
     CompanyProfileScreen.location,
   ];
 
+  /// Gets the selected index for navigation based on the current route.
   static int? getSelectedIndex(String route, List<String> routes) {
     for (String r in routes) {
       if (route.split('/').last == r) {
@@ -99,10 +103,12 @@ class JobrRouter {
   }
 }
 
+/// Main router configuration using GoRouter.
 GoRouter router = GoRouter(
   initialLocation: JobDetailsScreen.route,
   // initialLocation: EditCompanyProfileScreen.route,
   routes: <RouteBase>[
+    // Shell route for employer navigation
     ShellRoute(
       builder: (context, state, child) {
         return BaseNavBarScreen(
@@ -148,6 +154,7 @@ GoRouter router = GoRouter(
         );
       },
       routes: [
+        // Nested routes for employer navigation
         GoRoute(
           path: JobrRouter.getRoute(
             VacaturesPage.location,
@@ -155,8 +162,8 @@ GoRouter router = GoRouter(
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
               NoTransitionPage(
-            child: VacaturesPage(),
-          ),
+                child: VacaturesPage(),
+              ),
           routes: [
             GoRoute(
               path: GeneralJobListingScreen.location,
@@ -171,7 +178,7 @@ GoRouter router = GoRouter(
                 GoRoute(
                   path: JobListingSkillsScreen.location,
                   pageBuilder: (BuildContext context, GoRouterState state) =>
-                      const NoTransitionPage(
+                  const NoTransitionPage(
                     child: JobListingSkillsScreen(),
                   ),
                   routes: [
@@ -179,7 +186,7 @@ GoRouter router = GoRouter(
                       path: JobListingSkillsScreen.location,
                       pageBuilder:
                           (BuildContext context, GoRouterState state) =>
-                              const NoTransitionPage(
+                      const NoTransitionPage(
                         child: JobListingSkillsScreen(),
                       ),
                       routes: [
@@ -187,7 +194,7 @@ GoRouter router = GoRouter(
                           path: JobListingAvailabilityScreen.location,
                           pageBuilder:
                               (BuildContext context, GoRouterState state) =>
-                                  const NoTransitionPage(
+                          const NoTransitionPage(
                             child: JobListingAvailabilityScreen(),
                           ),
                         ),
@@ -205,7 +212,7 @@ GoRouter router = GoRouter(
             JobrRouter.employerInitialroute,
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
+          const NoTransitionPage(
             child: GeneralJobListingScreen(),
           ),
         ),
@@ -215,7 +222,7 @@ GoRouter router = GoRouter(
             JobrRouter.employerInitialroute,
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
+          const NoTransitionPage(
             child: RecruterenScreen(),
           ),
           routes: [
@@ -253,7 +260,7 @@ GoRouter router = GoRouter(
             JobrRouter.employerInitialroute,
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
+          const NoTransitionPage(
             child: ChatScreen(),
           ),
         ),
@@ -263,12 +270,13 @@ GoRouter router = GoRouter(
             JobrRouter.employerInitialroute,
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
+          const NoTransitionPage(
             child: CompanyProfileScreen(),
           ),
         ),
       ],
     ),
+    // Shell route for employee navigation
     ShellRoute(
       builder: (context, state, child) {
         return BaseNavBarScreen(
@@ -306,13 +314,14 @@ GoRouter router = GoRouter(
         );
       },
       routes: [
+        // Nested routes for employee navigation
         GoRoute(
           path: JobrRouter.getRoute(
             JobScreen.location,
             JobrRouter.employeeInitialroute,
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
+          const NoTransitionPage(
             child: JobScreen(),
           ),
         ),
@@ -322,7 +331,7 @@ GoRouter router = GoRouter(
             JobrRouter.employeeInitialroute,
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
+          const NoTransitionPage(
             child: ChatScreen(),
           ),
         ),
@@ -332,7 +341,7 @@ GoRouter router = GoRouter(
             JobrRouter.employeeInitialroute,
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
+          const NoTransitionPage(
             child: ProfileScreen(),
           ),
         ),
@@ -342,7 +351,7 @@ GoRouter router = GoRouter(
             JobrRouter.employeeInitialroute,
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
+          const NoTransitionPage(
             child: CreateProfileScreen(),
           ),
         ),
@@ -391,7 +400,7 @@ GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: '/recruitment/:category',
+      path: RecruitmentDetailScreen.employerRoute,
       pageBuilder: (BuildContext context, GoRouterState state) {
         final category = state.pathParameters['category'] ?? '';
         final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
@@ -493,7 +502,7 @@ GoRouter router = GoRouter(
         GoRoute(
           path: FirstGlanceScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
+          const NoTransitionPage(
             child: FirstGlanceScreen(),
           ),
           routes: [
@@ -514,7 +523,7 @@ GoRouter router = GoRouter(
                   path: EmailLoginScreen.location,
                   pageBuilder: (BuildContext context, GoRouterState state) {
                     Map<String, dynamic> data =
-                        state.extra as Map<String, dynamic>;
+                    state.extra as Map<String, dynamic>;
 
                     return NoTransitionPage(
                       child: EmailLoginScreen(
@@ -527,7 +536,7 @@ GoRouter router = GoRouter(
                   path: EmailRegisterScreen.location,
                   pageBuilder: (BuildContext context, GoRouterState state) {
                     Map<String, dynamic> data =
-                        state.extra as Map<String, dynamic>;
+                    state.extra as Map<String, dynamic>;
 
                     return NoTransitionPage(
                       child: EmailRegisterScreen(
