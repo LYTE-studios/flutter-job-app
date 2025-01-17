@@ -166,7 +166,8 @@ class _FilterScreenState extends State<FilterScreen> {
                 trackHeight: 6.0,
                 activeTrackColor: theme.primaryColor,
                 inactiveTrackColor: Colors.grey[300],
-                thumbColor: theme.primaryColor, // Inner circle color
+                thumbColor: theme.primaryColor,
+                // Inner circle color
                 overlayColor: theme.primaryColor.withOpacity(0.2),
                 thumbShape: CustomThumbShape(
                   // Use custom thumb shape

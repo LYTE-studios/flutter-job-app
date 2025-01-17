@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jobr/features/jobs/job_listing.dart';
 import 'package:jobr/features/jobs/widgets/return_arrow.dart';
 
-
 class JobDetailScreen extends StatelessWidget {
   final String category;
   final String title;

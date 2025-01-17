@@ -70,6 +70,7 @@ class _ChooseSectorScreenState extends State<ChooseSectorScreen> {
       image: 'assets/images/images/andere.png',
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;

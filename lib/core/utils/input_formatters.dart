@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 
+/// A custom text input formatter for phone numbers.
 class PhoneNumberFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
@@ -20,10 +21,12 @@ class PhoneNumberFormatter extends TextInputFormatter {
         // Format local numbers starting with '0'
         formattedBuffer.write('0');
         if (digitsOnly.length > 1) {
-          formattedBuffer.write(' ${digitsOnly.substring(1, digitsOnly.length >= 4 ? 4 : digitsOnly.length)}');
+          formattedBuffer.write(
+              ' ${digitsOnly.substring(1, digitsOnly.length >= 4 ? 4 : digitsOnly.length)}');
         }
         if (digitsOnly.length >= 4) {
-          formattedBuffer.write(' ${digitsOnly.substring(4, digitsOnly.length >= 7 ? 7 : digitsOnly.length)}');
+          formattedBuffer.write(
+              ' ${digitsOnly.substring(4, digitsOnly.length >= 7 ? 7 : digitsOnly.length)}');
         }
         if (digitsOnly.length > 7) {
           formattedBuffer.write(' ${digitsOnly.substring(7)}');
@@ -32,10 +35,12 @@ class PhoneNumberFormatter extends TextInputFormatter {
         // Format international numbers starting with '234'
         formattedBuffer.write('+234');
         if (digitsOnly.length > 3) {
-          formattedBuffer.write(' ${digitsOnly.substring(3, digitsOnly.length >= 6 ? 6 : digitsOnly.length)}');
+          formattedBuffer.write(
+              ' ${digitsOnly.substring(3, digitsOnly.length >= 6 ? 6 : digitsOnly.length)}');
         }
         if (digitsOnly.length >= 6) {
-          formattedBuffer.write(' ${digitsOnly.substring(6, digitsOnly.length >= 9 ? 9 : digitsOnly.length)}');
+          formattedBuffer.write(
+              ' ${digitsOnly.substring(6, digitsOnly.length >= 9 ? 9 : digitsOnly.length)}');
         }
         if (digitsOnly.length > 9) {
           formattedBuffer.write(' ${digitsOnly.substring(9)}');
@@ -44,10 +49,12 @@ class PhoneNumberFormatter extends TextInputFormatter {
         // Format international numbers starting with '32'
         formattedBuffer.write('+32');
         if (digitsOnly.length > 2) {
-          formattedBuffer.write(' ${digitsOnly.substring(2, digitsOnly.length >= 5 ? 5 : digitsOnly.length)}');
+          formattedBuffer.write(
+              ' ${digitsOnly.substring(2, digitsOnly.length >= 5 ? 5 : digitsOnly.length)}');
         }
         if (digitsOnly.length >= 5) {
-          formattedBuffer.write(' ${digitsOnly.substring(5, digitsOnly.length >= 8 ? 8 : digitsOnly.length)}');
+          formattedBuffer.write(
+              ' ${digitsOnly.substring(5, digitsOnly.length >= 8 ? 8 : digitsOnly.length)}');
         }
         if (digitsOnly.length > 8) {
           formattedBuffer.write(' ${digitsOnly.substring(8)}');
