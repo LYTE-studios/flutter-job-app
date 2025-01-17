@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
-class CommonAppbarNavigation extends StatelessWidget
+class JobrAppbarNavigation extends StatelessWidget
     implements PreferredSizeWidget {
   final String appbarTitle;
 
@@ -11,7 +11,7 @@ class CommonAppbarNavigation extends StatelessWidget
 
   final bool canGoBack;
 
-  const CommonAppbarNavigation({
+  const JobrAppbarNavigation({
     super.key,
     required this.appbarTitle,
     this.canGoBack = false,

@@ -4,11 +4,11 @@ import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-class CommonSearchBar extends StatelessWidget {
+class JobrSearchBar extends StatelessWidget {
   final Function(String)? onChanged;
   final String hintText;
 
-  const CommonSearchBar({
+  const JobrSearchBar({
     super.key,
     this.onChanged,
     required this.hintText,

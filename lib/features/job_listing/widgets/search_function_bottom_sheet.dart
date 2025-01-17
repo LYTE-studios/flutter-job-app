@@ -1,37 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-void bottomSheetWithsearch(
-    {required BuildContext context,
-    required Function(String value) onSelected,
-    required List<String> options,
-    required String title,
-    }) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-    ),
-    builder: (BuildContext context) {
-      return _FunctionBottomSheet(options: options, onSelected: onSelected,title: title);
-    },
-  );
-}
-
-class _FunctionBottomSheet extends StatefulWidget {
+class SearchFunctionBottomSheet extends StatefulWidget with BottomSheetMixin {
   final void Function(String value) onSelected;
   final List<String> options;
   final String title;
 
-  const _FunctionBottomSheet({required this.onSelected, required this.options, required this.title});
+  const SearchFunctionBottomSheet({
+    super.key,
+    required this.onSelected,
+    required this.options,
+    required this.title,
+  });
 
   @override
-  State<_FunctionBottomSheet> createState() => __FunctionBottomSheetState();
+  State<SearchFunctionBottomSheet> createState() =>
+      _SearchFunctionBottomSheetState();
 }
 
-class __FunctionBottomSheetState extends State<_FunctionBottomSheet> {
+class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
   String? selectedOption;
 
   // final List<String> options = [
@@ -81,7 +70,7 @@ class __FunctionBottomSheetState extends State<_FunctionBottomSheet> {
               ),
               Center(
                 child: Text(
-                  widget.title ,
+                  widget.title,
                   style: TextStyles.titleMedium,
                 ),
               ),

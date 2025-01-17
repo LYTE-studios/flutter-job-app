@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-class JobListingDescriptionScreen extends StatefulWidget {
-  const JobListingDescriptionScreen({super.key});
+class CreateJobListingDescriptionScreen extends StatefulWidget {
+  const CreateJobListingDescriptionScreen({super.key});
 
   static const String location = 'job-listing-description';
 
   @override
-  State<JobListingDescriptionScreen> createState() =>
-      _JobListingDescriptionScreenState();
+  State<CreateJobListingDescriptionScreen> createState() =>
+      _CreateJobListingDescriptionScreenState();
 }
 
-class _JobListingDescriptionScreenState
-    extends State<JobListingDescriptionScreen> {
+class _CreateJobListingDescriptionScreenState
+    extends State<CreateJobListingDescriptionScreen> {
   List<Map<String, String>> options = [];
   List<bool> isExpanded = [];
   List<TextEditingController> descriptionControllers = [];

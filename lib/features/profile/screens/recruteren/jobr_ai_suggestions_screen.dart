@@ -3,7 +3,7 @@ import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/profile/screens/recruteren_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
-import 'package:jobr/ui/widget/common_appbar_navigation.dart';
+import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class JobrAiSuggestionsScreen extends StatelessWidget {
@@ -19,7 +19,7 @@ class JobrAiSuggestionsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CommonAppbarNavigation(
+      appBar: const JobrAppbarNavigation(
         appbarTitle: 'Jobr-AI suggesties',
         canGoBack: true,
       ),
