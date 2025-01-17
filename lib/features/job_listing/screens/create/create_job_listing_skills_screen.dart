@@ -3,7 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
-import 'package:jobr/features/vacatures/vacatures.dart';
+import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
+import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
@@ -13,7 +14,7 @@ class CreateJobListingSkillsScreen extends StatefulWidget {
   static const String location = 'job-listing-skills';
 
   static String route = JobrRouter.getRoute(
-    '${VacaturesPage.location}/${CreateJobListingGeneralScreen.location}/$location',
+    '${JobListingsScreen.location}/${CreateJobListingGeneralScreen.location}/$location',
     JobrRouter.employerInitialroute,
   );
 
@@ -31,134 +32,63 @@ class _CreateJobListingSkillsScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          "Nieuwe vacature",
-          style: TextStyles.titleMedium,
-        ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4.0),
-          child: Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(8),
-                      bottomRight: Radius.circular(8)),
-                  color: HexColor.fromHex("#FF3E68"),
-                ),
-                height: 6,
-                width: MediaQuery.of(context).size.width * 0.35, // 35% width
-              ),
-              Expanded(
-                child: Container(
-                  height: 6,
-                  color: Colors.grey[300], // Remaining width
-                ),
-              ),
-            ],
+    return BaseCreateJobListingScreen(
+      progress: .4,
+      onNavigate: () {
+        context.push(CreateJobListingAvailabilityScreen.route);
+      },
+      isNavigationEnabled: _isButtonEnabled,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Vaardigheden",
+            style: TextStyles.titleMedium.copyWith(fontSize: 22),
           ),
-        ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10),
-                Text(
-                  "Vaardigheden",
-                  style: TextStyles.titleMedium.copyWith(fontSize: 22),
-                ),
-                const Divider(
-                  thickness: 0.6,
-                ),
-                const SizedBox(height: 16),
-                // "Vereiste werkervaring" Card
-                _buildWerkervaringCard(),
-                const SizedBox(height: 16),
+          const Divider(
+            thickness: 0.6,
+          ),
+          const SizedBox(height: 16),
+          // "Vereiste werkervaring" Card
+          _buildWerkervaringCard(),
+          const SizedBox(height: 16),
 
-                // Soft Skills
-                _buildSkillSection(
-                    'Soft skills',
-                    [
-                      'Leiderschap',
-                      'Sociaal',
-                      'Stressbestendig',
-                      'Flexibel',
-                      'Creatief',
-                      'Teamplayer',
-                      'Zelfstandig',
-                      'Klantgericht',
-                      'Oog voor detail',
-                    ],
-                    maxSelection: 3,
-                    isSoftSkills: true),
-                const SizedBox(height: 16),
-
-                // Hard Skills
-                _buildSkillSection(
-                    'Hard skills',
-                    [
-                      'Grafisch ontwerp',
-                      'Klantenservice',
-                      'Hygiëne',
-                      'Tafelschikking',
-                      'Barista-vaardigheden',
-                      'Wijnkennis',
-                      'Afwas',
-                      'Tijdmanagement',
-                    ],
-                    maxSelection: 3,
-                    isSoftSkills: false),
-
-                // Bottom Button
+          // Soft Skills
+          _buildSkillSection(
+              'Soft skills',
+              [
+                'Leiderschap',
+                'Sociaal',
+                'Stressbestendig',
+                'Flexibel',
+                'Creatief',
+                'Teamplayer',
+                'Zelfstandig',
+                'Klantgericht',
+                'Oog voor detail',
               ],
-            ),
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-        child: Center(
-          child: SizedBox(
-            width: MediaQuery.sizeOf(context).width,
-            height: 58,
-            child: FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: _isButtonEnabled
-                    ? HexColor.fromHex("#FF3E68")
-                    : HexColor.fromHex('#DADADA'),
-                shape: RoundedRectangleBorder(
-                  borderRadius: _isButtonEnabled
-                      ? BorderRadius.circular(65)
-                      : BorderRadius.circular(65),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 10),
-              ),
-              onPressed: () {
-                context.push(
-                  CreateJobListingAvailabilityScreen.route,
-                );
-              },
-              child: const Text(
-                "Naar beschikbaarheid",
-                style: TextStyle(
-                  fontSize: 17.5,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ),
-        ),
+              maxSelection: 3,
+              isSoftSkills: true),
+          const SizedBox(height: 16),
+
+          // Hard Skills
+          _buildSkillSection(
+              'Hard skills',
+              [
+                'Grafisch ontwerp',
+                'Klantenservice',
+                'Hygiëne',
+                'Tafelschikking',
+                'Barista-vaardigheden',
+                'Wijnkennis',
+                'Afwas',
+                'Tijdmanagement',
+              ],
+              maxSelection: 3,
+              isSoftSkills: false),
+
+          // Bottom Button
+        ],
       ),
     );
   }

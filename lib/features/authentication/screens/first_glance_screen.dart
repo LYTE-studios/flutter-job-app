@@ -7,7 +7,7 @@ import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/create_profile_screen.dart';
 import 'package:jobr/features/profile/screens/recruteren_screen.dart';
-import 'package:jobr/features/vacatures/vacatures.dart';
+import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/widgets/buttons/jobr_icon_button.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 
@@ -52,7 +52,7 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
           onPressed: () {
             context.go(
               JobrRouter.getRoute(
-                VacaturesPage.location,
+                JobListingsScreen.location,
                 JobrRouter.employerInitialroute,
               ),
             );

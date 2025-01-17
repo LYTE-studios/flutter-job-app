@@ -16,7 +16,7 @@ import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/features/profile/screens/recruteren/recruitment_detail_screen.dart';
 import 'package:jobr/features/profile/screens/recruteren_screen.dart';
-import 'package:jobr/features/vacatures/vacatures.dart';
+import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 
 import '../../features/profile/screens/create_profile_screen.dart';
@@ -70,7 +70,7 @@ class JobrRouter {
     ProfileScreen.location,
   ];
   static List<String> employerNavigationLocations = [
-    VacaturesPage.location,
+    JobListingsScreen.location,
     RecruterenScreen.location,
     ChatScreen.location,
     CompanyProfileScreen.location,
@@ -95,7 +95,7 @@ GoRouter router = GoRouter(
           routes: [
             JobrNavigationItem(
               route: JobrRouter.getRoute(
-                VacaturesPage.location,
+                JobListingsScreen.location,
                 JobrRouter.employerInitialroute,
               ),
               icon: JobrIcons.profile3,
@@ -136,12 +136,12 @@ GoRouter router = GoRouter(
       routes: [
         GoRoute(
           path: JobrRouter.getRoute(
-            VacaturesPage.location,
+            JobListingsScreen.location,
             JobrRouter.employerInitialroute,
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              NoTransitionPage(
-            child: VacaturesPage(),
+              const NoTransitionPage(
+            child: JobListingsScreen(),
           ),
           routes: [
             GoRoute(
@@ -162,22 +162,12 @@ GoRouter router = GoRouter(
                   ),
                   routes: [
                     GoRoute(
-                      path: CreateJobListingSkillsScreen.location,
+                      path: CreateJobListingAvailabilityScreen.location,
                       pageBuilder:
                           (BuildContext context, GoRouterState state) =>
                               const NoTransitionPage(
-                        child: CreateJobListingSkillsScreen(),
+                        child: CreateJobListingAvailabilityScreen(),
                       ),
-                      routes: [
-                        GoRoute(
-                          path: CreateJobListingAvailabilityScreen.location,
-                          pageBuilder:
-                              (BuildContext context, GoRouterState state) =>
-                                  const NoTransitionPage(
-                            child: CreateJobListingAvailabilityScreen(),
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 ),

@@ -78,16 +78,9 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
           ),
           const SizedBox(height: 8),
           TextField(
+            cursorHeight: 24,
             decoration: InputDecoration(
-              filled: true,
-              fillColor: HexColor.fromHex("#D9D9D9").withOpacity(0.31),
               hintText: "Zoek een functie",
-              hintStyle: TextStyles.bodySmall
-                  .copyWith(fontSize: 17, color: Colors.grey),
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: BorderSide(
-                      color: HexColor.fromHex("#D9D9D9").withOpacity(0.31))),
               prefixIcon: const Icon(
                 Icons.search,
                 color: Colors.grey,
@@ -96,66 +89,79 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
           ),
           const SizedBox(height: 10),
           Expanded(
-            child: ListView.builder(
-              itemCount: widget.options.length,
-              itemBuilder: (context, index) {
-                final option = widget.options[index];
-                return ListTile(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14)),
-                  title: Text(
-                    option,
-                    style: TextStyles.titleMedium.copyWith(
-                        fontSize: 16.5,
-                        fontWeight: FontWeight.w600,
-                        color: selectedOption == option
-                            ? Colors.pinkAccent
-                            : Colors.black),
+            child: Stack(
+              children: [
+                ListView.builder(
+                  padding: const EdgeInsets.only(
+                    bottom: 72,
                   ),
-                  onTap: () {
-                    setState(() {
-                      selectedOption = option;
-                    });
+                  itemCount: widget.options.length,
+                  itemBuilder: (context, index) {
+                    final option = widget.options[index];
+                    return ListTile(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14)),
+                      title: Text(
+                        option,
+                        style: TextStyles.titleMedium.copyWith(
+                            fontSize: 16.5,
+                            fontWeight: FontWeight.w600,
+                            color: selectedOption == option
+                                ? Colors.pinkAccent
+                                : Colors.black),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          selectedOption = option;
+                        });
+                      },
+                      selected: selectedOption == option,
+                      selectedTileColor: Colors.pink.shade50,
+                    );
                   },
-                  selected: selectedOption == option,
-                  selectedTileColor: Colors.pink.shade50,
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Center(
-              child: SizedBox(
-                width: MediaQuery.sizeOf(context).width,
-                height: 58,
-                child: FilledButton(
-                  style: FilledButton.styleFrom(
-                    backgroundColor: selectedOption != null
-                        ? HexColor.fromHex("#FF3E68")
-                        : HexColor.fromHex('#DADADA'),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: selectedOption != null
-                          ? BorderRadius.circular(65)
-                          : BorderRadius.circular(65),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                  ),
-                  onPressed: () {
-                    selectedOption == null
-                        ? null
-                        : widget.onSelected(selectedOption!);
-                  },
-                  child: const Text(
-                    "Bevestigen",
-                    style: TextStyle(
-                      fontSize: 17.5,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    child: Center(
+                      child: SizedBox(
+                        width: MediaQuery.sizeOf(context).width,
+                        height: 58,
+                        child: FilledButton(
+                          style: FilledButton.styleFrom(
+                            backgroundColor: selectedOption != null
+                                ? HexColor.fromHex("#FF3E68")
+                                : HexColor.fromHex('#DADADA'),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: selectedOption != null
+                                  ? BorderRadius.circular(65)
+                                  : BorderRadius.circular(65),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                          ),
+                          onPressed: () {
+                            selectedOption == null
+                                ? null
+                                : widget.onSelected(selectedOption!);
+                          },
+                          child: const Text(
+                            "Bevestigen",
+                            style: TextStyle(
+                              fontSize: 17.5,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
         ],
