@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-class CustomRadio extends StatefulWidget {
+class JobrRadioButton extends StatefulWidget {
   final int value;
   final int groupValue;
   final void Function(int) onChanged;
 
-  const CustomRadio(
-      {super.key,
-      required this.value,
-      required this.groupValue,
-      required this.onChanged});
+  const JobrRadioButton({
+    super.key,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+  });
 
   @override
   // ignore: library_private_types_in_public_api
-  _CustomRadioState createState() => _CustomRadioState();
+  _JobrRadioButtonState createState() => _JobrRadioButtonState();
 }
 
-class _CustomRadioState extends State<CustomRadio> {
+class _JobrRadioButtonState extends State<JobrRadioButton> {
   @override
   Widget build(BuildContext context) {
     bool selected = (widget.value == widget.groupValue);

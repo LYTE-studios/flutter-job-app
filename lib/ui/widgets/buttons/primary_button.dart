@@ -9,7 +9,7 @@ class PrimaryButton extends StatelessWidget {
   final double width;
   final double height;
   final TextStyle? textStyle;
-  final suffixIcon; // Make suffixIcon optional
+  final Widget? suffixIcon; // Make suffixIcon optional
 
   const PrimaryButton({
     super.key,
@@ -43,7 +43,7 @@ class PrimaryButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (suffixIcon != null) ...[
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 suffixIcon!,
               ],
               Text(

@@ -6,8 +6,10 @@ import 'package:jobr/data/models/user.dart';
 import 'package:jobr/data/providers/auth_providers.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
-import 'package:jobr/ui/buttons/primary_button.dart';
-import 'package:jobr/ui/input/custom_textfield.dart';
+import 'package:jobr/features/jobs/job_screen.dart';
+import 'package:jobr/features/Sollicitaties/recruteren_screen.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
+import 'package:jobr/ui/widgets/input/jobr_textfield.dart';
 
 class EmailRegisterScreen extends ConsumerStatefulWidget {
   final UserType userType;
@@ -61,14 +63,14 @@ class _EmailRegisterScreenState extends ConsumerState<EmailRegisterScreen> {
             authState.error!,
             style: const TextStyle(color: Colors.red),
           ),
-        CustomTextField(
+        JobrTextField(
           controller: tecEmail,
           hintText: "Jouw email",
         ),
         const SizedBox(
           height: 10,
         ),
-        CustomTextField(
+        JobrTextField(
           controller: tecPassword,
           hintText: "Wachtwoord",
           obscureText: true,
@@ -76,7 +78,7 @@ class _EmailRegisterScreenState extends ConsumerState<EmailRegisterScreen> {
         const SizedBox(
           height: 10,
         ),
-        CustomTextField(
+        JobrTextField(
           controller: tecConfirmPassword,
           hintText: "Herhaal wachtwoord",
           obscureText: true,

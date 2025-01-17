@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 
-class CustomTextField extends StatelessWidget {
+class JobrTextField extends StatelessWidget {
   final TextEditingController controller;
 
   final String hintText;
@@ -23,7 +23,7 @@ class CustomTextField extends StatelessWidget {
   /// Determines whether the text field hides input
   final bool obscureText;
 
-  const CustomTextField({
+  const JobrTextField({
     super.key,
     required this.controller,
     required this.hintText,

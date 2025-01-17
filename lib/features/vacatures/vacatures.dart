@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/job_listing/general_job_listing_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 
 class VacaturesPage extends StatelessWidget {
   static const String location = 'vacancies';
@@ -46,7 +46,7 @@ class VacaturesPage extends StatelessWidget {
               child: ElevatedButton.icon(
                 onPressed: () {
                   context.push(
-                    GeneralJobListingScreen.employerRoute,
+                    CreateJobListingGeneralScreen.employerRoute,
                   );
                   // Action for "Nieuwe vacature" button
                 },

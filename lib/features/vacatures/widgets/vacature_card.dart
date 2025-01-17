@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jobr/ui/buttons/primary_button.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 
 class VacatureCard extends StatelessWidget {
   @override

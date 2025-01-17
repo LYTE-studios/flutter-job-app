@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart'; // Add this import
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/jobs/widgets/custom_slider.dart';
 import 'package:jobr/features/jobs/widgets/dropdown_menu.dart';
-import 'package:jobr/ui/buttons/primary_button.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});

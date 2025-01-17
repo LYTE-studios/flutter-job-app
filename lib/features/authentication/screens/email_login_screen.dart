@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jobr/data/models/user.dart';
-import 'package:jobr/data/providers/auth_providers.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
-import 'package:jobr/ui/buttons/primary_button.dart';
-import 'package:jobr/ui/input/custom_textfield.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
+import 'package:jobr/ui/widgets/input/jobr_textfield.dart';
+import 'package:jobr/data/providers/auth_providers.dart';
 
 class EmailLoginScreen extends ConsumerStatefulWidget {
   final UserType userType;
@@ -47,7 +47,7 @@ class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
           ),
         Container(
           alignment: Alignment.center,
-          child: CustomTextField(
+          child: JobrTextField(
             controller: tecEmail,
             hintText: "Jouw email",
           ),
@@ -58,7 +58,7 @@ class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
         Container(
           alignment: Alignment.center,
           // width: 340,
-          child: CustomTextField(
+          child: JobrTextField(
             controller: tecPassword,
             hintText: "Wachtwoord",
           ),

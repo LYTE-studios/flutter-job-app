@@ -58,12 +58,6 @@ class JobrIcons {
   static const String calenda = '$_baseIconPath/calenda.svg';
   static const String people = '$_baseIconPath/people.svg';
   static const String company = '$_baseIconPath/company.svg';
-  static const String heart = '$_baseIconPath/heart.svg';
-  static const String share = '$_baseIconPath/share.svg';
-  static const String plane = '$_baseIconPath/plane.svg';
-  static const String briefcase = '$_baseIconPath/briefcase.svg';
-  static const String midStars = '$_baseIconPath/mdi-stars.svg';
-  static const String bellTwo = '$_baseIconPath/bell-two.svg';
   static const String placeholder1 = 'assets/images/images/placeholder-1.png';
   static const String send = '$_baseIconPath/send.svg';
   static const String aboutUs = '$_baseIconPath/about_us.svg';
