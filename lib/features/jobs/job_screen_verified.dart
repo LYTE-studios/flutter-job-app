@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
+import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';

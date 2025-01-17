@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/ui/widgets/buttons/action_button.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:readmore/readmore.dart';
 
@@ -208,27 +211,32 @@ class CustomJobCard extends StatelessWidget {
         Divider(
           color: HexColor.fromHex('#000000').withOpacity(0.1),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Profiel bekijken',
-              style: TextStyle(
-                fontFamily: 'Inter',
-                color: HexColor.fromHex('#4A4C53'),
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+        ClearInkWell(
+          onTap: () {
+            context.push(ProfileScreen.employerRoute);
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Profiel bekijken',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  color: HexColor.fromHex('#4A4C53'),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Icon(
-              Icons.arrow_forward_ios,
-              size: 12,
-              color: HexColor.fromHex('#4A4C53'),
-            )
-          ],
+              const SizedBox(
+                width: 5,
+              ),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 12,
+                color: HexColor.fromHex('#4A4C53'),
+              )
+            ],
+          ),
         ),
       ],
     );

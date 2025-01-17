@@ -1,12 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/data/models/vacancy.dart';
+import 'package:jobr/data/services/vacancies_service.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
-class JobListingsScreen extends StatelessWidget {
+class JobListingsScreen extends StatefulWidget {
   static const String location = 'vacancies';
 
   const JobListingsScreen({super.key});
+
+  @override
+  State<JobListingsScreen> createState() => _JobListingsScreenState();
+}
+
+class _JobListingsScreenState extends State<JobListingsScreen>
+    with ScreenStateMixin {
+  List<Vacancy> vacancies = [];
+
+  @override
+  Future<void> loadData() async {
+    vacancies = await VacanciesService().getVacancies();
+
+    setState(() {
+      vacancies = vacancies;
+    });
+  }
 
   Widget buildEmtpyState(BuildContext context) {
     return Center(
@@ -52,7 +72,13 @@ class JobListingsScreen extends StatelessWidget {
             canGoBack: false,
             center: false,
           ),
-          Expanded(child: buildEmtpyState(context)),
+          Expanded(
+            child: vacancies.isEmpty
+                ? buildEmtpyState(context)
+                : Column(
+                    children: [],
+                  ),
+          ),
         ],
       ),
       //  Column(

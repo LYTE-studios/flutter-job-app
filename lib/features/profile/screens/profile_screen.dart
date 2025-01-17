@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 import '../../../ui/theme/jobr_icons.dart';
-import 'edit/edit_profile_details_screen.dart';
 import 'tabs/general_item_widget.dart';
 import 'tabs/media_item_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   static const String location = 'profile';
+
+  static String employerRoute = JobrRouter.getRoute(
+    '${ProfileScreen.location}/$location',
+    JobrRouter.employerInitialroute,
+  );
+  static String employeeRoute = JobrRouter.getRoute(
+    '${ProfileScreen.location}/$location',
+    JobrRouter.employeeInitialroute,
+  );
 
   const ProfileScreen({super.key});
 
@@ -46,12 +55,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
               expandedHeight: 200,
               floating: false,
               pinned: true,
+              automaticallyImplyLeading: false,
               title: innerBoxIsScrolled
                   ? Row(
                       children: [
+                        CloseButton(
+                          onPressed: () {
+                            context.pop();
+                          },
+                          style: const ButtonStyle(
+                            backgroundColor: WidgetStatePropertyAll(
+                              Colors.white,
+                            ),
+                          ),
+                        ),
                         if (innerBoxIsScrolled)
                           Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 15),
+                            padding: const EdgeInsets.only(right: 15),
                             child: Container(
                               width: 40,
                               height: 40,
@@ -120,38 +140,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Positioned(
-                      top: 156,
-                      right: 10,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // context.push(EditProfileDetailsScreen.route);
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.primaryColor,
-                        ),
-                        label: Text(
-                          "Aanpassen",
-                          style: TextStyle(
-                            color: TextStyles.clearText,
-                            fontSize: 16,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        icon: Padding(
-                          padding: const EdgeInsets.only(left: 4.0),
-                          child: SvgPicture.asset(
-                            JobrIcons.edit,
-                            width: 16,
-                            height: 16,
-                            colorFilter: ColorFilter.mode(
-                              TextStyles.clearText,
-                              BlendMode.srcIn,
+                      top: 0,
+                      left: PaddingSizes.large,
+                      child: SafeArea(
+                        top: true,
+                        child: CloseButton(
+                          onPressed: () {
+                            context.pop();
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStatePropertyAll(
+                              Colors.white,
                             ),
                           ),
                         ),
                       ),
                     ),
+                    // Positioned(
+                    //   top: 156,
+                    //   right: 10,
+                    //   child: ElevatedButton.icon(
+                    //     onPressed: () {
+                    //       // context.push(EditProfileDetailsScreen.route);
+                    //     },
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: theme.primaryColor,
+                    //     ),
+                    //     label: Text(
+                    //       "Aanpassen",
+                    //       style: TextStyle(
+                    //         color: TextStyles.clearText,
+                    //         fontSize: 16,
+                    //         fontFamily: 'Inter',
+                    //         fontWeight: FontWeight.w700,
+                    //       ),
+                    //     ),
+                    //     icon: Padding(
+                    //       padding: const EdgeInsets.only(left: 4.0),
+                    //       child: SvgPicture.asset(
+                    //         JobrIcons.edit,
+                    //         width: 16,
+                    //         height: 16,
+                    //         colorFilter: ColorFilter.mode(
+                    //           TextStyles.clearText,
+                    //           BlendMode.srcIn,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

@@ -41,60 +41,68 @@ class JobrAppbarNavigation extends StatelessWidget
         left: PaddingSizes.medium,
         right: PaddingSizes.medium,
       ),
-      child: Row(
-        mainAxisAlignment:
-            center ? MainAxisAlignment.center : MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.end,
+      child: Stack(
         children: [
-          if (canGoBack)
-            IconButton(
-              icon: const SvgIcon(
-                JobrIcons.close,
-                color: Colors.black,
-              ),
-              onPressed: () => context.pop(),
-            ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: PaddingSizes.xxl,
-              left: 4.0,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment:
-                  center ? CrossAxisAlignment.center : CrossAxisAlignment.start,
-              children: [
-                Text(
-                  appbarTitle,
-                  style: const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.w800,
-                  ),
+          Row(
+            mainAxisAlignment:
+                center ? MainAxisAlignment.center : MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 4.0,
                 ),
-                if (description != null)
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 4,
-                      bottom: PaddingSizes.small,
-                    ),
-                    child: Text(
-                      description!,
-                      style: TextStyle(
-                        fontSize: 15.5,
-                        fontWeight: FontWeight.w500,
-                        color: HexColor.fromHex('#6D6D6D'),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: center
+                      ? CrossAxisAlignment.center
+                      : CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      appbarTitle,
+                      style: const TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
-                  ),
-              ],
-            ),
-          ),
-          if (icon != null)
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 4,
+                    if (description != null)
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 4,
+                          bottom: PaddingSizes.small,
+                        ),
+                        child: Text(
+                          description!,
+                          style: TextStyle(
+                            fontSize: 15.5,
+                            fontWeight: FontWeight.w500,
+                            color: HexColor.fromHex('#6D6D6D'),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
               ),
-              child: icon!,
+              if (icon != null)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 8,
+                  ),
+                  child: icon!,
+                ),
+            ],
+          ),
+          if (canGoBack)
+            Positioned(
+              left: 0,
+              bottom: 0,
+              child: IconButton(
+                icon: const SvgIcon(
+                  JobrIcons.close,
+                  color: Colors.black,
+                ),
+                onPressed: () => context.pop(),
+              ),
             ),
         ],
       ),

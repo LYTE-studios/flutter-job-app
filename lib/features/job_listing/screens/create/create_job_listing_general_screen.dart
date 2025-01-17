@@ -10,6 +10,7 @@ import 'package:jobr/features/job_listing/widgets/search_function_bottom_sheet.d
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
@@ -60,7 +61,7 @@ class _CreateJobListingGeneralScreenState
           ),
           const SizedBox(height: 16),
           // Contract Type
-          buildDropdownSection(
+          JobrDropdownField(
             title: "Contract type",
             selectedValue: _selectedContractType,
             onPressed: () => ContractTypeBottomSheet(
@@ -83,7 +84,7 @@ class _CreateJobListingGeneralScreenState
           ),
 
           // Function
-          buildDropdownSection(
+          JobrDropdownField(
             title: "Functie",
             selectedValue: _selectedFunction,
             onPressed: () => SearchFunctionBottomSheet(
@@ -156,7 +157,7 @@ class _CreateJobListingGeneralScreenState
           //           ),
 
           // Location
-          buildDropdownSection(
+          JobrDropdownField(
             title: "Locatie",
             selectedValue: _selectedLocation,
             // options: ["Op locatie", "Remote"],
@@ -171,77 +172,6 @@ class _CreateJobListingGeneralScreenState
               },
             ).showBottomSheet(context: context),
           ),
-        ],
-      ),
-    );
-  }
-
-  // Reusable dropdown section with 'Wijzigen' logic
-  Widget buildDropdownSection({
-    required String title,
-    String? selectedValue,
-    required VoidCallback onPressed,
-  }) {
-    return ClearInkWell(
-      onTap: onPressed,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          RichText(
-            text: TextSpan(
-              text: title,
-              style: TextStyles.titleMedium.copyWith(fontSize: 16.5),
-              children: [
-                TextSpan(
-                  text: "*",
-                  style: TextStyles.titleMedium.copyWith(
-                    fontSize: 16.5,
-                    color: HexColor.fromHex("#FF3F3F"),
-                  ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(height: 8),
-          Container(
-            height: 56,
-            padding: const EdgeInsets.symmetric(
-              horizontal: PaddingSizes.large,
-              vertical: 12,
-            ),
-            decoration: BoxDecoration(
-              color: HexColor.fromHex("#E4E4E4").withOpacity(0.4),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  selectedValue ?? "Kies een optie",
-                  style: TextStyles.titleSmall.copyWith(
-                      fontSize: 16.5,
-                      color: selectedValue == null
-                          ? Colors.black45
-                          : Colors.black),
-                ),
-                selectedValue == null
-                    ? const Icon(
-                        CupertinoIcons.chevron_down,
-                        color: Colors.black45,
-                        size: 18,
-                      )
-                    : Text(
-                        "Wijzigen",
-                        style: TextStyles.titleSmall.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
-                          color: HexColor.fromHex("#FF3E68"),
-                        ),
-                      ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
         ],
       ),
     );
