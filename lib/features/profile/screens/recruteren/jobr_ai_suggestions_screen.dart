@@ -7,7 +7,7 @@ import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class JobrAiSuggestionsScreen extends StatelessWidget {
-  static const String location = 'ai-suggestions';
+  static const String location = '/ai-suggestions';
 
   static String employerRoute = JobrRouter.getRoute(
     '${RecruterenScreen.location}/$location',
