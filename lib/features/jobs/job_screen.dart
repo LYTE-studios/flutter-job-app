@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
-import 'package:jobr/ui/widget/common_appbar_navigation.dart';
-import 'package:jobr/ui/widget/common_search_bar.dart';
+import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
+import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
 
 class JobScreen extends StatefulWidget {
   static const String location = 'jobs';
@@ -58,14 +58,14 @@ class _JobScreenState extends State<JobScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: const CommonAppbarNavigation(appbarTitle: "Vind jouw job"),
+      appBar: const JobrAppbarNavigation(appbarTitle: "Vind jouw job"),
       backgroundColor: theme.colorScheme.surface,
       body: Padding(
         padding: const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const CommonSearchBar(
+            const JobrSearchBar(
               hintText: "Zoek een bedrijf, functie...",
             ),
             const SizedBox(height: 14),

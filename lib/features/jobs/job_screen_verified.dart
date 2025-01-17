@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
-import 'package:jobr/ui/widget/common_appbar_navigation.dart';
-import 'package:jobr/ui/widget/common_search_bar.dart';
+import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
+import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class JobVerifiedScreen extends StatefulWidget {
@@ -63,7 +63,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: const CommonAppbarNavigation(
+      appBar: const JobrAppbarNavigation(
         appbarTitle: "Vind jouw job",
       ),
       backgroundColor: theme.colorScheme.surface,
@@ -72,7 +72,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const CommonSearchBar(
+            const JobrSearchBar(
               hintText: "Zoek een bedrijf, functie...",
             ),
             const SizedBox(height: 14),

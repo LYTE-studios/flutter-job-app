@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 
-class CommonButton extends StatelessWidget {
+class ActionButton extends StatelessWidget {
   final String buttonText;
   final String? icon;
   final Color? backgroundColor;
   final VoidCallback onButtonPressed;
 
-  const CommonButton({
+  const ActionButton({
     super.key,
     required this.buttonText,
     required this.icon,

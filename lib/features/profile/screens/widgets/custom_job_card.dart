@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobr/ui/widget/common_button.dart';
+import 'package:jobr/ui/widgets/buttons/action_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:readmore/readmore.dart';
 
@@ -186,7 +186,7 @@ class CustomJobCard extends StatelessWidget {
       children: [
         Expanded(
           flex: 2,
-          child: CommonButton(
+          child: ActionButton(
             onButtonPressed: onButtonPressed,
             buttonText: buttonText,
             icon: buttonIcon,
