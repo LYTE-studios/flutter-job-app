@@ -246,7 +246,8 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
   Widget _buildJobCard() {
     return Container(
       width: 300,
-      height: 240, // Adjust card width as needed
+      height: 240,
+      // Adjust card width as needed
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey[100], // Light background color

@@ -20,7 +20,8 @@ class VacatureCard extends StatelessWidget {
               topRight: Radius.circular(16),
             ),
             child: Image.asset(
-              'assets/images/images/kortrijk.png', // Replace with your image URL
+              'assets/images/images/kortrijk.png',
+              // Replace with your image URL
               fit: BoxFit.cover,
               height: 130,
               width: double.infinity,

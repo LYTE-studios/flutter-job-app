@@ -237,8 +237,10 @@ class _JobScreenState extends State<JobScreen> {
           child: Row(
             children: List.generate(5, (index) {
               return Container(
-                width: 300, // Fixed width for uniformity
-                height: 230, // Fixed height for uniformity
+                width: 300,
+                // Fixed width for uniformity
+                height: 230,
+                // Fixed height for uniformity
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
