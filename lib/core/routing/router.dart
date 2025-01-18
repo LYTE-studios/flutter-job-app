@@ -14,6 +14,7 @@ import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
+import 'package:jobr/features/profile/screens/company_screen/settings.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/recruitment_detail_screen.dart';
@@ -217,6 +218,16 @@ GoRouter router = GoRouter(
               context: context,
               state: state,
               child: const ProfileScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: SettingsScreen.employerRoute,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return buildPageWithSlideUpTransition(
+              context: context,
+              state: state,
+              child: const SettingsScreen(),
             );
           },
         ),

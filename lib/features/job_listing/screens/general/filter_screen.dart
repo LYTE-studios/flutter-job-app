@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Add this import
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/job_listing/screens/general/recruitment_detail_screen.dart';
 import 'package:jobr/features/jobs/widgets/custom_slider.dart';
 import 'package:jobr/features/jobs/widgets/dropdown_menu.dart';
+import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
@@ -186,7 +188,12 @@ class _FilterScreenState extends State<FilterScreen> {
                 buttonText: 'Toon resultaten',
                 onTap: () {
                   context.push(
-                    '/jobs/filters/jobupdates',
+                    RecruitmentDetailScreen.employerRoute,
+                    extra: {
+                      'category': 'Filter Results',
+                      'title': 'Filter',
+                      'image': 'assets/images/recruteren/vast.png',
+                    },
                   );
                 },
                 buttonColor: theme.primaryColor,

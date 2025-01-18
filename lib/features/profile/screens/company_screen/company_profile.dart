@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings.dart';
 import 'package:jobr/features/profile/screens/tabs/general_item_widget.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
@@ -99,17 +101,20 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               ),
                               image: const DecorationImage(
                                 image: AssetImage(
-                                    'assets/images/images/image-b.png'),
+                                  'assets/images/images/image-6.png',
+                                ),
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
                         ),
                         Positioned(
-                          bottom: 25,
-                          right: 50,
+                          bottom: 52,
+                          right: PaddingSizes.large,
                           child: ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              context.push(SettingsScreen.employerRoute);
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: theme.primaryColor,
                             ),
@@ -129,33 +134,6 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               colorFilter: ColorFilter.mode(
                                 TextStyles.clearText,
                                 BlendMode.srcIn,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 30,
-                          right: 10,
-                          child: InkWell(
-                            onTap: () {
-                              // Add your settings action here
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SettingsScreen()),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                              child: SvgIcon(
-                                JobrIcons.settings1,
-                                size: 18.68,
-                                color: TextStyles.disabledText,
                               ),
                             ),
                           ),
