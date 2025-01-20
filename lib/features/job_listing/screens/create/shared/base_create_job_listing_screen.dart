@@ -44,6 +44,7 @@ class BaseCreateJobListingScreen extends StatelessWidget {
           "Nieuwe vacature",
           style: TextStyles.titleMedium,
         ),
+        centerTitle: true,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Row(
