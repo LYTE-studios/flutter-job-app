@@ -74,6 +74,9 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           },
         ),
         const PrivacyPolicyBlock(),
+        SizedBox(
+          height: 20,
+        )
       ],
     );
   }

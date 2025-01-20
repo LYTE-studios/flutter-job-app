@@ -91,6 +91,9 @@ class _EmailRegisterScreenState extends ConsumerState<EmailRegisterScreen> {
           buttonText: authState.isLoading ? 'Laden...' : 'Account maken',
         ),
         const PrivacyPolicyBlock(),
+        SizedBox(
+          height: 20,
+        )
       ],
     );
   }

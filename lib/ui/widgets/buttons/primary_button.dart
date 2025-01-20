@@ -9,14 +9,14 @@ class PrimaryButton extends StatelessWidget {
   final double width;
   final double height;
   final TextStyle? textStyle;
-  final Widget? icon;
-  final Widget? suffixIcon; // Make suffixIcon optional
+  final Widget? icon; // Icon on the left
+  final Widget? suffixIcon; // Icon on the right
 
   const PrimaryButton({
     super.key,
     this.onTap,
     required this.buttonText,
-    this.suffixIcon, // Make suffixIcon optional
+    this.suffixIcon,
     this.buttonColor = const Color(0xFFFF3E68),
     this.textColor = Colors.white,
     this.borderRadius = 18,
@@ -40,29 +40,28 @@ class PrimaryButton extends StatelessWidget {
           ),
           padding: EdgeInsets.zero,
         ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (suffixIcon != null) ...[
-                const SizedBox(width: 8),
-                suffixIcon!,
-              ],
-              Text(
-                buttonText,
-                style: textStyle ??
-                    TextStyle(
-                      fontSize: 18,
-                      color: textColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-              if (icon != null) ...[
-                const SizedBox(width: 8),
-                icon!,
-              ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if (icon != null) ...[
+              icon!,
+              const SizedBox(width: 8),
             ],
-          ),
+            Text(
+              buttonText,
+              style: textStyle ??
+                  TextStyle(
+                    fontSize: 18,
+                    color: textColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            if (suffixIcon != null) ...[
+              const SizedBox(width: 8),
+              suffixIcon!,
+            ],
+          ],
         ),
       ),
     );

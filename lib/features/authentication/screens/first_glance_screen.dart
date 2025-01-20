@@ -1,6 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/models/user.dart';
+import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
@@ -35,11 +38,18 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
           textIcon: "⚡",
           label: "Ik zoek een job",
           onPressed: () {
-            context.go(
-              JobrRouter.getRoute(
-                JobScreen.location,
-                JobrRouter.employeeInitialroute,
-              ),
+            // context.go(
+            //   JobrRouter.getRoute(
+            //     JobScreen.location,
+            //     JobrRouter.employeeInitialroute,
+            //   ),
+            // );
+            context.push(
+              LoginScreen.route,
+              extra: {
+                'userType': UserType.employee,
+                'isNewUser': true,
+              },
             );
           },
         ),
@@ -50,16 +60,23 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
           textIcon: "💼",
           label: "Ik zoek talent",
           onPressed: () {
-            context.go(
-              JobrRouter.getRoute(
-                JobListingsScreen.location,
-                JobrRouter.employerInitialroute,
-              ),
+            // context.go(
+            //   JobrRouter.getRoute(
+            //     JobListingsScreen.location,
+            //     JobrRouter.employerInitialroute,
+            //   ),
+            // );
+            context.push(
+              LoginScreen.route,
+              extra: {
+                'userType': UserType.employer,
+                'isNewUser': true,
+              },
             );
           },
         ),
         SizedBox(
-          height: 81,
+          height: 61,
           child: Center(
             child: RichText(
               textAlign: TextAlign.center,
@@ -70,10 +87,20 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
                   color: TextStyles.clearText,
                 ),
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: 'Heb je al een account? ',
                   ),
                   TextSpan(
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        context.push(
+                          LoginScreen.route,
+                          extra: {
+                            'userType': UserType.employer,
+                            'isNewUser': false,
+                          },
+                        );
+                      },
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Theme.of(context).primaryColor,
@@ -84,7 +111,8 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
               ),
             ),
           ),
-        )
+        ),
+        SizedBox(height: 16),
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -13,6 +14,11 @@ class ProfileScreen extends StatefulWidget {
   static const String location = 'profile';
 
   const ProfileScreen({super.key});
+
+  static String employerRoute = JobrRouter.getRoute(
+    location,
+    JobrRouter.employerInitialroute,
+  );
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
