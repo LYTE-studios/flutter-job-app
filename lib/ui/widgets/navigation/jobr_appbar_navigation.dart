@@ -33,7 +33,7 @@ class JobrAppbarNavigation extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    final double statusbarHeight = MediaQuery.of(context).padding.top;
+    final double statusbarHeight = MediaQuery.of(context).padding.top + 10;
 
     return Container(
       padding: EdgeInsets.only(
