@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
-import 'package:jobr/features/job_listing/screens/general/recruitment_screen.dart';
+import 'package:jobr/features/Sollicitaties/recruitment_screen.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-import '../../../../ui/theme/jobr_icons.dart';
-import '../../../profile/screens/widgets/custom_job_card.dart';
+import '../../ui/theme/jobr_icons.dart';
+import '../profile/screens/widgets/custom_job_card.dart';
 
 class RecruitmentDetailScreen extends StatelessWidget {
   final String category;
@@ -37,7 +37,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "age": "20",
       "location": "Brussel",
       "userName": "Yassine Vuran",
-      "profileImagePath": "assets/images/images/image-3.png",
+      "profileImagePath": "assets/images/images/image.png",
       "suggestionPercentage": "74",
     },
     {
@@ -46,7 +46,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "age": "23",
       "location": "Antwerpen",
       "userName": "Sarah De Vries",
-      "profileImagePath": "assets/images/images/image-4.png",
+      "profileImagePath": "assets/images/images/image-3.png",
       "suggestionPercentage": "82",
     },
     {
@@ -55,7 +55,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "age": "25",
       "location": "Gent",
       "userName": "Thomas Peeters",
-      "profileImagePath": "assets/images/images/image-4.png",
+      "profileImagePath": "assets/images/images/image-9.png",
       "suggestionPercentage": "68",
     },
     {
@@ -82,7 +82,8 @@ class RecruitmentDetailScreen extends StatelessWidget {
       appBar: JobrAppbarNavigation(
         canGoBack: true,
         appbarTitle: title,
-        icon: Image.asset(
+        appBarFontSize: 22,
+        prefixIcon: Image.asset(
           image,
           height: 30,
           width: 30,

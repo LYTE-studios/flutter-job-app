@@ -13,21 +13,25 @@ class JobrAppbarNavigation extends StatelessWidget
 
   final Widget? icon;
 
+  final Widget? prefixIcon;
+
   final bool canGoBack;
 
   final bool center;
 
   final Widget? trailing;
+  final double appBarFontSize;
 
-  const JobrAppbarNavigation({
-    super.key,
-    required this.appbarTitle,
-    this.description,
-    this.canGoBack = false,
-    this.icon,
-    this.center = true,
-    this.trailing,
-  });
+  const JobrAppbarNavigation(
+      {super.key,
+      required this.appbarTitle,
+      this.description,
+      this.canGoBack = false,
+      this.icon,
+      this.center = true,
+      this.trailing,
+      this.appBarFontSize = 26,
+      this.prefixIcon});
 
   static const double barHeight = 89;
 
@@ -48,9 +52,15 @@ class JobrAppbarNavigation extends StatelessWidget
                 center ? MainAxisAlignment.center : MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+              if (prefixIcon != null)
+                Padding(
+                    padding: const EdgeInsets.only(
+                      left: 8,
+                    ),
+                    child: prefixIcon!),
               Padding(
                 padding: const EdgeInsets.only(
-                  left: 4.0,
+                  left: 8.0,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -60,8 +70,8 @@ class JobrAppbarNavigation extends StatelessWidget
                   children: [
                     Text(
                       appbarTitle,
-                      style: const TextStyle(
-                        fontSize: 26,
+                      style: TextStyle(
+                        fontSize: appBarFontSize,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -94,6 +104,7 @@ class JobrAppbarNavigation extends StatelessWidget
           ),
           if (canGoBack)
             Positioned(
+              top: 10,
               left: 0,
               bottom: 0,
               child: IconButton(

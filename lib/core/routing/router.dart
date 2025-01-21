@@ -10,7 +10,11 @@ import 'package:jobr/features/chat/screens/chat_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_overview_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_questionnaire_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_salary_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
@@ -18,8 +22,8 @@ import 'package:jobr/features/profile/screens/company_screen/company_profile.dar
 import 'package:jobr/features/profile/screens/company_screen/settings.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';
-import 'package:jobr/features/job_listing/screens/general/recruitment_detail_screen.dart';
-import 'package:jobr/features/job_listing/screens/general/recruitment_screen.dart';
+import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
+import 'package:jobr/features/Sollicitaties/recruitment_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 
@@ -213,6 +217,46 @@ GoRouter router = GoRouter(
                                   const NoTransitionPage(
                             child: CreateJobListingAvailabilityScreen(),
                           ),
+                          routes: [
+                        GoRoute(
+                          path: CreateJobListingTalentScreen.location,
+                          pageBuilder:
+                              (BuildContext context, GoRouterState state) =>
+                                  const NoTransitionPage(
+                            child: CreateJobListingTalentScreen(),
+                          ),
+                          routes: [
+                        GoRoute(
+                          path: CreateJobListingSalaryScreen.location,
+                          pageBuilder:
+                              (BuildContext context, GoRouterState state) =>
+                                  const NoTransitionPage(
+                            child: CreateJobListingSalaryScreen(),
+                          ),
+                          routes: [
+                        GoRoute(
+                          path: CreateJobListingVragenlijstScreen.location,
+                          pageBuilder:
+                              (BuildContext context, GoRouterState state) =>
+                                  const NoTransitionPage(
+                            child: CreateJobListingVragenlijstScreen(),
+                          ),
+                          routes: [
+                        GoRoute(
+                          path: CreateJobListingOverviewScreen.location,
+                          pageBuilder:
+                              (BuildContext context, GoRouterState state) =>
+                                  const NoTransitionPage(
+                            child: CreateJobListingOverviewScreen(),
+                          ),
+                        ),
+                      ],
+                        ),
+                      ],
+                        ),
+                      ],
+                        ),
+                      ],
                         ),
                       ],
                     ),

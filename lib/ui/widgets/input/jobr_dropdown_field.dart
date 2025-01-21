@@ -9,17 +9,22 @@ import 'package:lyte_studios_flutter_ui/ui/selectable/clear_ink_well.dart';
 class JobrDropdownField extends StatelessWidget {
   final Function()? onPressed;
   final String title;
+  final bool showWijzigenText;
+  final bool showTitle;
+  final bool showDropdownMenu; // New parameter
 
   final String? selectedValue;
   final String? iconPadding;
 
-  const JobrDropdownField({
-    super.key,
-    required this.title,
-    this.onPressed,
-    this.selectedValue,
-    this.iconPadding,
-  });
+  const JobrDropdownField(
+      {super.key,
+      required this.title,
+      this.onPressed,
+      this.selectedValue,
+      this.iconPadding,
+      this.showTitle = true,
+      this.showWijzigenText = true,
+      this.showDropdownMenu = false}); // Initialize new parameter
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +33,22 @@ class JobrDropdownField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          RichText(
-            text: TextSpan(
-              text: title,
-              style: TextStyles.titleMedium.copyWith(fontSize: 16.5),
-              children: [
-                TextSpan(
-                  text: "*",
-                  style: TextStyles.titleMedium.copyWith(
-                    fontSize: 16.5,
-                    color: HexColor.fromHex("#FF3F3F"),
-                  ),
-                )
-              ],
+          if (showTitle)
+            RichText(
+              text: TextSpan(
+                text: title,
+                style: TextStyles.titleMedium.copyWith(fontSize: 16.5),
+                children: [
+                  TextSpan(
+                    text: "*",
+                    style: TextStyles.titleMedium.copyWith(
+                      fontSize: 16.5,
+                      color: HexColor.fromHex("#FF3F3F"),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
           const SizedBox(height: 8),
           Container(
             height: 56,
@@ -76,14 +82,25 @@ class JobrDropdownField extends StatelessWidget {
                           height: 8,
                         ),
                       )
-                    : Text(
-                        "Wijzigen",
-                        style: TextStyles.titleSmall.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
-                          color: HexColor.fromHex("#FF3E68"),
-                        ),
-                      ),
+                    : showWijzigenText
+                        ? Text(
+                            "Wijzigen",
+                            style: TextStyles.titleSmall.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: HexColor.fromHex("#FF3E68"),
+                            ),
+                          )
+                        : Text(''),
+                if (showDropdownMenu) // Conditionally show dropdown menu
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: SvgPicture.asset(
+                      'assets/images/icons/chevron-down.svg',
+                      color: Colors.black45,
+                      height: 8,
+                    ),
+                  ),
               ],
             ),
           ),

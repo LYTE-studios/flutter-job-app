@@ -8,12 +8,14 @@ class SearchFunctionBottomSheet extends StatefulWidget with BottomSheetMixin {
   final void Function(String value) onSelected;
   final List<String> options;
   final String title;
+  final bool allowMultipleOptionSelection;
 
   const SearchFunctionBottomSheet({
     super.key,
     required this.onSelected,
     required this.options,
     required this.title,
+    this.allowMultipleOptionSelection = false,
   });
 
   @override
@@ -23,22 +25,7 @@ class SearchFunctionBottomSheet extends StatefulWidget with BottomSheetMixin {
 
 class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
   String? selectedOption;
-
-  // final List<String> options = [
-  //   "All-round",
-  //   "Zaal",
-  //   "Bar",
-  //   "Keuken",
-  //   "Management",
-  //   "Back-office",
-  //   "Financieel",
-  //   "Hygiëne",
-  //   "Afwasser",
-  //   "Sommelier",
-  //   "Barista",
-  //   "Ober/Serveerster",
-  //   "Cateringmanagement",
-  // ];
+  List<String> selectedOptions = [];
 
   @override
   Widget build(BuildContext context) {
@@ -107,25 +94,40 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
                   itemCount: widget.options.length,
                   itemBuilder: (context, index) {
                     final option = widget.options[index];
-                    return ListTile(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14)),
-                      title: Text(
-                        option,
-                        style: TextStyles.titleMedium.copyWith(
-                            fontSize: 16.5,
-                            fontWeight: FontWeight.w600,
-                            color: selectedOption == option
-                                ? Colors.pinkAccent
-                                : Colors.black),
+                    final isSelected = widget.allowMultipleOptionSelection
+                        ? selectedOptions.contains(option)
+                        : selectedOption == option;
+
+                    return Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: ListTile(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14)),
+                        title: Text(
+                          option,
+                          style: TextStyles.titleMedium.copyWith(
+                              fontSize: 16.5,
+                              fontWeight: FontWeight.w600,
+                              color: isSelected
+                                  ? Colors.pinkAccent
+                                  : Colors.black),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            if (widget.allowMultipleOptionSelection) {
+                              if (isSelected) {
+                                selectedOptions.remove(option);
+                              } else {
+                                selectedOptions.add(option);
+                              }
+                            } else {
+                              selectedOption = option;
+                            }
+                          });
+                        },
+                        selected: isSelected,
+                        selectedTileColor: Colors.pink.shade50.withOpacity(0.6),
                       ),
-                      onTap: () {
-                        setState(() {
-                          selectedOption = option;
-                        });
-                      },
-                      selected: selectedOption == option,
-                      selectedTileColor: Colors.pink.shade50.withOpacity(0.6),
                     );
                   },
                 ),
@@ -142,20 +144,25 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
                         height: 58,
                         child: FilledButton(
                           style: FilledButton.styleFrom(
-                            backgroundColor: selectedOption != null
+                            backgroundColor: (selectedOption != null ||
+                                    selectedOptions.isNotEmpty)
                                 ? HexColor.fromHex("#FF3E68")
                                 : HexColor.fromHex('#DADADA'),
                             shape: RoundedRectangleBorder(
-                              borderRadius: selectedOption != null
-                                  ? BorderRadius.circular(65)
-                                  : BorderRadius.circular(65),
+                              borderRadius: BorderRadius.circular(65),
                             ),
                             padding: const EdgeInsets.symmetric(vertical: 10),
                           ),
                           onPressed: () {
-                            selectedOption == null
-                                ? null
-                                : widget.onSelected(selectedOption!);
+                            if (widget.allowMultipleOptionSelection) {
+                              if (selectedOptions.isNotEmpty) {
+                                widget.onSelected(selectedOptions.join(', '));
+                              }
+                            } else {
+                              if (selectedOption != null) {
+                                widget.onSelected(selectedOption!);
+                              }
+                            }
                           },
                           child: const Text(
                             "Bevestigen",

@@ -18,6 +18,8 @@ class CustomJobCard extends StatelessWidget {
   final String suggestionPercentage;
   final VoidCallback onButtonPressed;
   final bool showBottomText;
+  final int descriptionPadding;
+  final bool isAICard;
 
   const CustomJobCard({
     super.key,
@@ -32,13 +34,16 @@ class CustomJobCard extends StatelessWidget {
     required this.suggestionPercentage,
     required this.onButtonPressed,
     required this.showBottomText,
+    this.descriptionPadding = 0,
+    this.isAICard = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 256,
-      width: MediaQuery.of(context).size.width * 0.8,
+      width: isAICard
+          ? MediaQuery.of(context).size.width * 0.83
+          : MediaQuery.of(context).size.width * 0.9,
       decoration: BoxDecoration(
         color: HexColor.fromHex('#F6F6F6'),
         borderRadius: BorderRadius.circular(20),
@@ -50,28 +55,59 @@ class CustomJobCard extends StatelessWidget {
           children: [
             _buildProfileHeader(context),
             const SizedBox(height: 10),
-            Expanded(child: _buildDescription(context)),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: descriptionPadding.toDouble(),
+              ),
+              child: _buildDescription(context),
+            ),
             const SizedBox(height: 10),
             _buildActionRow(context),
-            if (showBottomText == true) _buildBottomRow(context)
+            if (showBottomText) _buildBottomRow(context),
           ],
         ),
       ),
     );
   }
 
-  Row _buildProfileHeader(BuildContext context) {
+  Widget _buildProfileHeader(BuildContext context) {
     final theme = Theme.of(context);
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildProfileImage(),
         const SizedBox(width: 10),
-        _buildUserInfo(theme),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                userName,
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: theme.colorScheme.onPrimaryContainer,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  _buildLocationInfo(),
+                  const SizedBox(width: 8),
+                  _buildAgeInfo(),
+                ],
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }
 
-  Container _buildProfileImage() {
+  Widget _buildProfileImage() {
     return Container(
       width: 82,
       height: 82,
@@ -86,37 +122,13 @@ class CustomJobCard extends StatelessWidget {
     );
   }
 
-  Column _buildUserInfo(ThemeData theme) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          userName,
-          style: TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: theme.colorScheme.onPrimaryContainer,
-          ),
-        ),
-        Row(
-          children: [
-            _buildLocationInfo(),
-            const SizedBox(width: 8),
-            _buildAgeInfo(),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Row _buildLocationInfo() {
+  Widget _buildLocationInfo() {
     return Row(
       children: [
         Image.asset(
+          "assets/images/recruteren/location.png",
           height: 20,
           width: 20,
-          "assets/images/recruteren/location.png",
         ),
         const SizedBox(width: 4),
         Text(
@@ -127,12 +139,14 @@ class CustomJobCard extends StatelessWidget {
             fontSize: 15,
             fontWeight: FontWeight.w500,
           ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
   }
 
-  Row _buildAgeInfo() {
+  Widget _buildAgeInfo() {
     return Row(
       children: [
         Icon(
@@ -154,7 +168,7 @@ class CustomJobCard extends StatelessWidget {
     );
   }
 
-  ReadMoreText _buildDescription(BuildContext context) {
+  Widget _buildDescription(BuildContext context) {
     final theme = Theme.of(context);
     return ReadMoreText(
       description,
@@ -166,8 +180,8 @@ class CustomJobCard extends StatelessWidget {
         fontWeight: FontWeight.w500,
       ),
       trimMode: TrimMode.Line,
-      trimCollapsedText: '\nleer meer',
-      trimExpandedText: '...Toon minder',
+      trimCollapsedText: '\nLeer meer',
+      trimExpandedText: ' Toon minder',
       lessStyle: TextStyle(
         fontFamily: 'Inter',
         color: theme.primaryColor,
@@ -183,7 +197,7 @@ class CustomJobCard extends StatelessWidget {
     );
   }
 
-  Row _buildActionRow(BuildContext context) {
+  Widget _buildActionRow(BuildContext context) {
     final theme = Theme.of(context);
     return Row(
       children: [
@@ -197,10 +211,7 @@ class CustomJobCard extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Expanded(
-          flex: 1,
-          child: _buildSuggestionPercentage(theme),
-        ),
+        _buildSuggestionPercentage(theme),
       ],
     );
   }
@@ -227,14 +238,12 @@ class CustomJobCard extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(
-                width: 5,
-              ),
+              const SizedBox(width: 5),
               Icon(
                 Icons.arrow_forward_ios,
                 size: 12,
                 color: HexColor.fromHex('#4A4C53'),
-              )
+              ),
             ],
           ),
         ),
@@ -242,7 +251,7 @@ class CustomJobCard extends StatelessWidget {
     );
   }
 
-  Container _buildSuggestionPercentage(ThemeData theme) {
+  Widget _buildSuggestionPercentage(ThemeData theme) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
@@ -250,15 +259,15 @@ class CustomJobCard extends StatelessWidget {
         border: Border.all(color: theme.primaryColor, width: 2),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Image.asset(
-            height: 18,
             "assets/images/recruteren/jobrAI_suggesties.png",
+            height: 18,
           ),
+          const SizedBox(width: 4),
           FittedBox(
             child: Text(
-              "$suggestionPercentage%",
+              " $suggestionPercentage%",
               style: TextStyle(
                 fontFamily: 'Inter',
                 color: theme.primaryColor,

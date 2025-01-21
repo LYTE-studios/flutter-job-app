@@ -9,7 +9,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_gene
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/create_profile_screen.dart';
-import 'package:jobr/features/job_listing/screens/general/recruitment_screen.dart';
+import 'package:jobr/features/Sollicitaties/recruitment_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/widgets/buttons/jobr_icon_button.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
