@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
@@ -46,7 +47,7 @@ class _CreateJobListingGeneralScreenState
     return BaseCreateJobListingScreen(
       progress: .2,
       onNavigate: () {
-        context.push(CreateJobListingSkillsScreen.route);
+        context.push(CreateJobListingDescriptionScreen.route);
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
@@ -56,8 +57,9 @@ class _CreateJobListingGeneralScreenState
             "Algemeen",
             style: TextStyles.titleMedium.copyWith(fontSize: 22),
           ),
-          const Divider(
+          Divider(
             thickness: 0.6,
+            color: Colors.grey[400],
           ),
           const SizedBox(height: 16),
           // Contract Type
@@ -174,6 +176,8 @@ class _CreateJobListingGeneralScreenState
           ),
         ],
       ),
+      buttonLabel: 'Naar beschrijving & media',
+      secondaryButtonLabel: 'Naar beschrijving ',
     );
   }
 

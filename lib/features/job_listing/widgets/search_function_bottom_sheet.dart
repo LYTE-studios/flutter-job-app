@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -81,9 +82,17 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
             cursorHeight: 24,
             decoration: InputDecoration(
               hintText: "Zoek een functie",
-              prefixIcon: const Icon(
-                Icons.search,
-                color: Colors.grey,
+              hintStyle: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
+                  fontFamily: 'Poppins',
+                  color: Colors.grey[400]),
+              prefixIcon: Padding(
+                padding: const EdgeInsets.only(
+                    top: 12.0, bottom: 12, left: 12, right: 8),
+                child: SvgPicture.asset(
+                  'assets/images/icons/search.svg',
+                ),
               ),
             ),
           ),
@@ -116,7 +125,7 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
                         });
                       },
                       selected: selectedOption == option,
-                      selectedTileColor: Colors.pink.shade50,
+                      selectedTileColor: Colors.pink.shade50.withOpacity(0.6),
                     );
                   },
                 ),

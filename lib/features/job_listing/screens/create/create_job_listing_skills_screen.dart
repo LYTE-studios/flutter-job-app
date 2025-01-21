@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
@@ -14,7 +15,7 @@ class CreateJobListingSkillsScreen extends StatefulWidget {
   static const String location = 'job-listing-skills';
 
   static String route = JobrRouter.getRoute(
-    '${JobListingsScreen.location}/${CreateJobListingGeneralScreen.location}/$location',
+    '${JobListingsScreen.location}/${CreateJobListingGeneralScreen.location}/${CreateJobListingDescriptionScreen.location}/$location',
     JobrRouter.employerInitialroute,
   );
 
@@ -33,6 +34,7 @@ class _CreateJobListingSkillsScreenState
   @override
   Widget build(BuildContext context) {
     return BaseCreateJobListingScreen(
+      buttonLabel: 'Naar beschikbaarheid',
       progress: .4,
       onNavigate: () {
         context.push(CreateJobListingAvailabilityScreen.route);
@@ -45,13 +47,17 @@ class _CreateJobListingSkillsScreenState
             "Vaardigheden",
             style: TextStyles.titleMedium.copyWith(fontSize: 22),
           ),
-          const Divider(
-            thickness: 0.6,
+          SizedBox(
+            height: 4,
           ),
-          const SizedBox(height: 16),
+          Divider(
+            thickness: 1.5,
+            color: Colors.grey.shade200.withOpacity(0.7),
+          ),
+          const SizedBox(height: 6),
           // "Vereiste werkervaring" Card
           _buildWerkervaringCard(),
-          const SizedBox(height: 16),
+          const SizedBox(height: 4),
 
           // Soft Skills
           _buildSkillSection(
@@ -69,7 +75,7 @@ class _CreateJobListingSkillsScreenState
               ],
               maxSelection: 3,
               isSoftSkills: true),
-          const SizedBox(height: 16),
+          const SizedBox(height: 10),
 
           // Hard Skills
           _buildSkillSection(
@@ -119,32 +125,28 @@ class _CreateJobListingSkillsScreenState
                 ),
               ],
             ),
-            const SizedBox(height: 8),
             Column(
               children: [
                 SliderTheme(
                   data: SliderThemeData(
-                      activeTickMarkColor: Colors.white,
-                      inactiveTickMarkColor: Colors.white,
-                      activeTrackColor: HexColor.fromHex("#FF3E68"),
-                      thumbColor: HexColor.fromHex("#FF3E68"),
-                      trackHeight: 10,
-                      inactiveTrackColor: Colors.grey[100]),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Slider(
-                      value: werkervaringValue,
-                      min: 0,
-                      secondaryActiveColor: Colors.white,
-                      max: 3,
-                      divisions: 3,
-                      onChanged: (value) {
-                        setState(() {
-                          werkervaringValue = value;
-                        });
-                      },
-                      // activeColor: Colors.pink,
-                    ),
+                    activeTickMarkColor: Colors.white,
+                    inactiveTickMarkColor: Colors.white,
+                    activeTrackColor: HexColor.fromHex("#FF3E68"),
+                    inactiveTrackColor: Colors.grey[100],
+                    trackHeight: 10,
+                    thumbShape: _CustomThumbShape(radius: 14),
+                    trackShape: _CustomTrackShape(), // Custom track shape
+                  ),
+                  child: Slider(
+                    value: werkervaringValue,
+                    min: 0,
+                    max: 3,
+                    divisions: 3,
+                    onChanged: (value) {
+                      setState(() {
+                        werkervaringValue = value;
+                      });
+                    },
                   ),
                 ),
                 SizedBox(
@@ -152,40 +154,43 @@ class _CreateJobListingSkillsScreenState
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Geen',
-                        style: TextStyles.titleMedium.copyWith(
-                            fontSize: 15.63,
-                            fontWeight: FontWeight.w600,
-                            color: HexColor.fromHex("#8A8989")),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Starter',
-                        style: TextStyles.titleMedium.copyWith(
-                            fontSize: 15.63, fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        '⭐Ervaren',
-                        style: TextStyles.titleMedium.copyWith(
-                            fontSize: 15.63,
-                            fontWeight: FontWeight.w600,
-                            color: HexColor.fromHex("#F9AA16")),
-                      ),
-                      Text(
-                        '💎Expert',
-                        style: TextStyles.titleMedium.copyWith(
-                            fontSize: 15.63,
-                            fontWeight: FontWeight.w600,
-                            color: HexColor.fromHex("#61C5FF")),
-                      ),
+                      _buildLabel('Geen', 0),
+                      _buildLabel('   Starter', 1),
+                      _buildLabel('⭐Ervaren', 2),
+                      _buildLabel('💎Expert', 3),
                     ],
                   ),
+                ),
+                SizedBox(height: 8),
+                Divider(
+                  thickness: 1.5,
+                  color: Colors.grey.shade200.withOpacity(0.7),
                 ),
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildLabel(String text, double value) {
+    final bool isSelected = werkervaringValue == value;
+
+    // Map labels to their original colors
+    final Map<String, Color> labelColors = {
+      'Geen': HexColor.fromHex("#8A8989"),
+      'Starter': HexColor.fromHex("#000000"),
+      '⭐Ervaren': HexColor.fromHex("#F9AA16"),
+      '💎Expert': HexColor.fromHex("#61C5FF"),
+    };
+
+    return Text(
+      text,
+      style: TextStyles.titleMedium.copyWith(
+        fontSize: isSelected ? 18.0 : 15.63, // Increase font size if selected
+        fontWeight: FontWeight.w600,
+        color: labelColors[text], // Use mapped color for each label
       ),
     );
   }
@@ -216,8 +221,8 @@ class _CreateJobListingSkillsScreenState
         ),
         const SizedBox(height: 8),
         Wrap(
-          spacing: 4,
-          runSpacing: 2,
+          spacing: 6,
+          runSpacing: -7,
           children: skills.map((skill) {
             return ChoiceChip(
               showCheckmark: false,
@@ -237,25 +242,126 @@ class _CreateJobListingSkillsScreenState
               selectedColor: Colors.white,
               backgroundColor: Colors.white,
               labelStyle: TextStyle(
-                fontFamily: 'Inter',
+                fontFamily: 'Poppins',
                 color: selectedSkills.contains(skill)
                     ? HexColor.fromHex("#FF3E68")
                     : HexColor.fromHex("#A0A0A0"),
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
                 fontSize: 15.88,
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
                 side: BorderSide(
+                  width: selectedSkills.contains(skill) ? 1.6 : 1,
                   color: selectedSkills.contains(skill)
                       ? HexColor.fromHex("#FF3E68")
                       : HexColor.fromHex("#E8E8E8"),
                 ),
               ),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 8, vertical: 4), // Adjusted padding
             );
           }).toList(),
         ),
       ],
     );
+  }
+}
+
+class _CustomThumbShape extends SliderComponentShape {
+  final double radius; // Thumb radius
+
+  _CustomThumbShape({this.radius = 12});
+
+  @override
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) =>
+      Size(radius * 2, radius * 2);
+
+  @override
+  void paint(
+    PaintingContext context,
+    Offset center, {
+    required Animation<double> activationAnimation,
+    required Animation<double> enableAnimation,
+    bool isDiscrete = false,
+    required TextPainter labelPainter,
+    required RenderBox parentBox,
+    required SliderThemeData sliderTheme,
+    required TextDirection textDirection,
+    required double value,
+    required double textScaleFactor,
+    required Size sizeWithOverflow,
+  }) {
+    final Paint outerCircle = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+
+    final Paint innerCircle = Paint()
+      ..color = sliderTheme.thumbColor!
+      ..style = PaintingStyle.fill;
+
+    // Draw the outer circle
+    context.canvas.drawCircle(center, radius, outerCircle);
+    // Draw the inner circle
+    context.canvas.drawCircle(center, radius - 4, innerCircle);
+  }
+}
+
+class _CustomTrackShape extends RoundedRectSliderTrackShape {
+  @override
+  void paint(
+    PaintingContext context,
+    Offset offset, {
+    required RenderBox parentBox,
+    required SliderThemeData sliderTheme,
+    required Animation<double> enableAnimation,
+    Offset? secondaryOffset,
+    required Offset thumbCenter,
+    bool isEnabled = true,
+    bool isDiscrete = false,
+    required TextDirection textDirection,
+    double additionalActiveTrackHeight = 0,
+  }) {
+    final double trackHeight = 10.0; // Increased height for thicker track
+    final double leftExtension =
+        24.0; // Pink bar extension before the first flag
+    final double rightExtension =
+        24.0; // Grey bar extension after the last point
+
+    final Rect trackRect = getPreferredRect(
+      parentBox: parentBox,
+      offset: offset,
+      sliderTheme: sliderTheme,
+      isEnabled: isEnabled,
+      isDiscrete: isDiscrete,
+    );
+
+    final Paint activeTrackPaint = Paint()
+      ..color = sliderTheme.activeTrackColor!;
+    final Paint inactiveTrackPaint = Paint()
+      ..color = sliderTheme.inactiveTrackColor!;
+
+    // Adjust active and inactive track rects
+    final RRect activeTrackRRect = RRect.fromLTRBR(
+      trackRect.left - leftExtension,
+      trackRect.top - (trackHeight - trackRect.height) / 2,
+      thumbCenter.dx,
+      trackRect.bottom + (trackHeight - trackRect.height) / 2,
+      Radius.circular(trackHeight / 2), // Rounded edges
+    );
+
+    final RRect inactiveTrackRRect = RRect.fromLTRBR(
+      thumbCenter.dx,
+      trackRect.top - (trackHeight - trackRect.height) / 2,
+      trackRect.right + rightExtension,
+      trackRect.bottom + (trackHeight - trackRect.height) / 2,
+      Radius.circular(trackHeight / 2), // Rounded edges
+    );
+
+    // Paint the active track
+    context.canvas.drawRRect(activeTrackRRect, activeTrackPaint);
+
+    // Paint the inactive track
+    context.canvas.drawRRect(inactiveTrackRRect, inactiveTrackPaint);
   }
 }

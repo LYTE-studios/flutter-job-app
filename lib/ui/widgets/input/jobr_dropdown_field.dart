@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -10,12 +11,14 @@ class JobrDropdownField extends StatelessWidget {
   final String title;
 
   final String? selectedValue;
+  final String? iconPadding;
 
   const JobrDropdownField({
     super.key,
     required this.title,
     this.onPressed,
     this.selectedValue,
+    this.iconPadding,
   });
 
   @override
@@ -48,7 +51,7 @@ class JobrDropdownField extends StatelessWidget {
               vertical: 12,
             ),
             decoration: BoxDecoration(
-              color: HexColor.fromHex("#E4E4E4").withOpacity(0.4),
+              color: HexColor.fromHex("#E4E4E4").withOpacity(0.3),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -58,15 +61,20 @@ class JobrDropdownField extends StatelessWidget {
                   selectedValue ?? "Kies een optie",
                   style: TextStyles.titleSmall.copyWith(
                       fontSize: 16.5,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
                       color: selectedValue == null
-                          ? Colors.black45
+                          ? Colors.grey[400]
                           : Colors.black),
                 ),
                 selectedValue == null
-                    ? const Icon(
-                        CupertinoIcons.chevron_down,
-                        color: Colors.black45,
-                        size: 18,
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: SvgPicture.asset(
+                          'assets/images/icons/chevron-down.svg',
+                          color: Colors.black45,
+                          height: 8,
+                        ),
                       )
                     : Text(
                         "Wijzigen",

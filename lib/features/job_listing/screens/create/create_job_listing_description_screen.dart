@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
+import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
@@ -6,6 +12,10 @@ class CreateJobListingDescriptionScreen extends StatefulWidget {
   const CreateJobListingDescriptionScreen({super.key});
 
   static const String location = 'job-listing-description';
+  static String route = JobrRouter.getRoute(
+    '${JobListingsScreen.location}/${CreateJobListingGeneralScreen.location}/$location',
+    JobrRouter.employerInitialroute,
+  );
 
   @override
   State<CreateJobListingDescriptionScreen> createState() =>
@@ -57,40 +67,15 @@ class _CreateJobListingDescriptionScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text(
-          "Nieuwe vacature",
-          style: TextStyles.titleMedium,
-        ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4.0),
-          child: Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(8),
-                      bottomRight: Radius.circular(8)),
-                  color: HexColor.fromHex("#FF3E68"),
-                ),
-                height: 6,
-                width: MediaQuery.of(context).size.width,
-              ),
-              Expanded(
-                child: Container(
-                  height: 6,
-                  color: Colors.grey[300], // Remaining 80% width
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+    return BaseCreateJobListingScreen(
+      progress: 0.3,
+      onNavigate: () {
+        context.push(CreateJobListingSkillsScreen.route);
+      },
+      isNavigationEnabled: true,
+      buttonLabel: "Naar vaardigheden",
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -101,10 +86,24 @@ class _CreateJobListingDescriptionScreenState
             ),
             Text(
               "Schrijf een inleidende jobbeschrijving en kies \nextra onderwerpen.",
-              style: TextStyles.bodyMedium
-                  .copyWith(fontSize: 14.5, color: HexColor.fromHex("#6D6D6D")),
+              style: TextStyles.bodyMedium.copyWith(
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0.1,
+                  fontFamily: 'Poppins',
+                  fontSize: 14.5,
+                  color: HexColor.fromHex("#6D6D6D")),
             ),
-            const SizedBox(
+            SizedBox(
+              height: 6,
+            ),
+            SizedBox(
+              height: 10,
+              child: Divider(
+                thickness: 1.5,
+                color: Colors.grey.shade200.withOpacity(0.7),
+              ),
+            ),
+            SizedBox(
               height: 10,
             ),
             GestureDetector(
@@ -138,14 +137,13 @@ class _CreateJobListingDescriptionScreenState
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      "Uit wat bestaat de takenlijst, wat houdt de job juist in, ...",
+                      "Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...",
                       style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey.shade600,
+                        fontSize: 15,
+                        color: Colors.grey.shade500,
                       ),
                     ),
                     const SizedBox(height: 16),
-                    // Display dynamically added options here
                     Column(
                       children: options.asMap().entries.map((entry) {
                         int index = entry.key;
@@ -175,8 +173,8 @@ class _CreateJobListingDescriptionScreenState
                                   Text(
                                     description,
                                     style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey.shade600,
+                                      fontSize: 15,
+                                      color: Colors.grey.shade500,
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -186,7 +184,7 @@ class _CreateJobListingDescriptionScreenState
                                   Text(
                                     description,
                                     style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 16,
                                       color: Colors.grey.shade600,
                                     ),
                                   ),
@@ -198,36 +196,64 @@ class _CreateJobListingDescriptionScreenState
                                   TextField(
                                     controller: descriptionControllers[index],
                                     onChanged: (value) {
-                                      updateDescription(index, value);
+                                      // Update only if the value is different to avoid constant rebuilds
+                                      if (options[index]['description'] !=
+                                          value) {
+                                        options[index]['description'] = value;
+                                      }
                                     },
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                    ),
                                     decoration: InputDecoration(
-                                      hintText: 'Type here...',
+                                      hintText: 'Hier typen...',
                                       hintStyle: TextStyle(
-                                        color: Colors.grey.shade600,
-                                        fontSize: 14,
+                                        color: Colors.grey.shade400,
+                                        fontSize: 14.5,
                                       ),
                                       border: InputBorder.none, // No border
                                     ),
-                                    maxLines: 4,
+                                    maxLines: null, // Allow multi-line input
                                   ),
                                   const SizedBox(height: 16),
                                 ],
-                              ]
+                              ],
+                              (index != options.length - 1)
+                                  ? Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 6,
+                                        ),
+                                        Divider(
+                                          color: Colors.grey[200],
+                                          thickness: 2,
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
                             ],
                           ),
                         );
                       }).toList(),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 8),
+                    Divider(
+                      color: Colors.grey[200],
+                      thickness: 2,
+                    ),
+                    SizedBox(
+                      height: 6,
+                    ),
                     // Button to add new option
                     GestureDetector(
                       onTap: showOptionsBottomSheet,
                       child: const Text(
                         '+ Kies onderwerp',
                         style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            color: Colors.pinkAccent,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17.5),
                       ),
                     ),
                   ],
@@ -303,8 +329,9 @@ class OptionsBottomSheet extends StatelessWidget {
                     ),
                     onTap: () => Navigator.pop(context, options[index]),
                   ),
-                  const Divider(
-                    thickness: 0.5,
+                  Divider(
+                    color: Colors.grey[200],
+                    thickness: 1,
                   )
                 ],
               );

@@ -36,39 +36,42 @@ class ContractTypeBottomSheet extends StatelessWidget with BottomSheetMixin {
           )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-            child: Column(
-              children: [
-                Text(
-                  title,
-                  style: TextStyles.titleMedium.copyWith(fontSize: 21),
-                ),
-                const SizedBox(height: 12),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: options!.length,
-                  itemBuilder: (context, index) {
-                    final option = options![index];
-                    return GestureDetector(
-                      onTap: () => onSelected(option),
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 6),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        decoration: BoxDecoration(
-                          color: HexColor.fromHex("#F3F3F3"),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Center(
-                          child: Text(
-                            option,
-                            style: TextStyles.titleSmall.copyWith(
-                                fontSize: 17, fontWeight: FontWeight.w600),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 24.0),
+              child: Column(
+                children: [
+                  Text(
+                    title,
+                    style: TextStyles.titleMedium.copyWith(fontSize: 21),
+                  ),
+                  const SizedBox(height: 12),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: options!.length,
+                    itemBuilder: (context, index) {
+                      final option = options![index];
+                      return GestureDetector(
+                        onTap: () => onSelected(option),
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(vertical: 6),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          decoration: BoxDecoration(
+                            color: HexColor.fromHex("#F3F3F3"),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: Center(
+                            child: Text(
+                              option,
+                              style: TextStyles.titleSmall.copyWith(
+                                  fontSize: 17, fontWeight: FontWeight.w600),
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-              ],
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ],

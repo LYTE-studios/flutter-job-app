@@ -7,6 +7,7 @@ import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
@@ -191,19 +192,29 @@ GoRouter router = GoRouter(
               },
               routes: [
                 GoRoute(
-                  path: CreateJobListingSkillsScreen.location,
+                  path: CreateJobListingDescriptionScreen.location,
                   pageBuilder: (BuildContext context, GoRouterState state) =>
                       const NoTransitionPage(
-                    child: CreateJobListingSkillsScreen(),
+                    child: CreateJobListingDescriptionScreen(),
                   ),
                   routes: [
                     GoRoute(
-                      path: CreateJobListingAvailabilityScreen.location,
+                      path: CreateJobListingSkillsScreen.location,
                       pageBuilder:
                           (BuildContext context, GoRouterState state) =>
                               const NoTransitionPage(
-                        child: CreateJobListingAvailabilityScreen(),
+                        child: CreateJobListingSkillsScreen(),
                       ),
+                      routes: [
+                        GoRoute(
+                          path: CreateJobListingAvailabilityScreen.location,
+                          pageBuilder:
+                              (BuildContext context, GoRouterState state) =>
+                                  const NoTransitionPage(
+                            child: CreateJobListingAvailabilityScreen(),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
