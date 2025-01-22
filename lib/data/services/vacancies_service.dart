@@ -1,14 +1,12 @@
 import '../models/vacancy.dart';
 import '../services/api_service.dart';
 
-class VacanciesService {
-  final ApiService _apiService;
-
-  VacanciesService() : _apiService = ApiService();
+class VacanciesService extends ApiService {
+  VacanciesService();
 
   Future<List<Vacancy>> getVacancies() async {
     try {
-      final response = await _apiService.dio.get('vacancies/vacancies/');
+      final response = await getApi('vacancies/vacancies/');
       return (response.data as List)
           .map((json) => Vacancy.fromJson(json))
           .toList();
@@ -19,7 +17,7 @@ class VacanciesService {
 
   Future<Vacancy> applyForVacancy(int vacancyId, int employeeId) async {
     try {
-      final response = await _apiService.dio.post(
+      final response = await postApi(
         'vacancies/$vacancyId/apply/',
         data: {
           'employee_id': employeeId,

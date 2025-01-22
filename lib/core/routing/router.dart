@@ -5,6 +5,7 @@ import 'package:jobr/features/authentication/screens/email_login_screen.dart';
 import 'package:jobr/features/authentication/screens/email_register_screen.dart';
 import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
+import 'package:jobr/features/authentication/screens/splash_screen.dart';
 import 'package:jobr/features/chat/screens/chat_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
@@ -133,8 +134,15 @@ class JobrRouter {
 }
 
 GoRouter router = GoRouter(
-  initialLocation: FirstGlanceScreen.route,
+  initialLocation: SplashScreen.route,
   routes: <RouteBase>[
+    GoRoute(
+      path: SplashScreen.route,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const NoTransitionPage(
+        child: SplashScreen(),
+      ),
+    ),
     ShellRoute(
       builder: (context, state, child) {
         return BaseNavBarScreen(

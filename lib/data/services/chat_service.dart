@@ -1,14 +1,12 @@
 import '../models/message.dart';
 import '../services/api_service.dart';
 
-class ChatService {
-  final ApiService _apiService;
-
-  ChatService() : _apiService = ApiService();
+class ChatService extends ApiService {
+  ChatService();
 
   Future<List<Message>> getMessages(int chatId) async {
     try {
-      final response = await _apiService.dio.get('chat/$chatId/messages/');
+      final response = await getApi('chat/$chatId/messages/');
       return (response.data as List)
           .map((json) => Message.fromJson(json))
           .toList();
@@ -19,8 +17,13 @@ class ChatService {
 
   Future<Message> sendMessage(int chatId, String content) async {
     try {
-      final response = await _apiService.dio
-          .post('chat/$chatId/messages/', data: {'content': content});
+      final response = await postApi(
+        'chat/$chatId/messages/',
+        data: {
+          'content': content,
+        },
+      );
+
       return Message.fromJson(response.data);
     } catch (e) {
       throw Exception('Failed to send message: $e');

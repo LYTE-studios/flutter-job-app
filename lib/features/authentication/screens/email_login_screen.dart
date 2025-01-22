@@ -1,19 +1,20 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/user.dart';
+import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
+import 'package:jobr/features/core/widgets/exception_popup.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_textfield.dart';
-import 'package:jobr/data/providers/auth_providers.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
-class EmailLoginScreen extends ConsumerStatefulWidget {
+class EmailLoginScreen extends StatefulWidget {
   final UserType userType;
 
   const EmailLoginScreen({
@@ -25,16 +26,56 @@ class EmailLoginScreen extends ConsumerStatefulWidget {
   static const String location = 'email';
 
   @override
-  ConsumerState<EmailLoginScreen> createState() => _EmailLoginScreenState();
+  State<EmailLoginScreen> createState() => _EmailLoginScreenState();
 }
 
-class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
+class _EmailLoginScreenState extends State<EmailLoginScreen>
+    with ScreenStateMixin {
   // Text editing controllers
   final TextEditingController tecEmail = TextEditingController();
   final TextEditingController tecPassword = TextEditingController();
 
+  @override
+  void setError(String error) {
+    ExceptionPopup.show(context, error);
+    setLoading(false);
+  }
+
   // Login function
-  void _login() {
+  Future<void> _login() async {
+    if (tecEmail.text.isEmpty || tecPassword.text.isEmpty) {
+      setError("Please fill in all fields");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      UserType userType =
+          await AccountsService().login(tecEmail.text, tecPassword.text);
+
+      switch (userType) {
+        case UserType.employee:
+          context.pushReplacement(
+            JobrRouter.getRoute(
+              JobScreen.location,
+              JobrRouter.employeeInitialroute,
+            ),
+          );
+          break;
+        case UserType.employer:
+          context.pushReplacement(
+            JobrRouter.getRoute(
+              JobListingsScreen.location,
+              JobrRouter.employerInitialroute,
+            ),
+          );
+          break;
+      }
+    } catch (e) {
+      setError("Invalid credentials");
+      return;
+    }
+
     if (widget.userType == UserType.employee) {
       context.go(
         JobrRouter.getRoute(
@@ -52,14 +93,10 @@ class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
     }
 
     return;
-    
-    ref.read(authProvider.notifier).login(tecEmail.text, tecPassword.text);
   }
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authProvider);
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: true,
@@ -73,11 +110,6 @@ class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    if (authState.error != null)
-                      Text(
-                        authState.error!,
-                        style: const TextStyle(color: Colors.red),
-                      ),
                     JobrTextField(
                       controller: tecEmail,
                       hintText: "Jouw email",
@@ -93,8 +125,8 @@ class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
                     const SizedBox(height: 10),
                     PrimaryButton(
                       borderRadius: 30,
-                      onTap: authState.isLoading ? null : _login,
-                      buttonText: authState.isLoading ? 'Laden...' : 'Inloggen',
+                      onTap: loading ? null : _login,
+                      buttonText: loading ? 'Laden...' : 'Inloggen',
                     ),
                     const PrivacyPolicyBlock(),
                     const SizedBox(height: 20),

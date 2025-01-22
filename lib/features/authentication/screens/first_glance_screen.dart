@@ -1,22 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/user.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
-import 'package:jobr/features/chat/screens/chat_screen.dart';
-import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
-import 'package:jobr/features/jobs/job_screen.dart';
-import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
-import 'package:jobr/features/profile/screens/create_profile_screen.dart';
-import 'package:jobr/features/Sollicitaties/recruitment_screen.dart';
-import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/widgets/buttons/jobr_icon_button.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
 class FirstGlanceScreen extends StatefulWidget {
   static const String route = '/$location';
-  static const String location = '';
+  static const String location = 'sign-in';
 
   const FirstGlanceScreen({super.key});
 
@@ -24,7 +17,8 @@ class FirstGlanceScreen extends StatefulWidget {
   State<FirstGlanceScreen> createState() => _FirstGlanceScreenState();
 }
 
-class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
+class _FirstGlanceScreenState extends State<FirstGlanceScreen>
+    with ScreenStateMixin {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,12 +32,6 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
           textIcon: "⚡",
           label: "Ik zoek een job",
           onPressed: () {
-            // context.go(
-            //   JobrRouter.getRoute(
-            //     JobScreen.location,
-            //     JobrRouter.employeeInitialroute,
-            //   ),
-            // );
             context.push(
               LoginScreen.route,
               extra: {
@@ -60,12 +48,6 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen> {
           textIcon: "💼",
           label: "Ik zoek talent",
           onPressed: () {
-            // context.go(
-            //   JobrRouter.getRoute(
-            //     JobListingsScreen.location,
-            //     JobrRouter.employerInitialroute,
-            //   ),
-            // );
             context.push(
               LoginScreen.route,
               extra: {
