@@ -47,7 +47,12 @@ class _CreateJobListingOverviewScreenState
       progress: 1.0,
       buttonLabel: 'Bevestig & post vacature',
       onNavigate: () {
-        context.push(CreateJobListingSkillsScreen.route);
+        context.go(
+          JobrRouter.getRoute(
+            JobListingsScreen.location,
+            JobrRouter.employerInitialroute,
+          ),
+        );
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
