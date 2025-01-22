@@ -37,11 +37,15 @@ class _CreateJobListingAvailabilityScreenState
 
   @override
   Widget build(BuildContext context) {
+    final GoRouterState state = GoRouter.of(context).state!;
+    final Map<String, dynamic> selectedData = state.extra as Map<String, dynamic>;
+
     return BaseCreateJobListingScreen(
       progress: .6,
       buttonLabel: 'Naar talen',
       onNavigate: () {
-        context.push(CreateJobListingTalentScreen.route);
+        selectedData['Beschikbaarheid'] = selectedDays.join(', ');
+        context.go(CreateJobListingTalentScreen.route, extra: selectedData);
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(

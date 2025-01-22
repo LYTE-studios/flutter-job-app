@@ -40,11 +40,15 @@ class _CreateJobListingSalaryScreenState
 
   @override
   Widget build(BuildContext context) {
+    final GoRouterState state = GoRouter.of(context).state!;
+    final Map<String, dynamic> selectedData = state.extra as Map<String, dynamic>;
+
     return BaseCreateJobListingScreen(
       progress: .8,
       buttonLabel: 'Naar vragenlijst',
       onNavigate: () {
-        context.push(CreateJobListingVragenlijstScreen.route);
+        selectedData['Salaris'] = '€2000 per maand'; // Example salary
+        context.go(CreateJobListingVragenlijstScreen.route, extra: selectedData);
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
@@ -216,7 +220,7 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                 // options: ["Op locatie", "Remote"],
                 onPressed: () => ContractTypeBottomSheet(
                   title: "Kies een contract type",
-                  options: const ["Op locatie", "Hybride", "Afstandswerk"],
+                  options: const ["Per uud", "Per maand", "Per jaar"],
                   onSelected: (String value) {
                     setState(() {
                       _selectedUnit = value;

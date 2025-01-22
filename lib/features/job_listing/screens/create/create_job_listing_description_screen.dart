@@ -67,10 +67,16 @@ class _CreateJobListingDescriptionScreenState
 
   @override
   Widget build(BuildContext context) {
+    final GoRouterState state = GoRouter.of(context).state!;
+    final Map<String, dynamic> selectedData =
+        state.extra as Map<String, dynamic>;
+
     return BaseCreateJobListingScreen(
       progress: 0.3,
       onNavigate: () {
-        context.push(CreateJobListingSkillsScreen.route);
+        selectedData['Beschrijving'] =
+            'Je job als Barista...'; // Example description
+        context.go(CreateJobListingSkillsScreen.route, extra: selectedData);
       },
       isNavigationEnabled: true,
       buttonLabel: "Naar vaardigheden",

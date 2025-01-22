@@ -47,7 +47,12 @@ class _CreateJobListingGeneralScreenState
     return BaseCreateJobListingScreen(
       progress: .2,
       onNavigate: () {
-        context.push(CreateJobListingDescriptionScreen.route);
+        final selectedData = {
+          'Contract type': _selectedContractType,
+          'Functie': _selectedFunction,
+          'Locatie': _selectedLocation,
+        };
+        context.go(CreateJobListingDescriptionScreen.route, extra: selectedData);
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(

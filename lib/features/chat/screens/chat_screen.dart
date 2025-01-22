@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/features/chat/screens/chat_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
@@ -80,7 +81,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       ],
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.push(ChatRequestScreen.employerRoute);
+                      },
                       child: const Text(
                         '3 verzoeken',
                         style: TextStyle(
@@ -102,7 +105,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 Expanded(
                     child: GestureDetector(
                   onTap: () {
-                    context.push(ChatRequestScreen.employerRoute);
+                    context.push(ChatPageScreen.employerRoute);
                   },
                   child: ListView.builder(
                     itemCount: chatData.length,
