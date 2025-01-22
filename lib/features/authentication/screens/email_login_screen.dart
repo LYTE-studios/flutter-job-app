@@ -50,7 +50,27 @@ class _EmailLoginScreenState extends State<EmailLoginScreen>
 
     setLoading(true);
     try {
-      await AccountsService().login(tecEmail.text, tecPassword.text);
+      UserType userType =
+          await AccountsService().login(tecEmail.text, tecPassword.text);
+
+      switch (userType) {
+        case UserType.employee:
+          context.pushReplacement(
+            JobrRouter.getRoute(
+              JobScreen.location,
+              JobrRouter.employeeInitialroute,
+            ),
+          );
+          break;
+        case UserType.employer:
+          context.pushReplacement(
+            JobrRouter.getRoute(
+              JobListingsScreen.location,
+              JobrRouter.employerInitialroute,
+            ),
+          );
+          break;
+      }
     } catch (e) {
       setError("Invalid credentials");
       return;

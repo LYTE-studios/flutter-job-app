@@ -55,17 +55,9 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
       "password": tecPassword.text,
       "confirm_password": tecConfirmPassword.text,
     };
-
-    try {
-      await AccountsService().registerByEmployer(data);
-      context.pushReplacement(JobListingsScreen.employerRoute);
-    } catch (e) {
-      setError('Account kon niet worden aangemaakt');
-      return;
-    }
   }
 
-  void _register() {
+  Future<void> _register() async {
     if (tecEmail.text.isEmpty) {
       setError('Email is verplicht');
       return;
@@ -81,13 +73,22 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
       return;
     }
 
-    switch (widget.userType) {
-      case UserType.employee:
-        _registerEmployee();
-        break;
-      case UserType.employer:
-        _registerEmployer();
-        break;
+    try {
+      await AccountsService().register(
+        email: tecEmail.text,
+        password: tecPassword.text,
+        userType: widget.userType,
+      );
+
+      switch (widget.userType) {
+        case UserType.employee:
+          context.pushReplacement(JobListingsScreen.employerRoute);
+        case UserType.employer:
+          context.pushReplacement(JobListingsScreen.employerRoute);
+      }
+    } catch (e) {
+      setError('Account kon niet worden aangemaakt');
+      return;
     }
   }
 

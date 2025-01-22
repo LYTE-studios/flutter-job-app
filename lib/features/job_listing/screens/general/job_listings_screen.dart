@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/vacancy.dart';
+import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/data/services/vacancies_service.dart';
 import 'package:jobr/features/Sollicitaties/widgets/job_cards.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
@@ -52,36 +53,66 @@ class _JobListingsScreenState extends State<JobListingsScreen>
   }
 
   Widget buildEmtpyState(BuildContext context) {
-    return Center(
-      child: ElevatedButton.icon(
-        onPressed: () {
-          context.push(
-            CreateJobListingGeneralScreen.employerRoute,
-          );
-          // Action for "Nieuwe vacature" button
-        },
-        icon: const Icon(
-          Icons.add,
-          color: Colors.white,
-          size: 30, // Increased icon size
-        ),
-        label: const Text(
-          'Nieuwe vacature',
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold), // Increased font size
-        ),
-        style: ElevatedButton.styleFrom(
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.pink[500],
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 8,
-          ), // Increased padding
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        ElevatedButton.icon(
+          onPressed: () {
+            context.push(
+              CreateJobListingGeneralScreen.employerRoute,
+            );
+            // Action for "Nieuwe vacature" button
+          },
+          icon: const Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 30, // Increased icon size
+          ),
+          label: const Text(
+            'Nieuwe vacature',
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold), // Increased font size
+          ),
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.pink[500],
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ), // Increased padding
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
           ),
         ),
-      ),
+        const SizedBox(
+          height: 24,
+        ),
+        ElevatedButton.icon(
+          onPressed: () {
+            AccountsService().logout();
+            // Action for "Nieuwe vacature" button
+          },
+          label: const Text(
+            'Logout',
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold), // Increased font size
+          ),
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.pink[500],
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 8,
+            ), // Increased padding
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
