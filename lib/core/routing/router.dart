@@ -19,9 +19,12 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_skil
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
+import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
+import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings.dart';
+import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
@@ -273,12 +276,22 @@ GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-          path: ProfileScreen.employerRoute,
+          path: EmployProfileDisplayScreen.employerRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return buildPageWithSlideUpTransition(
               context: context,
               state: state,
-              child: const ProfileScreen(),
+              child: const EmployProfileDisplayScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: CompanyVenueProfile.employerRoute,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return buildPageWithSlideUpTransition(
+              context: context,
+              state: state,
+              child: const CompanyVenueProfile(),
             );
           },
         ),
@@ -289,6 +302,16 @@ GoRouter router = GoRouter(
               context: context,
               state: state,
               child: const SettingsScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: EditCompanyProfileScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return buildPageWithSlideUpTransition(
+              context: context,
+              state: state,
+              child: const EditCompanyProfileScreen(),
             );
           },
         ),
