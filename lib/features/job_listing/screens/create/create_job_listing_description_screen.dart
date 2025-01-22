@@ -4,6 +4,7 @@ import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -67,16 +68,106 @@ class _CreateJobListingDescriptionScreenState
 
   @override
   Widget build(BuildContext context) {
-    final GoRouterState state = GoRouter.of(context).state!;
-    final Map<String, dynamic> selectedData =
-        state.extra as Map<String, dynamic>;
-
     return BaseCreateJobListingScreen(
       progress: 0.3,
       onNavigate: () {
-        selectedData['Beschrijving'] =
-            'Je job als Barista...'; // Example description
-        context.go(CreateJobListingSkillsScreen.route, extra: selectedData);
+        context.push(CreateJobListingSkillsScreen.route);
+        usedWidgetsInCreation.addAll({
+          "Beschrijving": [
+            Column(
+              children: options.asMap().entries.map((entry) {
+                int index = entry.key;
+                String title = entry.value['title']!;
+                String description = entry.value['description']!;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Title
+                      GestureDetector(
+                        onTap: () => toggleExpansion(index),
+                        child: Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      // Expandable description with ellipsis
+                      if (description.isNotEmpty) ...[
+                        // If description exists, show full description
+                        if (!isExpanded[index]) ...[
+                          Text(
+                            description,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.grey.shade500,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                        // Show the full description when expanded
+                        if (isExpanded[index]) ...[
+                          Text(
+                            description,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                        ],
+                      ] else ...[
+                        // If description doesn't exist, show text field
+                        if (!isExpanded[index]) ...[
+                          TextField(
+                            controller: descriptionControllers[index],
+                            onChanged: (value) {
+                              // Update only if the value is different to avoid constant rebuilds
+                              if (options[index]['description'] != value) {
+                                options[index]['description'] = value;
+                              }
+                            },
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
+                            decoration: InputDecoration(
+                              hintText: 'Hier typen...',
+                              hintStyle: TextStyle(
+                                color: Colors.grey.shade400,
+                                fontSize: 14.5,
+                              ),
+                              border: InputBorder.none, // No border
+                            ),
+                            maxLines: null, // Allow multi-line input
+                          ),
+                          const SizedBox(height: 16),
+                        ],
+                      ],
+                      (index != options.length - 1)
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Divider(
+                                  color: Colors.grey[200],
+                                  thickness: 2,
+                                ),
+                              ],
+                            )
+                          : Container(),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
+          ]
+        });
       },
       isNavigationEnabled: true,
       buttonLabel: "Naar vaardigheden",

@@ -9,6 +9,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_ques
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
 import 'package:jobr/ui/widgets/buttons/jobr_radio_button.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
@@ -35,20 +36,102 @@ class _CreateJobListingSalaryScreenState
     extends State<CreateJobListingSalaryScreen> {
   final bool _isButtonEnabled = true;
   int selectedRadio = 6;
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
+  List<String> selectedSoftSkills = []; // Define selectedSoftSkills
+  List<String> selectedHardSkills = []; // Define selectedHardSkills
+  bool _isToggleOn = false; // Define _isToggleOn
+
+  Widget _buildSkillSection(String title, List<String> skills,
+      {int maxSelection = 3, bool isSoftSkills = true}) {
+    List<String> selectedSkills =
+        isSoftSkills ? selectedSoftSkills : selectedHardSkills;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: TextStyles.titleMedium
+                  .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: -3,
+          children: skills.map((skill) {
+            return ChoiceChip(
+              showCheckmark: false,
+              label: Text(skill),
+              selected: selectedSkills.contains(skill),
+              onSelected: (selected) {
+                setState(() {
+                  if (selected) {
+                    if (selectedSkills.length < maxSelection) {
+                      selectedSkills.add(skill);
+                    }
+                  } else {
+                    selectedSkills.remove(skill);
+                  }
+                });
+              },
+              selectedColor:
+                  _isToggleOn ? HexColor.fromHex("#FF3E68") : Colors.white,
+              backgroundColor: Colors.white,
+              labelStyle: TextStyle(
+                fontFamily: 'Poppins',
+                color: selectedSkills.contains(skill)
+                    ? _isToggleOn
+                        ? Colors.white
+                        : HexColor.fromHex("#FF3E68")
+                    : HexColor.fromHex("#A0A0A0"),
+                fontWeight: FontWeight.w500,
+                fontSize: 15.88,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(
+                  width: selectedSkills.contains(skill) ? 1.6 : 1,
+                  color: selectedSkills.contains(skill)
+                      ? HexColor.fromHex("#FF3E68")
+                      : HexColor.fromHex("#E8E8E8"),
+                ),
+              ),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 8, vertical: 4), // Adjusted padding
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final GoRouterState state = GoRouter.of(context).state!;
-    final Map<String, dynamic> selectedData = state.extra as Map<String, dynamic>;
-
     return BaseCreateJobListingScreen(
       progress: .8,
       buttonLabel: 'Naar vragenlijst',
       onNavigate: () {
-        selectedData['Salaris'] = '€2000 per maand'; // Example salary
-        context.go(CreateJobListingVragenlijstScreen.route, extra: selectedData);
+        context.push(CreateJobListingVragenlijstScreen.route);
+        usedWidgetsInCreation.addAll({
+          'Salaris': [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [SalaryWidget()],
+              ),
+            ),
+            _buildSkillSection(
+              'Extra’s',
+              selectedHardSkills,
+              maxSelection: 0,
+              isSoftSkills: false,
+            ),
+          ]
+        });
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
@@ -91,7 +174,8 @@ class CustomInputField extends StatelessWidget {
             'assets/images/icons/euro.svg', // Path to your euro.svg file
             height: 18,
             width: 20,
-            color: Colors.black87, // Adjust the icon color if needed
+            colorFilter: ColorFilter.mode(Colors.black87,
+                BlendMode.srcIn), // Adjust the icon color if needed
           ),
         ),
         prefixIconConstraints: const BoxConstraints(
@@ -143,6 +227,74 @@ class _SalaryWidgetState extends State<SalaryWidget> {
   bool _isRadioSelected = false; // New state for radio button
   List<String> selectedSoftSkills = []; // Define selectedSoftSkills
   List<String> selectedHardSkills = []; // Define selectedHardSkills
+
+  Widget _buildSkillSection(String title, List<String> skills,
+      {int maxSelection = 3, bool isSoftSkills = true}) {
+    List<String> selectedSkills =
+        isSoftSkills ? selectedSoftSkills : selectedHardSkills;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: TextStyles.titleMedium
+                  .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: -3,
+          children: skills.map((skill) {
+            return ChoiceChip(
+              showCheckmark: false,
+              label: Text(skill),
+              selected: selectedSkills.contains(skill),
+              onSelected: (selected) {
+                setState(() {
+                  if (selected) {
+                    if (selectedSkills.length < maxSelection) {
+                      selectedSkills.add(skill);
+                    }
+                  } else {
+                    selectedSkills.remove(skill);
+                  }
+                });
+              },
+              selectedColor:
+                  _isToggleOn ? HexColor.fromHex("#FF3E68") : Colors.white,
+              backgroundColor: Colors.white,
+              labelStyle: TextStyle(
+                fontFamily: 'Poppins',
+                color: selectedSkills.contains(skill)
+                    ? _isToggleOn
+                        ? Colors.white
+                        : HexColor.fromHex("#FF3E68")
+                    : HexColor.fromHex("#A0A0A0"),
+                fontWeight: FontWeight.w500,
+                fontSize: 15.88,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+                side: BorderSide(
+                  width: selectedSkills.contains(skill) ? 1.6 : 1,
+                  color: selectedSkills.contains(skill)
+                      ? HexColor.fromHex("#FF3E68")
+                      : HexColor.fromHex("#E8E8E8"),
+                ),
+              ),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 8, vertical: 4), // Adjusted padding
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -220,7 +372,7 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                 // options: ["Op locatie", "Remote"],
                 onPressed: () => ContractTypeBottomSheet(
                   title: "Kies een contract type",
-                  options: const ["Per uud", "Per maand", "Per jaar"],
+                  options: const ["per uur", "per maand", "per jaar"],
                   onSelected: (String value) {
                     setState(() {
                       _selectedUnit = value;
@@ -276,74 +428,6 @@ class _SalaryWidgetState extends State<SalaryWidget> {
           ],
           maxSelection: 7,
           isSoftSkills: false,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSkillSection(String title, List<String> skills,
-      {int maxSelection = 3, bool isSoftSkills = true}) {
-    List<String> selectedSkills =
-        isSoftSkills ? selectedSoftSkills : selectedHardSkills;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: TextStyles.titleMedium
-                  .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: -3,
-          children: skills.map((skill) {
-            return ChoiceChip(
-              showCheckmark: false,
-              label: Text(skill),
-              selected: selectedSkills.contains(skill),
-              onSelected: (selected) {
-                setState(() {
-                  if (selected) {
-                    if (selectedSkills.length < maxSelection) {
-                      selectedSkills.add(skill);
-                    }
-                  } else {
-                    selectedSkills.remove(skill);
-                  }
-                });
-              },
-              selectedColor:
-                  _isToggleOn ? HexColor.fromHex("#FF3E68") : Colors.white,
-              backgroundColor: Colors.white,
-              labelStyle: TextStyle(
-                fontFamily: 'Poppins',
-                color: selectedSkills.contains(skill)
-                    ? _isToggleOn
-                        ? Colors.white
-                        : HexColor.fromHex("#FF3E68")
-                    : HexColor.fromHex("#A0A0A0"),
-                fontWeight: FontWeight.w500,
-                fontSize: 15.88,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-                side: BorderSide(
-                  width: selectedSkills.contains(skill) ? 1.6 : 1,
-                  color: selectedSkills.contains(skill)
-                      ? HexColor.fromHex("#FF3E68")
-                      : HexColor.fromHex("#E8E8E8"),
-                ),
-              ),
-              padding: EdgeInsets.symmetric(
-                  horizontal: 8, vertical: 4), // Adjusted padding
-            );
-          }).toList(),
         ),
       ],
     );

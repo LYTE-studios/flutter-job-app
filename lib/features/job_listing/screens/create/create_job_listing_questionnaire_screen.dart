@@ -10,6 +10,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_sala
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/ui/widgets/buttons/jobr_radio_button.dart';
 import 'package:jobr/features/job_listing/widgets/search_function_bottom_sheet.dart';
 
@@ -59,15 +60,84 @@ class _CreateJobListingVragenlijstScreenState
 
   @override
   Widget build(BuildContext context) {
-    final GoRouterState state = GoRouter.of(context).state!;
-    final Map<String, dynamic> selectedData = state.extra as Map<String, dynamic>;
-
     return BaseCreateJobListingScreen(
       progress: .9,
       buttonLabel: 'Naar overzicht',
       onNavigate: () {
-        selectedData['Vragenlijst'] = selectedQuestions.join(', ');
-        context.go(CreateJobListingOverviewScreen.route, extra: selectedData);
+        context.push(CreateJobListingOverviewScreen.route);
+        usedWidgetsInCreation.addAll({
+          'Vragenlijst': [
+            selectedQuestions.isNotEmpty
+                ? Column(
+                    children: [
+                      Divider(
+                        thickness: 1.3,
+                        color: Colors.grey.shade300.withOpacity(0.7),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: selectedQuestions
+                            .asMap()
+                            .entries
+                            .map(
+                              (entry) => CustomQuestionBox(
+                                question: entry.value,
+                                label: 'Vraag ${entry.key + 1}',
+                                onRemove: () {
+                                  setState(() {
+                                    selectedQuestions.removeAt(entry.key);
+                                    questionControllers.removeAt(entry.key);
+                                    isEditable.removeAt(entry.key);
+                                  });
+                                },
+                                controller: questionControllers[entry.key],
+                                isEditable: isEditable[entry.key],
+                                onToggleEditable: () =>
+                                    toggleEditable(entry.key),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  )
+                : GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            '+ ',
+                            style: TextStyle(
+                                fontSize: 24,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins'),
+                          ),
+                          Text(
+                            'Voeg talen toe',
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+          ]
+        });
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(

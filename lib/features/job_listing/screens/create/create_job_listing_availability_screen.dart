@@ -7,6 +7,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_desc
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/ui/widgets/buttons/jobr_radio_button.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
@@ -29,23 +30,68 @@ class CreateJobListingAvailabilityScreen extends StatefulWidget {
 
 class _CreateJobListingAvailabilityScreenState
     extends State<CreateJobListingAvailabilityScreen> {
-  final bool _isButtonEnabled = true;
+  bool _isButtonEnabled = true;
   int selectedRadio = 6;
   List<String> selectedDays = [];
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
 
   @override
   Widget build(BuildContext context) {
-    final GoRouterState state = GoRouter.of(context).state!;
-    final Map<String, dynamic> selectedData = state.extra as Map<String, dynamic>;
-
     return BaseCreateJobListingScreen(
       progress: .6,
       buttonLabel: 'Naar talen',
       onNavigate: () {
-        selectedData['Beschikbaarheid'] = selectedDays.join(', ');
-        context.go(CreateJobListingTalentScreen.route, extra: selectedData);
+        context.push(CreateJobListingTalentScreen.route);
+        usedWidgetsInCreation.addAll({
+          'Beschikbaarheid': [
+            Wrap(
+              spacing: 8.0,
+              children: selectedDays.map((uniqueKey) {
+                String dayLabel = {
+                  'M': 'M',
+                  'D1': 'D',
+                  'W': 'W',
+                  'D2': 'D',
+                  'V': 'V',
+                  'Z1': 'Z',
+                  'Z2': 'Z',
+                }[uniqueKey]!;
+                return CircleAvatar(
+                  backgroundColor: HexColor.fromHex("#FF3E68"),
+                  child: Text(
+                    dayLabel,
+                    style: TextStyle(
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+            if (selectedDate != null)
+              Text(
+                "Datum: ${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}",
+                style: TextStyle(
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                ),
+              ),
+            if (selectedTime != null)
+              Text(
+                "Tijd: ${selectedTime!.format(context)}",
+                style: TextStyle(
+                  fontFamily: "Inter",
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
+                ),
+              ),
+          ]
+        });
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
@@ -155,7 +201,6 @@ class _CreateJobListingAvailabilityScreenState
                   onTap: () {
                     setState(() {
                       selectedRadio = 1;
-                      selectedDays.clear();
                     });
                   },
                   child: Row(
@@ -272,6 +317,7 @@ class _CreateJobListingAvailabilityScreenState
                         );
                         if (pickedDate != null) {
                           setState(() {
+                            selectedDate = pickedDate;
                             _dateController.text =
                                 "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
                           });
@@ -372,6 +418,7 @@ class _CreateJobListingAvailabilityScreenState
                         );
                         if (pickedTime != null) {
                           setState(() {
+                            selectedTime = pickedTime;
                             _timeController.text = pickedTime.format(context);
                           });
                         }

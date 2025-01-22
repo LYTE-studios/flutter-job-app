@@ -6,6 +6,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_desc
 
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/search_function_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
@@ -47,12 +48,24 @@ class _CreateJobListingGeneralScreenState
     return BaseCreateJobListingScreen(
       progress: .2,
       onNavigate: () {
-        final selectedData = {
-          'Contract type': _selectedContractType,
-          'Functie': _selectedFunction,
-          'Locatie': _selectedLocation,
-        };
-        context.go(CreateJobListingDescriptionScreen.route, extra: selectedData);
+        context.push(CreateJobListingDescriptionScreen.route);
+        usedWidgetsInCreation.addAll({
+          "Algemeen": [
+            JobrDropdownField(
+                showTitle: false,
+                title: "Contract type",
+                selectedValue: _selectedContractType,
+                onPressed: () {}),
+            JobrDropdownField(
+                title: "Functie",
+                selectedValue: _selectedFunction,
+                onPressed: () {}),
+            JobrDropdownField(
+                title: "Locatie",
+                selectedValue: _selectedLocation,
+                onPressed: () {}),
+          ]
+        });
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(

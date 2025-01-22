@@ -322,7 +322,7 @@ GoRouter router = GoRouter(
             );
           },
         ),
-         GoRoute(
+        GoRoute(
           path: ChatRequestPageScreen.employerRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return buildPageWithSlideLeftTransition(
