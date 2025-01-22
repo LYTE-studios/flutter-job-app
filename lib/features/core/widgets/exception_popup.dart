@@ -14,7 +14,11 @@ class ExceptionPopup extends StatelessWidget {
     BuildContext context,
     String message,
   ) {
-    ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessengerState messenger = ScaffoldMessenger.of(context);
+
+    messenger.clearSnackBars();
+
+    messenger.showSnackBar(
       SnackBar(
         elevation: 0,
         backgroundColor: Colors.transparent,

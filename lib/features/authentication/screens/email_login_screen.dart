@@ -1,13 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/user.dart';
 import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
+import 'package:jobr/features/core/widgets/exception_popup.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
@@ -35,15 +35,24 @@ class _EmailLoginScreenState extends State<EmailLoginScreen>
   final TextEditingController tecEmail = TextEditingController();
   final TextEditingController tecPassword = TextEditingController();
 
-  String? error;
+  @override
+  void setError(String error) {
+    ExceptionPopup.show(context, error);
+    setLoading(false);
+  }
 
   // Login function
   Future<void> _login() async {
+    if (tecEmail.text.isEmpty || tecPassword.text.isEmpty) {
+      setError("Please fill in all fields");
+      return;
+    }
+
     setLoading(true);
     try {
       await AccountsService().login(tecEmail.text, tecPassword.text);
     } catch (e) {
-      setLoading(false);
+      setError("Invalid credentials");
       return;
     }
 
@@ -81,11 +90,6 @@ class _EmailLoginScreenState extends State<EmailLoginScreen>
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    if (error != null)
-                      Text(
-                        error!,
-                        style: const TextStyle(color: Colors.red),
-                      ),
                     JobrTextField(
                       controller: tecEmail,
                       hintText: "Jouw email",
