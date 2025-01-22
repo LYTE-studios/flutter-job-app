@@ -55,7 +55,7 @@ class VacanciesService extends ApiService {
   Future<Vacancy> applyForVacancy(int vacancyId, int employeeId) async {
     try {
       final response = await postApi(
-        'vacancies/$vacancyId/apply',
+        'vacancies/$vacancyId/apply/',
         data: {
           'employee_id': employeeId,
         },

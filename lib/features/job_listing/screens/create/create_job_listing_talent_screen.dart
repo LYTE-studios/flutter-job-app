@@ -7,6 +7,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_gene
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_salary_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/widgets/search_function_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
@@ -37,16 +38,76 @@ class _CreateJobListingTalentScreenState
 
   @override
   Widget build(BuildContext context) {
-    final GoRouterState state = GoRouter.of(context).state!;
-    final Map<String, dynamic> selectedData = state.extra as Map<String, dynamic>;
-
     _isButtonEnabled = _selectedFunction.isNotEmpty;
     return BaseCreateJobListingScreen(
       progress: .7,
       buttonLabel: 'Naar salaris',
       onNavigate: () {
-        selectedData['Talen'] = _selectedFunction.join(', ');
-        context.go(CreateJobListingSalaryScreen.route, extra: selectedData);
+        context.push(CreateJobListingSalaryScreen.route);
+        usedWidgetsInCreation.addAll({
+          "Talen": [
+            _selectedFunction.isNotEmpty
+                ? Column(
+                    children: [
+                      Divider(
+                        thickness: 1.3,
+                        color: Colors.grey.shade300.withOpacity(0.7),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: _selectedFunction
+                            .map(
+                              (function) => CustomSliderWidget(
+                                label: function,
+                                onRemove: () {
+                                  setState(() {
+                                    _selectedFunction.remove(function);
+                                  });
+                                },
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  )
+                : GestureDetector(
+                    onTap: () => {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            '+ ',
+                            style: TextStyle(
+                                fontSize: 24,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins'),
+                          ),
+                          Text(
+                            'Voeg talen toe',
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+          ],
+        });
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(

@@ -38,6 +38,7 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         automaticallyImplyLeading: false,
         title: Row(
           children: [
@@ -67,7 +68,8 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
               ),
             ),
             const Spacer(),
-            const SvgIcon("assets/images/icons/phone.svg", size: 20),
+            const SvgIcon("assets/images/icons/phone.svg",
+                color: Colors.pinkAccent, size: 20),
             const SizedBox(width: 8),
             const SvgIcon("assets/images/logos/info.svg", size: 24),
           ],

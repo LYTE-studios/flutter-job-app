@@ -11,20 +11,20 @@ class JobrDropdownField extends StatelessWidget {
   final bool showWijzigenText;
   final bool showTitle;
   final bool showDropdownMenu; // New parameter
-
+  final String hintText;
   final String? selectedValue;
   final String? iconPadding;
 
-  const JobrDropdownField({
-    super.key,
-    required this.title,
-    this.onPressed,
-    this.selectedValue,
-    this.iconPadding,
-    this.showTitle = true,
-    this.showWijzigenText = true,
-    this.showDropdownMenu = false,
-  }); // Initialize new parameter
+  const JobrDropdownField(
+      {super.key,
+      required this.title,
+      this.onPressed,
+      this.selectedValue,
+      this.iconPadding,
+      this.showTitle = true,
+      this.hintText = "Kies een optie",
+      this.showWijzigenText = true,
+      this.showDropdownMenu = false}); // Initialize new parameter
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class JobrDropdownField extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  selectedValue ?? "Kies een optie",
+                  selectedValue ?? hintText,
                   style: TextStyles.titleSmall.copyWith(
                       fontSize: 16.5,
                       fontWeight: FontWeight.w500,

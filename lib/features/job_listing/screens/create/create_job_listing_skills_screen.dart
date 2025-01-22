@@ -5,6 +5,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_desc
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -33,15 +34,21 @@ class _CreateJobListingSkillsScreenState
 
   @override
   Widget build(BuildContext context) {
-    final GoRouterState state = GoRouter.of(context).state!;
-    final Map<String, dynamic> selectedData = state.extra as Map<String, dynamic>;
-
     return BaseCreateJobListingScreen(
       buttonLabel: 'Naar beschikbaarheid',
       progress: .4,
       onNavigate: () {
-        selectedData['Vaardigheden'] = (selectedSoftSkills + selectedHardSkills).join(', ');
-        context.go(CreateJobListingAvailabilityScreen.route, extra: selectedData);
+        context.push(CreateJobListingAvailabilityScreen.route);
+        usedWidgetsInCreation.addAll({
+          'Vaardigheden': [
+            _buildWerkervaringCard(
+                cardColor: Colors.grey.shade100.withOpacity(0.7)),
+            _buildSkillSection('Soft skills', selectedSoftSkills,
+                maxSelection: 0, isSoftSkills: true, showSelectionText: false),
+            _buildSkillSection('Hard skills', selectedHardSkills,
+                maxSelection: 0, isSoftSkills: true, showSelectionText: false),
+          ]
+        });
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
@@ -103,9 +110,9 @@ class _CreateJobListingSkillsScreenState
     );
   }
 
-  Widget _buildWerkervaringCard() {
+  Widget _buildWerkervaringCard({Color cardColor = Colors.white}) {
     return Card(
-      color: Colors.white,
+      color: cardColor,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -200,7 +207,9 @@ class _CreateJobListingSkillsScreenState
   }
 
   Widget _buildSkillSection(String title, List<String> skills,
-      {int maxSelection = 3, bool isSoftSkills = true}) {
+      {int maxSelection = 3,
+      bool isSoftSkills = true,
+      bool showSelectionText = true}) {
     List<String> selectedSkills =
         isSoftSkills ? selectedSoftSkills : selectedHardSkills;
     return Column(
@@ -214,13 +223,15 @@ class _CreateJobListingSkillsScreenState
               style: TextStyles.titleMedium
                   .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
             ),
-            Text(
-              'Kies er $maxSelection',
-              style: TextStyles.titleMedium.copyWith(
-                  fontSize: 15.4,
-                  fontWeight: FontWeight.w600,
-                  color: HexColor.fromHex("#0000003B").withOpacity(0.23)),
-            ),
+            showSelectionText
+                ? Text(
+                    'Kies er $maxSelection',
+                    style: TextStyles.titleMedium.copyWith(
+                        fontSize: 15.4,
+                        fontWeight: FontWeight.w600,
+                        color: HexColor.fromHex("#0000003B").withOpacity(0.23)),
+                  )
+                : Container(),
           ],
         ),
         const SizedBox(height: 8),

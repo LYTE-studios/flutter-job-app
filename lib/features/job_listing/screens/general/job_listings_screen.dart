@@ -56,9 +56,8 @@ class _JobListingsScreenState extends State<JobListingsScreen>
           label: const Text(
             'Nieuwe vacature',
             style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ), // Increased font size
+                fontSize: 18,
+                fontWeight: FontWeight.bold), // Increased font size
           ),
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
