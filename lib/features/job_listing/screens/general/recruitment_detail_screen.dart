@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
-import 'package:jobr/features/profile/screens/recruteren_screen.dart';
+import 'package:jobr/features/chat/screens/chat_request_screen.dart';
+import 'package:jobr/features/job_listing/screens/general/recruitment_screen.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
-import '../widgets/custom_job_card.dart';
+import '../../../profile/screens/widgets/custom_job_card.dart';
 
 class RecruitmentDetailScreen extends StatelessWidget {
   final String category;
@@ -16,7 +18,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
   static const String location = 'recruitment/:category';
 
   static String employerRoute = JobrRouter.getRoute(
-    '${RecruterenScreen.location}/$location',
+    '${RecruitmentScreen.location}/$location',
     JobrRouter.employerInitialroute,
   );
 
@@ -102,11 +104,13 @@ class RecruitmentDetailScreen extends StatelessWidget {
             age: card["age"]!,
             buttonColor: HexColor.fromHex('#3976FF'),
             buttonText: "Chat starten",
+            onButtonPressed: () {
+              context.push(ChatRequestScreen.employerRoute);
+            },
             buttonIcon: JobrIcons.send,
             showBottomText: true,
             location: card["location"]!,
             userName: card["userName"]!,
-            onButtonPressed: () {},
             profileImagePath: card["profileImagePath"]!,
             suggestionPercentage: card["suggestionPercentage"]!,
           );

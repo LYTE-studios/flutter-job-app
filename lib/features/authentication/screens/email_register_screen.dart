@@ -34,13 +34,13 @@ class _EmailRegisterScreenState extends ConsumerState<EmailRegisterScreen> {
   final TextEditingController tecConfirmPassword = TextEditingController();
 
   void _register() {
-    if (widget.userType == UserType.employee) {
-      context.go(JobrRouter.employeeInitialroute);
-    } else {
-      context.go(JobrRouter.employerInitialroute);
-    }
+    // if (widget.userType == UserType.employee) {
+    //   context.go(JobrRouter.employeeInitialroute);
+    // } else {
+    //   context.go(JobrRouter.employerInitialroute);
+    // }
 
-    return;
+    // return;
     final data = {
       "email": tecEmail.text,
       "password": tecPassword.text,

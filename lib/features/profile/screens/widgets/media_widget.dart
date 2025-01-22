@@ -31,11 +31,12 @@ class MediaWidget extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       alignment: image == null ? Alignment.center : Alignment.topRight,
       child: image == null
-          ? Icon(
-              CupertinoIcons.plus_circle_fill,
-              color: TextStyles.unselectedText,
-              size: 32,
-            )
+          ? const SizedBox()
+          // Icon(
+          //     CupertinoIcons.plus_circle_fill,
+          //     color: TextStyles.unselectedText,
+          //     size: 32,
+          //   )
           : Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,

@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/profile/screens/company_screen/social_button.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 class SettingsScreen extends StatelessWidget {
+  static const location = 'settings';
+
+  static String employerRoute = JobrRouter.getRoute(
+    location,
+    JobrRouter.employerInitialroute,
+  );
+
   const SettingsScreen({super.key});
 
   @override
@@ -36,7 +44,7 @@ class SettingsScreen extends StatelessWidget {
                           border: Border.all(color: Colors.white, width: 4),
                           image: const DecorationImage(
                             image:
-                                AssetImage('assets/images/images/image-b.png'),
+                                AssetImage('assets/images/images/image-6.png'),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -77,67 +85,20 @@ class SettingsScreen extends StatelessWidget {
                           ),
                           image: const DecorationImage(
                             image:
-                                AssetImage('assets/images/images/image-b.png'),
+                                AssetImage('assets/images/images/image-6.png'),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                     ),
 
-                    // Edit Button
-                    Positioned(
-                      bottom: 40,
-                      right: 15,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          // Add edit functionality
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.primaryColor,
-                        ),
-                        label: Text(
-                          "",
-                          style: TextStyle(
-                            color: TextStyles.clearText,
-                            fontSize: 16,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        icon: SvgPicture.asset(
-                          JobrIcons.edit,
-                          width: 16,
-                          height: 16,
-                          colorFilter: ColorFilter.mode(
-                            TextStyles.clearText,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ),
-
                     // Close Button
-                    Positioned(
+                    const Positioned(
                       top: 60,
                       left: 20,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: 31,
-                          height: 31,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          child: const Center(
-                            child: SvgIcon(
-                              JobrIcons.close,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                          ),
+                      child: CloseButton(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStatePropertyAll(Colors.white),
                         ),
                       ),
                     ),

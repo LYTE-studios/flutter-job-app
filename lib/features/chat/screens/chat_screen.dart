@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
@@ -71,8 +72,11 @@ class _ChatScreenState extends State<ChatScreen> {
                           const Color(0xFFFF3E68).withOpacity(0.9),
                         ),
                         const SizedBox(width: 6),
-                        _buildCategoryButton('Ongelezen',
-                            const Color(0xFFF8F8F8), const Color(0xFFA0A0A0)),
+                        _buildCategoryButton(
+                          'Ongelezen',
+                          const Color(0xFFF8F8F8),
+                          const Color(0xFFA0A0A0),
+                        ),
                       ],
                     ),
                     TextButton(
@@ -98,12 +102,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 Expanded(
                     child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ChatRequestScreen(),
-                      ),
-                    );
+                    context.push(ChatRequestScreen.employerRoute);
                   },
                   child: ListView.builder(
                     itemCount: chatData.length,

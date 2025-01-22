@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
-import 'package:jobr/features/profile/screens/recruteren_screen.dart';
+import 'package:jobr/features/chat/screens/chat_request_screen.dart';
+import 'package:jobr/features/job_listing/screens/general/recruitment_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
@@ -10,7 +12,7 @@ class JobrAiSuggestionsScreen extends StatelessWidget {
   static const String location = '/ai-suggestions';
 
   static String employerRoute = JobrRouter.getRoute(
-    '${RecruterenScreen.location}/$location',
+    '${RecruitmentScreen.location}/$location',
     JobrRouter.employerInitialroute,
   );
 
@@ -37,10 +39,12 @@ class JobrAiSuggestionsScreen extends StatelessWidget {
             age: "20",
             buttonColor: HexColor.fromHex('#3976FF'),
             buttonText: "Chat starten",
+            onButtonPressed: () {
+              context.push(ChatRequestScreen.employerRoute);
+            },
             buttonIcon: JobrIcons.send,
             location: "Brussel",
             userName: "Yassine Vuran",
-            onButtonPressed: () {},
             profileImagePath: "assets/images/images/image-3.png",
             suggestionPercentage: "74",
             showBottomText: true,

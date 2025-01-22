@@ -8,7 +8,7 @@ class VacanciesService {
 
   Future<List<Vacancy>> getVacancies() async {
     try {
-      final response = await _apiService.dio.get('vacancies/');
+      final response = await _apiService.dio.get('vacancies/vacancies/');
       return (response.data as List)
           .map((json) => Vacancy.fromJson(json))
           .toList();

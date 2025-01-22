@@ -85,21 +85,21 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  CupertinoIcons.plus_circle_fill,
-                  color: TextStyles.unselectedText.withOpacity(.6),
-                  size: 32,
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  'Voeg PDF, PNG toe',
-                  style: TextStyle(
-                    color: TextStyles.unselectedText,
-                    fontSize: 15,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                // Icon(
+                //   CupertinoIcons.plus_circle_fill,
+                //   color: TextStyles.unselectedText.withOpacity(.6),
+                //   size: 32,
+                // ),
+                // const SizedBox(height: 5),
+                // Text(
+                //   'Voeg PDF, PNG toe',
+                //   style: TextStyle(
+                //     color: TextStyles.unselectedText,
+                //     fontSize: 15,
+                //     fontFamily: 'Inter',
+                //     fontWeight: FontWeight.w600,
+                //   ),
+                // ),
               ],
             ),
           )

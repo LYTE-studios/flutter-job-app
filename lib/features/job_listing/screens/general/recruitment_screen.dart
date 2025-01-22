@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/core/routing/router.dart';
-import 'package:jobr/features/profile/screens/recruteren/recruitment_detail_screen.dart';
+import 'package:jobr/features/chat/screens/chat_request_screen.dart';
+import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
+import 'package:jobr/features/job_listing/screens/general/recruitment_detail_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
-import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-import 'recruteren/jobr_ai_suggestions_screen.dart';
+import 'jobr_ai_suggestions_screen.dart';
 
-class RecruterenScreen extends StatefulWidget {
+class RecruitmentScreen extends StatefulWidget {
   static const String location = 'sollicitaties';
 
-  const RecruterenScreen({super.key});
+  const RecruitmentScreen({super.key});
 
   @override
-  State createState() => _RecruterenScreenState();
+  State createState() => _RecruitmentScreenState();
 }
 
-class _RecruterenScreenState extends State<RecruterenScreen> {
+class _RecruitmentScreenState extends State<RecruitmentScreen> {
   final List<Map<String, dynamic>> items = const [
     {
       "text": "Vast",
@@ -180,32 +181,16 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
   }
 
   Widget _buildFilterRow(ThemeData theme) {
-    return Container(
-      height: 48,
-      padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        color: theme.primaryColor,
-        borderRadius: BorderRadius.circular(14),
+    return PrimaryButton(
+      onTap: () {
+        context.push(FilterScreen.employerRoute);
+      },
+      icon: Image.asset(
+        height: 20,
+        width: 20,
+        "assets/images/recruteren/filter.png",
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Zoek met filters ",
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: theme.colorScheme.onPrimary,
-            ),
-          ),
-          Image.asset(
-            height: 20,
-            width: 20,
-            "assets/images/recruteren/filter.png",
-          ),
-        ],
-      ),
+      buttonText: "Zoek met filters",
     );
   }
 
@@ -267,10 +252,12 @@ class _RecruterenScreenState extends State<RecruterenScreen> {
                 age: "20",
                 buttonColor: HexColor.fromHex('#3976FF'),
                 buttonText: "Chat starten",
+                onButtonPressed: () {
+                  context.push(ChatRequestScreen.employerRoute);
+                },
                 buttonIcon: JobrIcons.send,
                 location: "Brussel",
                 userName: "Yassine Vuran",
-                onButtonPressed: () {},
                 profileImagePath: "assets/images/images/image-3.png",
                 suggestionPercentage: "74",
                 showBottomText: false,

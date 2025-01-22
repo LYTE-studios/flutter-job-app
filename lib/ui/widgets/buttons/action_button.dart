@@ -19,7 +19,7 @@ class ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
-      onPressed: () => onButtonPressed,
+      onPressed: onButtonPressed,
       style: TextButton.styleFrom(
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(

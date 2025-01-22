@@ -9,6 +9,7 @@ class PrimaryButton extends StatelessWidget {
   final double width;
   final double height;
   final TextStyle? textStyle;
+  final Widget? icon;
   final Widget? suffixIcon; // Make suffixIcon optional
 
   const PrimaryButton({
@@ -22,6 +23,7 @@ class PrimaryButton extends StatelessWidget {
     this.width = double.infinity,
     this.height = 56,
     this.textStyle,
+    this.icon,
   });
 
   @override
@@ -55,6 +57,10 @@ class PrimaryButton extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
               ),
+              if (icon != null) ...[
+                const SizedBox(width: 8),
+                icon!,
+              ],
             ],
           ),
         ),
