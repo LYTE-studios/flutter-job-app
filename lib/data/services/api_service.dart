@@ -24,7 +24,7 @@ class ApiService {
 
   static String _getBaseUrl() {
     return const String.fromEnvironment('BASE_URL',
-        defaultValue: "http://api.jobr.lytestudios.be/api/");
+        defaultValue: "https://api.jobr.lytestudios.be/api/");
   }
 
   void _setupInterceptors() {
@@ -97,13 +97,24 @@ class ApiService {
     await storage.delete(key: 'refresh_token');
   }
 
+  static String _formatUrl(String url) {
+    if (url.endsWith('/')) {
+      url = url.substring(0, url.length - 1);
+    }
+
+    return url;
+  }
+
   /// Common `getApi` method
   Future<Response<dynamic>> getApi(
     String endpoint, {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      return await dio.get(endpoint, queryParameters: queryParameters);
+      return await dio.get(
+        _formatUrl(endpoint),
+        queryParameters: queryParameters,
+      );
     } catch (e) {
       logger.e('GET API Error: $e');
       rethrow;
@@ -116,7 +127,10 @@ class ApiService {
     Map<String, dynamic>? data,
   }) async {
     try {
-      return await dio.post(endpoint, data: data);
+      return await dio.post(
+        _formatUrl(endpoint),
+        data: data,
+      );
     } catch (e) {
       logger.e('POST API Error: $e');
       rethrow;
