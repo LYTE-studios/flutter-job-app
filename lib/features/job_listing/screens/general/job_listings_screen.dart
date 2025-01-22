@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/vacancy.dart';
 import 'package:jobr/data/services/vacancies_service.dart';
 import 'package:jobr/features/Sollicitaties/widgets/job_cards.dart';
@@ -12,6 +13,11 @@ import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
 class JobListingsScreen extends StatefulWidget {
   static const String location = 'vacancies';
+
+  static String employerRoute = JobrRouter.getRoute(
+    location,
+    JobrRouter.employerInitialroute,
+  );
 
   const JobListingsScreen({super.key});
 
@@ -107,35 +113,6 @@ class _JobListingsScreenState extends State<JobListingsScreen>
           ),
         ],
       ),
-      //  Column(
-      //   children: [
-      //     // Padding(
-      //     //   padding: const EdgeInsets.all(16.0),
-      //     //   child: Container(
-      //     //     decoration: BoxDecoration(
-      //     //       color: Colors.red.shade100.withOpacity(0.4),
-      //     //       borderRadius: BorderRadius.circular(30),
-      //     //     ),
-      //     //     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      //     //     child: Row(
-      //     //       mainAxisSize: MainAxisSize.min,
-      //     //       children: [
-      //     //         Icon(Icons.check, color: Colors.red.withOpacity(0.9)),
-      //     //         SizedBox(width: 4),
-      //     //         Text(
-      //     //           'Vacature verwijderd',
-      //     //           style: TextStyle(
-      //     //             fontSize: 16,
-      //     //             fontWeight: FontWeight.bold,
-      //     //             color: Colors.red.withOpacity(0.9),
-      //     //           ),
-      //     //         ),
-      //     //       ],
-      //     //     ),
-      //     //   ),
-      //     // ),
-      //   ],
-      // ),
     );
   }
 }

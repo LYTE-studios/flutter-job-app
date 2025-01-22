@@ -5,15 +5,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/user.dart';
+import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_textfield.dart';
-import 'package:jobr/data/providers/auth_providers.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
-class EmailLoginScreen extends ConsumerStatefulWidget {
+class EmailLoginScreen extends StatefulWidget {
   final UserType userType;
 
   const EmailLoginScreen({
@@ -25,16 +26,27 @@ class EmailLoginScreen extends ConsumerStatefulWidget {
   static const String location = 'email';
 
   @override
-  ConsumerState<EmailLoginScreen> createState() => _EmailLoginScreenState();
+  State<EmailLoginScreen> createState() => _EmailLoginScreenState();
 }
 
-class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
+class _EmailLoginScreenState extends State<EmailLoginScreen>
+    with ScreenStateMixin {
   // Text editing controllers
   final TextEditingController tecEmail = TextEditingController();
   final TextEditingController tecPassword = TextEditingController();
 
+  String? error;
+
   // Login function
-  void _login() {
+  Future<void> _login() async {
+    setLoading(true);
+    try {
+      await AccountsService().login(tecEmail.text, tecPassword.text);
+    } catch (e) {
+      setLoading(false);
+      return;
+    }
+
     if (widget.userType == UserType.employee) {
       context.go(
         JobrRouter.getRoute(
@@ -52,14 +64,10 @@ class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
     }
 
     return;
-    
-    ref.read(authProvider.notifier).login(tecEmail.text, tecPassword.text);
   }
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authProvider);
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: true,
@@ -73,9 +81,9 @@ class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    if (authState.error != null)
+                    if (error != null)
                       Text(
-                        authState.error!,
+                        error!,
                         style: const TextStyle(color: Colors.red),
                       ),
                     JobrTextField(
@@ -93,8 +101,8 @@ class _EmailLoginScreenState extends ConsumerState<EmailLoginScreen> {
                     const SizedBox(height: 10),
                     PrimaryButton(
                       borderRadius: 30,
-                      onTap: authState.isLoading ? null : _login,
-                      buttonText: authState.isLoading ? 'Laden...' : 'Inloggen',
+                      onTap: loading ? null : _login,
+                      buttonText: loading ? 'Laden...' : 'Inloggen',
                     ),
                     const PrivacyPolicyBlock(),
                     const SizedBox(height: 20),

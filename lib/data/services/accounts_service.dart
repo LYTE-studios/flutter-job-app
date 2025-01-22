@@ -2,18 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jobr/data/services/api_service.dart';
 
-class AccountsService {
-  final ApiService apiService;
-  final FlutterSecureStorage storage;
-
+class AccountsService extends ApiService {
   // Updated constructor with optional storage parameter
-  AccountsService(this.apiService, [FlutterSecureStorage? secureStorage])
-      : storage = secureStorage ?? const FlutterSecureStorage();
+  AccountsService([FlutterSecureStorage? secureStorage]);
 
   Future<Map<String, dynamic>> login(String username, String password) async {
     try {
       // Request tokens using the TokenObtainPair endpoint
-      final response = await apiService.postApi(
+      final response = await postApi(
         "token/",
         data: {
           "username": username,
@@ -32,7 +28,7 @@ class AccountsService {
       );
 
       // Optional: Call login endpoint (if necessary for further processing)
-      final loginResponse = await apiService.postApi(
+      final loginResponse = await postApi(
         "/accounts/login/",
         data: {
           "username": username,
@@ -60,7 +56,7 @@ class AccountsService {
       }
 
       // Make the API call with the token in the Authorization header
-      final response = await apiService.postApi(
+      final response = await postApi(
         "/accounts/register/employee/",
         data: employeeData,
       );
@@ -77,14 +73,8 @@ class AccountsService {
   Future<Map<String, dynamic>> registerByEmployer(
       Map<String, dynamic> employerData) async {
     try {
-      // Retrieve access token from secure storage
-      final accessToken = await storage.read(key: 'access_token');
-      if (accessToken == null) {
-        throw Exception("Access token not found. Please log in again.");
-      }
-
       // Make the API call with the token in the Authorization header
-      final response = await apiService.postApi(
+      final response = await postApi(
         "/accounts/register/employer/",
         data: employerData,
       );
