@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:jobr/ui/widgets/navigation/jobr_loading_switcher.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class SearchFunctionBottomSheet extends StatefulWidget with BottomSheetMixin {
@@ -10,12 +11,15 @@ class SearchFunctionBottomSheet extends StatefulWidget with BottomSheetMixin {
   final String title;
   final bool allowMultipleOptionSelection;
 
+  final bool loading;
+
   const SearchFunctionBottomSheet({
     super.key,
     required this.onSelected,
     required this.options,
     required this.title,
     this.allowMultipleOptionSelection = false,
+    this.loading = false,
   });
 
   @override
@@ -87,49 +91,53 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
           Expanded(
             child: Stack(
               children: [
-                ListView.builder(
-                  padding: const EdgeInsets.only(
-                    bottom: 72,
-                  ),
-                  itemCount: widget.options.length,
-                  itemBuilder: (context, index) {
-                    final option = widget.options[index];
-                    final isSelected = widget.allowMultipleOptionSelection
-                        ? selectedOptions.contains(option)
-                        : selectedOption == option;
+                JobrLoadingSwitcher(
+                  loading: widget.loading,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.only(
+                      bottom: 72,
+                    ),
+                    itemCount: widget.options.length,
+                    itemBuilder: (context, index) {
+                      final option = widget.options[index];
+                      final isSelected = widget.allowMultipleOptionSelection
+                          ? selectedOptions.contains(option)
+                          : selectedOption == option;
 
-                    return Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: ListTile(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14)),
-                        title: Text(
-                          option,
-                          style: TextStyles.titleMedium.copyWith(
-                              fontSize: 16.5,
-                              fontWeight: FontWeight.w600,
-                              color: isSelected
-                                  ? Colors.pinkAccent
-                                  : Colors.black),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            if (widget.allowMultipleOptionSelection) {
-                              if (isSelected) {
-                                selectedOptions.remove(option);
+                      return Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14)),
+                          title: Text(
+                            option,
+                            style: TextStyles.titleMedium.copyWith(
+                                fontSize: 16.5,
+                                fontWeight: FontWeight.w600,
+                                color: isSelected
+                                    ? Colors.pinkAccent
+                                    : Colors.black),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              if (widget.allowMultipleOptionSelection) {
+                                if (isSelected) {
+                                  selectedOptions.remove(option);
+                                } else {
+                                  selectedOptions.add(option);
+                                }
                               } else {
-                                selectedOptions.add(option);
+                                selectedOption = option;
                               }
-                            } else {
-                              selectedOption = option;
-                            }
-                          });
-                        },
-                        selected: isSelected,
-                        selectedTileColor: Colors.pink.shade50.withOpacity(0.6),
-                      ),
-                    );
-                  },
+                            });
+                          },
+                          selected: isSelected,
+                          selectedTileColor:
+                              Colors.pink.shade50.withOpacity(0.6),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 Positioned(
                   bottom: 0,

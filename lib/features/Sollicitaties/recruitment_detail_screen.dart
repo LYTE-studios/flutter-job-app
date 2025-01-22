@@ -4,7 +4,6 @@ import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_screen.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
-import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../ui/theme/jobr_icons.dart';

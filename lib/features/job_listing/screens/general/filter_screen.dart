@@ -6,14 +6,9 @@ import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
 import 'package:jobr/features/job_listing/widgets/custom_slider.dart'
     as jobListing; // Add alias
 import 'package:jobr/features/job_listing/widgets/gender_toggle_box.dart';
-import 'package:jobr/features/jobs/widgets/custom_slider.dart'
-    as jobs; // Add alias
-import 'package:jobr/features/jobs/widgets/dropdown_menu.dart';
-import 'package:jobr/ui/theme/jobr_icons.dart';
-import 'package:jobr/ui/theme/padding_sizes.dart';
+// Add alias
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
-import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class FilterScreen extends StatefulWidget {

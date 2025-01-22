@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
@@ -16,15 +15,16 @@ class JobrDropdownField extends StatelessWidget {
   final String? selectedValue;
   final String? iconPadding;
 
-  const JobrDropdownField(
-      {super.key,
-      required this.title,
-      this.onPressed,
-      this.selectedValue,
-      this.iconPadding,
-      this.showTitle = true,
-      this.showWijzigenText = true,
-      this.showDropdownMenu = false}); // Initialize new parameter
+  const JobrDropdownField({
+    super.key,
+    required this.title,
+    this.onPressed,
+    this.selectedValue,
+    this.iconPadding,
+    this.showTitle = true,
+    this.showWijzigenText = true,
+    this.showDropdownMenu = false,
+  }); // Initialize new parameter
 
   @override
   Widget build(BuildContext context) {

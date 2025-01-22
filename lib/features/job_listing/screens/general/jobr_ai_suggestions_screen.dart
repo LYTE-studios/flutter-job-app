@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/chat/screens/chat_page_screen.dart';
-import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';

@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/features/chat/screens/chat_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
-import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String location = 'chat';

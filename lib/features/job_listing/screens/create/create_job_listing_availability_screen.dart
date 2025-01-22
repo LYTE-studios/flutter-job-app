@@ -7,7 +7,6 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_desc
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
-import 'package:jobr/ui/widgets/buttons/jobr_radio_button.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';

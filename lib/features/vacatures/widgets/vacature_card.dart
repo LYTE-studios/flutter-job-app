@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 
 class VacatureCard extends StatelessWidget {
+  const VacatureCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Card(

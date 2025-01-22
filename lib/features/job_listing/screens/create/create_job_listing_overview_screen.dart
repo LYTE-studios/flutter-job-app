@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
@@ -10,10 +9,8 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_sala
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
-import 'package:jobr/ui/widgets/buttons/jobr_radio_button.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
-import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class CreateJobListingOverviewScreen extends StatefulWidget {
   const CreateJobListingOverviewScreen({super.key});
@@ -35,8 +32,6 @@ class _CreateJobListingOverviewScreenState
   final bool _isButtonEnabled = true;
   int selectedRadio = 6;
   List<String> selectedDays = [];
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
   List<bool> isSectionExpanded = List.filled(7, false); // Track expansion state
 
   void toggleSection(int index) {
@@ -48,6 +43,7 @@ class _CreateJobListingOverviewScreenState
   @override
   Widget build(BuildContext context) {
     final GoRouterState state = GoRouter.of(context).state!;
+
     final Map<String, dynamic> selectedData =
         state.extra as Map<String, dynamic>;
 
@@ -84,38 +80,45 @@ class _CreateJobListingOverviewScreenState
                   index: 0,
                   title: "Algemeen",
                   contentWidget: selectedData['Algemeen'] != null
-                      ? _buildGeneralContent(selectedData['Algemeen'] as Map<String, String>)
+                      ? _buildGeneralContent(
+                          selectedData['Algemeen'] as Map<String, String>)
                       : Text('Geen algemene gegevens beschikbaar'),
                 ),
                 _buildSection(
                   index: 1,
                   title: "Beschrijving",
-                  contentWidget: Text(selectedData['Beschrijving'] ?? 'Geen beschrijving beschikbaar'),
+                  contentWidget: Text(selectedData['Beschrijving'] ??
+                      'Geen beschrijving beschikbaar'),
                 ),
                 _buildSection(
                   index: 2,
                   title: "Vaardigheden",
-                  contentWidget: _buildSkillsContent(selectedData['Vaardigheden']?.split(', ') ?? []),
+                  contentWidget: _buildSkillsContent(
+                      selectedData['Vaardigheden']?.split(', ') ?? []),
                 ),
                 _buildSection(
                   index: 3,
                   title: "Beschikbaarheid",
-                  contentWidget: _buildAvailabilityContent(selectedData['Beschikbaarheid']?.split(', ') ?? []),
+                  contentWidget: _buildAvailabilityContent(
+                      selectedData['Beschikbaarheid']?.split(', ') ?? []),
                 ),
                 _buildSection(
                   index: 4,
                   title: "Talen",
-                  contentWidget: _buildLanguagesContent(selectedData['Talen']?.split(', ') ?? []),
+                  contentWidget: _buildLanguagesContent(
+                      selectedData['Talen']?.split(', ') ?? []),
                 ),
                 _buildSection(
                   index: 5,
                   title: "Salaris",
-                  contentWidget: Text(selectedData['Salaris'] ?? 'Geen salaris beschikbaar'),
+                  contentWidget: Text(
+                      selectedData['Salaris'] ?? 'Geen salaris beschikbaar'),
                 ),
                 _buildSection(
                   index: 6,
                   title: "Vragenlijst",
-                  contentWidget: _buildQuestionsContent(selectedData['Vragenlijst']?.split(', ') ?? []),
+                  contentWidget: _buildQuestionsContent(
+                      selectedData['Vragenlijst']?.split(', ') ?? []),
                 ),
               ],
             ),

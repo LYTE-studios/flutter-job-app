@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
@@ -10,12 +9,9 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_sala
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
-import 'package:jobr/ui/widgets/buttons/jobr_radio_button.dart';
-import 'package:jobr/features/job_listing/widgets/search_function_bottom_sheet.dart';
 
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
-import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class CreateJobListingVragenlijstScreen extends StatefulWidget {
   const CreateJobListingVragenlijstScreen({super.key});
@@ -188,7 +184,7 @@ class CustomQuestionBox extends StatefulWidget {
   final bool isEditable;
   final VoidCallback onToggleEditable;
 
-  CustomQuestionBox({
+  const CustomQuestionBox({super.key, 
     required this.label,
     required this.onRemove,
     required this.question,
@@ -202,7 +198,7 @@ class CustomQuestionBox extends StatefulWidget {
 }
 
 class _CustomQuestionBoxState extends State<CustomQuestionBox> {
-  double _sliderValue = 1; // Default position: "Gevorderd"
+  final double _sliderValue = 1; // Default position: "Gevorderd"
 
   // Mapping slider value to labels
   final Map<double, String> labels = {
