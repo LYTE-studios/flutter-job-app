@@ -47,6 +47,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              leading: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/images/icons/back-arrow.svg',
+                      color: Colors.grey,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+              ),
               expandedHeight: 200,
               floating: false,
               pinned: true,

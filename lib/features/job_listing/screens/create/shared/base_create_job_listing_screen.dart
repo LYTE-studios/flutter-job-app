@@ -114,7 +114,7 @@ class BaseCreateJobListingScreen extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 10),
                       ),
-                      onPressed: onNavigate,
+                      onPressed: isNavigationEnabled ? onNavigate : () {},
                       child: Text(
                         !isNavigationEnabled
                             ? buttonLabel

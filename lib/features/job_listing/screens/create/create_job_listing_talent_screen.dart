@@ -40,12 +40,16 @@ class _CreateJobListingTalentScreenState
 
   @override
   Widget build(BuildContext context) {
+    final GoRouterState state = GoRouter.of(context).state!;
+    final Map<String, dynamic> selectedData = state.extra as Map<String, dynamic>;
+
     _isButtonEnabled = _selectedFunction.isNotEmpty;
     return BaseCreateJobListingScreen(
       progress: .7,
       buttonLabel: 'Naar salaris',
       onNavigate: () {
-        context.push(CreateJobListingSalaryScreen.route);
+        selectedData['Talen'] = _selectedFunction.join(', ');
+        context.go(CreateJobListingSalaryScreen.route, extra: selectedData);
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(

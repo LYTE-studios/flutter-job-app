@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/chat/screens/chat_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
@@ -78,7 +79,7 @@ class JobrAiSuggestionsScreen extends StatelessWidget {
                     buttonColor: HexColor.fromHex('#3976FF'),
                     buttonText: "Chat starten",
                     onButtonPressed: () {
-                      context.push(ChatRequestScreen.employerRoute);
+                      context.push(ChatPageScreen.employerRoute);
                     },
                     descriptionPadding: 15,
                     buttonIcon: JobrIcons.send,

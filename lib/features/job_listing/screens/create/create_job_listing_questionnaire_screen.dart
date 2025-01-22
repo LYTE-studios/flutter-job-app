@@ -59,11 +59,15 @@ class _CreateJobListingVragenlijstScreenState
 
   @override
   Widget build(BuildContext context) {
+    final GoRouterState state = GoRouter.of(context).state!;
+    final Map<String, dynamic> selectedData = state.extra as Map<String, dynamic>;
+
     return BaseCreateJobListingScreen(
       progress: .9,
       buttonLabel: 'Naar overzicht',
       onNavigate: () {
-        context.push(CreateJobListingOverviewScreen.route);
+        selectedData['Vragenlijst'] = selectedQuestions.join(', ');
+        context.go(CreateJobListingOverviewScreen.route, extra: selectedData);
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(

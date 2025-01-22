@@ -37,7 +37,7 @@ class _CreateJobListingOverviewScreenState
   List<String> selectedDays = [];
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
-  List<bool> isSectionExpanded = List.generate(7, (_) => false);
+  List<bool> isSectionExpanded = List.filled(7, false); // Track expansion state
 
   void toggleSection(int index) {
     setState(() {
@@ -47,11 +47,20 @@ class _CreateJobListingOverviewScreenState
 
   @override
   Widget build(BuildContext context) {
+    final GoRouterState state = GoRouter.of(context).state!;
+    final Map<String, dynamic> selectedData =
+        state.extra as Map<String, dynamic>;
+
     return BaseCreateJobListingScreen(
       progress: 1.0,
       buttonLabel: 'Bevestig & post vacature',
       onNavigate: () {
-        context.push(CreateJobListingSkillsScreen.route);
+        context.go(
+          JobrRouter.getRoute(
+            JobListingsScreen.location,
+            JobrRouter.employerInitialroute,
+          ),
+        );
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
@@ -71,28 +80,62 @@ class _CreateJobListingOverviewScreenState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildSection("Algemeen", 0),
-                buildSection("Beschrijving", 1),
-                buildSection("Vaardigheden", 2),
-                buildSection("Beschikbaarheid", 3),
-                buildSection("Talen", 4),
-                buildSection("Salaris", 5),
-                buildSection("Vragenlijst", 6),
+                _buildSection(
+                  index: 0,
+                  title: "Algemeen",
+                  contentWidget: selectedData['Algemeen'] != null
+                      ? _buildGeneralContent(selectedData['Algemeen'] as Map<String, String>)
+                      : Text('Geen algemene gegevens beschikbaar'),
+                ),
+                _buildSection(
+                  index: 1,
+                  title: "Beschrijving",
+                  contentWidget: Text(selectedData['Beschrijving'] ?? 'Geen beschrijving beschikbaar'),
+                ),
+                _buildSection(
+                  index: 2,
+                  title: "Vaardigheden",
+                  contentWidget: _buildSkillsContent(selectedData['Vaardigheden']?.split(', ') ?? []),
+                ),
+                _buildSection(
+                  index: 3,
+                  title: "Beschikbaarheid",
+                  contentWidget: _buildAvailabilityContent(selectedData['Beschikbaarheid']?.split(', ') ?? []),
+                ),
+                _buildSection(
+                  index: 4,
+                  title: "Talen",
+                  contentWidget: _buildLanguagesContent(selectedData['Talen']?.split(', ') ?? []),
+                ),
+                _buildSection(
+                  index: 5,
+                  title: "Salaris",
+                  contentWidget: Text(selectedData['Salaris'] ?? 'Geen salaris beschikbaar'),
+                ),
+                _buildSection(
+                  index: 6,
+                  title: "Vragenlijst",
+                  contentWidget: _buildQuestionsContent(selectedData['Vragenlijst']?.split(', ') ?? []),
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-  Widget buildSection(String title, int index) {
+  Widget _buildSection({
+    required int index,
+    required String title,
+    required Widget contentWidget,
+  }) {
     return Column(
       children: [
         GestureDetector(
           onTap: () => toggleSection(index),
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
               color: Colors.grey.shade100,
               borderRadius: BorderRadius.circular(12),
@@ -116,31 +159,65 @@ class _CreateJobListingOverviewScreenState
         ),
         if (isSectionExpanded[index])
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: buildSectionContent(index),
+            padding:
+                const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            child: contentWidget,
           ),
+        const SizedBox(height: 8),
       ],
     );
   }
 
-  Widget buildSectionContent(int index) {
-    switch (index) {
-      case 0:
-        return Text("Algemene informatie hier...");
-      case 1:
-        return Text("Beschrijving hier...");
-      case 2:
-        return Text("Vaardigheden hier...");
-      case 3:
-        return Text("Beschikbaarheid hier...");
-      case 4:
-        return Text("Talen hier...");
-      case 5:
-        return Text("Salaris hier...");
-      case 6:
-        return Text("Vragenlijst hier...");
-      default:
-        return Container();
-    }
+  Widget _buildGeneralContent(Map<String, String> data) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: data.entries.map((entry) {
+        return Row(
+          children: [
+            Text(
+              '${entry.key}: ',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(entry.value),
+          ],
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildSkillsContent(List<String> skills) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: skills.map((skill) {
+        return Text(skill);
+      }).toList(),
+    );
+  }
+
+  Widget _buildAvailabilityContent(List<String> days) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: days.map((day) {
+        return Text(day);
+      }).toList(),
+    );
+  }
+
+  Widget _buildLanguagesContent(List<String> languages) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: languages.map((language) {
+        return Text(language);
+      }).toList(),
+    );
+  }
+
+  Widget _buildQuestionsContent(List<String> questions) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: questions.map((question) {
+        return Text(question);
+      }).toList(),
+    );
   }
 }

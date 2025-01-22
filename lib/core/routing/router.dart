@@ -5,6 +5,8 @@ import 'package:jobr/features/authentication/screens/email_login_screen.dart';
 import 'package:jobr/features/authentication/screens/email_register_screen.dart';
 import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
+import 'package:jobr/features/chat/screens/chat_page_screen.dart';
+import 'package:jobr/features/chat/screens/chat_request_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
@@ -218,45 +220,49 @@ GoRouter router = GoRouter(
                             child: CreateJobListingAvailabilityScreen(),
                           ),
                           routes: [
-                        GoRoute(
-                          path: CreateJobListingTalentScreen.location,
-                          pageBuilder:
-                              (BuildContext context, GoRouterState state) =>
-                                  const NoTransitionPage(
-                            child: CreateJobListingTalentScreen(),
-                          ),
-                          routes: [
-                        GoRoute(
-                          path: CreateJobListingSalaryScreen.location,
-                          pageBuilder:
-                              (BuildContext context, GoRouterState state) =>
-                                  const NoTransitionPage(
-                            child: CreateJobListingSalaryScreen(),
-                          ),
-                          routes: [
-                        GoRoute(
-                          path: CreateJobListingVragenlijstScreen.location,
-                          pageBuilder:
-                              (BuildContext context, GoRouterState state) =>
-                                  const NoTransitionPage(
-                            child: CreateJobListingVragenlijstScreen(),
-                          ),
-                          routes: [
-                        GoRoute(
-                          path: CreateJobListingOverviewScreen.location,
-                          pageBuilder:
-                              (BuildContext context, GoRouterState state) =>
-                                  const NoTransitionPage(
-                            child: CreateJobListingOverviewScreen(),
-                          ),
-                        ),
-                      ],
-                        ),
-                      ],
-                        ),
-                      ],
-                        ),
-                      ],
+                            GoRoute(
+                              path: CreateJobListingTalentScreen.location,
+                              pageBuilder:
+                                  (BuildContext context, GoRouterState state) =>
+                                      const NoTransitionPage(
+                                child: CreateJobListingTalentScreen(),
+                              ),
+                              routes: [
+                                GoRoute(
+                                  path: CreateJobListingSalaryScreen.location,
+                                  pageBuilder: (BuildContext context,
+                                          GoRouterState state) =>
+                                      const NoTransitionPage(
+                                    child: CreateJobListingSalaryScreen(),
+                                  ),
+                                  routes: [
+                                    GoRoute(
+                                      path: CreateJobListingVragenlijstScreen
+                                          .location,
+                                      pageBuilder: (BuildContext context,
+                                              GoRouterState state) =>
+                                          const NoTransitionPage(
+                                        child:
+                                            CreateJobListingVragenlijstScreen(),
+                                      ),
+                                      routes: [
+                                        GoRoute(
+                                          path: CreateJobListingOverviewScreen
+                                              .location,
+                                          pageBuilder: (BuildContext context,
+                                                  GoRouterState state) =>
+                                              const NoTransitionPage(
+                                            child:
+                                                CreateJobListingOverviewScreen(),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -297,12 +303,32 @@ GoRouter router = GoRouter(
           },
         ),
         GoRoute(
+          path: ChatPageScreen.employerRoute,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return buildPageWithSlideLeftTransition(
+              context: context,
+              state: state,
+              child: const ChatPageScreen(),
+            );
+          },
+        ),
+        GoRoute(
           path: ChatRequestScreen.employerRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return buildPageWithSlideLeftTransition(
               context: context,
               state: state,
               child: const ChatRequestScreen(),
+            );
+          },
+        ),
+         GoRoute(
+          path: ChatRequestPageScreen.employerRoute,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return buildPageWithSlideLeftTransition(
+              context: context,
+              state: state,
+              child: const ChatRequestPageScreen(),
             );
           },
         ),
