@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/models/language.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
@@ -8,6 +9,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_sala
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
+import 'package:jobr/features/job_listing/widgets/language_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/search_function_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
@@ -34,11 +36,11 @@ class _CreateJobListingTalentScreenState
   List<String> selectedDays = [];
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
-  final List<String> _selectedFunction = [];
+  final List<Language> _selectedlanguages = [];
 
   @override
   Widget build(BuildContext context) {
-    _isButtonEnabled = _selectedFunction.isNotEmpty;
+    _isButtonEnabled = _selectedlanguages.isNotEmpty;
     return BaseCreateJobListingScreen(
       progress: .7,
       buttonLabel: 'Naar salaris',
@@ -46,7 +48,7 @@ class _CreateJobListingTalentScreenState
         context.push(CreateJobListingSalaryScreen.route);
         usedWidgetsInCreation.addAll({
           "Talen": [
-            _selectedFunction.isNotEmpty
+            _selectedlanguages.isNotEmpty
                 ? Column(
                     children: [
                       Divider(
@@ -59,13 +61,13 @@ class _CreateJobListingTalentScreenState
                       Wrap(
                         spacing: 8,
                         runSpacing: 8,
-                        children: _selectedFunction
+                        children: _selectedlanguages
                             .map(
                               (function) => CustomSliderWidget(
-                                label: function,
+                                label: function.name,
                                 onRemove: () {
                                   setState(() {
-                                    _selectedFunction.remove(function);
+                                    _selectedlanguages.remove(function);
                                   });
                                 },
                               ),
@@ -138,38 +140,13 @@ class _CreateJobListingTalentScreenState
             height: 8,
           ),
           GestureDetector(
-            onTap: () => SearchFunctionBottomSheet(
-              title: "Kies een functie",
-              allowMultipleOptionSelection: true,
-              onSelected: (String value) {
+            onTap: () => LanguageBottomSheet(
+              title: "Voeg talen toe",
+              onSelected: (Language value) {
                 setState(() {
-                  List<String> parsedValues = value.split(',');
-                  for (String val in parsedValues) {
-                    val = val.trim();
-                    if (!_selectedFunction.contains(val)) {
-                      _selectedFunction.add(val);
-                      print(val);
-                    }
-                  }
+                  _selectedlanguages.add(value);
                 });
-                Navigator.pop(context);
               },
-              options: const [
-                "Nederlands",
-                "Frans",
-                "Duits",
-                "Engels",
-                "Arabisch",
-                "Italiaans",
-                "Spaans",
-                "Portugees",
-                "Turks",
-                "Pools",
-                "Bulgaars",
-                "Russisch",
-                "Ontbijtmedewerker",
-                "Cateringmanager"
-              ],
             ).showBottomSheet(context: context),
             child: Container(
               decoration: BoxDecoration(
@@ -203,7 +180,7 @@ class _CreateJobListingTalentScreenState
           SizedBox(
             height: 8,
           ),
-          if (_selectedFunction.isNotEmpty)
+          if (_selectedlanguages.isNotEmpty)
             Column(
               children: [
                 Divider(
@@ -216,13 +193,13 @@ class _CreateJobListingTalentScreenState
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: _selectedFunction
+                  children: _selectedlanguages
                       .map(
                         (function) => CustomSliderWidget(
-                          label: function,
+                          label: function.name,
                           onRemove: () {
                             setState(() {
-                              _selectedFunction.remove(function);
+                              _selectedlanguages.remove(function);
                             });
                           },
                         ),
@@ -241,7 +218,8 @@ class CustomSliderWidget extends StatefulWidget {
   final String label;
   final VoidCallback onRemove;
 
-  const CustomSliderWidget({super.key, required this.label, required this.onRemove});
+  const CustomSliderWidget(
+      {super.key, required this.label, required this.onRemove});
 
   @override
   _CustomSliderWidgetState createState() => _CustomSliderWidgetState();

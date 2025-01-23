@@ -37,6 +37,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet>
   @override
   Widget build(BuildContext context) {
     return SearchFunctionBottomSheet(
+      allowMultipleOptionSelection: true,
       onSelected: (String value) {
         widget.onSelected.call(languages.firstWhere(
           (element) => element.name == value,
