@@ -40,6 +40,7 @@ final jobrTheme = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
     alignLabelWithHint: true,
+    labelStyle: TextStyles.labelMedium,
     hintStyle: TextStyle(
       color: HexColor.fromHex('#B7B7B7'),
       fontSize: 16,

@@ -55,30 +55,32 @@ class _CreateJobListingOverviewScreenState
         );
       },
       isNavigationEnabled: _isButtonEnabled,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Overzicht",
-            style: TextStyles.titleMedium.copyWith(fontSize: 22),
-          ),
-          Divider(
-            thickness: 1.3,
-            color: Colors.grey.shade300.withOpacity(0.7),
-          ),
-          const SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 1.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children:
-                  List.generate(usedWidgetsInCreation.keys.length, (index) {
-                String title = usedWidgetsInCreation.keys.elementAt(index);
-                return buildSection(title, index);
-              }),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Overzicht",
+              style: TextStyles.titleMedium.copyWith(fontSize: 22),
             ),
-          )
-        ],
+            Divider(
+              thickness: 1.3,
+              color: Colors.grey.shade300.withOpacity(0.7),
+            ),
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children:
+                    List.generate(usedWidgetsInCreation.keys.length, (index) {
+                  String title = usedWidgetsInCreation.keys.elementAt(index);
+                  return buildSection(title, index);
+                }),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

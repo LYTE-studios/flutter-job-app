@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:logger/logger.dart';
 
 class ApiService {
@@ -109,12 +110,47 @@ class ApiService {
   Future<Response<dynamic>> getApi(
     String endpoint, {
     Map<String, dynamic>? queryParameters,
+    Duration? cacheDuration,
   }) async {
+    Box? box;
+
+    if (cacheDuration != null) {
+      box = await Hive.openBox<dynamic>('cache');
+
+      if (box.containsKey(endpoint)) {
+        Map<dynamic, dynamic> data = box.get(endpoint);
+
+        if (data['created'] == null ||
+            (DateTime.now().millisecondsSinceEpoch -
+                    ((data['created'] as int?) ?? 0) >
+                cacheDuration.inMilliseconds)) {
+          await box.delete(endpoint);
+        } else {
+          return Response(
+            data: data['data'],
+            requestOptions: RequestOptions(path: endpoint),
+          );
+        }
+      }
+    }
+
     try {
-      return await dio.get(
+      Response response = await dio.get(
         _formatUrl(endpoint),
         queryParameters: queryParameters,
       );
+
+      if (box != null) {
+        box.put(
+          endpoint,
+          {
+            'created': DateTime.now().millisecondsSinceEpoch,
+            'data': response.data,
+          },
+        );
+      }
+
+      return response;
     } catch (e) {
       logger.e('GET API Error: $e');
       rethrow;

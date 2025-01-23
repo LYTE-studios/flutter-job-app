@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_loading_switcher.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -35,10 +36,9 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        top: 12,
-        left: 12,
-        right: 12,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+        top: PaddingSizes.medium,
+        left: PaddingSizes.small,
+        right: PaddingSizes.small,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -57,14 +57,16 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
                   color: Colors.black,
                 ),
               ),
-              const SizedBox(
-                width: 60,
-              ),
+              const Spacer(),
               Center(
                 child: Text(
                   widget.title,
                   style: TextStyles.titleMedium,
                 ),
+              ),
+              const Spacer(),
+              const SizedBox(
+                width: 56,
               ),
             ],
           ),
@@ -87,7 +89,6 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
               ),
             ),
           ),
-          const SizedBox(height: 10),
           Expanded(
             child: Stack(
               children: [
@@ -95,6 +96,7 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
                   loading: widget.loading,
                   child: ListView.builder(
                     padding: const EdgeInsets.only(
+                      top: PaddingSizes.small,
                       bottom: 72,
                     ),
                     itemCount: widget.options.length,
@@ -143,41 +145,45 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
-                    child: Center(
-                      child: SizedBox(
-                        width: MediaQuery.sizeOf(context).width,
-                        height: 58,
-                        child: FilledButton(
-                          style: FilledButton.styleFrom(
-                            backgroundColor: (selectedOption != null ||
-                                    selectedOptions.isNotEmpty)
-                                ? HexColor.fromHex("#FF3E68")
-                                : HexColor.fromHex('#DADADA'),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(65),
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      child: Center(
+                        child: SizedBox(
+                          width: MediaQuery.sizeOf(context).width,
+                          height: 58,
+                          child: FilledButton(
+                            style: FilledButton.styleFrom(
+                              backgroundColor: (selectedOption != null ||
+                                      selectedOptions.isNotEmpty)
+                                  ? HexColor.fromHex("#FF3E68")
+                                  : HexColor.fromHex('#DADADA'),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(65),
+                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
                             ),
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                          ),
-                          onPressed: () {
-                            if (widget.allowMultipleOptionSelection) {
-                              if (selectedOptions.isNotEmpty) {
-                                widget.onSelected(selectedOptions.join(', '));
+                            onPressed: () {
+                              if (widget.allowMultipleOptionSelection) {
+                                if (selectedOptions.isNotEmpty) {
+                                  widget.onSelected(selectedOptions.join(', '));
+                                }
+                              } else {
+                                if (selectedOption != null) {
+                                  widget.onSelected(selectedOption!);
+                                }
                               }
-                            } else {
-                              if (selectedOption != null) {
-                                widget.onSelected(selectedOption!);
-                              }
-                            }
-                          },
-                          child: const Text(
-                            "Bevestigen",
-                            style: TextStyle(
-                              fontSize: 17.5,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
+                            },
+                            child: const Text(
+                              "Bevestigen",
+                              style: TextStyle(
+                                fontSize: 17.5,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                         ),

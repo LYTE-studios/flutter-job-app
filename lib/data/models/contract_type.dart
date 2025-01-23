@@ -4,7 +4,7 @@ class ContractType {
 
   ContractType({required this.id, required this.name});
 
-  ContractType.fromJson(Map<String, dynamic> json)
+  ContractType.fromJson(Map<dynamic, dynamic> json)
       : id = json['id'],
         name = json['contract_type'];
 }

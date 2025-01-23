@@ -1,5 +1,6 @@
 import 'package:jobr/data/models/contract_type.dart';
 import 'package:jobr/data/models/function_type.dart';
+import 'package:jobr/data/models/language.dart';
 import 'package:jobr/data/models/location_type.dart';
 
 import '../models/vacancy.dart';
@@ -10,40 +11,76 @@ class VacanciesService extends ApiService {
 
   Future<List<LocationType>> getLocationTypes() async {
     try {
-      final response = await getApi('vacancies/locations');
+      final response = await getApi(
+        'vacancies/locations',
+        cacheDuration: Duration(
+          minutes: 30,
+        ),
+      );
       return (response.data as List)
           .map((json) => LocationType.fromJson(json))
           .toList();
     } catch (e) {
-      throw Exception('Failed to fetch vacancies: $e');
+      throw Exception('Failed to fetch location: $e');
     }
   }
 
   Future<List<ContractType>> getContractTypes() async {
     try {
-      final response = await getApi('vacancies/contracts');
+      final response = await getApi(
+        'vacancies/contracts',
+        cacheDuration: Duration(
+          minutes: 30,
+        ),
+      );
       return (response.data as List)
           .map((json) => ContractType.fromJson(json))
           .toList();
     } catch (e) {
-      throw Exception('Failed to fetch vacancies: $e');
+      throw Exception('Failed to fetch contracts: $e');
+    }
+  }
+
+  Future<List<Language>> getLanguages() async {
+    try {
+      final response = await getApi(
+        'vacancies/languages',
+        cacheDuration: Duration(
+          minutes: 30,
+        ),
+      );
+      return (response.data as List)
+          .map((json) => Language.fromJson(json))
+          .toList();
+    } catch (e) {
+      throw Exception('Failed to fetch languages: $e');
     }
   }
 
   Future<List<FunctionType>> getFunctionTypes() async {
     try {
-      final response = await getApi('vacancies/functions');
+      final response = await getApi(
+        'vacancies/functions',
+        cacheDuration: Duration(
+          minutes: 30,
+        ),
+      );
       return (response.data as List)
           .map((json) => FunctionType.fromJson(json))
           .toList();
     } catch (e) {
-      throw Exception('Failed to fetch vacancies: $e');
+      throw Exception('Failed to fetch functions: $e');
     }
   }
 
   Future<List<Vacancy>> getVacancies() async {
     try {
-      final response = await getApi('vacancies/vacancies');
+      final response = await getApi(
+        'vacancies/vacancies',
+        cacheDuration: Duration(
+          minutes: 30,
+        ),
+      );
       return (response.data as List)
           .map((json) => Vacancy.fromJson(json))
           .toList();

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/core/utils/keyboard_util.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -75,54 +76,57 @@ class BaseCreateJobListingScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SafeArea(
-        bottom: true,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: GestureDetector(
+        onTap: () {
+          KeyboardUtil.close();
+        },
+        child: Stack(
           children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(PaddingSizes.large),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: PaddingSizes.small),
-                    child,
-                  ],
-                ),
-              ),
+            Positioned(
+              top: PaddingSizes.large,
+              left: PaddingSizes.large,
+              right: PaddingSizes.large,
+              child: child,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: PaddingSizes.large,
-              ),
-              child: Center(
+            Positioned(
+              bottom: 10,
+              right: 0,
+              left: 0,
+              child: SafeArea(
+                bottom: true,
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 55,
-                    child: FilledButton(
-                      style: FilledButton.styleFrom(
-                        backgroundColor: isNavigationEnabled
-                            ? HexColor.fromHex("#FF3E68")
-                            : HexColor.fromHex('#DADADA'),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: isNavigationEnabled
-                              ? BorderRadius.circular(65)
-                              : BorderRadius.circular(65),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                      ),
-                      onPressed: isNavigationEnabled ? onNavigate : () {},
-                      child: Text(
-                        !isNavigationEnabled
-                            ? buttonLabel
-                            : (secondaryButtonLabel ?? buttonLabel),
-                        style: const TextStyle(
-                          fontSize: 17.5,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: PaddingSizes.large,
+                  ),
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 55,
+                        child: FilledButton(
+                          style: FilledButton.styleFrom(
+                            backgroundColor: isNavigationEnabled
+                                ? HexColor.fromHex("#FF3E68")
+                                : HexColor.fromHex('#DADADA'),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: isNavigationEnabled
+                                  ? BorderRadius.circular(65)
+                                  : BorderRadius.circular(65),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                          ),
+                          onPressed: isNavigationEnabled ? onNavigate : () {},
+                          child: Text(
+                            !isNavigationEnabled
+                                ? buttonLabel
+                                : (secondaryButtonLabel ?? buttonLabel),
+                            style: const TextStyle(
+                              fontSize: 17.5,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -130,7 +134,6 @@ class BaseCreateJobListingScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
           ],
         ),
       ),

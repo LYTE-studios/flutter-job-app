@@ -30,7 +30,7 @@ class Vacancy {
   });
 
   /// Factory constructor to create a Vacancy object from JSON
-  factory Vacancy.fromJson(Map<String, dynamic> json) {
+  factory Vacancy.fromJson(Map<dynamic, dynamic> json) {
     return Vacancy(
       employer: json['employer'],
       title: json['title'],

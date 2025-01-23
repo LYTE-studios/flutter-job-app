@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/user.dart';
 import 'package:jobr/data/services/accounts_service.dart';
@@ -23,6 +24,8 @@ class _SplashScreenState extends State<SplashScreen> with ScreenStateMixin {
   @override
   Future<void> loadData() async {
     try {
+      await Hive.initFlutter();
+
       UserType userType = await AccountsService().checkAuthentication();
 
       switch (userType) {

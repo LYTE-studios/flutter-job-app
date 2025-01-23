@@ -2,7 +2,7 @@ name: jobr
 description: ""
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+20
+version: 1.0.0+22
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -34,6 +34,8 @@ dependencies:
   logger: ^2.5.0
   file_picker: ^8.1.6
   readmore: ^3.0.0
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
 
 dev_dependencies:
   flutter_test:

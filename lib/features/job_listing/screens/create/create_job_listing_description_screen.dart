@@ -25,6 +25,7 @@ class CreateJobListingDescriptionScreen extends StatefulWidget {
 
 class _CreateJobListingDescriptionScreenState
     extends State<CreateJobListingDescriptionScreen> {
+  TextEditingController baseDescriptionController = TextEditingController();
   List<Map<String, String>> options = [];
   List<bool> isExpanded = [];
   List<TextEditingController> descriptionControllers = [];
@@ -233,12 +234,22 @@ class _CreateJobListingDescriptionScreenState
                       ],
                     ),
                     const SizedBox(height: 8),
-                    Text(
-                      "Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...",
+                    TextField(
+                      controller: baseDescriptionController,
                       style: TextStyle(
                         fontSize: 15,
-                        color: Colors.grey.shade500,
+                        color: Colors.black,
                       ),
+                      decoration: InputDecoration(
+                        hintText:
+                            "Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...",
+                        hintStyle: TextStyle(
+                          color: Colors.grey.shade400,
+                          fontSize: 14.5,
+                        ),
+                        border: InputBorder.none, // No border
+                      ),
+                      maxLines: null, // Allow multi-line input
                     ),
                     const SizedBox(height: 16),
                     Column(
