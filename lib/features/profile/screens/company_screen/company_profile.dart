@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings.dart';
 import 'package:jobr/features/profile/screens/tabs/general_item_widget.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
@@ -37,6 +39,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                   expandedHeight: 200,
                   floating: false,
                   pinned: true,
+                  centerTitle: true,
                   title: innerBoxIsScrolled
                       ? const Text(
                           "Brooklyn Kortrijk",
@@ -60,7 +63,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               border: Border.all(color: Colors.white, width: 4),
                               image: const DecorationImage(
                                 image: AssetImage(
-                                    'assets/images/images/image-b.png'),
+                                    'assets/images/logos/brooklyn_kortrijk.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -98,17 +101,20 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               ),
                               image: const DecorationImage(
                                 image: AssetImage(
-                                    'assets/images/images/image-b.png'),
+                                  'assets/images/logos/brooklyn_kortrijk.png',
+                                ),
                                 fit: BoxFit.cover,
                               ),
                             ),
                           ),
                         ),
                         Positioned(
-                          bottom: 25,
-                          right: 50,
+                          bottom: 35,
+                          right: 60,
                           child: ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              context.push(EditCompanyProfileScreen.route);
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: theme.primaryColor,
                             ),
@@ -133,7 +139,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           ),
                         ),
                         Positioned(
-                          bottom: 30,
+                          bottom: 40,
                           right: 10,
                           child: InkWell(
                             onTap: () {
@@ -146,14 +152,14 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               );
                             },
                             child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: const BoxDecoration(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.white,
+                                color: Colors.grey.shade100.withOpacity(1),
                               ),
                               child: SvgIcon(
                                 JobrIcons.settings1,
-                                size: 18.68,
+                                size: 20.68,
                                 color: TextStyles.disabledText,
                               ),
                             ),
@@ -185,20 +191,19 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                       style: TextStyle(
                         fontSize: 17.01,
                         fontWeight: FontWeight.w500,
-                        fontFamily: 'Inter',
+                        fontFamily: 'Poppins',
                         color: TextStyles.brooklyn,
                       ),
                     ),
                     const SizedBox(width: 16),
                     SvgIcon(
                       JobrIcons.web,
-                      size: 11.72,
+                      size: 12.72,
                       leaveUnaltered: true,
                       color: TextStyles.brooklyn,
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
                 Row(
                   children: [
                     SvgIcon(
@@ -236,29 +241,29 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     SvgIcon(
                       JobrIcons.instagram,
                       size: 27.86,
-                      color: TextStyles.selectedText,
+                      color: Colors.grey.shade600,
                     ),
                     const SizedBox(width: 16),
                     SvgIcon(
                       JobrIcons.tiktok,
                       size: 27.86,
-                      color: TextStyles.disabledText,
+                      color: Colors.grey.shade600,
                     ),
                     const SizedBox(width: 16),
                     SvgIcon(
                       JobrIcons.facebook,
                       size: 27.86,
-                      color: TextStyles.disabledText,
+                      color: Colors.grey.shade600,
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 12),
                 Text(
                   "Multibrandstore & Webshop. Brooklyn, da's een mix van merken en heel veel broeken. Dat laatste nemen we als broekspeciaalzaak wel heel serieus. Kom zeker eens langs om het zelf te zeggen.",
                   style: TextStyle(
@@ -310,6 +315,43 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
+                GestureDetector(
+                  onTap: () {
+                    showLocationSelector(context);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 16),
+                    decoration: BoxDecoration(
+                      color: TextStyles.darkGray,
+                      borderRadius: BorderRadius.circular(17),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Wisselen van vestiging",
+                          style: TextStyle(
+                              fontSize: 15.2,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black),
+                        ),
+                        Row(
+                          children: [
+                            SvgIcon(
+                              JobrIcons.venueLocation,
+                              size: 20,
+                              color: Colors.pinkAccent,
+                            ),
+                            const SizedBox(width: 4),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
                 SizedBox(
                   height: 200,
                   child: ListView(
@@ -318,7 +360,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                     children: [
                       Container(
                         margin: const EdgeInsets.only(right: 16),
-                        width: 300,
+                        width: 280,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
                           child: Image.asset(
@@ -344,31 +386,180 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 24),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 2),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
+                const SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.transparent,
+                          // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(
+                        'assets/images/images/Frame-m.png',
+                        // Replace with the actual map image path
+                        fit: BoxFit.cover,
                       ),
-                    ],
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      'assets/images/images/Frame-m.png',
-                      // Replace with the actual map image path
-                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ],
             )));
+  }
+
+  void showLocationSelector(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+      builder: (context) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Drag handle at the top
+              Container(
+                width: 40,
+                height: 4,
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade400,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              // Location 1
+              _buildLocationTile(
+                context,
+                title: "Brooklyn",
+                subtitle: "Brugge, Leistraat",
+                onPressed: () {
+                  Navigator.pop(context);
+                  // Handle selection logic for "Brooklyn Brugge"
+                },
+              ),
+              const SizedBox(height: 12),
+              // Location 2
+              _buildLocationTile(
+                context,
+                title: "Brooklyn",
+                subtitle: "Gent, Voorstraat",
+                onPressed: () {
+                  Navigator.pop(context);
+                  // Handle selection logic for "Brooklyn Gent"
+                },
+              ),
+              const SizedBox(height: 12),
+              // Location 3
+              _buildLocationTile(
+                context,
+                title: "Brooklyn",
+                subtitle: "Mechelen, Bruul",
+                onPressed: () {
+                  Navigator.pop(context);
+                  // Handle selection logic for "Brooklyn Mechelen"
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildLocationTile(
+    BuildContext context, {
+    required String title,
+    required String subtitle,
+    required VoidCallback onPressed,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          // Leading icon
+          CircleAvatar(
+              backgroundColor: Colors.blue,
+              radius: 24,
+              child: ClipRect(
+                child: Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 4),
+                    image: const DecorationImage(
+                      image: AssetImage(
+                          'assets/images/logos/brooklyn_kortrijk.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              )),
+          const SizedBox(width: 16),
+          // Title and subtitle
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    const SvgIcon(
+                      JobrIcons.location,
+                      size: 16,
+                      leaveUnaltered: true,
+                      color: Colors.pinkAccent,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 16),
+          // "Kies" button
+          TextButton(
+            onPressed: onPressed,
+            child: const Text(
+              "Kies",
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+                color: Colors.pinkAccent,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

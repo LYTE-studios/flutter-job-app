@@ -2,10 +2,18 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/features/job_listing/screens/vacatures/vacancy_info_page.dart';
 
 class DeleteVacancyPage extends StatelessWidget {
-  const DeleteVacancyPage({super.key});
+  static const String location = 'delete-vacancy';
 
+  static String route = JobrRouter.getRoute(
+    '${JobListingsScreen.location}/${VacancyInfoScreen.location}/$location',
+    JobrRouter.employerInitialroute,
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,7 +182,8 @@ class DeleteVacancyPage extends StatelessWidget {
                         ElevatedButton(
                           onPressed: () {
                             // Handle delete action
-                            Navigator.pop(context);
+                            context.pop();
+                            context.go(JobListingsScreen.employerRoute);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.red,

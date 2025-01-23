@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/features/chat/screens/chat_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
@@ -252,7 +253,7 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
                 buttonColor: HexColor.fromHex('#3976FF'),
                 buttonText: "Chat starten",
                 onButtonPressed: () {
-                  context.push(ChatRequestScreen.employerRoute);
+                  context.push(ChatPageScreen.employerRoute);
                 },
                 buttonIcon: JobrIcons.send,
                 location: "Brussel",

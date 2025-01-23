@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/ui/widgets/buttons/action_button.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:readmore/readmore.dart';
 
-class CustomJobCard extends StatelessWidget {
+class CustomJobCard extends StatefulWidget {
   final String description;
   final String userName;
   final String location;
@@ -20,6 +21,7 @@ class CustomJobCard extends StatelessWidget {
   final bool showBottomText;
   final int descriptionPadding;
   final bool isAICard;
+  final bool showLikeButton;
 
   const CustomJobCard({
     super.key,
@@ -36,37 +38,73 @@ class CustomJobCard extends StatelessWidget {
     required this.showBottomText,
     this.descriptionPadding = 0,
     this.isAICard = false,
+    this.showLikeButton = false,
   });
 
   @override
+  State<CustomJobCard> createState() => _CustomJobCardState();
+}
+
+class _CustomJobCardState extends State<CustomJobCard> {
+  bool isLiked = false;
+
+  void toggleLike() {
+    setState(() {
+      isLiked = !isLiked;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: isAICard
-          ? MediaQuery.of(context).size.width * 0.83
-          : MediaQuery.of(context).size.width * 0.9,
-      decoration: BoxDecoration(
-        color: HexColor.fromHex('#F6F6F6'),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildProfileHeader(context),
-            const SizedBox(height: 10),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: descriptionPadding.toDouble(),
-              ),
-              child: _buildDescription(context),
+    return Stack(
+      children: [
+        Container(
+          width: widget.isAICard
+              ? MediaQuery.of(context).size.width * 0.83
+              : MediaQuery.of(context).size.width * 0.9,
+          decoration: BoxDecoration(
+            color: HexColor.fromHex('#F6F6F6'),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildProfileHeader(context),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: widget.descriptionPadding.toDouble(),
+                  ),
+                  child: _buildDescription(context),
+                ),
+                const SizedBox(height: 10),
+                _buildActionRow(context),
+                if (widget.showBottomText) _buildBottomRow(context),
+              ],
             ),
-            const SizedBox(height: 10),
-            _buildActionRow(context),
-            if (showBottomText) _buildBottomRow(context),
-          ],
+          ),
         ),
-      ),
+        // Like button in the top-left corner
+        if (widget.showLikeButton)
+          Positioned(
+            top: 10,
+            right: 16,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: IconButton(
+                color: Colors.white,
+                icon: Icon(
+                  Icons.favorite,
+                  color: isLiked ? Colors.pink : Colors.grey.shade400,
+                  size: 26,
+                ),
+                onPressed: toggleLike,
+              ),
+            ),
+          ),
+      ],
     );
   }
 
@@ -82,7 +120,7 @@ class CustomJobCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                userName,
+                widget.userName,
                 style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 18,
@@ -115,7 +153,7 @@ class CustomJobCard extends StatelessWidget {
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white, width: 4),
         image: DecorationImage(
-          image: AssetImage(profileImagePath),
+          image: AssetImage(widget.profileImagePath),
           fit: BoxFit.cover,
         ),
       ),
@@ -132,7 +170,7 @@ class CustomJobCard extends StatelessWidget {
         ),
         const SizedBox(width: 4),
         Text(
-          location,
+          widget.location,
           style: TextStyle(
             fontFamily: 'Inter',
             color: HexColor.fromHex('#666666'),
@@ -156,7 +194,7 @@ class CustomJobCard extends StatelessWidget {
         ),
         const SizedBox(width: 4),
         Text(
-          "$age jaar",
+          "${widget.age} jaar",
           style: TextStyle(
             fontFamily: 'Inter',
             color: HexColor.fromHex('#666666'),
@@ -171,7 +209,7 @@ class CustomJobCard extends StatelessWidget {
   Widget _buildDescription(BuildContext context) {
     final theme = Theme.of(context);
     return ReadMoreText(
-      description,
+      widget.description,
       trimLines: 3,
       style: TextStyle(
         fontFamily: 'Inter',
@@ -204,10 +242,10 @@ class CustomJobCard extends StatelessWidget {
         Expanded(
           flex: 2,
           child: ActionButton(
-            onButtonPressed: onButtonPressed,
-            buttonText: buttonText,
-            icon: buttonIcon,
-            backgroundColor: buttonColor,
+            onButtonPressed: widget.onButtonPressed,
+            buttonText: widget.buttonText,
+            icon: widget.buttonIcon,
+            backgroundColor: widget.buttonColor,
           ),
         ),
         const SizedBox(width: 10),
@@ -224,7 +262,7 @@ class CustomJobCard extends StatelessWidget {
         ),
         ClearInkWell(
           onTap: () {
-            context.push(ProfileScreen.employerRoute);
+            context.push(EmployProfileDisplayScreen.employerRoute);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -267,7 +305,7 @@ class CustomJobCard extends StatelessWidget {
           const SizedBox(width: 4),
           FittedBox(
             child: Text(
-              " $suggestionPercentage%",
+              " ${widget.suggestionPercentage}%",
               style: TextStyle(
                 fontFamily: 'Inter',
                 color: theme.primaryColor,

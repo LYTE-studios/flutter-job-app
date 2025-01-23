@@ -18,7 +18,9 @@ Widget buildSocialButton({
       backgroundColor: isInstagram ? Colors.pink[50] : Colors.grey[100],
       foregroundColor: isInstagram ? TextStyles.red : TextStyles.lightgrey,
       elevation: 0,
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+      ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.45),
       ),
@@ -40,16 +42,22 @@ Widget buildSocialButton({
           label,
           style: TextStyle(
             fontSize: 15.5,
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
             color: isInstagram ? TextStyles.red : TextStyles.lightgrey,
           ),
         ),
         if (showClose) const SizedBox(width: 4),
         if (showClose)
-          SvgIcon(JobrIcons.close, size: 10, color: TextStyles.red),
+          SvgIcon(JobrIcons.close,
+              size: 12, color: TextStyles.red.withOpacity(0.7)),
         if (showPlus) ...[
           const SizedBox(width: 4),
-          const SvgIcon(JobrIcons.plus, size: 10),
+          const SvgIcon(
+            JobrIcons.plus,
+            size: 15,
+            color: Colors.grey,
+          ),
         ],
       ],
     ),

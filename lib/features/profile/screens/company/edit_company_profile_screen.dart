@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
@@ -161,8 +163,8 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                         },
                         borderRadius: BorderRadius.circular(100),
                         child: Container(
-                          width: 40,
-                          height: 40,
+                          width: 35,
+                          height: 35,
                           decoration: BoxDecoration(
                             color: HexColor.fromHex('#E5E5EA'),
                             shape: BoxShape.circle,
@@ -170,8 +172,8 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                           alignment: Alignment.center,
                           child: SvgPicture.asset(
                             JobrIcons.close,
-                            width: 22,
-                            height: 22,
+                            width: 16,
+                            height: 16,
                             colorFilter: ColorFilter.mode(
                               HexColor.fromHex('#8E8E93'),
                               BlendMode.srcIn,
@@ -280,80 +282,85 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(21),
-                color: HexColor.fromHex('#F5F5F5'),
-              ),
-              padding: const EdgeInsets.all(12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Row(
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
+            GestureDetector(
+              onTap: () {
+                context.push(CompanyVenueProfile.employerRoute);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(21),
+                  color: HexColor.fromHex('#F5F5F5'),
+                ),
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          width: 45,
+                          height: 45,
+                          clipBehavior: Clip.antiAlias,
+                          child: Image.asset(
+                            JobrIcons.placeholder1,
+                          ),
                         ),
-                        width: 45,
-                        height: 45,
-                        clipBehavior: Clip.antiAlias,
-                        child: Image.asset(
-                          JobrIcons.placeholder1,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Brooklyn',
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                              color: HexColor.fromHex('#000000'),
+                        const SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              'Brooklyn',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w700,
+                                color: HexColor.fromHex('#000000'),
+                              ),
                             ),
-                          ),
-                          Row(
-                            children: [
-                              SvgPicture.asset(
-                                JobrIcons.location,
-                                width: 12,
-                                colorFilter: ColorFilter.mode(
-                                  theme.primaryColor,
-                                  BlendMode.srcIn,
+                            Row(
+                              children: [
+                                SvgPicture.asset(
+                                  JobrIcons.location,
+                                  width: 12,
+                                  colorFilter: ColorFilter.mode(
+                                    theme.primaryColor,
+                                    BlendMode.srcIn,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                'Gent, Voorstraat',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                  color: HexColor.fromHex('#666666'),
+                                const SizedBox(width: 4),
+                                Text(
+                                  'Gent, Voorstraat',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w500,
+                                    color: HexColor.fromHex('#666666'),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Aanpassen',
-                      style: TextStyle(
-                        color: theme.primaryColor,
-                        fontSize: 16,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Aanpassen',
+                        style: TextStyle(
+                          color: theme.primaryColor,
+                          fontSize: 16,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 10),

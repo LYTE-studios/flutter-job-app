@@ -82,8 +82,8 @@ class SettingsScreen extends StatelessWidget {
                             width: 4,
                           ),
                           image: const DecorationImage(
-                            image:
-                                AssetImage('assets/images/images/image-6.png'),
+                            image: AssetImage(
+                                'assets/images/logos/brooklyn_kortrijk.png'),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -155,21 +155,48 @@ class SettingsScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: 8,
+                    ),
                     _buildInfoRow("Bedrijfsnaam", "Brooklyn"),
+                    SizedBox(
+                      height: 8,
+                    ),
                     _buildInfoRow("Website", "www.brooklyn.be"),
+                    SizedBox(
+                      height: 8,
+                    ),
                     _buildInfoRowWithIcon(
                       "Locatie",
                       "Kortrijk",
                       Icons.location_pin,
                     ),
+                    SizedBox(
+                      height: 8,
+                    ),
                     _buildInfoRow("Werknemers", "2-10 werknemers"),
+                    SizedBox(
+                      height: 8,
+                    ),
                     _buildInfoRow(
                       "Bio",
                       "Multibrandstores & Webshop. Brooklyn, dat's een mix van merken en heel veel broeken. Dat laatste nemen we als broekspecialist au sérieux met een jeans assortiment om 'u' tegen te zeggen.",
                     ),
+                    SizedBox(
+                      height: 28,
+                    ),
                     _buildInfoRow("Aantal vestigingen", "Kies een aantal"),
+                    SizedBox(
+                      height: 8,
+                    ),
                     _buildInfoRow("Sector", "Maak een keuze"),
-                    _buildRowWithButtons("Interne opleiding"),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    _buildRowWithButtons("Interne\nopleiding"),
+                    SizedBox(
+                      height: 8,
+                    ),
                   ],
                 ),
               ),
@@ -199,7 +226,7 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 4,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -248,7 +275,7 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 4,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -303,7 +330,7 @@ class SettingsScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 4,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
