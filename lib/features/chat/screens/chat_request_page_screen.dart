@@ -5,7 +5,6 @@ import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
-import '../../../data/models/message.dart';
 
 class ChatRequestPageScreen extends StatefulWidget {
   const ChatRequestPageScreen({super.key});

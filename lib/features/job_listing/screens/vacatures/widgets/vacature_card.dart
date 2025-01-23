@@ -7,6 +7,8 @@ import 'package:jobr/features/job_listing/screens/vacatures/vacancy_info_page.da
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 
 class VacatureCard extends StatelessWidget {
+  const VacatureCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Card(

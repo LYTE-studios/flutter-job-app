@@ -1,20 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/models/contract_type.dart';
+import 'package:jobr/data/models/function_type.dart';
+import 'package:jobr/data/models/location_type.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 
-import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
+import 'package:jobr/features/job_listing/widgets/function_type_bottom_sheet.dart';
+import 'package:jobr/features/job_listing/widgets/location_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/search_function_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
-import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
-import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class CreateJobListingGeneralScreen extends StatefulWidget {
   const CreateJobListingGeneralScreen({super.key});
@@ -34,9 +34,9 @@ class CreateJobListingGeneralScreen extends StatefulWidget {
 class _CreateJobListingGeneralScreenState
     extends State<CreateJobListingGeneralScreen> {
   // Dropdown selections
-  String? _selectedContractType;
-  String? _selectedFunction;
-  String? _selectedLocation;
+  ContractType? _selectedContractType;
+  FunctionType? _selectedFunction;
+  LocationType? _selectedLocation;
 
   bool get _isButtonEnabled =>
       _selectedContractType != null &&
@@ -52,22 +52,27 @@ class _CreateJobListingGeneralScreenState
         usedWidgetsInCreation.addAll({
           "Algemeen": [
             JobrDropdownField(
-                showTitle: false,
-                title: "Contract type",
-                selectedValue: _selectedContractType,
-                onPressed: () {}),
+              showTitle: false,
+              title: "Contract type",
+              selectedValue: _selectedContractType?.name,
+              onPressed: () {},
+            ),
             JobrDropdownField(
-                title: "Functie",
-                selectedValue: _selectedFunction,
-                onPressed: () {}),
+              title: "Functie",
+              selectedValue: _selectedFunction?.name,
+              onPressed: () {},
+            ),
             JobrDropdownField(
-                title: "Locatie",
-                selectedValue: _selectedLocation,
-                onPressed: () {}),
+              title: "Locatie",
+              selectedValue: _selectedLocation?.name,
+              onPressed: () {},
+            ),
           ]
         });
       },
       isNavigationEnabled: _isButtonEnabled,
+      buttonLabel: 'Naar beschrijving & media',
+      secondaryButtonLabel: 'Naar beschrijving ',
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -83,53 +88,28 @@ class _CreateJobListingGeneralScreenState
           // Contract Type
           JobrDropdownField(
             title: "Contract type",
-            selectedValue: _selectedContractType,
+            selectedValue: _selectedContractType?.name,
             onPressed: () => ContractTypeBottomSheet(
-              onSelected: (String value) {
+              onSelected: (ContractType value) {
                 setState(() {
                   _selectedContractType = value;
                 });
-                Navigator.pop(context);
               },
               title: "Kies één of meerdere",
-              options: const [
-                "Full-time",
-                "Half-time",
-                "Flexi",
-                "Student",
-                "Stagair",
-                "Freelance",
-              ],
             ).showBottomSheet(context: context),
           ),
 
           // Function
           JobrDropdownField(
             title: "Functie",
-            selectedValue: _selectedFunction,
-            onPressed: () => SearchFunctionBottomSheet(
+            selectedValue: _selectedFunction?.name,
+            onPressed: () => FunctionTypeBottomSheet(
               title: "Kies een functie",
-              onSelected: (String value) {
+              onSelected: (FunctionType value) {
                 setState(() {
                   _selectedFunction = value;
                 });
-                Navigator.pop(context);
               },
-              options: const [
-                "All-round",
-                "Zaal",
-                "Bar",
-                "Keuken",
-                "Management",
-                "Back-office",
-                "Financieel",
-                "Hygiëne",
-                "Afwasser",
-                "Sommelier",
-                "Barista",
-                "Ober/Serveerster",
-                "Cateringmanagement",
-              ],
             ).showBottomSheet(context: context),
           ),
           // Container(
@@ -179,23 +159,18 @@ class _CreateJobListingGeneralScreenState
           // Location
           JobrDropdownField(
             title: "Locatie",
-            selectedValue: _selectedLocation,
-            // options: ["Op locatie", "Remote"],
-            onPressed: () => ContractTypeBottomSheet(
-              title: "Kies een contract type",
-              options: const ["Op locatie", "Hybride", "Afstandswerk"],
-              onSelected: (String value) {
+            selectedValue: _selectedLocation?.name,
+            onPressed: () => LocationTypeBottomSheet(
+              title: "Kies een locatie",
+              onSelected: (LocationType value) {
                 setState(() {
                   _selectedLocation = value;
                 });
-                Navigator.pop(context);
               },
             ).showBottomSheet(context: context),
           ),
         ],
       ),
-      buttonLabel: 'Naar beschrijving & media',
-      secondaryButtonLabel: 'Naar beschrijving ',
     );
   }
 

@@ -16,18 +16,19 @@ class JobListScreen extends StatelessWidget {
         title: const Text(
           "Zoekresultaten",
           style: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
-            child: Container(
-              child: Image.asset(
-                height: 20,
-                width: 20,
-                color: Colors.black,
-                "assets/images/recruteren/filter.png",
-              ),
+            child: Image.asset(
+              height: 20,
+              width: 20,
+              color: Colors.black,
+              "assets/images/recruteren/filter.png",
             ),
           ),
         ],

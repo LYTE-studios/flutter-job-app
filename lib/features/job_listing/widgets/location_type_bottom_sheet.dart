@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:jobr/data/models/contract_type.dart';
+import 'package:jobr/data/models/location_type.dart';
 import 'package:jobr/data/services/vacancies_service.dart';
 import 'package:jobr/features/job_listing/widgets/base_option_bottom_sheet.dart';
 import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
-class ContractTypeBottomSheet extends StatefulWidget with BottomSheetMixin {
-  final void Function(ContractType contractType) onSelected;
+class LocationTypeBottomSheet extends StatefulWidget with BottomSheetMixin {
+  final void Function(LocationType locationType) onSelected;
   final String title;
 
-  ContractTypeBottomSheet({
+  LocationTypeBottomSheet({
     super.key,
     required this.onSelected,
     required this.title,
   });
 
   @override
-  State<ContractTypeBottomSheet> createState() =>
-      _ContractTypeBottomSheetState();
+  State<LocationTypeBottomSheet> createState() =>
+      _LocationTypeBottomSheetState();
 }
 
-class _ContractTypeBottomSheetState extends State<ContractTypeBottomSheet>
+class _LocationTypeBottomSheetState extends State<LocationTypeBottomSheet>
     with ScreenStateMixin {
-  List<ContractType> contractTypes = [];
+  List<LocationType> locationType = [];
 
   @override
   Future<void> loadData() async {
-    contractTypes = await VacanciesService().getContractTypes();
+    locationType = await VacanciesService().getLocationTypes();
 
     setState(() {
-      contractTypes = contractTypes;
+      locationType = locationType;
     });
 
     return super.loadData();
@@ -38,11 +38,11 @@ class _ContractTypeBottomSheetState extends State<ContractTypeBottomSheet>
   @override
   Widget build(BuildContext context) {
     return BaseOptionBottomSheet(
-      title: "Contract type",
+      title: "Location",
       loading: loading,
-      options: contractTypes.map((e) => e.name).toList(),
+      options: locationType.map((e) => e.name).toList(),
       onSelected: (index) {
-        widget.onSelected.call(contractTypes[index]);
+        widget.onSelected.call(locationType[index]);
 
         Navigator.pop(context);
       },
