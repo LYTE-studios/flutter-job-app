@@ -50,20 +50,17 @@ class JobrAppbarNavigation extends StatelessWidget
           Row(
             mainAxisAlignment:
                 center ? MainAxisAlignment.center : MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               if (prefixIcon != null)
                 Padding(
-                    padding: const EdgeInsets.only(
-                      left: 8,
-                    ),
-                    child: prefixIcon!),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 8.0,
+                  padding: const EdgeInsets.only(left: 8),
+                  child: prefixIcon!,
                 ),
+              SizedBox(
+                height: barHeight,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: center
                       ? CrossAxisAlignment.center
                       : CrossAxisAlignment.start,
@@ -95,9 +92,7 @@ class JobrAppbarNavigation extends StatelessWidget
               ),
               if (icon != null)
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 8,
-                  ),
+                  padding: const EdgeInsets.only(left: 8),
                   child: icon!,
                 ),
             ],
@@ -113,6 +108,19 @@ class JobrAppbarNavigation extends StatelessWidget
                   color: Colors.black,
                 ),
                 onPressed: () => context.pop(),
+              ),
+            ),
+          if (trailing != null)
+            Positioned(
+              top: 0,
+              right: 10,
+              bottom: 0,
+              child: SizedBox(
+                height: barHeight,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: trailing!,
+                ),
               ),
             ),
         ],

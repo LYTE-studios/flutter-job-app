@@ -4,6 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/chat/screens/chat_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
+import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
+import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
+import 'package:jobr/features/profile/screens/company_screen/settings.dart';
 import 'package:jobr/features/profile/screens/tabs/employee_profile_tab.dart';
 import 'package:jobr/features/profile/screens/tabs/general_item_widget.dart';
 import 'package:jobr/features/profile/screens/tabs/media_item_widget.dart';
@@ -14,23 +18,21 @@ import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 
-class EmployProfileDisplayScreen extends StatefulWidget {
-  static const String location = 'employ-profile';
+class VacancyInfoScreen extends StatefulWidget {
+  static const String location = 'vacancy-info';
 
-  const EmployProfileDisplayScreen({super.key});
+  const VacancyInfoScreen({super.key});
 
-  static String employerRoute = JobrRouter.getRoute(
-    location,
+  static String route = JobrRouter.getRoute(
+    '${JobListingsScreen.location}/$location',
     JobrRouter.employerInitialroute,
   );
 
   @override
-  State<EmployProfileDisplayScreen> createState() =>
-      _EmployProfileDisplayScreenState();
+  State<VacancyInfoScreen> createState() => _VacancyInfoScreenState();
 }
 
-class _EmployProfileDisplayScreenState
-    extends State<EmployProfileDisplayScreen> {
+class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
   List<TabData> tabData = [
     TabData(label: 'Algemeen', icon: JobrIcons.dashboard),
     TabData(label: 'Media', icon: JobrIcons.chat),
@@ -121,7 +123,7 @@ class _EmployProfileDisplayScreenState
                         left: 0,
                         right: 0,
                         child: Image.asset(
-                          'assets/images/images/image-4.png',
+                          'assets/images/images/profile_image.png',
                           fit: BoxFit.cover,
                           height: 180,
                         ),
@@ -140,19 +142,55 @@ class _EmployProfileDisplayScreenState
                             ),
                             image: const DecorationImage(
                               image: AssetImage(
-                                  'assets/images/images/profile.png'),
+                                'assets/images/logos/brooklyn_kortrijk.png',
+                              ),
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                       ),
                       Positioned(
-                        top: 190,
-                        right: 25,
-                        child: Text(
-                          '143x bekeken',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
+                        bottom: 20,
+                        right: 70,
+                        child: InkWell(
+                          onTap: () {
+                            // Add your settings action here
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade300.withOpacity(0.7),
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            child: SvgIcon(
+                              JobrIcons.edit,
+                              size: 20.68,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 20,
+                        right: 20,
+                        child: InkWell(
+                          onTap: () {
+                            context.push(DeleteVacancyPage.route);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.pink,
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            child: SvgIcon(
+                              JobrIcons.delete_icon,
+                              size: 20.68,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -166,7 +204,7 @@ class _EmployProfileDisplayScreenState
             physics: const ClampingScrollPhysics(),
             children: [
               const Text(
-                "Louis Ottevaere",
+                "Winkel medewerker",
                 style: TextStyle(
                   fontSize: 25,
                   fontFamily: 'Inter',
@@ -184,7 +222,7 @@ class _EmployProfileDisplayScreenState
                   ),
                   const SizedBox(width: 4),
                   const Text(
-                    "Kortrijk",
+                    "Gent • 44km • 36 kandidaten",
                     style: TextStyle(
                         fontSize: 15.5,
                         fontWeight: FontWeight.w500,
@@ -198,16 +236,16 @@ class _EmployProfileDisplayScreenState
               Row(
                 children: [
                   SvgIcon(
-                    JobrIcons.magnifyingGlassDotted,
+                    JobrIcons.briefcase,
                     size: 16,
                     leaveUnaltered: true,
                     color: theme.primaryColor,
                   ),
                   const SizedBox(width: 4),
                   const Text(
-                    "Full-time",
+                    "Op locatie • Full-time • Enige ervaring vereist",
                     style: TextStyle(
-                        fontSize: 15.5,
+                        fontSize: 14.3,
                         fontWeight: FontWeight.w500,
                         color: Colors.black54),
                   ),

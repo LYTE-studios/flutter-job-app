@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
+import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
+import 'package:jobr/features/job_listing/screens/vacatures/vacancy_info_page.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 
 class VacatureCard extends StatelessWidget {
@@ -41,7 +45,7 @@ class VacatureCard extends StatelessWidget {
                         SizedBox(width: 4),
                         SvgPicture.asset(
                           'assets/images/icons/location.svg',
-                          color: Colors.pinkAccent,
+                          color: Colors.pink,
                           height: 17,
                           width: 17,
                         ),
@@ -131,7 +135,9 @@ class VacatureCard extends StatelessWidget {
                       ),
                       width: 200,
                       buttonText: '  Aanpassen',
-                      onTap: () {},
+                      onTap: () {
+                        context.push(VacancyInfoScreen.route);
+                      },
                       borderRadius: 32,
                       height: 40,
                       textStyle: TextStyle(
@@ -144,10 +150,19 @@ class VacatureCard extends StatelessWidget {
                     ),
                     PrimaryButton(
                       buttonText: ' 16 ',
-                      onTap: () {},
+                      onTap: () {
+                        context.push(
+                          RecruitmentDetailScreen.employerRoute,
+                          extra: {
+                            'category': '',
+                            'title': 'Sollicitaties',
+                            "image": "",
+                          },
+                        );
+                      },
                       height: 39,
                       width: 80,
-                      suffixIcon: Icon(Icons.people),
+                      icon: Icon(Icons.people),
                       textColor: Colors.white,
                       buttonColor: Colors.pink.shade400,
                     ),

@@ -62,7 +62,10 @@ class JobrIcons {
   static const String send = '$_baseIconPath/send.svg';
   static const String aboutUs = '$_baseIconPath/about_us.svg';
   static const String venueLocation = '$_baseIconPath/venue_location.svg';
-
+  static const String magnifyingGlassDotted =
+      '$_baseIconPath/magnifying_glass_dotted.svg';
+  static const String briefcase = '$_baseIconPath/briefcase.svg';
+  static const String delete_icon = '$_baseIconPath/delete.svg';
   static const List<String> icons = [
     logoLight,
     googleIcon,

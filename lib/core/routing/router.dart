@@ -19,6 +19,8 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_sala
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
+import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
+import 'package:jobr/features/job_listing/screens/vacatures/vacancy_info_page.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
@@ -198,6 +200,28 @@ GoRouter router = GoRouter(
             child: JobListingsScreen(),
           ),
           routes: [
+            GoRoute(
+              path: VacancyInfoScreen.location,
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                return buildPageWithSlideUpTransition(
+                  context: context,
+                  state: state,
+                  child: VacancyInfoScreen(),
+                );
+              },
+              routes: [
+                 GoRoute(
+              path: DeleteVacancyPage.location,
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                return buildPageWithSlideUpTransition(
+                  context: context,
+                  state: state,
+                  child: DeleteVacancyPage(),
+                );
+              },
+            ),
+              ]
+            ),
             GoRoute(
               path: CreateJobListingGeneralScreen.location,
               pageBuilder: (BuildContext context, GoRouterState state) {

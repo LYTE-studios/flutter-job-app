@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/vacancy.dart';
@@ -6,6 +7,7 @@ import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/data/services/vacancies_service.dart';
 import 'package:jobr/features/Sollicitaties/widgets/job_cards.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
+import 'package:jobr/features/job_listing/screens/vacatures/widgets/vacature_card.dart';
 import 'package:jobr/features/jobs/widgets/job_card.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
@@ -122,14 +124,31 @@ class _JobListingsScreenState extends State<JobListingsScreen>
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          const JobrAppbarNavigation(
+          JobrAppbarNavigation(
             appbarTitle: "Mijn vacatures",
             description: "Bekijk al je vacatures en chat met sollicitanten",
             canGoBack: false,
+            trailing: vacancies.isEmpty
+                ? Container()
+                : Padding(
+                    padding: const EdgeInsets.only(bottom: 30.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        context.push(
+                          CreateJobListingGeneralScreen.employerRoute,
+                        );
+                      },
+                      child: SvgPicture.asset(
+                        'assets/images/icons/add_outlined.svg',
+                        height: 25,
+                        width: 25,
+                      ),
+                    ),
+                  ),
             center: false,
           ),
           Expanded(
-            child: true ?? vacancies.isEmpty
+            child: vacancies.isEmpty
                 ? buildEmtpyState(context)
                 : ListView(
                     padding: const EdgeInsets.symmetric(
@@ -137,7 +156,7 @@ class _JobListingsScreenState extends State<JobListingsScreen>
                     ),
                     children: vacancies
                         .map(
-                          (vacancy) => JobCard(),
+                          (vacancy) => VacatureCard(),
                         )
                         .toList(),
                   ),
