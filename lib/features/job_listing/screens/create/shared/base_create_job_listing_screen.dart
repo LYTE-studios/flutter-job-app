@@ -15,6 +15,8 @@ class BaseCreateJobListingScreen extends StatelessWidget {
   final Function()? onNavigate;
 
   final String buttonLabel;
+  final String? secondaryButtonLabel;
+  final bool buttonMustBeAtBottom;
 
   const BaseCreateJobListingScreen({
     super.key,
@@ -23,13 +25,17 @@ class BaseCreateJobListingScreen extends StatelessWidget {
     this.onNavigate,
     this.progress = 0,
     this.buttonLabel = "Continue",
+    this.secondaryButtonLabel,
+    this.buttonMustBeAtBottom = true,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         leading: IconButton(
           onPressed: () {
             context.pop();
@@ -44,6 +50,7 @@ class BaseCreateJobListingScreen extends StatelessWidget {
           "Nieuwe vacature",
           style: TextStyles.titleMedium,
         ),
+        centerTitle: true,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Row(
@@ -61,33 +68,40 @@ class BaseCreateJobListingScreen extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 6,
-                  color: Colors.grey[300], // Remaining 80% width
+                  color: Colors.grey[100], // Remaining 80% width
                 ),
               ),
             ],
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(
-          PaddingSizes.large,
-        ),
-        child: SafeArea(
-          bottom: true,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: PaddingSizes.small),
-              child,
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: PaddingSizes.large,
+      body: SafeArea(
+        bottom: true,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(PaddingSizes.large),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: PaddingSizes.small),
+                    child,
+                  ],
                 ),
-                child: Center(
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: PaddingSizes.large,
+              ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 58,
+                    height: 55,
                     child: FilledButton(
                       style: FilledButton.styleFrom(
                         backgroundColor: isNavigationEnabled
@@ -100,9 +114,11 @@ class BaseCreateJobListingScreen extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 10),
                       ),
-                      onPressed: onNavigate,
+                      onPressed: isNavigationEnabled ? onNavigate : () {},
                       child: Text(
-                        buttonLabel,
+                        !isNavigationEnabled
+                            ? buttonLabel
+                            : (secondaryButtonLabel ?? buttonLabel),
                         style: const TextStyle(
                           fontSize: 17.5,
                           fontFamily: 'Inter',
@@ -113,8 +129,9 @@ class BaseCreateJobListingScreen extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 10),
+          ],
         ),
       ),
     );

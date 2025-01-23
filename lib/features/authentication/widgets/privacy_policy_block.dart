@@ -17,7 +17,7 @@ class PrivacyPolicyBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 81,
+      height: 61,
       child: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(

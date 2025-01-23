@@ -13,27 +13,31 @@ class JobrAppbarNavigation extends StatelessWidget
 
   final Widget? icon;
 
+  final Widget? prefixIcon;
+
   final bool canGoBack;
 
   final bool center;
 
   final Widget? trailing;
+  final double appBarFontSize;
 
-  const JobrAppbarNavigation({
-    super.key,
-    required this.appbarTitle,
-    this.description,
-    this.canGoBack = false,
-    this.icon,
-    this.center = true,
-    this.trailing,
-  });
+  const JobrAppbarNavigation(
+      {super.key,
+      required this.appbarTitle,
+      this.description,
+      this.canGoBack = false,
+      this.icon,
+      this.center = true,
+      this.trailing,
+      this.appBarFontSize = 26,
+      this.prefixIcon});
 
   static const double barHeight = 89;
 
   @override
   Widget build(BuildContext context) {
-    final double statusbarHeight = MediaQuery.of(context).padding.top;
+    final double statusbarHeight = MediaQuery.of(context).padding.top + 10;
 
     return Container(
       padding: EdgeInsets.only(
@@ -46,22 +50,25 @@ class JobrAppbarNavigation extends StatelessWidget
           Row(
             mainAxisAlignment:
                 center ? MainAxisAlignment.center : MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 4.0,
+              if (prefixIcon != null)
+                Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: prefixIcon!,
                 ),
+              SizedBox(
+                height: barHeight,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: center
                       ? CrossAxisAlignment.center
                       : CrossAxisAlignment.start,
                   children: [
                     Text(
                       appbarTitle,
-                      style: const TextStyle(
-                        fontSize: 26,
+                      style: TextStyle(
+                        fontSize: appBarFontSize,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -85,15 +92,14 @@ class JobrAppbarNavigation extends StatelessWidget
               ),
               if (icon != null)
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 8,
-                  ),
+                  padding: const EdgeInsets.only(left: 8),
                   child: icon!,
                 ),
             ],
           ),
           if (canGoBack)
             Positioned(
+              top: 10,
               left: 0,
               bottom: 0,
               child: IconButton(
@@ -102,6 +108,19 @@ class JobrAppbarNavigation extends StatelessWidget
                   color: Colors.black,
                 ),
                 onPressed: () => context.pop(),
+              ),
+            ),
+          if (trailing != null)
+            Positioned(
+              top: 0,
+              right: 10,
+              bottom: 0,
+              child: SizedBox(
+                height: barHeight,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: trailing!,
+                ),
               ),
             ),
         ],

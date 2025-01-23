@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
@@ -73,6 +75,7 @@ class _NewBranchScreenState extends State<NewBranchScreen> {
                       return SelectableBranchWidget(
                         branch: branch,
                         width: width,
+                        isSelectableBranch: branch.$4,
                       );
                     },
                   )
@@ -83,7 +86,9 @@ class _NewBranchScreenState extends State<NewBranchScreen> {
               height: 58,
               width: width,
               child: FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.pop();
+                },
                 style: FilledButton.styleFrom(
                   backgroundColor: theme.primaryColor,
                 ),
@@ -107,135 +112,143 @@ class _NewBranchScreenState extends State<NewBranchScreen> {
 }
 
 class SelectableBranchWidget extends StatelessWidget {
-  const SelectableBranchWidget({
-    super.key,
-    required this.width,
-    required this.branch,
-  });
+  SelectableBranchWidget(
+      {super.key,
+      required this.width,
+      required this.branch,
+      this.isSelectableBranch = true});
 
   final double width;
   final Branch branch;
+  bool isSelectableBranch;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: HexColor.fromHex('#F5F5F5'),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 18),
-      margin: const EdgeInsets.only(bottom: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(
-            width: width,
-            height: 111,
-            child: Stack(
-              clipBehavior: Clip.none, // Allow overflow
-              fit: StackFit.expand,
-              children: [
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    height: 89,
-                    decoration: BoxDecoration(
-                      color: HexColor.fromHex('#E4E4E4').withOpacity(.5),
-                      borderRadius: BorderRadius.circular(16.24),
+    return GestureDetector(
+      onTap: () {
+        if (isSelectableBranch) {
+          context.push(CompanyVenueProfile.employerRoute);
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: HexColor.fromHex('#F5F5F5'),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 18),
+        margin: const EdgeInsets.only(bottom: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              width: width,
+              height: 111,
+              child: Stack(
+                clipBehavior: Clip.none, // Allow overflow
+                fit: StackFit.expand,
+                children: [
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      height: 89,
+                      decoration: BoxDecoration(
+                        color: HexColor.fromHex('#E4E4E4').withOpacity(.5),
+                        borderRadius: BorderRadius.circular(16.24),
+                      ),
                     ),
                   ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 10,
-                  child: Container(
-                    width: 67.7,
-                    height: 67.7,
+                  Positioned(
+                    bottom: 0,
+                    left: 10,
+                    child: Container(
+                      width: 67.7,
+                      height: 67.7,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: HexColor.fromHex('#F5F5F5'),
+                          width: 3.16,
+                        ),
+                        color: HexColor.fromHex('#E4E4E4'),
+                      ),
+                      alignment: (branch.$1 != null) ? null : Alignment.center,
+                      child: (branch.$1 != null)
+                          ? Image.asset(
+                              branch.$1!,
+                              fit: BoxFit.cover,
+                            )
+                          : SvgPicture.asset(
+                              JobrIcons.camera,
+                              width: 27,
+                              height: 27,
+                              colorFilter: ColorFilter.mode(
+                                HexColor.fromHex('#AEADAD'),
+                                BlendMode.srcIn,
+                              ),
+                            ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: <Widget>[
+                if (branch.$4)
+                  Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      border: Border.all(
-                        color: HexColor.fromHex('#F5F5F5'),
-                        width: 3.16,
+                      color: theme.primaryColor.withOpacity(.3),
+                    ),
+                    padding: const EdgeInsets.all(4),
+                    child: Container(
+                      width: 18,
+                      height: 18,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: theme.primaryColor,
                       ),
+                    ),
+                  )
+                else
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
                       color: HexColor.fromHex('#E4E4E4'),
                     ),
-                    alignment: (branch.$1 != null) ? null : Alignment.center,
-                    child: (branch.$1 != null)
-                        ? Image.asset(
-                            branch.$1!,
-                            fit: BoxFit.cover,
-                          )
-                        : SvgPicture.asset(
-                            JobrIcons.camera,
-                            width: 27,
-                            height: 27,
-                            colorFilter: ColorFilter.mode(
-                              HexColor.fromHex('#AEADAD'),
-                              BlendMode.srcIn,
-                            ),
-                          ),
+                  ),
+                const SizedBox(width: 10),
+                SizedBox(
+                  width: width * .6,
+                  child: Text(
+                    branch.$2,
+                    style: TextStyle(
+                      fontSize: 15.74,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      color: HexColor.fromHex('#000000'),
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: <Widget>[
-              if (branch.$4)
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: theme.primaryColor.withOpacity(.3),
-                  ),
-                  padding: const EdgeInsets.all(4),
-                  child: Container(
-                    width: 18,
-                    height: 18,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: theme.primaryColor,
-                    ),
-                  ),
-                )
-              else
-                Container(
-                  width: 24,
-                  height: 24,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: HexColor.fromHex('#E4E4E4'),
-                  ),
-                ),
-              const SizedBox(width: 10),
-              SizedBox(
-                width: width * .6,
-                child: Text(
-                  branch.$2,
-                  style: TextStyle(
-                    fontSize: 15.74,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w600,
-                    color: HexColor.fromHex('#000000'),
-                  ),
-                ),
+            const SizedBox(height: 10),
+            Text(
+              branch.$3,
+              style: TextStyle(
+                fontSize: 13.61,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w500,
+                color: HexColor.fromHex('#A5A5A5'),
               ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            branch.$3,
-            style: TextStyle(
-              fontSize: 13.61,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w500,
-              color: HexColor.fromHex('#A5A5A5'),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

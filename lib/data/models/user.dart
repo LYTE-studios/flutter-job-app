@@ -1,5 +1,16 @@
 enum UserType { employee, employer }
 
+extension UserTypeExtension on UserType {
+  String api() {
+    switch (this) {
+      case UserType.employee:
+        return "employee";
+      case UserType.employer:
+        return "employer";
+    }
+  }
+}
+
 class User {
   final int id;
   final String username;

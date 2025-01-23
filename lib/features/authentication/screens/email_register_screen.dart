@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/user.dart';
-import 'package:jobr/data/providers/auth_providers.dart';
+import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
-import 'package:jobr/features/jobs/job_screen.dart';
-import 'package:jobr/features/Sollicitaties/recruteren_screen.dart';
+import 'package:jobr/features/core/widgets/exception_popup.dart';
+import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_textfield.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
-class EmailRegisterScreen extends ConsumerStatefulWidget {
+class EmailRegisterScreen extends StatefulWidget {
   final UserType userType;
 
   const EmailRegisterScreen({
@@ -23,24 +22,23 @@ class EmailRegisterScreen extends ConsumerStatefulWidget {
   static const String location = 'email-register';
 
   @override
-  ConsumerState<EmailRegisterScreen> createState() =>
-      _EmailRegisterScreenState();
+  State<EmailRegisterScreen> createState() => _EmailRegisterScreenState();
 }
 
-class _EmailRegisterScreenState extends ConsumerState<EmailRegisterScreen> {
+class _EmailRegisterScreenState extends State<EmailRegisterScreen>
+    with ScreenStateMixin {
   // Text editing controllers
   final TextEditingController tecEmail = TextEditingController();
   final TextEditingController tecPassword = TextEditingController();
   final TextEditingController tecConfirmPassword = TextEditingController();
 
-  void _register() {
-    // if (widget.userType == UserType.employee) {
-    //   context.go(JobrRouter.employeeInitialroute);
-    // } else {
-    //   context.go(JobrRouter.employerInitialroute);
-    // }
+  @override
+  void setError(String error) {
+    ExceptionPopup.show(context, error);
+    setLoading(false);
+  }
 
-    // return;
+  Future<void> _registerEmployee() async {
     final data = {
       "email": tecEmail.text,
       "password": tecPassword.text,
@@ -48,50 +46,101 @@ class _EmailRegisterScreenState extends ConsumerState<EmailRegisterScreen> {
     };
 
     // Call the provider to register the employee (or employer if needed)
-    ref.read(authProvider.notifier).registerEmployee(data);
+    await AccountsService().registerByEmployee(data);
+  }
+
+  Future<void> _registerEmployer() async {
+    final data = {
+      "email": tecEmail.text,
+      "password": tecPassword.text,
+      "confirm_password": tecConfirmPassword.text,
+    };
+  }
+
+  Future<void> _register() async {
+    if (tecEmail.text.isEmpty) {
+      setError('Email is verplicht');
+      return;
+    }
+
+    if (tecPassword.text.isEmpty) {
+      setError('Wachtwoord is verplicht');
+      return;
+    }
+
+    if (tecPassword.text != tecConfirmPassword.text) {
+      setError('Wachtwoorden komen niet overeen');
+      return;
+    }
+
+    try {
+      await AccountsService().register(
+        email: tecEmail.text,
+        password: tecPassword.text,
+        userType: widget.userType,
+      );
+
+      switch (widget.userType) {
+        case UserType.employee:
+          context.pushReplacement(JobListingsScreen.employerRoute);
+        case UserType.employer:
+          context.pushReplacement(JobListingsScreen.employerRoute);
+      }
+    } catch (e) {
+      setError('Account kon niet worden aangemaakt');
+      return;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authProvider);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        if (authState.error != null)
-          Text(
-            authState.error!,
-            style: const TextStyle(color: Colors.red),
-          ),
-        JobrTextField(
-          controller: tecEmail,
-          hintText: "Jouw email",
+    return Scaffold(
+      backgroundColor: Colors.transparent, // Transparent background
+      resizeToAvoidBottomInset: true, // Prevent overflow when keyboard appears
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                reverse:
+                    true, // Keeps focus on the bottom when the keyboard opens
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    JobrTextField(
+                      controller: tecEmail,
+                      hintText: "Jouw email",
+                      height: 45,
+                    ),
+                    const SizedBox(height: 10),
+                    JobrTextField(
+                      controller: tecPassword,
+                      hintText: "Kies wachtwoord",
+                      obscureText: true,
+                      height: 45,
+                    ),
+                    const SizedBox(height: 10),
+                    JobrTextField(
+                      controller: tecConfirmPassword,
+                      hintText: "Herhaal wachtwoord",
+                      obscureText: true,
+                      height: 45,
+                    ),
+                    const SizedBox(height: 10),
+                    PrimaryButton(
+                      borderRadius: 30,
+                      onTap: loading ? null : _register,
+                      buttonText: loading ? 'Laden...' : 'Account maken',
+                    ),
+                    const PrivacyPolicyBlock(),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        JobrTextField(
-          controller: tecPassword,
-          hintText: "Wachtwoord",
-          obscureText: true,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        JobrTextField(
-          controller: tecConfirmPassword,
-          hintText: "Herhaal wachtwoord",
-          obscureText: true,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        PrimaryButton(
-          onTap: authState.isLoading ? null : _register,
-          buttonText: authState.isLoading ? 'Laden...' : 'Account maken',
-        ),
-        const PrivacyPolicyBlock(),
-      ],
+      ),
     );
   }
 }

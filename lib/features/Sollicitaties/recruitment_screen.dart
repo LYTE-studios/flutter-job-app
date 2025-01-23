@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/features/chat/screens/chat_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
-import 'package:jobr/features/job_listing/screens/general/recruitment_detail_screen.dart';
+import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
@@ -10,7 +11,7 @@ import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-import 'jobr_ai_suggestions_screen.dart';
+import '../job_listing/screens/general/jobr_ai_suggestions_screen.dart';
 
 class RecruitmentScreen extends StatefulWidget {
   static const String location = 'sollicitaties';
@@ -97,12 +98,9 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
                   ),
                   _buildFilterRow(theme),
                   const SizedBox(
-                    height: PaddingSizes.extraLarge * 2,
+                    height: PaddingSizes.extraLarge * 1.5,
                   ),
                   _buildJobrAISection(theme),
-                  const SizedBox(
-                    height: PaddingSizes.medium,
-                  ),
                 ],
               ),
             ),
@@ -185,7 +183,7 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
       onTap: () {
         context.push(FilterScreen.employerRoute);
       },
-      icon: Image.asset(
+      suffixIcon: Image.asset(
         height: 20,
         width: 20,
         "assets/images/recruteren/filter.png",
@@ -247,13 +245,15 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
             return Padding(
               padding: const EdgeInsets.only(right: 10),
               child: CustomJobCard(
+                descriptionPadding: 8,
+                isAICard: true,
                 description:
                     "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
                 age: "20",
                 buttonColor: HexColor.fromHex('#3976FF'),
                 buttonText: "Chat starten",
                 onButtonPressed: () {
-                  context.push(ChatRequestScreen.employerRoute);
+                  context.push(ChatPageScreen.employerRoute);
                 },
                 buttonIcon: JobrIcons.send,
                 location: "Brussel",
