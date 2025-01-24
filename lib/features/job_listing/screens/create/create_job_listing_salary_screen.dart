@@ -281,7 +281,7 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                 showTitle: false,
                 showWijzigenText: false,
                 // selectedValue: con,
-                showDropdownMenu: true,
+                showDropdownMenu: false,
                 textStyle: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,

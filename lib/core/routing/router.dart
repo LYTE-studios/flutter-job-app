@@ -327,12 +327,12 @@ GoRouter router = GoRouter(
           },
         ),
         GoRoute(
-          path: SettingsScreen.employerRoute,
+          path: SettingsScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return buildPageWithSlideUpTransition(
               context: context,
               state: state,
-              child: const SettingsScreen(),
+              child: SettingsScreen(),
             );
           },
         ),

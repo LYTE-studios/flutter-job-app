@@ -34,8 +34,14 @@ dependencies:
   logger: ^2.5.0
   file_picker: ^8.1.6
   readmore: ^3.0.0
+<<<<<<< HEAD
   hive: ^2.0.4
   hive_flutter: ^1.1.0
+=======
+  image_picker: ^1.1.2
+  flutter_web_auth: ^0.6.0
+  flutter_facebook_auth: ^6.0.4
+>>>>>>> Final_reviewed_Jobr
 
 dev_dependencies:
   flutter_test:
