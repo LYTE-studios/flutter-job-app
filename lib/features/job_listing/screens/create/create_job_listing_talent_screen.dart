@@ -8,9 +8,8 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_gene
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_salary_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
-import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
+import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/widgets/language_bottom_sheet.dart';
-import 'package:jobr/features/job_listing/widgets/search_function_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 
@@ -30,12 +29,10 @@ class CreateJobListingTalentScreen extends StatefulWidget {
 }
 
 class _CreateJobListingTalentScreenState
-    extends State<CreateJobListingTalentScreen> {
+    extends State<CreateJobListingTalentScreen> with CreateJobListingMixin {
   bool _isButtonEnabled = false;
   int selectedRadio = 6;
   List<String> selectedDays = [];
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
   final List<Language> _selectedlanguages = [];
 
   @override
@@ -45,71 +42,7 @@ class _CreateJobListingTalentScreenState
       progress: .7,
       buttonLabel: 'Naar salaris',
       onNavigate: () {
-        context.push(CreateJobListingSalaryScreen.route);
-        usedWidgetsInCreation.addAll({
-          "Talen": [
-            _selectedlanguages.isNotEmpty
-                ? Column(
-                    children: [
-                      Divider(
-                        thickness: 1.3,
-                        color: Colors.grey.shade300.withOpacity(0.7),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: _selectedlanguages
-                            .map(
-                              (function) => CustomSliderWidget(
-                                label: function.name,
-                                onRemove: () {
-                                  setState(() {
-                                    _selectedlanguages.remove(function);
-                                  });
-                                },
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ],
-                  )
-                : GestureDetector(
-                    onTap: () => {},
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(
-                            '+ ',
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins'),
-                          ),
-                          Text(
-                            'Voeg talen toe',
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-          ],
-        });
+        context.push(CreateJobListingSalaryScreen.route, extra: vacancy);
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
@@ -123,8 +56,10 @@ class _CreateJobListingTalentScreenState
                 style: TextStyles.titleMedium.copyWith(fontSize: 22),
               ),
               TextButton(
-                onPressed: () =>
-                    context.push(CreateJobListingSalaryScreen.route),
+                onPressed: () => context.push(
+                  CreateJobListingSalaryScreen.route,
+                  extra: vacancy,
+                ),
                 child: Text(
                   "Overslaan",
                   style: TextStyles.titleMedium.copyWith(

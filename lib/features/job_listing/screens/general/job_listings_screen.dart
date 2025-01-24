@@ -47,6 +47,7 @@ class _JobListingsScreenState extends State<JobListingsScreen>
           onPressed: () {
             context.push(
               CreateJobListingGeneralScreen.employerRoute,
+              extra: Vacancy(),
             );
             // Action for "Nieuwe vacature" button
           },
@@ -121,6 +122,7 @@ class _JobListingsScreenState extends State<JobListingsScreen>
                       onTap: () {
                         context.push(
                           CreateJobListingGeneralScreen.employerRoute,
+                          extra: Vacancy(),
                         );
                       },
                       child: SvgPicture.asset(

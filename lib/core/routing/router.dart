@@ -201,27 +201,26 @@ GoRouter router = GoRouter(
           ),
           routes: [
             GoRoute(
-              path: VacancyInfoScreen.location,
-              pageBuilder: (BuildContext context, GoRouterState state) {
-                return buildPageWithSlideUpTransition(
-                  context: context,
-                  state: state,
-                  child: VacancyInfoScreen(),
-                );
-              },
-              routes: [
-                 GoRoute(
-              path: DeleteVacancyPage.location,
-              pageBuilder: (BuildContext context, GoRouterState state) {
-                return buildPageWithSlideUpTransition(
-                  context: context,
-                  state: state,
-                  child: DeleteVacancyPage(),
-                );
-              },
-            ),
-              ]
-            ),
+                path: VacancyInfoScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  return buildPageWithSlideUpTransition(
+                    context: context,
+                    state: state,
+                    child: VacancyInfoScreen(),
+                  );
+                },
+                routes: [
+                  GoRoute(
+                    path: DeleteVacancyPage.location,
+                    pageBuilder: (BuildContext context, GoRouterState state) {
+                      return buildPageWithSlideUpTransition(
+                        context: context,
+                        state: state,
+                        child: DeleteVacancyPage(),
+                      );
+                    },
+                  ),
+                ]),
             GoRoute(
               path: CreateJobListingGeneralScreen.location,
               pageBuilder: (BuildContext context, GoRouterState state) {

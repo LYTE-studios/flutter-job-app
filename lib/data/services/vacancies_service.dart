@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:jobr/data/models/contract_type.dart';
 import 'package:jobr/data/models/function_type.dart';
 import 'package:jobr/data/models/language.dart';
@@ -70,6 +72,17 @@ class VacanciesService extends ApiService {
           .toList();
     } catch (e) {
       throw Exception('Failed to fetch functions: $e');
+    }
+  }
+
+  Future<void> createVacancy(Vacancy vacancy) async {
+    try {
+      await postApi(
+        'vacancies/vacancies',
+        data: vacancy.toJson(),
+      );
+    } catch (e) {
+      throw Exception('Failed to create vacancy: $e');
     }
   }
 

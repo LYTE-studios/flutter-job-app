@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/core/utils/keyboard_util.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class BaseCreateJobListingScreen extends StatelessWidget {
@@ -19,6 +20,8 @@ class BaseCreateJobListingScreen extends StatelessWidget {
   final String? secondaryButtonLabel;
   final bool buttonMustBeAtBottom;
 
+  final bool loading;
+
   const BaseCreateJobListingScreen({
     super.key,
     required this.child,
@@ -28,6 +31,7 @@ class BaseCreateJobListingScreen extends StatelessWidget {
     this.buttonLabel = "Continue",
     this.secondaryButtonLabel,
     this.buttonMustBeAtBottom = true,
+    this.loading = false,
   });
 
   @override
@@ -108,39 +112,18 @@ class BaseCreateJobListingScreen extends StatelessWidget {
                 bottom: true,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: PaddingSizes.large,
+                    vertical: PaddingSizes.medium,
+                    horizontal: PaddingSizes.extraLarge,
                   ),
                   child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 55,
-                        child: FilledButton(
-                          style: FilledButton.styleFrom(
-                            backgroundColor: isNavigationEnabled
-                                ? HexColor.fromHex("#FF3E68")
-                                : HexColor.fromHex('#DADADA'),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: isNavigationEnabled
-                                  ? BorderRadius.circular(65)
-                                  : BorderRadius.circular(65),
-                            ),
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                          ),
-                          onPressed: isNavigationEnabled ? onNavigate : () {},
-                          child: Text(
-                            !isNavigationEnabled
-                                ? buttonLabel
-                                : (secondaryButtonLabel ?? buttonLabel),
-                            style: const TextStyle(
-                              fontSize: 17.5,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
+                    child: PrimaryButton(
+                      borderRadius: 30,
+                      onTap: loading ? null : onNavigate,
+                      buttonText: loading
+                          ? 'Laden...'
+                          : !isNavigationEnabled
+                              ? buttonLabel
+                              : (secondaryButtonLabel ?? buttonLabel),
                     ),
                   ),
                 ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/contract_type.dart';
@@ -8,11 +7,10 @@ import 'package:jobr/data/models/location_type.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
-import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
+import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/function_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/location_type_bottom_sheet.dart';
-import 'package:jobr/features/job_listing/widgets/search_function_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
@@ -33,7 +31,7 @@ class CreateJobListingGeneralScreen extends StatefulWidget {
 }
 
 class _CreateJobListingGeneralScreenState
-    extends State<CreateJobListingGeneralScreen> {
+    extends State<CreateJobListingGeneralScreen> with CreateJobListingMixin {
   // Dropdown selections
   ContractType? _selectedContractType;
   FunctionType? _selectedFunction;
@@ -49,27 +47,11 @@ class _CreateJobListingGeneralScreenState
     return BaseCreateJobListingScreen(
       progress: .2,
       onNavigate: () {
-        context.push(CreateJobListingDescriptionScreen.route);
-        usedWidgetsInCreation.addAll({
-          "Algemeen": [
-            JobrDropdownField(
-              showTitle: false,
-              title: "Contract type",
-              selectedValue: _selectedContractType?.name,
-              onPressed: () {},
-            ),
-            JobrDropdownField(
-              title: "Functie",
-              selectedValue: _selectedFunction?.name,
-              onPressed: () {},
-            ),
-            JobrDropdownField(
-              title: "Locatie",
-              selectedValue: _selectedLocation?.name,
-              onPressed: () {},
-            ),
-          ]
-        });
+        vacancy.contractType = _selectedContractType;
+        vacancy.function = _selectedFunction;
+        vacancy.location = _selectedLocation;
+
+        context.push(CreateJobListingDescriptionScreen.route, extra: vacancy);
       },
       isNavigationEnabled: _isButtonEnabled,
       buttonLabel: 'Naar beschrijving & media',

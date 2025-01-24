@@ -34,170 +34,167 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      top: true,
-      bottom: false,
-      child: Padding(
-        padding: EdgeInsets.only(
-          top: PaddingSizes.extraLarge,
-          left: PaddingSizes.small,
-          right: PaddingSizes.small,
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+    return Padding(
+      padding: EdgeInsets.only(
+        top: PaddingSizes.extraLarge,
+        left: PaddingSizes.small,
+        right: PaddingSizes.small,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SafeArea(
+            child: SizedBox(),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: const Icon(
+                  Icons.close,
+                  size: 29,
+                  color: Colors.black,
+                ),
+              ),
+              const Spacer(),
+              Center(
+                child: Text(
+                  widget.title,
+                  style: TextStyles.titleMedium,
+                ),
+              ),
+              const Spacer(),
+              const SizedBox(
+                width: 56,
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          TextField(
+            cursorHeight: 24,
+            decoration: InputDecoration(
+              hintText: "Zoek een functie",
+              hintStyle: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
+                  fontFamily: 'Poppins',
+                  color: Colors.grey[400]),
+              prefixIcon: Padding(
+                padding: const EdgeInsets.only(
+                    top: 12.0, bottom: 12, left: 12, right: 8),
+                child: SvgPicture.asset(
+                  'assets/images/icons/search.svg',
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Stack(
               children: [
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.close,
-                    size: 29,
-                    color: Colors.black,
+                JobrLoadingSwitcher(
+                  loading: widget.loading,
+                  child: ListView.builder(
+                    padding: const EdgeInsets.only(
+                      top: PaddingSizes.small,
+                      bottom: 89,
+                    ),
+                    itemCount: widget.options.length,
+                    itemBuilder: (context, index) {
+                      final option = widget.options[index];
+                      final isSelected = widget.allowMultipleOptionSelection
+                          ? selectedOptions.contains(option)
+                          : selectedOption == option;
+
+                      return Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(14)),
+                          title: Text(
+                            option,
+                            style: TextStyles.titleMedium.copyWith(
+                                fontSize: 16.5,
+                                fontWeight: FontWeight.w600,
+                                color: isSelected
+                                    ? Colors.pinkAccent
+                                    : Colors.black),
+                          ),
+                          onTap: () {
+                            setState(() {
+                              if (widget.allowMultipleOptionSelection) {
+                                if (isSelected) {
+                                  selectedOptions.remove(option);
+                                } else {
+                                  selectedOptions.add(option);
+                                }
+                              } else {
+                                selectedOption = option;
+                              }
+                            });
+                          },
+                          selected: isSelected,
+                          selectedTileColor:
+                              Colors.pink.shade50.withOpacity(0.6),
+                        ),
+                      );
+                    },
                   ),
                 ),
-                const Spacer(),
-                Center(
-                  child: Text(
-                    widget.title,
-                    style: TextStyles.titleMedium,
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      child: Center(
+                        child: SizedBox(
+                          width: MediaQuery.sizeOf(context).width,
+                          height: 58,
+                          child: FilledButton(
+                            style: FilledButton.styleFrom(
+                              backgroundColor: (selectedOption != null ||
+                                      selectedOptions.isNotEmpty)
+                                  ? HexColor.fromHex("#FF3E68")
+                                  : HexColor.fromHex('#DADADA'),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(65),
+                              ),
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                            ),
+                            onPressed: () {
+                              if (widget.allowMultipleOptionSelection) {
+                                if (selectedOptions.isNotEmpty) {
+                                  widget.onSelected(selectedOptions.join(', '));
+                                }
+                              } else {
+                                if (selectedOption != null) {
+                                  widget.onSelected(selectedOption!);
+                                }
+                              }
+                            },
+                            child: const Text(
+                              "Bevestigen",
+                              style: TextStyle(
+                                fontSize: 17.5,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                const Spacer(),
-                const SizedBox(
-                  width: 56,
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            TextField(
-              cursorHeight: 24,
-              decoration: InputDecoration(
-                hintText: "Zoek een functie",
-                hintStyle: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                    fontFamily: 'Poppins',
-                    color: Colors.grey[400]),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(
-                      top: 12.0, bottom: 12, left: 12, right: 8),
-                  child: SvgPicture.asset(
-                    'assets/images/icons/search.svg',
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Stack(
-                children: [
-                  JobrLoadingSwitcher(
-                    loading: widget.loading,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.only(
-                        top: PaddingSizes.small,
-                        bottom: 89,
-                      ),
-                      itemCount: widget.options.length,
-                      itemBuilder: (context, index) {
-                        final option = widget.options[index];
-                        final isSelected = widget.allowMultipleOptionSelection
-                            ? selectedOptions.contains(option)
-                            : selectedOption == option;
-
-                        return Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: ListTile(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14)),
-                            title: Text(
-                              option,
-                              style: TextStyles.titleMedium.copyWith(
-                                  fontSize: 16.5,
-                                  fontWeight: FontWeight.w600,
-                                  color: isSelected
-                                      ? Colors.pinkAccent
-                                      : Colors.black),
-                            ),
-                            onTap: () {
-                              setState(() {
-                                if (widget.allowMultipleOptionSelection) {
-                                  if (isSelected) {
-                                    selectedOptions.remove(option);
-                                  } else {
-                                    selectedOptions.add(option);
-                                  }
-                                } else {
-                                  selectedOption = option;
-                                }
-                              });
-                            },
-                            selected: isSelected,
-                            selectedTileColor:
-                                Colors.pink.shade50.withOpacity(0.6),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 10,
-                        ),
-                        child: Center(
-                          child: SizedBox(
-                            width: MediaQuery.sizeOf(context).width,
-                            height: 58,
-                            child: FilledButton(
-                              style: FilledButton.styleFrom(
-                                backgroundColor: (selectedOption != null ||
-                                        selectedOptions.isNotEmpty)
-                                    ? HexColor.fromHex("#FF3E68")
-                                    : HexColor.fromHex('#DADADA'),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(65),
-                                ),
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                              ),
-                              onPressed: () {
-                                if (widget.allowMultipleOptionSelection) {
-                                  if (selectedOptions.isNotEmpty) {
-                                    widget
-                                        .onSelected(selectedOptions.join(', '));
-                                  }
-                                } else {
-                                  if (selectedOption != null) {
-                                    widget.onSelected(selectedOption!);
-                                  }
-                                }
-                              },
-                              child: const Text(
-                                "Bevestigen",
-                                style: TextStyle(
-                                  fontSize: 17.5,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

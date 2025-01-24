@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/enums/weekday.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
-import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
+import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -28,14 +29,27 @@ class CreateJobListingAvailabilityScreen extends StatefulWidget {
 }
 
 class _CreateJobListingAvailabilityScreenState
-    extends State<CreateJobListingAvailabilityScreen> {
-  bool _isButtonEnabled = true;
+    extends State<CreateJobListingAvailabilityScreen>
+    with CreateJobListingMixin {
   int selectedRadio = 6;
-  List<String> selectedDays = [];
+  List<Weekday> selectedDays = [];
+
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _timeController = TextEditingController();
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
+
+  String toVisibleDay(Weekday day) {
+    return {
+      Weekday.monday: 'M',
+      Weekday.tuesday: 'D',
+      Weekday.wednesday: 'W',
+      Weekday.thursday: 'D',
+      Weekday.friday: 'V',
+      Weekday.saturday: 'Z',
+      Weekday.sunday: 'Z',
+    }[day]!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,56 +57,12 @@ class _CreateJobListingAvailabilityScreenState
       progress: .6,
       buttonLabel: 'Naar talen',
       onNavigate: () {
-        context.push(CreateJobListingTalentScreen.route);
-        usedWidgetsInCreation.addAll({
-          'Beschikbaarheid': [
-            Wrap(
-              spacing: 8.0,
-              children: selectedDays.map((uniqueKey) {
-                String dayLabel = {
-                  'M': 'M',
-                  'D1': 'D',
-                  'W': 'W',
-                  'D2': 'D',
-                  'V': 'V',
-                  'Z1': 'Z',
-                  'Z2': 'Z',
-                }[uniqueKey]!;
-                return CircleAvatar(
-                  backgroundColor: HexColor.fromHex("#FF3E68"),
-                  child: Text(
-                    dayLabel,
-                    style: TextStyle(
-                      fontFamily: "Inter",
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-            if (selectedDate != null)
-              Text(
-                "Datum: ${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}",
-                style: TextStyle(
-                  fontFamily: "Inter",
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
-              ),
-            if (selectedTime != null)
-              Text(
-                "Tijd: ${selectedTime!.format(context)}",
-                style: TextStyle(
-                  fontFamily: "Inter",
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
-              ),
-          ]
-        });
+        vacancy.weekDays = selectedDays;
+        vacancy.jobDate = selectedDate;
+
+        context.push(CreateJobListingTalentScreen.route, extra: vacancy);
       },
-      isNavigationEnabled: _isButtonEnabled,
+      isNavigationEnabled: true,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -124,27 +94,17 @@ class _CreateJobListingAvailabilityScreenState
                 Wrap(
                   spacing: 8.0,
                   children: [
-                    ...{
-                      'M': 'M',
-                      'D1': 'D',
-                      'W': 'W',
-                      'D2': 'D',
-                      'V': 'V',
-                      'Z1': 'Z',
-                      'Z2': 'Z',
-                    }.entries.map((entry) {
-                      String uniqueKey = entry.key; // Unique key (e.g., D1, D2)
-                      String dayLabel =
-                          entry.value; // Display label (e.g., D, Z)
-                      bool isSelected = selectedDays.contains(uniqueKey);
+                    ...Weekday.values.map((entry) {
+                      String dayLabel = toVisibleDay(entry);
+                      bool isSelected = selectedDays.contains(entry);
 
                       return GestureDetector(
                         onTap: () {
                           setState(() {
                             if (isSelected) {
-                              selectedDays.remove(uniqueKey);
+                              selectedDays.remove(entry);
                             } else {
-                              selectedDays.add(uniqueKey);
+                              selectedDays.add(entry);
                               selectedRadio = 5;
                             }
                           });

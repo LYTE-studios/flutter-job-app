@@ -5,7 +5,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_desc
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
-import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
+import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -27,7 +27,7 @@ class CreateJobListingSkillsScreen extends StatefulWidget {
 }
 
 class _CreateJobListingSkillsScreenState
-    extends State<CreateJobListingSkillsScreen> {
+    extends State<CreateJobListingSkillsScreen> with CreateJobListingMixin {
   List<String> selectedSoftSkills = [];
   List<String> selectedHardSkills = [];
   double werkervaringValue = 1; // Initial value for slider
@@ -49,21 +49,26 @@ class _CreateJobListingSkillsScreenState
             showHardWarning = selectedHardSkills.length < 3;
           });
         } else {
-          context.push(CreateJobListingAvailabilityScreen.route);
-          usedWidgetsInCreation.addAll({
-            'Vaardigheden': [
-              _buildWerkervaringCard(
-                  cardColor: Colors.grey.shade100.withOpacity(0.7)),
-              _buildSkillSection('Soft skills', selectedSoftSkills,
-                  maxSelection: 0,
-                  isSoftSkills: true,
-                  showSelectionText: false),
-              _buildSkillSection('Hard skills', selectedHardSkills,
-                  maxSelection: 0,
-                  isSoftSkills: true,
-                  showSelectionText: false),
-            ]
-          });
+          // vacancy.skills = [...vacancy.softSkills, vacancy.hardSkills];
+
+          context.push(
+            CreateJobListingAvailabilityScreen.route,
+            extra: vacancy,
+          );
+          // usedWidgetsInCreation.addAll({
+          //   'Vaardigheden': [
+          //     _buildWerkervaringCard(
+          //         cardColor: Colors.grey.shade100.withOpacity(0.7)),
+          //     _buildSkillSection('Soft skills', selectedSoftSkills,
+          //         maxSelection: 0,
+          //         isSoftSkills: true,
+          //         showSelectionText: false),
+          //     _buildSkillSection('Hard skills', selectedHardSkills,
+          //         maxSelection: 0,
+          //         isSoftSkills: true,
+          //         showSelectionText: false),
+          //   ]
+          // });
         }
       },
       isNavigationEnabled: _isButtonEnabled,
