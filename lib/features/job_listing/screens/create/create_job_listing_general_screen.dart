@@ -59,13 +59,15 @@ class _CreateJobListingGeneralScreenState
               onPressed: () {},
             ),
             JobrDropdownField(
-                title: "Functie",
-                selectedValue: _selectedFunction?.name,
-                onPressed: () {}),
+              title: "Functie",
+              selectedValue: _selectedFunction?.name,
+              onPressed: () {},
+            ),
             JobrDropdownField(
-                title: "Locatie",
-                selectedValue: _selectedLocation?.name,
-                onPressed: () {}),
+              title: "Locatie",
+              selectedValue: _selectedLocation?.name,
+              onPressed: () {},
+            ),
           ]
         });
       },

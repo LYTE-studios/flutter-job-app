@@ -32,8 +32,10 @@ class CreateJobListingOverviewScreen extends StatefulWidget {
 class _CreateJobListingOverviewScreenState
     extends State<CreateJobListingOverviewScreen> {
   final bool _isButtonEnabled = true;
-  List<bool> isSectionExpanded =
-      List.generate(usedWidgetsInCreation.keys.length, (_) => false);
+  List<bool> isSectionExpanded = List.generate(
+    usedWidgetsInCreation.keys.length,
+    (_) => false,
+  );
 
   void toggleSection(int index) {
     setState(() {

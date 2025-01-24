@@ -77,16 +77,28 @@ class BaseCreateJobListingScreen extends StatelessWidget {
         ),
       ),
       body: GestureDetector(
+        behavior: HitTestBehavior.translucent,
         onTap: () {
           KeyboardUtil.close();
         },
         child: Stack(
           children: [
             Positioned(
-              top: PaddingSizes.large,
-              left: PaddingSizes.large,
-              right: PaddingSizes.large,
-              child: child,
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.all(
+                  PaddingSizes.large,
+                ),
+                child: SafeArea(
+                  minimum: const EdgeInsets.only(
+                    bottom: 64,
+                  ),
+                  child: child,
+                ),
+              ),
             ),
             Positioned(
               bottom: 10,
