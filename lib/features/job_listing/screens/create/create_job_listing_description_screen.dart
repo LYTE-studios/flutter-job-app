@@ -121,6 +121,7 @@ class _CreateJobListingDescriptionScreenState
                   fontSize: 15,
                   color: Colors.black,
                 ),
+                textAlign: TextAlign.left,
               ),
               Column(
                 children: options.asMap().entries.map((entry) {
@@ -132,6 +133,10 @@ class _CreateJobListingDescriptionScreenState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Divider(
+                          color: Colors.grey[200],
+                          thickness: 2,
+                        ),
                         // Title
                         GestureDetector(
                           onTap: () => toggleExpansion(index),
@@ -266,6 +271,8 @@ class _CreateJobListingDescriptionScreenState
                     isMainDescriptionExpanded = true;
                   } else if (!isMainDescriptionLocked) {
                     isMainDescriptionLocked = true;
+                  } else if (isMainDescriptionLocked) {
+                    isMainDescriptionLocked = false;
                   }
                 });
               },
@@ -314,7 +321,8 @@ class _CreateJobListingDescriptionScreenState
                           color: Colors.black,
                         ),
                         decoration: InputDecoration(
-                          hintText: 'Hier typen...',
+                          hintText:
+                              'Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...',
                           hintStyle: TextStyle(
                             color: Colors.grey.shade400,
                             fontSize: 14.5,
@@ -327,10 +335,13 @@ class _CreateJobListingDescriptionScreenState
                       )
                     else
                       Text(
-                        mainDescriptionController.text,
+                        (mainDescriptionController.text.isNotEmpty ||
+                                mainDescriptionController.text != '')
+                            ? mainDescriptionController.text
+                            : 'Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...',
                         style: TextStyle(
                           fontSize: 15,
-                          color: Colors.black,
+                          color: Colors.grey,
                         ),
                       ),
                     const SizedBox(height: 16),
@@ -344,6 +355,11 @@ class _CreateJobListingDescriptionScreenState
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Divider(
+                                color: Colors.grey[200],
+                                thickness: 2,
+                              ),
+                              SizedBox(height: 6),
                               // Title
                               GestureDetector(
                                 onTap: () => toggleExpansion(index),
@@ -355,7 +371,7 @@ class _CreateJobListingDescriptionScreenState
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 6),
                               // Expandable description with ellipsis
                               if (description.isNotEmpty) ...[
                                 // If description exists, show full description
@@ -378,7 +394,7 @@ class _CreateJobListingDescriptionScreenState
                                       color: Colors.grey.shade600,
                                     ),
                                   ),
-                                  const SizedBox(height: 16),
+                                  const SizedBox(height: 10),
                                 ],
                               ] else ...[
                                 // If description doesn't exist, show text field
@@ -409,7 +425,7 @@ class _CreateJobListingDescriptionScreenState
                                     onSubmitted: (_) =>
                                         _navigateToSkillsScreen(),
                                   ),
-                                  const SizedBox(height: 16),
+                                  const SizedBox(height: 10),
                                 ],
                               ],
                               (index != options.length - 1)
@@ -417,10 +433,6 @@ class _CreateJobListingDescriptionScreenState
                                       children: [
                                         SizedBox(
                                           height: 6,
-                                        ),
-                                        Divider(
-                                          color: Colors.grey[200],
-                                          thickness: 2,
                                         ),
                                       ],
                                     )

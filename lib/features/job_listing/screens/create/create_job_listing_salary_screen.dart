@@ -191,19 +191,19 @@ class CustomInputField extends StatelessWidget {
         filled: true,
         fillColor: HexColor.fromHex("#E4E4E4").withOpacity(0.3),
         contentPadding: const EdgeInsets.symmetric(
-          vertical: 14.0,
+          vertical: 12.5,
           horizontal: 12.0,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(18.0),
           borderSide: BorderSide.none, // No visible border
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(18.0),
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(1460),
+          borderRadius: BorderRadius.circular(18),
           borderSide: BorderSide(
             color: Colors.transparent, // Subtle border on focus
             width: 1.0,
@@ -359,11 +359,17 @@ class _SalaryWidgetState extends State<SalaryWidget> {
         if (_isToggleOn) ...[
           const SizedBox(height: 4),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(child: CustomInputField()),
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: CustomInputField(),
+              )),
               const SizedBox(width: 10),
               JobrDropdownField(
                 title: "Salary Unit",
+                hintText: 'ja maar',
                 showTitle: false,
                 showWijzigenText: false,
                 // selectedValue: con,

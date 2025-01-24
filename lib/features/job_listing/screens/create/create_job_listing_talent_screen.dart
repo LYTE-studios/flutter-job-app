@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
@@ -245,7 +246,8 @@ class CustomSliderWidget extends StatefulWidget {
   final String label;
   final VoidCallback onRemove;
 
-  const CustomSliderWidget({super.key, required this.label, required this.onRemove});
+  const CustomSliderWidget(
+      {super.key, required this.label, required this.onRemove});
 
   @override
   _CustomSliderWidgetState createState() => _CustomSliderWidgetState();
@@ -257,7 +259,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
   // Mapping slider value to labels
   final Map<double, String> labels = {
     0: 'Basis',
-    1: '          Gevorderd',
+    1: '        Gevorderd',
     2: 'Moedertaal',
   };
 
@@ -313,6 +315,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
                   onChanged: (value) {
                     setState(() {
                       _sliderValue = value.roundToDouble();
+                      HapticFeedback.lightImpact(); // Add haptic feedback
                     });
                   },
                 ),

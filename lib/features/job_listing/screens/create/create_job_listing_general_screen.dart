@@ -44,6 +44,83 @@ class _CreateJobListingGeneralScreenState
       _selectedFunction != null &&
       _selectedLocation != null;
 
+  initState() {
+    usedWidgetsInCreation.clear();
+  }
+
+  Widget _buildBottomSheetContent(BuildContext context,
+      {required String description, required String label}) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 5,
+          ),
+          Center(
+            child: Container(
+              height: 4,
+              width: 50,
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Row(
+            children: [
+              const Icon(
+                Icons.info,
+                color: Colors.white,
+                size: 24,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                label,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Text(
+            description,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 16),
+          GestureDetector(
+            onTap: () {
+              // Navigate to a new screen or perform your desired action
+              Navigator.pop(context);
+            },
+            child: const Text(
+              "Learn More",
+              style: TextStyle(
+                color: Colors.orange,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseCreateJobListingScreen(
@@ -122,7 +199,24 @@ class _CreateJobListingGeneralScreenState
             enabled: _selectedFunction !=
                 null, // Enable only when _selectedFunction is not null
             decoration: InputDecoration(
-              suffixIcon: Icon(Icons.info_outline),
+              suffixIcon: IconButton(
+                icon: Icon(Icons.info_outline),
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(16),
+                      ),
+                    ),
+                    backgroundColor: Colors.black,
+                    builder: (context) => _buildBottomSheetContent(context,
+                        label: 'Interne functietitel',
+                        description:
+                            'Geef hier een duidelijke naam voor de functie of rol binnen het bedrijf'),
+                  );
+                },
+              ),
               suffixIconColor: (_selectedFunction == null)
                   ? Colors.grey.shade300
                   : Colors.black38,
