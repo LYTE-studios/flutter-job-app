@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:jobr/ui/widgets/navigation/jobr_loading_switcher.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class SearchFunctionBottomSheet extends StatefulWidget with BottomSheetMixin {
@@ -10,12 +11,15 @@ class SearchFunctionBottomSheet extends StatefulWidget with BottomSheetMixin {
   final String title;
   final bool allowMultipleOptionSelection;
 
+  final bool loading;
+
   const SearchFunctionBottomSheet({
     super.key,
     required this.onSelected,
     required this.options,
     required this.title,
     this.allowMultipleOptionSelection = false,
+    this.loading = false,
   });
 
   @override
@@ -157,7 +161,8 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
                           });
                         },
                         selected: isSelected,
-                        selectedTileColor: Colors.pink.shade50.withOpacity(0.6),
+                        selectedTileColor:
+                            Colors.pink.shade50.withOpacity(0.6),
                       ),
                     );
                   },

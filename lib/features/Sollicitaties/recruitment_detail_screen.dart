@@ -8,7 +8,6 @@ import 'package:jobr/features/Sollicitaties/recruitment_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
-import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../ui/theme/jobr_icons.dart';

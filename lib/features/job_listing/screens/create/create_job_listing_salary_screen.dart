@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/models/contract_type.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
@@ -11,7 +12,6 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_tale
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
-import 'package:jobr/ui/widgets/buttons/jobr_radio_button.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
@@ -160,7 +160,7 @@ class _CreateJobListingSalaryScreenState
 }
 
 class CustomInputField extends StatelessWidget {
-  const CustomInputField({Key? key}) : super(key: key);
+  const CustomInputField({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +215,7 @@ class CustomInputField extends StatelessWidget {
 }
 
 class SalaryWidget extends StatefulWidget {
-  const SalaryWidget({Key? key}) : super(key: key);
+  const SalaryWidget({super.key});
 
   @override
   _SalaryWidgetState createState() => _SalaryWidgetState();
@@ -223,7 +223,7 @@ class SalaryWidget extends StatefulWidget {
 
 class _SalaryWidgetState extends State<SalaryWidget> {
   bool _isToggleOn = false;
-  String _selectedUnit = "per maand"; // Default value
+  ContractType? _selectedUnit; // Default value
   bool _isRadioSelected = false; // New state for radio button
   List<String> selectedSoftSkills = []; // Define selectedSoftSkills
   List<String> selectedHardSkills = []; // Define selectedHardSkills
@@ -331,13 +331,12 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                 inactiveThumbColor: Colors.white, // Thumb color when OFF
                 inactiveTrackColor: Colors.grey.shade400
                     .withOpacity(0.6), // Track color when OFF
-                thumbColor: MaterialStateProperty.all(Colors.white),
-                trackOutlineColor:
-                    MaterialStateProperty.all(Colors.transparent),
+                thumbColor: WidgetStateProperty.all(Colors.white),
+                trackOutlineColor: WidgetStateProperty.all(Colors.transparent),
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                thumbIcon: MaterialStateProperty.resolveWith<Icon?>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.selected)) {
+                thumbIcon: WidgetStateProperty.resolveWith<Icon?>(
+                  (Set<WidgetState> states) {
+                    if (states.contains(WidgetState.selected)) {
                       return Icon(Icons.circle,
                           size: 24.0,
                           color: Colors.white); // Increased thumb size
@@ -364,10 +363,10 @@ class _SalaryWidgetState extends State<SalaryWidget> {
               Expanded(child: CustomInputField()),
               const SizedBox(width: 10),
               JobrDropdownField(
-                title: "Locatie",
+                title: "Salary Unit",
                 showTitle: false,
                 showWijzigenText: false,
-                selectedValue: _selectedUnit,
+                // selectedValue: con,
                 showDropdownMenu: true,
                 textStyle: TextStyle(
                   fontSize: 18,
@@ -376,12 +375,13 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                   color: Colors.grey,
                 ),
                 // options: ["Op locatie", "Remote"],
+
+
                 onPressed: () => ContractTypeBottomSheet(
                   title: "Kies een contract type",
-                  options: const ["per uur", "per maand", "per jaar"],
-                  onSelected: (String value) {
+                  onSelected: (ContractType contractType) {
                     setState(() {
-                      _selectedUnit = value;
+                      // _selectedUnit = value;
                     });
                     Navigator.pop(context);
                   },
@@ -450,7 +450,7 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                   title: Text(option),
                   onTap: () {
                     setState(() {
-                      _selectedUnit = option;
+                      // _selectedUnit = option;
                     });
                     Navigator.pop(context);
                   },
