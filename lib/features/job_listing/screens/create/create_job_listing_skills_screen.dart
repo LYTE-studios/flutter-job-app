@@ -9,6 +9,7 @@ import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creatio
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:flutter/services.dart'; // For HapticFeedback.
 
 class CreateJobListingSkillsScreen extends StatefulWidget {
   const CreateJobListingSkillsScreen({super.key});
@@ -29,8 +30,12 @@ class _CreateJobListingSkillsScreenState
     extends State<CreateJobListingSkillsScreen> {
   List<String> selectedSoftSkills = [];
   List<String> selectedHardSkills = [];
-  final bool _isButtonEnabled = true;
   double werkervaringValue = 1; // Initial value for slider
+  bool showSoftWarning = false;
+  bool showHardWarning = false;
+
+  bool get _isButtonEnabled =>
+      selectedSoftSkills.length >= 3 && selectedHardSkills.length >= 3;
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +43,28 @@ class _CreateJobListingSkillsScreenState
       buttonLabel: 'Naar beschikbaarheid',
       progress: .4,
       onNavigate: () {
-        context.push(CreateJobListingAvailabilityScreen.route);
-        usedWidgetsInCreation.addAll({
-          'Vaardigheden': [
-            _buildWerkervaringCard(
-                cardColor: Colors.grey.shade100.withOpacity(0.7)),
-            _buildSkillSection('Soft skills', selectedSoftSkills,
-                maxSelection: 0, isSoftSkills: true, showSelectionText: false),
-            _buildSkillSection('Hard skills', selectedHardSkills,
-                maxSelection: 0, isSoftSkills: true, showSelectionText: false),
-          ]
-        });
+        if (!_isButtonEnabled) {
+          setState(() {
+            showSoftWarning = selectedSoftSkills.length < 3;
+            showHardWarning = selectedHardSkills.length < 3;
+          });
+        } else {
+          context.push(CreateJobListingAvailabilityScreen.route);
+          usedWidgetsInCreation.addAll({
+            'Vaardigheden': [
+              _buildWerkervaringCard(
+                  cardColor: Colors.grey.shade100.withOpacity(0.7)),
+              _buildSkillSection('Soft skills', selectedSoftSkills,
+                  maxSelection: 0,
+                  isSoftSkills: true,
+                  showSelectionText: false),
+              _buildSkillSection('Hard skills', selectedHardSkills,
+                  maxSelection: 0,
+                  isSoftSkills: true,
+                  showSelectionText: false),
+            ]
+          });
+        }
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
@@ -154,6 +170,9 @@ class _CreateJobListingSkillsScreenState
                     max: 3,
                     divisions: 3,
                     onChanged: (value) {
+                      if (value != werkervaringValue) {
+                        HapticFeedback.lightImpact();
+                      }
                       setState(() {
                         werkervaringValue = value;
                       });
@@ -218,20 +237,32 @@ class _CreateJobListingSkillsScreenState
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: TextStyles.titleMedium
-                  .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
-            ),
-            showSelectionText
-                ? Text(
-                    'Kies er $maxSelection',
-                    style: TextStyles.titleMedium.copyWith(
-                        fontSize: 15.4,
-                        fontWeight: FontWeight.w600,
-                        color: HexColor.fromHex("#0000003B").withOpacity(0.23)),
-                  )
-                : Container(),
+            Row(children: [
+              Text(
+                title,
+                style: TextStyles.titleMedium
+                    .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
+              ),
+              IconButton(
+                icon: const Icon(Icons.info_outline),
+                color: Colors.pink,
+                onPressed: () {
+                  // You could show more info here or a dialog.
+                },
+              )
+            ]),
+            if (showSelectionText)
+              Text(
+                'Kies er $maxSelection',
+                style: TextStyles.titleMedium.copyWith(
+                  color: (isSoftSkills && showSoftWarning) ||
+                          (!isSoftSkills && showHardWarning)
+                      ? Colors.pink
+                      : HexColor.fromHex("#0000003B").withOpacity(0.23),
+                  fontSize: 15.4,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
           ],
         ),
         const SizedBox(height: 8),
@@ -243,7 +274,9 @@ class _CreateJobListingSkillsScreenState
               showCheckmark: false,
               label: Text(skill),
               selected: selectedSkills.contains(skill),
+              pressElevation: 0, // Remove grey click effect
               onSelected: (selected) {
+                HapticFeedback.lightImpact();
                 setState(() {
                   if (selected) {
                     if (selectedSkills.length < maxSelection) {

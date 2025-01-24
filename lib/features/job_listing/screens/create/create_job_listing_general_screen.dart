@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/contract_type.dart';
@@ -58,15 +59,13 @@ class _CreateJobListingGeneralScreenState
               onPressed: () {},
             ),
             JobrDropdownField(
-              title: "Functie",
-              selectedValue: _selectedFunction?.name,
-              onPressed: () {},
-            ),
+                title: "Functie",
+                selectedValue: _selectedFunction?.name,
+                onPressed: () {}),
             JobrDropdownField(
-              title: "Locatie",
-              selectedValue: _selectedLocation?.name,
-              onPressed: () {},
-            ),
+                title: "Locatie",
+                selectedValue: _selectedLocation?.name,
+                onPressed: () {}),
           ]
         });
       },
@@ -82,7 +81,7 @@ class _CreateJobListingGeneralScreenState
           ),
           Divider(
             thickness: 0.6,
-            color: Colors.grey[400],
+            color: Colors.grey[300],
           ),
           const SizedBox(height: 16),
           // Contract Type
@@ -111,6 +110,43 @@ class _CreateJobListingGeneralScreenState
                 });
               },
             ).showBottomSheet(context: context),
+          ),
+          TextField(
+            cursorHeight: 22,
+            textAlignVertical:
+                TextAlignVertical.center, // Align text to vertical center
+            style: TextStyle(
+              fontSize: 16, // Ensure font size consistency
+              fontFamily: 'Poppins',
+            ),
+            enabled: _selectedFunction !=
+                null, // Enable only when _selectedFunction is not null
+            decoration: InputDecoration(
+              suffixIcon: Icon(Icons.info_outline),
+              suffixIconColor: (_selectedFunction == null)
+                  ? Colors.grey.shade300
+                  : Colors.black38,
+              hintStyle: TextStyle(
+                color: (_selectedFunction == null)
+                    ? Colors.grey.shade300
+                    : Colors.grey.shade400,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Poppins',
+              ),
+              hintText: 'Interne functietitel',
+              filled: true,
+              fillColor: (_selectedFunction == null)
+                  ? Colors.grey.shade100.withOpacity(0.4)
+                  : Colors.grey.shade100,
+              contentPadding: EdgeInsets.symmetric(
+                vertical: 17, // Center text vertically
+                horizontal: 15, // Keep horizontal padding
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 8,
           ),
           // Container(
           //             height: 56,
@@ -198,6 +234,48 @@ class _CreateJobListingGeneralScreenState
           ),
         );
       },
+    );
+  }
+}
+
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Container(
+          decoration: BoxDecoration(
+            color:
+                Colors.grey.shade100, // Background color similar to the image
+            borderRadius: BorderRadius.circular(12), // Rounded corners
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Interne functietitel", // Placeholder text
+                    hintStyle: TextStyle(
+                      color: Colors
+                          .grey.shade400, // Light gray color for placeholder
+                      fontSize: 16, // Font size
+                    ),
+                    border: InputBorder.none, // Removes the default border
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.info_outline, // Info icon
+                color: Colors.grey.shade400, // Light gray color for the icon
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

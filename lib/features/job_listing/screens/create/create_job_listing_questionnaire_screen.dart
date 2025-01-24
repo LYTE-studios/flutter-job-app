@@ -53,13 +53,11 @@ class _CreateJobListingVragenlijstScreenState
       isEditable[index] = !isEditable[index];
     });
   }
-
   @override
   Widget build(BuildContext context) {
-    return BaseCreateJobListingScreen(
-      progress: .9,
-      buttonLabel: 'Naar overzicht',
-      onNavigate: () {
+    
+  Function onNavigate() {
+    return () {
         context.push(CreateJobListingOverviewScreen.route);
         usedWidgetsInCreation.addAll({
           'Vragenlijst': [
@@ -134,7 +132,14 @@ class _CreateJobListingVragenlijstScreenState
                   ),
           ]
         });
-      },
+      };
+  }
+
+
+    return BaseCreateJobListingScreen(
+      progress: .9,
+      buttonLabel: 'Naar overzicht',
+      onNavigate: onNavigate,
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -146,13 +151,16 @@ class _CreateJobListingVragenlijstScreenState
                 "Vragenlijst",
                 style: TextStyles.titleMedium.copyWith(fontSize: 22),
               ),
-              Text(
-                "Overslaan",
-                style: TextStyles.titleMedium.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins',
-                    color: Colors.pink),
+              TextButton(
+                onPressed: onNavigate
+,                child: Text(
+                  "Overslaan",
+                  style: TextStyles.titleMedium.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
+                      color: Colors.pink),
+                ),
               ),
             ],
           ),
@@ -180,12 +188,12 @@ class _CreateJobListingVragenlijstScreenState
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
                     '+ ',
                     style: TextStyle(
                         fontSize: 24,
-                        color: Colors.grey,
+                        color: Colors.grey[400],
                         fontWeight: FontWeight.w500,
                         fontFamily: 'Poppins'),
                   ),
@@ -193,8 +201,8 @@ class _CreateJobListingVragenlijstScreenState
                     'Voeg talen toe',
                     style: TextStyle(
                         fontSize: 17,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w500,
+                        color: Colors.grey[400],
+                        fontWeight: FontWeight.w600,
                         fontFamily: 'Poppins'),
                   ),
                 ],
@@ -329,6 +337,9 @@ class _CustomQuestionBoxState extends State<CustomQuestionBox> {
                     ? TextField(
                         controller: widget.controller,
                         cursorHeight: 24,
+                        textInputAction: TextInputAction.done,
+                        onSubmitted: (_) {
+                        },
                         style: TextStyle(fontSize: 16, color: Colors.black87),
                         decoration: InputDecoration(
                           hintText: 'Typ een ja/nee vraag..',
