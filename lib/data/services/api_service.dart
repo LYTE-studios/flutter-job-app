@@ -61,11 +61,23 @@ class ApiService {
         'Authorization': 'Bearer $token',
       },
     );
-    return dio.request<dynamic>(
+
+    dio.interceptors.clear();
+
+    Response response = await dio.request<dynamic>(
       requestOptions.path,
       data: requestOptions.data,
       options: options,
     );
+
+    _setupInterceptors();
+
+    if (response.statusCode == 401) {
+      await clearTokens();
+      throw Exception("Token expired");
+    }
+
+    return response;
   }
 
   Future<bool> _refreshToken() async {
@@ -73,14 +85,20 @@ class ApiService {
       final refreshToken = await storage.read(key: 'refresh_token');
       if (refreshToken == null) return false;
 
+      dio.interceptors.clear();
+
       final response = await dio.post('token/refresh/', data: {
         'refresh': refreshToken,
       });
+
+      _setupInterceptors();
 
       if (response.statusCode == 200) {
         await setTokens(response.data['access'], response.data['refresh']);
         return true;
       }
+
+      await clearTokens();
       return false;
     } catch (e) {
       logger.e('Error refreshing token: $e');
@@ -94,6 +112,7 @@ class ApiService {
   }
 
   Future<void> clearTokens() async {
+    dio.options.headers.remove('Authorization');
     await storage.delete(key: 'access_token');
     await storage.delete(key: 'refresh_token');
   }

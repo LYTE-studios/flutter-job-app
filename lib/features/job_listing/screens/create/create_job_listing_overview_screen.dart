@@ -352,29 +352,31 @@ class __SelectableSectionState extends State<_SelectableSection> {
         ),
         child: Column(
           children: [
-            GestureDetector(
+            ClearInkWell(
               onTap: () {
                 setState(() {
                   isExpanded = !isExpanded;
                 });
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    widget.title,
-                    style: TextStyles.titleMedium.copyWith(
-                      fontSize: 18,
-                      color: isExpanded ? Colors.pinkAccent : Colors.black,
+              child: SizedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.title,
+                      style: TextStyles.titleMedium.copyWith(
+                        fontSize: 18,
+                        color: isExpanded ? Colors.pinkAccent : Colors.black,
+                      ),
                     ),
-                  ),
-                  Icon(
-                    isExpanded
-                        ? Icons.keyboard_arrow_up
-                        : Icons.keyboard_arrow_down,
-                    color: isExpanded ? Colors.pinkAccent : Colors.grey,
-                  ),
-                ],
+                    Icon(
+                      isExpanded
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down,
+                      color: isExpanded ? Colors.pinkAccent : Colors.grey,
+                    ),
+                  ],
+                ),
               ),
             ),
             if (isExpanded) ...[

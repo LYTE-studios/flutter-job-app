@@ -90,10 +90,8 @@ class VacanciesService extends ApiService {
     try {
       final response = await getApi(
         'vacancies/vacancies',
-        cacheDuration: Duration(
-          minutes: 30,
-        ),
       );
+
       return (response.data as List)
           .map((json) => Vacancy.fromJson(json))
           .toList();

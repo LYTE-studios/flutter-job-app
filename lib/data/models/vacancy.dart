@@ -37,24 +37,24 @@ class Vacancy {
   /// Factory constructor to create a Vacancy object from JSON
   factory Vacancy.fromJson(Map<dynamic, dynamic> json) {
     return Vacancy(
-      descriptions: (json['skill'] ?? [])
-          .map((e) => VacancyDescription.fromJson(e))
-          .toList(),
-      contractType: ContractType.fromJson(json['contract_type']),
-      function: FunctionType.fromJson(json['function']),
-      location: LocationType.fromJson(json['location']),
-      skills: (json['skill'] ?? []).map((e) => SkillType.fromJson(e)).toList(),
-      weekDays: (json['week_day'] ?? [])
-          .map((e) => WeekdayExtension.fromApi(e))
-          .toList(),
-      jobDate:
-          json['job_date'] != null ? DateTime.parse(json['job_date']) : null,
-      salary: json['salary'] != null ? double.parse(json['salary']) : null,
-      expectedMastery: MasteryExtension.fromApi(json['expected_mastery']),
-      languages: (json['language'] ?? [])
-          .map((e) => LanguageMastery.fromJson(e))
-          .toList(),
-      questions: (json['question'] ?? []).map((e) => e.toString()).toList(),
+      descriptions: (json['skill']?.isEmpty ?? true)
+          ? []
+          : json['skill']!.map((e) => VacancyDescription.fromJson(e)).toList(),
+      // contractType: ContractType.fromJson(json['contract_type']),
+      // function: FunctionType.fromJson(json['function']),
+      // location: LocationType.fromJson(json['location']),
+      // skills: (json['skill'] ?? []).map((e) => SkillType.fromJson(e)).toList(),
+      // weekDays: (json['week_day'] ?? [])
+      //     .map((e) => WeekdayExtension.fromApi(e))
+      //     .toList(),
+      // jobDate:
+      //     json['job_date'] != null ? DateTime.parse(json['job_date']) : null,
+      // salary: json['salary'] != null ? double.parse(json['salary']) : null,
+      // expectedMastery: MasteryExtension.fromApi(json['expected_mastery']),
+      // languages: (json['language'] ?? [])
+      //     .map((e) => LanguageMastery.fromJson(e))
+      //     .toList(),
+      // questions: (json['question'] ?? []).map((e) => e.toString()).toList(),
     );
   }
 
@@ -66,7 +66,7 @@ class Vacancy {
       'function': function?.id,
       'location': location?.id,
       'skill': skills?.map((e) => e.id).toList() ?? [],
-      'week_day': weekDays?.map((e) => {"name": e.api()}).toList(),
+      'week_day': [] ?? weekDays?.map((e) => {"name": e.api()}).toList(),
       'job_date': jobDate?.toString(),
       'salary': salary,
       'expected_mastery': expectedMastery?.api(),
