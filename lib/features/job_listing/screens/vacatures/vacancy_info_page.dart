@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
 import 'package:jobr/features/chat/screens/chat_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
+import 'package:jobr/features/job_listing/screens/vacatures/widgets/vacancy_info_tabs.dart';
 import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings.dart';
 import 'package:jobr/features/profile/screens/tabs/employee_profile_tab.dart';
@@ -13,6 +15,8 @@ import 'package:jobr/features/profile/screens/tabs/general_item_widget.dart';
 import 'package:jobr/features/profile/screens/tabs/media_item_widget.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:jobr/ui/widgets/buttons/action_button.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
@@ -39,9 +43,8 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
   ];
   int selectedIndex = 0;
 
-  List<Widget> tabs = const [
-    EmployeeProfileTab(),
-    MediaItemWidget(),
+  List<Widget> tabs = [
+    VacancyInfoTab(),
   ];
 
   @override
@@ -150,7 +153,7 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                         ),
                       ),
                       Positioned(
-                        bottom: 20,
+                        bottom: 10,
                         right: 70,
                         child: InkWell(
                           onTap: () {
@@ -172,7 +175,7 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                         ),
                       ),
                       Positioned(
-                        bottom: 20,
+                        bottom: 10,
                         right: 20,
                         child: InkWell(
                           onTap: () {
@@ -252,19 +255,6 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                 ],
               ),
               const SizedBox(height: 22),
-              const Padding(
-                padding: EdgeInsets.only(
-                  right: 12,
-                ),
-                child: Text(
-                  "Ik ben Louis, 30 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste service geven.",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black87),
-                ),
-              ),
-              const SizedBox(height: 24),
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 child: tabs[selectedIndex],
@@ -279,36 +269,71 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
           child: Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(16.0),
               child: SizedBox(
                 height: 52,
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: FilledButton(
-                  onPressed: () {
-                    context.push(ChatPageScreen.employerRoute);
-                  },
-                  style: FilledButton.styleFrom(
-                    backgroundColor: Color(0xFF3976FF),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgIcon(
-                        JobrIcons.send,
-                        size: 30,
-                        color: Colors.white,
-                      ),
-                      const Text(
-                        'Chat starten',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Inter',
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: PrimaryButton(
+                        borderRadius: 25,
+                        icon: SvgIcon(
+                          JobrIcons.people,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                        buttonText: 'Bekijk kandidaten',
+                        onTap: () {
+                          context.push(
+                            RecruitmentDetailScreen.employerRoute,
+                            extra: {
+                              'category': '',
+                              'title': 'Sollicitaties',
+                              "image": "",
+                            },
+                          );
+                        },
+                        buttonColor: Colors.pink,
+                        height: 45,
+                        textStyle: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
+                          fontSize: 17,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(width: 5),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey.shade300),
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: PrimaryButton(
+                          suffixIcon: SvgIcon(
+                            JobrIcons.uploadIcon,
+                            size: 20,
+                            color: Colors.black,
+                          ),
+                          borderRadius: 25,
+                          buttonText: 'Delen',
+                          onTap: () {
+                            context.push(DeleteVacancyPage.route);
+                          },
+                          buttonColor: Colors.white,
+                          height: 45,
+                          textStyle: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 17,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

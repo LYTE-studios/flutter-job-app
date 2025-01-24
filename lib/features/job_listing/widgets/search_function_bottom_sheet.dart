@@ -26,6 +26,31 @@ class SearchFunctionBottomSheet extends StatefulWidget with BottomSheetMixin {
 class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
   String? selectedOption;
   List<String> selectedOptions = [];
+  final TextEditingController _searchController = TextEditingController();
+  List<String> filteredOptions = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredOptions = widget.options;
+    _searchController.addListener(_filterOptions);
+  }
+
+  void _filterOptions() {
+    setState(() {
+      filteredOptions = widget.options
+          .where((option) => option
+              .toLowerCase()
+              .contains(_searchController.text.toLowerCase()))
+          .toList();
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +91,13 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
           ),
           const SizedBox(height: 8),
           TextField(
-            cursorHeight: 24,
+            controller: _searchController,
+            cursorHeight: 20,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Poppins',
+            ),
             decoration: InputDecoration(
               hintText: "Zoek een functie",
               hintStyle: TextStyle(
@@ -91,9 +122,9 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
                   padding: const EdgeInsets.only(
                     bottom: 72,
                   ),
-                  itemCount: widget.options.length,
+                  itemCount: filteredOptions.length,
                   itemBuilder: (context, index) {
-                    final option = widget.options[index];
+                    final option = filteredOptions[index];
                     final isSelected = widget.allowMultipleOptionSelection
                         ? selectedOptions.contains(option)
                         : selectedOption == option;

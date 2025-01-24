@@ -15,6 +15,7 @@ class JobrDropdownField extends StatelessWidget {
   final String hintText;
   final String? selectedValue;
   final String? iconPadding;
+  final TextStyle? textStyle;
 
   const JobrDropdownField(
       {super.key,
@@ -25,7 +26,8 @@ class JobrDropdownField extends StatelessWidget {
       this.showTitle = true,
       this.hintText = "Kies een optie",
       this.showWijzigenText = true,
-      this.showDropdownMenu = false}); // Initialize new parameter
+      this.showDropdownMenu = false,
+      this.textStyle}); // Initialize new parameter
 
   @override
   Widget build(BuildContext context) {
@@ -66,13 +68,15 @@ class JobrDropdownField extends StatelessWidget {
               children: [
                 Text(
                   selectedValue ?? hintText,
-                  style: TextStyles.titleSmall.copyWith(
-                      fontSize: 16.5,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Poppins',
-                      color: selectedValue == null
-                          ? Colors.grey[400]
-                          : Colors.black),
+                  style: textStyle != null
+                      ? textStyle
+                      : TextStyles.titleSmall.copyWith(
+                          fontSize: 16.5,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Poppins',
+                          color: selectedValue == null
+                              ? Colors.grey[400]
+                              : Colors.black),
                 ),
                 selectedValue == null
                     ? Padding(

@@ -183,27 +183,27 @@ class CustomInputField extends StatelessWidget {
           minHeight: 30,
         ),
         hintText: 'Bruto loon',
-        hintStyle: const TextStyle(
+        hintStyle: TextStyle(
             fontSize: 18,
-            color: Colors.grey,
+            color: Colors.grey[400],
             fontWeight: FontWeight.w500,
             fontFamily: 'Poppins'),
         filled: true,
-        fillColor: Colors.grey.shade100, // Light grey background
+        fillColor: HexColor.fromHex("#E4E4E4").withOpacity(0.3),
         contentPadding: const EdgeInsets.symmetric(
-          vertical: 12.0,
+          vertical: 14.0,
           horizontal: 12.0,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(16.0),
           borderSide: BorderSide.none, // No visible border
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(16.0),
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(1460),
           borderSide: BorderSide(
             color: Colors.transparent, // Subtle border on focus
             width: 1.0,
@@ -369,6 +369,12 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                 showWijzigenText: false,
                 selectedValue: _selectedUnit,
                 showDropdownMenu: true,
+                textStyle: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Poppins',
+                  color: Colors.grey,
+                ),
                 // options: ["Op locatie", "Remote"],
                 onPressed: () => ContractTypeBottomSheet(
                   title: "Kies een contract type",
@@ -397,8 +403,7 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                   _isRadioSelected
                       ? 'assets/images/icons/radio_filled.svg'
                       : 'assets/images/icons/radio_empty.svg',
-                  height: _isRadioSelected ? 24.0 + 6 : 24,
-                  width: 24.0,
+                  height: 24,
                 ),
               ),
               const SizedBox(width: 8),

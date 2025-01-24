@@ -183,7 +183,7 @@ class _CreateJobListingAvailabilityScreenState
                         selectedRadio == 0
                             ? 'assets/images/icons/radio_filled.svg'
                             : 'assets/images/icons/radio_empty.svg',
-                        height: selectedRadio == 0 ? 24 + 10 : 24,
+                        height: 24,
                       ),
                       const SizedBox(width: 5),
                       Text(
@@ -209,7 +209,7 @@ class _CreateJobListingAvailabilityScreenState
                         selectedRadio == 1
                             ? 'assets/images/icons/radio_filled.svg'
                             : 'assets/images/icons/radio_empty.svg',
-                        height: selectedRadio == 1 ? 24 + 10 : 24,
+                        height: 24,
                       ),
                       const SizedBox(width: 5),
                       Text(

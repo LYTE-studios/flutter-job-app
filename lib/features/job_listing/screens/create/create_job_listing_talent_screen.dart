@@ -123,13 +123,17 @@ class _CreateJobListingTalentScreenState
                 "Talen",
                 style: TextStyles.titleMedium.copyWith(fontSize: 22),
               ),
-              Text(
-                "Overslaan",
-                style: TextStyles.titleMedium.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins',
-                    color: Colors.pink),
+              TextButton(
+                onPressed: () =>
+                    context.push(CreateJobListingSalaryScreen.route),
+                child: Text(
+                  "Overslaan",
+                  style: TextStyles.titleMedium.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: 'Poppins',
+                      color: Colors.pink),
+                ),
               ),
             ],
           ),
