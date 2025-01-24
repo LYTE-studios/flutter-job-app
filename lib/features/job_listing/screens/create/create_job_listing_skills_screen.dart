@@ -274,7 +274,7 @@ class _CreateJobListingSkillsScreenState
               showCheckmark: false,
               label: Text(skill),
               selected: selectedSkills.contains(skill),
-              pressElevation: 0, // Remove grey click effect
+              pressElevation: 100, // Remove grey click effect
               onSelected: (selected) {
                 HapticFeedback.lightImpact();
                 setState(() {
@@ -287,7 +287,7 @@ class _CreateJobListingSkillsScreenState
                   }
                 });
               },
-              selectedColor: Colors.white,
+              selectedColor: Colors.transparent,
               backgroundColor: Colors.white,
               labelStyle: TextStyle(
                 fontFamily: 'Poppins',

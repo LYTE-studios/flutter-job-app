@@ -144,12 +144,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           child: InkWell(
                             onTap: () {
                               // Add your settings action here
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SettingsScreen()),
-                              );
+                              context.push(SettingsScreen.route);
                             },
                             child: Container(
                               padding: const EdgeInsets.all(10),
