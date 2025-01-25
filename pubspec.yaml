@@ -39,7 +39,7 @@ dependencies:
   image_picker: ^1.1.2
   flutter_web_auth: ^0.6.0
   flutter_facebook_auth: ^6.0.4
-  modal_bottom_sheet: ^3.0.0
+  # modal_bottom_sheet: ^3.0.0    # Removed this line
   intl: ^0.17.0  # or the latest version
 
 dev_dependencies:

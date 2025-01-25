@@ -221,30 +221,38 @@ class _CreateJobListingAvailabilityScreenState
                     readOnly: true,
                     onTap: () async {
                       FocusScope.of(context).unfocus();
-                      await showModalBottomSheet(
+                      await showDialog(
                         context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(24)),
-                        ),
-                        builder: (context) => SizedBox(
-                          // height: MediaQuery.of(context).size.height * 0.55,
-                          child: CustomDateTimePicker(
-                            onDateTimeSelected: (date, time) {
-                              setState(() {
-                                selectedDate = date;
-                                selectedTime = time;
-                                final formattedDate =
-                                    DateFormat('d MMM yyyy').format(date);
-                                final formattedTime =
-                                    '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
-                                _dateController.text =
-                                    '$formattedDate om $formattedTime';
-                              });
-                              Navigator.pop(context);
-                            },
+                        barrierColor: Colors.black54,
+                        builder: (context) => Dialog(
+                          insetPadding: EdgeInsets.all(18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Container(
+                            constraints: BoxConstraints(
+                              maxWidth: 800,
+                              maxHeight:
+                                  MediaQuery.of(context).size.height * 0.8,
+                            ),
+                            width: double.infinity,
+                            child: CustomDateTimePicker(
+                              initialDate: selectedDate ?? DateTime.now(),
+                              initialTime: selectedTime ?? TimeOfDay.now(),
+                              onDateTimeSelected: (date, time) {
+                                setState(() {
+                                  selectedDate = date;
+                                  selectedTime = time;
+                                  final formattedDate =
+                                      DateFormat('d MMM yyyy').format(date);
+                                  final formattedTime =
+                                      '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+                                  _dateController.text =
+                                      '$formattedDate om $formattedTime';
+                                });
+                                Navigator.pop(context);
+                              },
+                            ),
                           ),
                         ),
                       );

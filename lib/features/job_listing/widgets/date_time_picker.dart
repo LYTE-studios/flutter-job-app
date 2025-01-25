@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class CustomDateTimePicker extends StatefulWidget {
+  final DateTime initialDate;
+  final TimeOfDay initialTime;
   final void Function(DateTime, TimeOfDay) onDateTimeSelected;
 
   const CustomDateTimePicker({
     super.key,
+    required this.initialDate,
+    required this.initialTime,
     required this.onDateTimeSelected,
   });
 
@@ -14,10 +18,18 @@ class CustomDateTimePicker extends StatefulWidget {
 }
 
 class CustomDateTimePickerState extends State<CustomDateTimePicker> {
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
+  late DateTime selectedDate;
+  late TimeOfDay selectedTime;
   bool isAm = true;
   bool showMonthSelector = false;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedDate = widget.initialDate;
+    selectedTime = widget.initialTime;
+    isAm = selectedTime.period == DayPeriod.am;
+  }
 
   // Format time without AM/PM
   String formatTimeWithoutAmPm(TimeOfDay time) {
@@ -47,8 +59,13 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
       days.add(DateTime(date.year, date.month, i));
     }
 
+    // Calculate if we need 5 or 6 weeks
+    final int totalDaysCount = firstWeekday + daysInMonth;
+    final int weeksNeeded = (totalDaysCount / 7).ceil();
+    final int totalDaysNeeded = weeksNeeded * 7;
+
     // Add days from next month
-    final int remainingDays = 42 - days.length; // 6 weeks × 7 days = 42
+    final int remainingDays = totalDaysNeeded - days.length;
     for (int i = 1; i <= remainingDays; i++) {
       days.add(DateTime(date.year, date.month + 1, i));
     }
@@ -58,142 +75,153 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
 
   @override
   Widget build(BuildContext context) {
-    // Show the picker UI directly
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: StatefulBuilder(
-        builder: (context, setModalState) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 7,
-                    child: GestureDetector(
-                      onTap: () {
-                        setModalState(() {
-                          showMonthSelector = !showMonthSelector;
-                        });
-                      },
-                      child: showMonthSelector
-                          ? Row(
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: Row(
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Header with close button
+
+            // Existing picker UI
+            StatefulBuilder(
+              builder: (context, setModalState) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 7,
+                          child: GestureDetector(
+                            onTap: () {
+                              setModalState(() {
+                                showMonthSelector = !showMonthSelector;
+                              });
+                            },
+                            child: showMonthSelector
+                                ? Row(
                                     children: [
-                                      Icon(
-                                        Icons.arrow_forward_ios,
-                                        color: Colors.pink,
-                                        size: 20,
+                                      Expanded(
+                                        flex: 5,
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.arrow_forward_ios,
+                                              color: Colors.pink,
+                                              size: 20,
+                                            ),
+                                            SizedBox(width: 8),
+                                            Text(
+                                              'Back',
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.pink,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      SizedBox(width: 8),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Text(
+                                          DateFormat('yyyy')
+                                              .format(selectedDate),
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.pink,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Row(
+                                    children: [
                                       Text(
-                                        'Back',
+                                        DateFormat('MMM yyyy')
+                                            .format(selectedDate),
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.pink,
                                         ),
                                       ),
+                                      SizedBox(width: 8),
+                                      Icon(
+                                        Icons.arrow_back_ios_new_outlined,
+                                        color: Colors.pink,
+                                        size: 20,
+                                      ),
                                     ],
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: Text(
-                                    DateFormat('yyyy').format(selectedDate),
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.pink,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          : Row(
+                          ),
+                        ),
+                        Expanded(
+                            flex: 4,
+                            child: Row(
                               children: [
-                                Text(
-                                  DateFormat('MMM yyyy').format(selectedDate),
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.arrow_back_ios_new_outlined,
                                     color: Colors.pink,
+                                    size: 20,
                                   ),
+                                  onPressed: () {
+                                    setModalState(() {
+                                      selectedDate = DateTime(
+                                        selectedDate.year,
+                                        selectedDate.month - 1,
+                                        selectedDate.day,
+                                      );
+                                    });
+                                  },
                                 ),
-                                SizedBox(width: 8),
-                                Icon(
-                                  Icons.arrow_back_ios_new_outlined,
-                                  color: Colors.pink,
-                                  size: 20,
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: Colors.pink,
+                                    size: 20,
+                                  ),
+                                  onPressed: () {
+                                    setModalState(() {
+                                      selectedDate = DateTime(
+                                        selectedDate.year,
+                                        selectedDate.month + 1,
+                                        selectedDate.day,
+                                      );
+                                    });
+                                  },
                                 ),
                               ],
-                            ),
+                            ))
+                      ],
                     ),
-                  ),
-                  Expanded(
-                      flex: 3,
-                      child: Row(
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.arrow_back_ios_new_outlined,
-                              color: Colors.pink,
-                              size: 20,
-                            ),
-                            onPressed: () {
-                              setModalState(() {
-                                selectedDate = DateTime(
-                                  selectedDate.year,
-                                  selectedDate.month - 1,
-                                  selectedDate.day,
-                                );
-                              });
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Colors.pink,
-                              size: 20,
-                            ),
-                            onPressed: () {
-                              setModalState(() {
-                                selectedDate = DateTime(
-                                  selectedDate.year,
-                                  selectedDate.month + 1,
-                                  selectedDate.day,
-                                );
-                              });
-                            },
-                          ),
-                        ],
-                      ))
-                ],
-              ),
 
-              const SizedBox(height: 8),
+                    const SizedBox(height: 8),
 
-              if (showMonthSelector)
-                _buildMonthSelector(setModalState)
-              else
-                _buildCalendarView(setModalState),
-              Divider(
-                color: Color(0xFFF0F3F7),
-                thickness: 1.8,
-              ),
-              const SizedBox(height: 16),
+                    if (showMonthSelector)
+                      _buildMonthSelector(setModalState)
+                    else
+                      _buildCalendarView(setModalState),
+                    Divider(
+                      color: Color(0xFFF0F3F7),
+                      thickness: 1.8,
+                    ),
+                    const SizedBox(height: 16),
 
-              // Time Selector Section
-              _buildTimeSelector(setModalState),
+                    // Time Selector Section
+                    _buildTimeSelector(setModalState),
 
-              const SizedBox(height: 16),
-            ],
-          );
-        },
+                    const SizedBox(height: 16),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -237,13 +265,13 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                 child: Text(
                   DateFormat('MMM').format(DateTime(0, month)),
                   style: TextStyle(
-                    color: isSelected
-                        ? Colors.pinkAccent
-                        : isCurrentMonth
-                            ? Colors.pink
-                            : Colors.black,
-                    fontWeight: FontWeight.w400,
-                  ),
+                      color: isSelected
+                          ? Colors.pinkAccent
+                          : isCurrentMonth
+                              ? Colors.pink
+                              : Colors.black,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18),
                 ),
               ),
             );
@@ -255,9 +283,11 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
 
   Widget _buildCalendarView(StateSetter setModalState) {
     final days = _calculateDaysInMonth(selectedDate);
+    final int totalDays = days.length;
+
     return GridView.builder(
       shrinkWrap: true,
-      itemCount: 35, // 6 weeks × 7 days
+      itemCount: totalDays,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 7,
         childAspectRatio: 1,
@@ -301,7 +331,7 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                 color: isSelected
                     ? Colors.white
                     : isToday
-                        ? Colors.black
+                        ? Colors.white
                         : isCurrentMonth
                             ? Colors.grey.shade800
                             : Colors.grey.shade300,
@@ -332,6 +362,37 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                 final TimeOfDay? picked = await showTimePicker(
                   context: context,
                   initialTime: selectedTime,
+                  initialEntryMode:
+                      TimePickerEntryMode.input, // Forces keyboard input
+                  builder: (context, child) {
+                    return Theme(
+                      data: Theme.of(context).copyWith(
+                        timePickerTheme: TimePickerThemeData(
+                          backgroundColor: Colors.white,
+                          hourMinuteTextColor: Colors.pink,
+                          dialHandColor: Colors.pink,
+                          entryModeIconColor: Colors.pink,
+                          helpTextStyle: TextStyle(color: Colors.pink),
+                        ),
+                        colorScheme: ColorScheme.light(
+                          primary: Color(0xFFF0F3F7),
+                          onPrimary: Colors.white,
+                          onSurface: Colors.pink,
+                        ),
+                        textButtonTheme: TextButtonThemeData(
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.pinkAccent,
+                            backgroundColor: Color(0xFFBCCAD9),
+                            padding: EdgeInsets.all(12),
+                            textStyle: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                      child: child!,
+                    );
+                  },
                 );
                 if (picked != null) {
                   setModalState(() {
