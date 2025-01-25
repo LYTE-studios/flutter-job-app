@@ -144,7 +144,7 @@ class _CreateJobListingGeneralScreenState
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(16),
                       ),
-                    ),
+                      ),
                     backgroundColor: Colors.black,
                     builder: (context) => BottomSheetContent(
                         label: 'Interne functietitel',
