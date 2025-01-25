@@ -278,7 +278,6 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
               });
               // Only call onDateTimeSelected when a day is clicked
               widget.onDateTimeSelected(selectedDate, selectedTime);
-              Navigator.pop(context); // Close the picker after selection
             }
           },
           child: Container(
