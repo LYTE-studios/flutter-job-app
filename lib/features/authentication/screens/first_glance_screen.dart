@@ -25,19 +25,19 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen>
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        JobrIconButton(
-          textIcon: "⚡",
-          label: "Ik zoek een job",
-          onPressed: () {
-            context.push(
-              LoginScreen.route,
-              extra: {
-                'userType': UserType.employee,
-                'isNewUser': true,
-              },
-            );
-          },
-        ),
+        // JobrIconButton(
+        //   textIcon: "⚡",
+        //   label: "Ik zoek een job",
+        //   onPressed: () {
+        //     context.push(
+        //       LoginScreen.route,
+        //       extra: {
+        //         'userType': UserType.employee,
+        //         'isNewUser': true,
+        //       },
+        //     );
+        //   },
+        // ),
         const SizedBox(
           height: 10,
         ),
