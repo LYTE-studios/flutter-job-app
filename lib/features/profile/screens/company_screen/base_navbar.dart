@@ -17,7 +17,7 @@ class JobrNavigationItem {
   });
 }
 
-class BaseNavBarScreen extends StatelessWidget {
+class BaseNavBarScreen extends StatefulWidget {
   final Widget child;
 
   final int? selectedIndex;
@@ -32,17 +32,30 @@ class BaseNavBarScreen extends StatelessWidget {
   });
 
   @override
+  BaseNavBarScreenState createState() => BaseNavBarScreenState();
+}
+
+class BaseNavBarScreenState extends State<BaseNavBarScreen> {
+  bool _isNavBarVisible = true;
+
+  void toggleNavBarVisibility(bool isVisible) {
+    setState(() {
+      _isNavBarVisible = isVisible;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: selectedIndex == null
-          ? null
-          : BottomNavigationBar(
+      bottomNavigationBar: _isNavBarVisible && widget.selectedIndex != null
+          ? BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
-              currentIndex: selectedIndex ?? 0,
+              currentIndex: widget.selectedIndex ?? 0,
               onTap: (int index) {
                 HapticFeedback.lightImpact();
 
                 String route = routes[index].route;
+                String route = widget.routes[index].route;
 
                 // Use GoRouter for navigation
                 router.pushReplacement(route);
@@ -54,17 +67,18 @@ class BaseNavBarScreen extends StatelessWidget {
               unselectedLabelStyle: TextStyles.bodySmall.copyWith(
                 fontSize: 12,
               ),
-              items: routes
+              items: widget.routes
                   .map((route) => BottomNavigationBarItem(
                         label: route.name,
                         icon: _NavigationBarIcon(
                           icon: route.icon,
-                          selected: selectedIndex == routes.indexOf(route),
+                          selected: widget.selectedIndex == widget.routes.indexOf(route),
                         ),
                       ))
                   .toList(),
-            ),
-      body: child,
+            )
+          : null,
+      body: widget.child,
     );
   }
 }
