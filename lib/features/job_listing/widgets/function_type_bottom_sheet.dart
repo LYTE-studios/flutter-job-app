@@ -23,20 +23,24 @@ class FunctionTypeBottomSheet extends StatefulWidget with BottomSheetMixin {
 class _FunctionTypeBottomSheetState extends State<FunctionTypeBottomSheet>
     with ScreenStateMixin {
   List<FunctionType> functionTypes = [];
+  bool isLoading = false; // NEW
 
   @override
   Future<void> loadData() async {
+    setState(() => isLoading = true);
     functionTypes = await VacanciesService().getFunctionTypes();
-
     setState(() {
+      isLoading = false;
       functionTypes = functionTypes;
     });
-
     return super.loadData();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return SearchFunctionBottomSheet(
       onSelected: (String value) {
         widget.onSelected.call(functionTypes.firstWhere(

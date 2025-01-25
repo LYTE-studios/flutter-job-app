@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/language.dart';
@@ -43,6 +44,70 @@ class _CreateJobListingTalentScreenState
       buttonLabel: 'Naar salaris',
       onNavigate: () {
         context.push(CreateJobListingSalaryScreen.route, extra: vacancy);
+
+//         context.push(CreateJobListingSalaryScreen.route);
+        usedWidgetsInCreation.addAll({
+          "Talen": [
+            _selectedFunction.isNotEmpty
+                ? Column(
+                    children: [
+                      Divider(
+                        thickness: 1.3,
+                        color: Colors.grey.shade300.withOpacity(0.7),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: _selectedFunction
+                            .map(
+                              (function) => CustomSliderWidget(
+                                label: function,
+                                onRemove: () {
+                                 
+                                },
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  )
+                : GestureDetector(
+                    onTap: () => {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            '+ ',
+                            style: TextStyle(
+                                fontSize: 24,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins'),
+                          ),
+                          Text(
+                            'Voeg talen toe',
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Poppins'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+          ],
+        });
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
@@ -170,7 +235,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
   // Mapping slider value to labels
   final Map<double, String> labels = {
     0: 'Basis',
-    1: '          Gevorderd',
+    1: '        Gevorderd',
     2: 'Moedertaal',
   };
 
@@ -226,6 +291,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
                   onChanged: (value) {
                     setState(() {
                       _sliderValue = value.roundToDouble();
+                      HapticFeedback.lightImpact(); // Add haptic feedback
                     });
                   },
                 ),

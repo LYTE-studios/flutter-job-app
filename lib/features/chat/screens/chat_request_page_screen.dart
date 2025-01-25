@@ -5,7 +5,6 @@ import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
-
 class ChatRequestPageScreen extends StatefulWidget {
   const ChatRequestPageScreen({super.key});
 
@@ -161,12 +160,12 @@ class _ChatScreenState extends State<ChatRequestPageScreen> {
                                     ? const Color(0xFF3976FF)
                                     : const Color(0xFFF6F6F6),
                                 borderRadius: BorderRadius.only(
-                                  topLeft: const Radius.circular(17.79),
-                                  topRight: const Radius.circular(17.79),
-                                  bottomLeft: message.isSentByMe
+                                  bottomLeft: const Radius.circular(17.79),
+                                  bottomRight: const Radius.circular(17.79),
+                                  topLeft: message.isSentByMe
                                       ? const Radius.circular(17.79)
                                       : Radius.zero,
-                                  bottomRight: message.isSentByMe
+                                  topRight: message.isSentByMe
                                       ? Radius.zero
                                       : const Radius.circular(17.79),
                                 ),

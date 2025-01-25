@@ -60,15 +60,22 @@ class BaseCreateJobListingScreen extends StatelessWidget {
           preferredSize: const Size.fromHeight(4.0),
           child: Row(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(8),
-                      bottomRight: Radius.circular(8)),
-                  color: HexColor.fromHex("#FF3E68"),
-                ),
-                height: 6,
-                width: MediaQuery.of(context).size.width * progress,
+              TweenAnimationBuilder<double>(
+                tween: Tween<double>(begin: 0, end: progress),
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+                builder: (context, value, child) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(8),
+                          bottomRight: Radius.circular(8)),
+                      color: HexColor.fromHex("#FF3E68"),
+                    ),
+                    height: 6,
+                    width: MediaQuery.of(context).size.width * value,
+                  );
+                },
               ),
               Expanded(
                 child: Container(
@@ -80,56 +87,124 @@ class BaseCreateJobListingScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: () {
-          KeyboardUtil.close();
-        },
-        child: Stack(
-          children: [
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: SingleChildScrollView(
-                padding: EdgeInsets.all(
-                  PaddingSizes.large,
-                ),
-                child: SafeArea(
-                  minimum: const EdgeInsets.only(
-                    bottom: 64,
+//       body: GestureDetector(
+//         behavior: HitTestBehavior.translucent,
+//         onTap: () {
+//           KeyboardUtil.close();
+//         },
+//         child: Stack(
+//           children: [
+//             Positioned(
+//               top: 0,
+//               left: 0,
+//               right: 0,
+//               bottom: 0,
+//               child: SingleChildScrollView(
+//                 padding: EdgeInsets.all(
+//                   PaddingSizes.large,
+//                 ),
+//                 child: SafeArea(
+//                   minimum: const EdgeInsets.only(
+//                     bottom: 64,
+//                   ),
+//                   child: child,
+//                 ),
+//               ),
+//             ),
+//             Positioned(
+//               bottom: 10,
+//               right: 0,
+//               left: 0,
+//               child: SafeArea(
+//                 bottom: true,
+//                 child: Padding(
+//                   padding: const EdgeInsets.symmetric(
+//                     vertical: PaddingSizes.medium,
+//                     horizontal: PaddingSizes.extraLarge,
+//                   ),
+//                   child: Center(
+//                     child: PrimaryButton(
+//                       borderRadius: 30,
+//                       onTap: loading ? null : onNavigate,
+//                       buttonText: loading
+//                           ? 'Laden...'
+//                           : !isNavigationEnabled
+//                               ? buttonLabel
+//                               : (secondaryButtonLabel ?? buttonLabel),
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ],
+
+      body: SafeArea(
+        bottom: true,
+        child: TweenAnimationBuilder<double>(
+          tween: Tween<double>(begin: 0, end: 1),
+          duration: const Duration(milliseconds: 500),
+          builder: (context, value, child) {
+            return Opacity(
+              opacity: value,
+              child: child,
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(PaddingSizes.large),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: PaddingSizes.small),
+                      child,
+                    ],
                   ),
-                  child: child,
                 ),
               ),
-            ),
-            Positioned(
-              bottom: 10,
-              right: 0,
-              left: 0,
-              child: SafeArea(
-                bottom: true,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: PaddingSizes.medium,
-                    horizontal: PaddingSizes.extraLarge,
-                  ),
-                  child: Center(
-                    child: PrimaryButton(
-                      borderRadius: 30,
-                      onTap: loading ? null : onNavigate,
-                      buttonText: loading
-                          ? 'Laden...'
-                          : !isNavigationEnabled
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: PaddingSizes.large,
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 55,
+                      child: FilledButton(
+                        style: FilledButton.styleFrom(
+                          backgroundColor: isNavigationEnabled
+                              ? HexColor.fromHex("#FF3E68")
+                              : HexColor.fromHex('#DADADA'),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: isNavigationEnabled
+                                ? BorderRadius.circular(65)
+                                : BorderRadius.circular(65),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                        ),
+                        onPressed: isNavigationEnabled ? onNavigate : () {},
+                        child: Text(
+                          !isNavigationEnabled
                               ? buttonLabel
                               : (secondaryButtonLabel ?? buttonLabel),
+                          style: const TextStyle(
+                            fontSize: 17.5,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 10),
+            ],
+          ),
         ),
       ),
     );

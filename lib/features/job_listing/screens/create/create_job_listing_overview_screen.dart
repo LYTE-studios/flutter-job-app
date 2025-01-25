@@ -40,6 +40,13 @@ class _CreateJobListingOverviewScreenState
     with CreateJobListingMixin, ScreenStateMixin {
   final bool _isButtonEnabled = true;
 
+  List<bool> isSectionExpanded = List.generate(
+    usedWidgetsInCreation.keys.length,
+    (index) =>
+        usedWidgetsInCreation[usedWidgetsInCreation.keys.elementAt(index)]!
+            .isNotEmpty,
+  );
+
   Future<void> postVacancy() async {
     setLoading(true);
 

@@ -8,6 +8,8 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_desc
 
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
+import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
+import 'package:jobr/features/job_listing/widgets/bottom_info_snack_bar.dart';
 import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/function_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/location_type_bottom_sheet.dart';
@@ -43,6 +45,12 @@ class _CreateJobListingGeneralScreenState
       _selectedLocation != null;
 
   @override
+  void initState() {
+    super.initState();
+    usedWidgetsInCreation.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BaseCreateJobListingScreen(
       progress: .2,
@@ -52,6 +60,28 @@ class _CreateJobListingGeneralScreenState
         vacancy.location = _selectedLocation;
 
         context.push(CreateJobListingDescriptionScreen.route, extra: vacancy);
+
+//        context.push(CreateJobListingDescriptionScreen.route);
+        usedWidgetsInCreation.addAll({
+          "Algemeen": [
+            JobrDropdownField(
+              showTitle: false,
+              title: "Contract type",
+              selectedValue: _selectedContractType?.name,
+              onPressed: () {},
+            ),
+            JobrDropdownField(
+                showTitle: false,
+                title: "Functie",
+                selectedValue: _selectedFunction?.name,
+                onPressed: () {}),
+            JobrDropdownField(
+                showTitle: false,
+                title: "Locatie",
+                selectedValue: _selectedLocation?.name,
+                onPressed: () {}),
+          ]
+        });
       },
       isNavigationEnabled: _isButtonEnabled,
       buttonLabel: 'Naar beschrijving & media',
@@ -106,7 +136,24 @@ class _CreateJobListingGeneralScreenState
             enabled: _selectedFunction !=
                 null, // Enable only when _selectedFunction is not null
             decoration: InputDecoration(
-              suffixIcon: Icon(Icons.info_outline),
+              suffixIcon: IconButton(
+                icon: Icon(Icons.info_outline),
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(16),
+                      ),
+                    ),
+                    backgroundColor: Colors.black,
+                    builder: (context) => BottomSheetContent(
+                        label: 'Interne functietitel',
+                        description:
+                            'Geef hier een duidelijke naam voor de functie of rol binnen het bedrijf'),
+                  );
+                },
+              ),
               suffixIconColor: (_selectedFunction == null)
                   ? Colors.grey.shade300
                   : Colors.black38,

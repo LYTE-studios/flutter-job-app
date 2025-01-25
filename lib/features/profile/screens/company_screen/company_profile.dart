@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
+import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings.dart';
 import 'package:jobr/features/profile/screens/tabs/general_item_widget.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
@@ -150,7 +151,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                               padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.grey.shade100.withOpacity(1),
+                                color: Colors.grey.shade100,
                               ),
                               child: SvgIcon(
                                 JobrIcons.settings1,
@@ -312,7 +313,10 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                 const SizedBox(height: 16),
                 GestureDetector(
                   onTap: () {
-                    showLocationSelector(context);
+                    toggleNavBarVisibility(false);
+                    showLocationSelector(context).then((_) {
+                      toggleNavBarVisibility(true);
+                    });
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
@@ -348,14 +352,14 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
-                  height: 200,
+                  height: 280,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
                     children: [
                       Container(
                         margin: const EdgeInsets.only(right: 16),
-                        width: 280,
+                        width: 290,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(12),
                           child: Image.asset(
@@ -409,8 +413,17 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
             )));
   }
 
-  void showLocationSelector(BuildContext context) {
-    showModalBottomSheet(
+  void toggleNavBarVisibility(bool isVisible) {
+    final baseNavBarState =
+        context.findAncestorStateOfType<BaseNavBarScreenState>();
+    baseNavBarState?.toggleNavBarVisibility(isVisible);
+  }
+
+  Future<void> showLocationSelector(BuildContext context) async {
+    // Hide the navigation bar
+    toggleNavBarVisibility(false);
+
+    await showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -418,58 +431,73 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
         ),
       ),
       builder: (context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Drag handle at the top
-              Container(
-                width: 40,
-                height: 4,
-                margin: const EdgeInsets.only(bottom: 16),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade400,
-                  borderRadius: BorderRadius.circular(2),
+        return DraggableScrollableSheet(
+          initialChildSize: 0.70,
+          minChildSize: 0.25,
+          maxChildSize: 0.75,
+          expand: false,
+          builder: (context, scrollController) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Drag handle at the top
+                    Container(
+                      width: 40,
+                      height: 4,
+                      margin: const EdgeInsets.only(bottom: 16),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade400,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    // Location 1
+                    _buildLocationTile(
+                      context,
+                      title: "Brooklyn",
+                      subtitle: "Brugge, Leistraat",
+                      onPressed: () {
+                        Navigator.pop(context);
+                        // Handle selection logic for "Brooklyn Brugge"
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    // Location 2
+                    _buildLocationTile(
+                      context,
+                      title: "Brooklyn",
+                      subtitle: "Gent, Voorstraat",
+                      onPressed: () {
+                        Navigator.pop(context);
+                        // Handle selection logic for "Brooklyn Gent"
+                      },
+                    ),
+                    const SizedBox(height: 12),
+                    // Location 3
+                    _buildLocationTile(
+                      context,
+                      title: "Brooklyn",
+                      subtitle: "Mechelen, Bruul",
+                      onPressed: () {
+                        Navigator.pop(context);
+                        // Handle selection logic for "Brooklyn Mechelen"
+                      },
+                    ),
+                  ],
                 ),
               ),
-              // Location 1
-              _buildLocationTile(
-                context,
-                title: "Brooklyn",
-                subtitle: "Brugge, Leistraat",
-                onPressed: () {
-                  Navigator.pop(context);
-                  // Handle selection logic for "Brooklyn Brugge"
-                },
-              ),
-              const SizedBox(height: 12),
-              // Location 2
-              _buildLocationTile(
-                context,
-                title: "Brooklyn",
-                subtitle: "Gent, Voorstraat",
-                onPressed: () {
-                  Navigator.pop(context);
-                  // Handle selection logic for "Brooklyn Gent"
-                },
-              ),
-              const SizedBox(height: 12),
-              // Location 3
-              _buildLocationTile(
-                context,
-                title: "Brooklyn",
-                subtitle: "Mechelen, Bruul",
-                onPressed: () {
-                  Navigator.pop(context);
-                  // Handle selection logic for "Brooklyn Mechelen"
-                },
-              ),
-            ],
-          ),
+            );
+          },
         );
       },
     );
+
+    // Show the navigation bar again
+    toggleNavBarVisibility(true);
   }
 
   Widget _buildLocationTile(
