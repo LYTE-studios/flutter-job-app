@@ -181,7 +181,10 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                 _buildMonthSelector(setModalState)
               else
                 _buildCalendarView(setModalState),
-
+              Divider(
+                color: Color(0xFFF0F3F7),
+                thickness: 1.8,
+              ),
               const SizedBox(height: 16),
 
               // Time Selector Section
