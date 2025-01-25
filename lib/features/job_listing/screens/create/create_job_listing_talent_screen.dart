@@ -65,9 +65,7 @@ class _CreateJobListingTalentScreenState
                               (function) => CustomSliderWidget(
                                 label: function,
                                 onRemove: () {
-                                  setState(() {
-                                    _selectedFunction.remove(function);
-                                  });
+                                 
                                 },
                               ),
                             )

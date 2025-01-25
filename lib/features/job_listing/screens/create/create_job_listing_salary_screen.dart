@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/contract_type.dart';
@@ -13,9 +13,19 @@ import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_
 import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/features/job_listing/widgets/salary_unit_bottom_sheet.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+
+// Static state storage for persistence
+class AppState {
+  static bool isToggleOn = false;
+  static String selectedUnit = 'Per maand';
+  static bool isRadioSelected = false;
+  static List<String> selectedSoftSkills = [];
+  static List<String> selectedHardSkills = [];
+}
 
 class CreateJobListingSalaryScreen extends StatefulWidget {
   const CreateJobListingSalaryScreen({super.key});
@@ -35,15 +45,13 @@ class CreateJobListingSalaryScreen extends StatefulWidget {
 class _CreateJobListingSalaryScreenState
     extends State<CreateJobListingSalaryScreen> {
   final bool _isButtonEnabled = true;
-  int selectedRadio = 6;
-  List<String> selectedSoftSkills = []; // Define selectedSoftSkills
-  List<String> selectedHardSkills = []; // Define selectedHardSkills
-  bool _isToggleOn = false; // Define _isToggleOn
 
   Widget _buildSkillSection(String title, List<String> skills,
       {int maxSelection = 3, bool isSoftSkills = true}) {
-    List<String> selectedSkills =
-        isSoftSkills ? selectedSoftSkills : selectedHardSkills;
+    List<String> selectedSkills = isSoftSkills
+        ? AppState.selectedSoftSkills
+        : AppState.selectedHardSkills;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -77,13 +85,14 @@ class _CreateJobListingSalaryScreenState
                   }
                 });
               },
-              selectedColor:
-                  _isToggleOn ? HexColor.fromHex("#FF3E68") : Colors.white,
+              selectedColor: AppState.isToggleOn
+                  ? HexColor.fromHex("#FF3E68")
+                  : Colors.white,
               backgroundColor: Colors.white,
               labelStyle: TextStyle(
                 fontFamily: 'Poppins',
                 color: selectedSkills.contains(skill)
-                    ? _isToggleOn
+                    ? AppState.isToggleOn
                         ? Colors.white
                         : HexColor.fromHex("#FF3E68")
                     : HexColor.fromHex("#A0A0A0"),
@@ -99,14 +108,21 @@ class _CreateJobListingSalaryScreenState
                       : HexColor.fromHex("#E8E8E8"),
                 ),
               ),
-              padding: EdgeInsets.symmetric(
-                  horizontal: 8, vertical: 4), // Adjusted padding
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             );
           }).toList(),
         ),
       ],
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    usedWidgetsInCreation.remove('Salaris');
+  }
+
+  SalaryWidget salaryWidget = const SalaryWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -121,14 +137,8 @@ class _CreateJobListingSalaryScreenState
               padding: const EdgeInsets.symmetric(horizontal: 1.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [SalaryWidget()],
+                children: [salaryWidget],
               ),
-            ),
-            _buildSkillSection(
-              'Extra’s',
-              selectedHardSkills,
-              maxSelection: 0,
-              isSoftSkills: false,
             ),
           ]
         });
@@ -143,14 +153,14 @@ class _CreateJobListingSalaryScreenState
           ),
           Divider(
             thickness: 1.3,
-            color: Colors.grey.shade200.withOpacity(0.7),
+            color: const Color.fromARGB(255, 50, 34, 34).withOpacity(0.7),
           ),
           const SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 1.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [SalaryWidget()],
+              children: [salaryWidget],
             ),
           )
         ],
@@ -159,79 +169,23 @@ class _CreateJobListingSalaryScreenState
   }
 }
 
-class CustomInputField extends StatelessWidget {
-  const CustomInputField({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      cursorHeight: 22,
-      style: TextStyle(fontSize: 20),
-      decoration: InputDecoration(
-        prefixIcon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: SvgPicture.asset(
-            'assets/images/icons/euro.svg', // Path to your euro.svg file
-            height: 18,
-            width: 20,
-            colorFilter: ColorFilter.mode(Colors.black87,
-                BlendMode.srcIn), // Adjust the icon color if needed
-          ),
-        ),
-        prefixIconConstraints: const BoxConstraints(
-          minWidth: 30,
-          minHeight: 30,
-        ),
-        hintText: 'Bruto loon',
-        hintStyle: TextStyle(
-            fontSize: 18,
-            color: Colors.grey[400],
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Poppins'),
-        filled: true,
-        fillColor: HexColor.fromHex("#E4E4E4").withOpacity(0.3),
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 12.5,
-          horizontal: 12.0,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(18.0),
-          borderSide: BorderSide.none, // No visible border
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(18.0),
-          borderSide: BorderSide.none,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(18),
-          borderSide: BorderSide(
-            color: Colors.transparent, // Subtle border on focus
-            width: 1.0,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class SalaryWidget extends StatefulWidget {
-  const SalaryWidget({super.key});
+  const SalaryWidget({Key? key}) : super(key: key);
 
   @override
   _SalaryWidgetState createState() => _SalaryWidgetState();
 }
 
 class _SalaryWidgetState extends State<SalaryWidget> {
-  bool _isToggleOn = false;
-  ContractType? _selectedUnit; // Default value
-  bool _isRadioSelected = false; // New state for radio button
-  List<String> selectedSoftSkills = []; // Define selectedSoftSkills
-  List<String> selectedHardSkills = []; // Define selectedHardSkills
+  bool get isToggleOn => AppState.isToggleOn;
+  set isToggleOn(bool value) => AppState.isToggleOn = value;
 
   Widget _buildSkillSection(String title, List<String> skills,
       {int maxSelection = 3, bool isSoftSkills = true}) {
-    List<String> selectedSkills =
-        isSoftSkills ? selectedSoftSkills : selectedHardSkills;
+    List<String> selectedSkills = isSoftSkills
+        ? AppState.selectedSoftSkills
+        : AppState.selectedHardSkills;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -265,13 +219,14 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                   }
                 });
               },
-              selectedColor:
-                  _isToggleOn ? HexColor.fromHex("#FF3E68") : Colors.white,
+              selectedColor: AppState.isToggleOn
+                  ? HexColor.fromHex("#FF3E68")
+                  : Colors.white,
               backgroundColor: Colors.white,
               labelStyle: TextStyle(
                 fontFamily: 'Poppins',
                 color: selectedSkills.contains(skill)
-                    ? _isToggleOn
+                    ? AppState.isToggleOn
                         ? Colors.white
                         : HexColor.fromHex("#FF3E68")
                     : HexColor.fromHex("#A0A0A0"),
@@ -287,8 +242,7 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                       : HexColor.fromHex("#E8E8E8"),
                 ),
               ),
-              padding: EdgeInsets.symmetric(
-                  horizontal: 8, vertical: 4), // Adjusted padding
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             );
           }).toList(),
         ),
@@ -310,9 +264,9 @@ class _SalaryWidgetState extends State<SalaryWidget> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Weergeven op vacature',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Poppins',
@@ -320,10 +274,10 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                 ),
               ),
               Switch(
-                value: _isToggleOn,
+                value: isToggleOn,
                 onChanged: (value) {
                   setState(() {
-                    _isToggleOn = value;
+                    isToggleOn = value;
                   });
                 },
                 activeColor: Colors.white, // Thumb color when ON
@@ -356,39 +310,36 @@ class _SalaryWidgetState extends State<SalaryWidget> {
           color: Colors.grey.shade200.withOpacity(0.7),
         ),
         const SizedBox(height: 4),
-        if (_isToggleOn) ...[
-          const SizedBox(height: 4),
+        if (AppState.isToggleOn) ...[
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: CustomInputField(),
-              )),
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 7.0),
+                  child: CustomInputField(),
+                ),
+              ),
               const SizedBox(width: 10),
               JobrDropdownField(
                 title: "Salary Unit",
-                hintText: 'ja maar',
+                hintText: AppState.selectedUnit,
+                selectedValue: AppState.selectedUnit,
                 showTitle: false,
                 showWijzigenText: false,
-                // selectedValue: con,
-                showDropdownMenu: false,
-                textStyle: TextStyle(
+                showDropdownMenu: true,
+                textStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Poppins',
-                  color: Colors.grey,
+                  color: Colors.black54,
                 ),
-                // options: ["Op locatie", "Remote"],
-
-                onPressed: () => ContractTypeBottomSheet(
-                  title: "Kies een contract type",
-                  onSelected: (ContractType contractType) {
+                onPressed: () => SalaryUnitTypeBottomSheet(
+                  title: "Kies een salaris type",
+                  onSelected: (String value) {
                     setState(() {
-                      // _selectedUnit = value;
+                      AppState.selectedUnit = value;
                     });
-                    Navigator.pop(context);
                   },
                 ).showBottomSheet(context: context),
               ),
@@ -401,11 +352,11 @@ class _SalaryWidgetState extends State<SalaryWidget> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    _isRadioSelected = !_isRadioSelected;
+                    AppState.isRadioSelected = !AppState.isRadioSelected;
                   });
                 },
                 child: SvgPicture.asset(
-                  _isRadioSelected
+                  AppState.isRadioSelected
                       ? 'assets/images/icons/radio_filled.svg'
                       : 'assets/images/icons/radio_empty.svg',
                   height: 24,
@@ -415,16 +366,15 @@ class _SalaryWidgetState extends State<SalaryWidget> {
               const Text(
                 'Volgens barema',
                 style: TextStyle(
-                    fontSize: 16.72,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500),
+                  fontSize: 16.72,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
         ],
-        SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         _buildSkillSection(
           'Extra’s',
           [
@@ -442,28 +392,62 @@ class _SalaryWidgetState extends State<SalaryWidget> {
       ],
     );
   }
+}
 
-  void showContractTypeBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return ListView(
-          padding: const EdgeInsets.all(16),
-          children: ['per maand', 'per jaar', 'per uur']
-              .map(
-                (option) => ListTile(
-                  title: Text(option),
-                  onTap: () {
-                    setState(() {
-                      // _selectedUnit = option;
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
-              )
-              .toList(),
-        );
-      },
+class CustomInputField extends StatelessWidget {
+  const CustomInputField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      cursorHeight: 22,
+      style: const TextStyle(fontSize: 20),
+      decoration: InputDecoration(
+        prefixIcon: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: SvgPicture.asset(
+            'assets/images/icons/euro.svg',
+            height: 18,
+            width: 20,
+            colorFilter: const ColorFilter.mode(
+              Colors.black87,
+              BlendMode.srcIn,
+            ),
+          ),
+        ),
+        prefixIconConstraints: const BoxConstraints(
+          minWidth: 30,
+          minHeight: 30,
+        ),
+        hintText: 'Bruto loon',
+        hintStyle: TextStyle(
+          fontSize: 18,
+          color: Colors.grey[400],
+          fontWeight: FontWeight.w500,
+          fontFamily: 'Poppins',
+        ),
+        filled: true,
+        fillColor: HexColor.fromHex("#E4E4E4").withOpacity(0.3),
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 12.5,
+          horizontal: 12.0,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(18.0),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(18.0),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(18),
+          borderSide: const BorderSide(
+            color: Colors.transparent,
+            width: 1.0,
+          ),
+        ),
+      ),
     );
   }
 }

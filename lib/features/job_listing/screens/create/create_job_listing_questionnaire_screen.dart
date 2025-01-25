@@ -78,13 +78,7 @@ class _CreateJobListingVragenlijstScreenState
                           (entry) => CustomQuestionBox(
                             question: entry.value,
                             label: 'Vraag ${entry.key + 1}',
-                            onRemove: () {
-                              setState(() {
-                                selectedQuestions.removeAt(entry.key);
-                                questionControllers.removeAt(entry.key);
-                                isEditable.removeAt(entry.key);
-                              });
-                            },
+                            onRemove: () {},
                             controller: questionControllers[entry.key],
                             isEditable: isEditable[entry.key],
                             onToggleEditable: () => toggleEditable(entry.key),

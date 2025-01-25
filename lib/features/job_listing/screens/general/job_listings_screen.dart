@@ -7,6 +7,7 @@ import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/data/services/vacancies_service.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/widgets/vacature_card.dart';
+import 'package:jobr/features/jobs/widgets/job_card.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
@@ -29,14 +30,14 @@ class _JobListingsScreenState extends State<JobListingsScreen>
     with ScreenStateMixin {
   List<Vacancy> vacancies = [];
 
-  @override
-  Future<void> loadData() async {
-    vacancies = await VacanciesService().getVacancies();
+  // @override
+  // Future<void> loadData() async {
+  //   vacancies = await VacanciesService().getVacancies();
 
-    setState(() {
-      vacancies = vacancies;
-    });
-  }
+  //   setState(() {
+  //     vacancies = vacancies;
+  //   });
+  // }
 
   Widget buildEmtpyState(BuildContext context) {
     return Column(

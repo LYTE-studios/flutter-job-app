@@ -9,8 +9,11 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_skil
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/features/job_listing/widgets/custom_time_picker.dart';
+import 'package:jobr/features/job_listing/widgets/date_picker.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:intl/intl.dart'; // Import for DateFormat
 
 class CreateJobListingAvailabilityScreen extends StatefulWidget {
   const CreateJobListingAvailabilityScreen({super.key});
@@ -226,202 +229,122 @@ class _CreateJobListingAvailabilityScreenState
                 if (selectedRadio == 1) ...[
                   const SizedBox(height: 16),
                   TextFormField(
-                      controller: _dateController,
-                      decoration: InputDecoration(
-                        labelText: 'Kies een datum',
-                        labelStyle: TextStyles.titleMedium.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.16,
-                          color: HexColor.fromHex("#000000").withOpacity(0.4),
-                        ),
-                        suffixIcon: Icon(
-                          Icons.calendar_month,
-                          color: HexColor.fromHex("#8B8B8B"),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 16.0),
-                        filled: true,
-                        fillColor:
-                            HexColor.fromHex("#00000008").withOpacity(0.03),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide:
-                              const BorderSide(color: Colors.transparent),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide:
-                              const BorderSide(color: Colors.transparent),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide:
-                              const BorderSide(color: Colors.transparent),
-                        ),
+                    controller: _dateController,
+                    decoration: InputDecoration(
+                      labelText: 'Kies een datum',
+                      labelStyle: TextStyles.titleMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.16,
+                        color: HexColor.fromHex("#000000").withOpacity(0.4),
                       ),
-                      style: TextStyle(
-                          fontSize: 20, color: Colors.grey.withOpacity(0.9)),
-                      readOnly: true,
-                      onTap: () async {
-                        FocusScope.of(context).requestFocus(FocusNode());
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2000),
-                          lastDate: DateTime(2101),
-                          builder: (context, child) {
-                            return Theme(
-                              data: Theme.of(context).copyWith(
-                                datePickerTheme: const DatePickerThemeData(
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12)),
-                                  ),
-                                ),
-                                textTheme: const TextTheme(
-                                  titleLarge: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                  bodyMedium: TextStyle(
-                                      fontSize: 16, color: Colors.black54),
-                                ),
-                                colorScheme: const ColorScheme.light(
-                                  primary:
-                                      Colors.pink, // Header background color
-                                  onPrimary: Colors.white, // Header text color
-                                  onSurface: Colors.black, // Body text color
-                                ),
-                                textButtonTheme: TextButtonThemeData(
-                                  style: TextButton.styleFrom(
-                                    foregroundColor:
-                                        Colors.white, // Button text color
-                                    backgroundColor:
-                                        Colors.pink, // Button background color
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 16.0),
-                                  ),
-                                ),
-                              ),
-                              child: child!,
-                            );
-                          },
-                        );
-                        if (pickedDate != null) {
-                          setState(() {
-                            selectedDate = pickedDate;
-                            _dateController.text =
-                                "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
-                          });
-                        }
-                      }),
+                      suffixIcon: Icon(
+                        Icons.calendar_month,
+                        color: HexColor.fromHex("#8B8B8B"),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 16.0),
+                      filled: true,
+                      fillColor:
+                          HexColor.fromHex("#00000008").withOpacity(0.03),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                    ),
+                    style: TextStyle(
+                        fontSize: 20, color: Colors.grey.withOpacity(0.9)),
+                    readOnly: true,
+                    onTap: () async {
+                      FocusScope.of(context).unfocus();
+                      await showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(24)),
+                        ),
+                        builder: (context) {
+                          return CustomDatePickerBottomSheet(
+                            startDate: DateTime.now(),
+                            endDate: DateTime.now().add(Duration(days: 365)),
+                            onDateSelected: (pickedDate) {
+                              setState(() {
+                                selectedDate = pickedDate;
+                                _dateController.text =
+                                    "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
+                              });
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
                   const SizedBox(height: 8),
                   TextFormField(
-                      controller: _timeController,
-                      decoration: InputDecoration(
-                        labelText: 'Kies een tijdstip',
-                        labelStyle: TextStyles.bodyMedium.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16.16,
-                          color: HexColor.fromHex("#000000").withOpacity(0.4),
-                        ),
-                        suffixIcon: Icon(
-                          Icons.timer_outlined,
-                          color: HexColor.fromHex("#8B8B8B"),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 16.0),
-                        filled: true,
-                        fillColor:
-                            HexColor.fromHex("#00000008").withOpacity(0.03),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide:
-                              const BorderSide(color: Colors.transparent),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide:
-                              const BorderSide(color: Colors.transparent),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide:
-                              const BorderSide(color: Colors.transparent),
-                        ),
+                    controller: _timeController,
+                    decoration: InputDecoration(
+                      labelText: 'Kies een tijdstip',
+                      labelStyle: TextStyles.bodyMedium.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16.16,
+                        color: HexColor.fromHex("#000000").withOpacity(0.4),
                       ),
-                      style: TextStyle(
-                          fontSize: 20,
-                          color:
-                              Colors.grey.withOpacity(0.9)), // Update font size
-                      readOnly: true,
-                      onTap: () async {
-                        FocusScope.of(context).requestFocus(FocusNode());
-                        TimeOfDay? pickedTime = await showTimePicker(
-                          context: context,
+                      suffixIcon: Icon(
+                        Icons.timer_outlined,
+                        color: HexColor.fromHex("#8B8B8B"),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 16.0),
+                      filled: true,
+                      fillColor:
+                          HexColor.fromHex("#00000008").withOpacity(0.03),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      ),
+                    ),
+                    style: TextStyle(
+                        fontSize: 20,
+                        color:
+                            Colors.grey.withOpacity(0.9)), // Update font size
+                    readOnly: true,
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.black,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(24)),
+                        ),
+                        builder: (context) => CustomTimePickerBottomSheet(
                           initialTime: TimeOfDay.now(),
-                          builder: (context, child) {
-                            return Theme(
-                              data: Theme.of(context).copyWith(
-                                timePickerTheme: const TimePickerThemeData(
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12)),
-                                  ),
-                                  dialHandColor: Colors.pink,
-                                  hourMinuteTextColor: Colors.black,
-                                  dayPeriodTextColor: Colors.black,
-                                ),
-                                textTheme: const TextTheme(
-                                  titleLarge: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                  bodyMedium: TextStyle(
-                                      fontSize: 16, color: Colors.black54),
-                                ),
-                                colorScheme: const ColorScheme.light(
-                                  primary:
-                                      Colors.pink, // Header background color
-                                  onPrimary: Colors.white, // Header text color
-                                  onSurface: Colors.black, // Body text color
-                                ),
-                                textButtonTheme: TextButtonThemeData(
-                                  style: TextButton.styleFrom(
-                                    foregroundColor:
-                                        Colors.white, // Button text color
-                                    backgroundColor:
-                                        Colors.pink, // Button background color
-                                    textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 16.0),
-                                  ),
-                                ),
-                              ),
-                              child: child!,
-                            );
+                          onTimeSelected: (selectedTime) {
+                            setState(() {
+                              _timeController.text =
+                                  selectedTime.format(context);
+                            });
                           },
-                        );
-                        if (pickedTime != null) {
-                          setState(() {
-                            selectedTime = pickedTime;
-                            _timeController.text = pickedTime.format(context);
-                          });
-                        }
-                      }),
+                        ),
+                      );
+                    },
+                  ),
                 ]
               ],
             ),

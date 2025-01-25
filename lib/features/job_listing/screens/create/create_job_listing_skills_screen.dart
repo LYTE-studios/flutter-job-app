@@ -7,6 +7,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_avai
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/features/job_listing/widgets/bottom_info_snack_bar.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:flutter/services.dart'; // For HapticFeedback.
@@ -38,6 +39,12 @@ class _CreateJobListingSkillsScreenState
       selectedSoftSkills.length >= 3 && selectedHardSkills.length >= 3;
 
   @override
+  void dispose() {
+    usedWidgetsInCreation.remove('Vaardigheden');
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BaseCreateJobListingScreen(
       buttonLabel: 'Naar beschikbaarheid',
@@ -54,13 +61,16 @@ class _CreateJobListingSkillsScreenState
             'Vaardigheden': [
               _buildWerkervaringCard(
                   cardColor: Colors.grey.shade100.withOpacity(0.7)),
-              _buildSkillSection('Soft skills', selectedSoftSkills,
-                  maxSelection: 0,
-                  isSoftSkills: true,
-                  showSelectionText: false),
+              _buildSkillSection(
+                'Soft skills',
+                selectedSoftSkills,
+                maxSelection: 0,
+                isSoftSkills: true,
+                showSelectionText: false,
+              ),
               _buildSkillSection('Hard skills', selectedHardSkills,
                   maxSelection: 0,
-                  isSoftSkills: true,
+                  isSoftSkills: false,
                   showSelectionText: false),
             ]
           });
@@ -88,37 +98,71 @@ class _CreateJobListingSkillsScreenState
 
           // Soft Skills
           _buildSkillSection(
-              'Soft skills',
-              [
-                'Leiderschap',
-                'Sociaal',
-                'Stressbestendig',
-                'Flexibel',
-                'Creatief',
-                'Teamplayer',
-                'Zelfstandig',
-                'Klantgericht',
-                'Oog voor detail',
-              ],
-              maxSelection: 3,
-              isSoftSkills: true),
+            'Soft skills',
+            [
+              'Leiderschap',
+              'Sociaal',
+              'Stressbestendig',
+              'Flexibel',
+              'Creatief',
+              'Teamplayer',
+              'Zelfstandig',
+              'Klantgericht',
+              'Oog voor detail',
+            ],
+            maxSelection: 3,
+            isSoftSkills: true,
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(16),
+                  ),
+                ),
+                backgroundColor: Colors.black,
+                builder: (context) => BottomSheetContent(
+                  label: 'Soft Skills',
+                  description:
+                      'Selecteer minimaal drie vaardigheden om door te gaan naar de volgende pagina.',
+                ),
+              );
+            },
+          ),
           const SizedBox(height: 10),
 
-          // Hard Skills
+// Hard Skills
           _buildSkillSection(
-              'Hard skills',
-              [
-                'Grafisch ontwerp',
-                'Klantenservice',
-                'Hygiëne',
-                'Tafelschikking',
-                'Barista-vaardigheden',
-                'Wijnkennis',
-                'Afwas',
-                'Tijdmanagement',
-              ],
-              maxSelection: 3,
-              isSoftSkills: false),
+            'Hard skills',
+            [
+              'Grafisch ontwerp',
+              'Klantenservice',
+              'Hygiëne',
+              'Tafelschikking',
+              'Barista-vaardigheden',
+              'Wijnkennis',
+              'Afwas',
+              'Tijdmanagement',
+            ],
+            maxSelection: 3,
+            isSoftSkills: false,
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(16),
+                  ),
+                ),
+                backgroundColor: Colors.black,
+                builder: (context) => BottomSheetContent(
+                  label: 'Hard Skills',
+                  description:
+                      'Selecteer minimaal drie vaardigheden om door te gaan naar de volgende pagina.',
+                ),
+              );
+            },
+          ),
 
           // Bottom Button
         ],
@@ -228,7 +272,8 @@ class _CreateJobListingSkillsScreenState
   Widget _buildSkillSection(String title, List<String> skills,
       {int maxSelection = 3,
       bool isSoftSkills = true,
-      bool showSelectionText = true}) {
+      bool showSelectionText = true,
+      VoidCallback? onPressed}) {
     List<String> selectedSkills =
         isSoftSkills ? selectedSoftSkills : selectedHardSkills;
     return Column(
@@ -246,9 +291,7 @@ class _CreateJobListingSkillsScreenState
               IconButton(
                 icon: const Icon(Icons.info_outline),
                 color: Colors.pink,
-                onPressed: () {
-                  // You could show more info here or a dialog.
-                },
+                onPressed: onPressed,
               )
             ]),
             if (showSelectionText)

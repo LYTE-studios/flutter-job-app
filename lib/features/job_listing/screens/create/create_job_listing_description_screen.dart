@@ -6,6 +6,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_skil
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/features/job_listing/widgets/bottom_info_snack_bar.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
@@ -48,10 +49,28 @@ class _CreateJobListingDescriptionScreenState
   @override
   void dispose() {
     mainDescriptionController.dispose();
+    usedWidgetsInCreation.remove('Beschrijving');
     super.dispose();
   }
 
   void addOption(String title) {
+    if (options.isNotEmpty && options.last['description']!.isEmpty) {
+      showModalBottomSheet(
+          context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(16),
+            ),
+          ),
+          backgroundColor: Colors.black,
+          builder: (context) => BottomSheetContent(
+                label: 'Opgelet',
+                description:
+                    "Gelieve eerst de vorige beschrijving in te vullen.",
+              ));
+
+      return;
+    }
     setState(() {
       options.add({'title': title, 'description': ''});
       isExpanded.add(false); // Initially, no option is expanded
@@ -115,13 +134,17 @@ class _CreateJobListingDescriptionScreenState
                 ],
               ),
               const SizedBox(height: 8),
-              Text(
-                mainDescriptionController.text,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
-                textAlign: TextAlign.left,
+              Row(
+                children: [
+                  Text(
+                    mainDescriptionController.text,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
               ),
               Column(
                 children: options.asMap().entries.map((entry) {
@@ -345,102 +368,110 @@ class _CreateJobListingDescriptionScreenState
                         ),
                       ),
                     const SizedBox(height: 16),
-                    Column(
-                      children: options.asMap().entries.map((entry) {
-                        int index = entry.key;
-                        String title = entry.value['title']!;
-                        String description = entry.value['description']!;
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Divider(
-                                color: Colors.grey[200],
-                                thickness: 2,
-                              ),
-                              SizedBox(height: 6),
-                              // Title
-                              GestureDetector(
-                                onTap: () => toggleExpansion(index),
-                                child: Text(
-                                  title,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      transitionBuilder: (child, animation) => FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      ),
+                      child: Column(
+                        key: ValueKey<int>(options.length),
+                        children: options.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          String title = entry.value['title']!;
+                          String description = entry.value['description']!;
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Divider(
+                                  color: Colors.grey[200],
+                                  thickness: 2,
+                                ),
+                                SizedBox(height: 6),
+                                // Title
+                                GestureDetector(
+                                  onTap: () => toggleExpansion(index),
+                                  child: Text(
+                                    title,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(height: 6),
-                              // Expandable description with ellipsis
-                              if (description.isNotEmpty) ...[
-                                // If description exists, show full description
-                                if (!isExpanded[index]) ...[
-                                  Text(
-                                    description,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.grey.shade500,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                                // Show the full description when expanded
-                                if (isExpanded[index]) ...[
-                                  Text(
-                                    description,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.grey.shade600,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                ],
-                              ] else ...[
-                                // If description doesn't exist, show text field
-                                if (!isExpanded[index]) ...[
-                                  TextField(
-                                    controller: descriptionControllers[index],
-                                    onChanged: (value) {
-                                      // Update only if the value is different to avoid constant rebuilds
-                                      if (options[index]['description'] !=
-                                          value) {
-                                        options[index]['description'] = value;
-                                      }
-                                    },
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                    ),
-                                    decoration: InputDecoration(
-                                      hintText: 'Hier typen...',
-                                      hintStyle: TextStyle(
-                                        color: Colors.grey.shade400,
-                                        fontSize: 14.5,
+                                const SizedBox(height: 6),
+                                // Expandable description with ellipsis
+                                if (description.isNotEmpty) ...[
+                                  // If description exists, show full description
+                                  if (!isExpanded[index]) ...[
+                                    Text(
+                                      description,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.grey.shade500,
                                       ),
-                                      border: InputBorder.none, // No border
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    maxLines: null, // Allow multi-line input
-                                    textInputAction: TextInputAction.done,
-                                    onSubmitted: (_) =>
-                                        _navigateToSkillsScreen(),
-                                  ),
-                                  const SizedBox(height: 10),
-                                ],
-                              ],
-                              (index != options.length - 1)
-                                  ? Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 6,
+                                  ],
+                                  // Show the full description when expanded
+                                  if (isExpanded[index]) ...[
+                                    Text(
+                                      description,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey.shade600,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                  ],
+                                ] else ...[
+                                  // If description doesn't exist, show text field
+                                  if (!isExpanded[index]) ...[
+                                    TextField(
+                                      controller: descriptionControllers[index],
+                                      onChanged: (value) {
+                                        // Update only if the value is different to avoid constant rebuilds
+                                        if (options[index]['description'] !=
+                                            value) {
+                                          options[index]['description'] = value;
+                                        }
+                                      },
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                      ),
+                                      decoration: InputDecoration(
+                                        hintText: 'Hier typen...',
+                                        hintStyle: TextStyle(
+                                          color: Colors.grey.shade400,
+                                          fontSize: 14.5,
                                         ),
-                                      ],
-                                    )
-                                  : Container(),
-                            ],
-                          ),
-                        );
-                      }).toList(),
+                                        border: InputBorder.none, // No border
+                                      ),
+                                      maxLines: null, // Allow multi-line input
+                                      textInputAction: TextInputAction.done,
+                                      onSubmitted: (_) =>
+                                          _navigateToSkillsScreen(),
+                                    ),
+                                    const SizedBox(height: 10),
+                                  ],
+                                ],
+                                (index != options.length - 1)
+                                    ? Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 6,
+                                          ),
+                                        ],
+                                      )
+                                    : Container(),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Divider(
