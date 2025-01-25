@@ -10,6 +10,7 @@ import 'package:jobr/features/job_listing/screens/vacatures/widgets/vacature_car
 import 'package:jobr/features/jobs/widgets/job_card.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
+import 'package:jobr/ui/widgets/navigation/jobr_loading_switcher.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
 class JobListingsScreen extends StatefulWidget {
@@ -47,6 +48,7 @@ class _JobListingsScreenState extends State<JobListingsScreen>
           onPressed: () {
             context.push(
               CreateJobListingGeneralScreen.employerRoute,
+              extra: Vacancy(),
             );
             // Action for "Nieuwe vacature" button
           },
@@ -121,6 +123,7 @@ class _JobListingsScreenState extends State<JobListingsScreen>
                       onTap: () {
                         context.push(
                           CreateJobListingGeneralScreen.employerRoute,
+                          extra: Vacancy(),
                         );
                       },
                       child: SvgPicture.asset(
@@ -133,18 +136,28 @@ class _JobListingsScreenState extends State<JobListingsScreen>
             center: false,
           ),
           Expanded(
-            child: vacancies.isEmpty
-                ? buildEmtpyState(context)
-                : ListView(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: PaddingSizes.large,
+            child: JobrLoadingSwitcher(
+              loading: loading,
+              child: vacancies.isEmpty
+                  ? buildEmtpyState(context)
+                  : RefreshIndicator(
+                      onRefresh: () async {
+                        setLoading(true);
+                        await loadData();
+                        setLoading(false);
+                      },
+                      child: ListView(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: PaddingSizes.large,
+                        ),
+                        children: vacancies
+                            .map(
+                              (vacancy) => VacatureCard(),
+                            )
+                            .toList(),
+                      ),
                     ),
-                    children: vacancies
-                        .map(
-                          (vacancy) => VacatureCard(),
-                        )
-                        .toList(),
-                  ),
+            ),
           ),
         ],
       ),

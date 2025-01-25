@@ -9,7 +9,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_sala
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
-import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
+import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
@@ -30,15 +30,91 @@ class CreateJobListingVragenlijstScreen extends StatefulWidget {
 }
 
 class _CreateJobListingVragenlijstScreenState
-    extends State<CreateJobListingVragenlijstScreen> {
+    extends State<CreateJobListingVragenlijstScreen>
+    with CreateJobListingMixin {
   final bool _isButtonEnabled = true;
   int selectedRadio = 6;
   List<String> selectedDays = [];
-  final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
   List<String> selectedQuestions = [];
   List<TextEditingController> questionControllers = [];
   List<bool> isEditable = [];
+
+//   void navigate() {
+//     vacancy.questions = selectedQuestions;
+
+//     context.push(CreateJobListingOverviewScreen.route, extra: vacancy);
+//     [
+//       selectedQuestions.isNotEmpty
+//           ? Column(
+//               children: [
+//                 Divider(
+//                   thickness: 1.3,
+//                   color: Colors.grey.shade300.withOpacity(0.7),
+//                 ),
+//                 SizedBox(
+//                   height: 8,
+//                 ),
+//                 Wrap(
+//                   spacing: 8,
+//                   runSpacing: 8,
+//                   children: selectedQuestions
+//                       .asMap()
+//                       .entries
+//                       .map(
+//                         (entry) => CustomQuestionBox(
+//                           question: entry.value,
+//                           label: 'Vraag ${entry.key + 1}',
+//                           onRemove: () {
+//                             setState(() {
+//                               selectedQuestions.removeAt(entry.key);
+//                               questionControllers.removeAt(entry.key);
+//                               isEditable.removeAt(entry.key);
+//                             });
+//                           },
+//                           controller: questionControllers[entry.key],
+//                           isEditable: isEditable[entry.key],
+//                           onToggleEditable: () => toggleEditable(entry.key),
+//                         ),
+//                       )
+//                       .toList(),
+//                 ),
+//               ],
+//             )
+//           : GestureDetector(
+//               onTap: () {},
+//               child: Container(
+//                 decoration: BoxDecoration(
+//                   color: Colors.grey.shade100,
+//                   borderRadius: BorderRadius.circular(12),
+//                 ),
+//                 padding:
+//                     const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: const [
+//                     Text(
+//                       '+ ',
+//                       style: TextStyle(
+//                           fontSize: 24,
+//                           color: Colors.grey,
+//                           fontWeight: FontWeight.w500,
+//                           fontFamily: 'Poppins'),
+//                     ),
+//                     Text(
+//                       'Voeg talen toe',
+//                       style: TextStyle(
+//                         fontSize: 17,
+//                         color: Colors.grey,
+//                         fontWeight: FontWeight.w500,
+//                         fontFamily: 'Poppins',
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//     ];
+//   }
 
   void addQuestionField() {
     setState(() {
@@ -54,8 +130,12 @@ class _CreateJobListingVragenlijstScreenState
     });
   }
 
+
   void _navigateToOverviewScreen() {
-    context.push(CreateJobListingOverviewScreen.route);
+      vacancy.questions = selectedQuestions;
+    context.push(CreateJobListingOverviewScreen.route, extra: vacancy);
+
+//     context.push(CreateJobListingOverviewScreen.route);
     usedWidgetsInCreation.addAll({
       'Vragenlijst': [
         selectedQuestions.isNotEmpty
@@ -129,6 +209,7 @@ class _CreateJobListingVragenlijstScreenState
     return BaseCreateJobListingScreen(
       progress: .9,
       buttonLabel: 'Naar overzicht',
+
       onNavigate: _navigateToOverviewScreen,
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
@@ -142,7 +223,9 @@ class _CreateJobListingVragenlijstScreenState
                 style: TextStyles.titleMedium.copyWith(fontSize: 22),
               ),
               TextButton(
+
                 onPressed: _navigateToOverviewScreen,
+
                 child: Text(
                   "Overslaan",
                   style: TextStyles.titleMedium.copyWith(

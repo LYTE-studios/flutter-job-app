@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:logger/logger.dart';
 
 class ApiService {
@@ -60,11 +61,23 @@ class ApiService {
         'Authorization': 'Bearer $token',
       },
     );
-    return dio.request<dynamic>(
+
+    dio.interceptors.clear();
+
+    Response response = await dio.request<dynamic>(
       requestOptions.path,
       data: requestOptions.data,
       options: options,
     );
+
+    _setupInterceptors();
+
+    if (response.statusCode == 401) {
+      await clearTokens();
+      throw Exception("Token expired");
+    }
+
+    return response;
   }
 
   Future<bool> _refreshToken() async {
@@ -72,14 +85,20 @@ class ApiService {
       final refreshToken = await storage.read(key: 'refresh_token');
       if (refreshToken == null) return false;
 
+      dio.interceptors.clear();
+
       final response = await dio.post('token/refresh/', data: {
         'refresh': refreshToken,
       });
+
+      _setupInterceptors();
 
       if (response.statusCode == 200) {
         await setTokens(response.data['access'], response.data['refresh']);
         return true;
       }
+
+      await clearTokens();
       return false;
     } catch (e) {
       logger.e('Error refreshing token: $e');
@@ -93,6 +112,7 @@ class ApiService {
   }
 
   Future<void> clearTokens() async {
+    dio.options.headers.remove('Authorization');
     await storage.delete(key: 'access_token');
     await storage.delete(key: 'refresh_token');
   }
@@ -109,12 +129,47 @@ class ApiService {
   Future<Response<dynamic>> getApi(
     String endpoint, {
     Map<String, dynamic>? queryParameters,
+    Duration? cacheDuration,
   }) async {
+    Box? box;
+
+    if (cacheDuration != null) {
+      box = await Hive.openBox<dynamic>('cache');
+
+      if (box.containsKey(endpoint)) {
+        Map<dynamic, dynamic> data = box.get(endpoint);
+
+        if (data['created'] == null ||
+            (DateTime.now().millisecondsSinceEpoch -
+                    ((data['created'] as int?) ?? 0) >
+                cacheDuration.inMilliseconds)) {
+          await box.delete(endpoint);
+        } else {
+          return Response(
+            data: data['data'],
+            requestOptions: RequestOptions(path: endpoint),
+          );
+        }
+      }
+    }
+
     try {
-      return await dio.get(
+      Response response = await dio.get(
         _formatUrl(endpoint),
         queryParameters: queryParameters,
       );
+
+      if (box != null) {
+        box.put(
+          endpoint,
+          {
+            'created': DateTime.now().millisecondsSinceEpoch,
+            'data': response.data,
+          },
+        );
+      }
+
+      return response;
     } catch (e) {
       logger.e('GET API Error: $e');
       rethrow;

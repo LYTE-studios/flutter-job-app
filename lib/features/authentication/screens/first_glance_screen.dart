@@ -25,9 +25,6 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen>
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const SizedBox(
-          height: 200,
-        ),
         JobrIconButton(
           textIcon: "⚡",
           label: "Ik zoek een job",

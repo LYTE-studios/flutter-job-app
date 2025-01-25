@@ -10,12 +10,13 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_ques
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
-import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
+import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/job_listing/widgets/salary_unit_bottom_sheet.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 // Static state storage for persistence
@@ -43,8 +44,9 @@ class CreateJobListingSalaryScreen extends StatefulWidget {
 }
 
 class _CreateJobListingSalaryScreenState
-    extends State<CreateJobListingSalaryScreen> {
+    extends State<CreateJobListingSalaryScreen> with CreateJobListingMixin {
   final bool _isButtonEnabled = true;
+
 
   Widget _buildSkillSection(String title, List<String> skills,
       {int maxSelection = 3, bool isSoftSkills = true}) {
@@ -130,7 +132,11 @@ class _CreateJobListingSalaryScreenState
       progress: .8,
       buttonLabel: 'Naar vragenlijst',
       onNavigate: () {
-        context.push(CreateJobListingVragenlijstScreen.route);
+        vacancy.salary = null;
+
+        context.push(CreateJobListingVragenlijstScreen.route, extra: vacancy);
+
+        //context.push(CreateJobListingVragenlijstScreen.route);
         usedWidgetsInCreation.addAll({
           'Salaris': [
             Padding(
@@ -219,6 +225,7 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                   }
                 });
               },
+//               selectedColor: Colors.white,
               selectedColor: AppState.isToggleOn
                   ? HexColor.fromHex("#FF3E68")
                   : Colors.white,
@@ -226,6 +233,8 @@ class _SalaryWidgetState extends State<SalaryWidget> {
               labelStyle: TextStyle(
                 fontFamily: 'Poppins',
                 color: selectedSkills.contains(skill)
+//                     ? HexColor.fromHex("#FF3E68")
+
                     ? AppState.isToggleOn
                         ? Colors.white
                         : HexColor.fromHex("#FF3E68")

@@ -1,71 +1,77 @@
+import 'package:jobr/data/enums/mastery.dart';
+import 'package:jobr/data/enums/weekday.dart';
+import 'package:jobr/data/models/contract_type.dart';
+import 'package:jobr/data/models/function_type.dart';
+import 'package:jobr/data/models/language_mastery.dart';
+import 'package:jobr/data/models/location_type.dart';
+import 'package:jobr/data/models/skill_type.dart';
+import 'package:jobr/data/models/vacancy_description.dart';
+
 class Vacancy {
-  final int employer; // Employer ID
-  final String title; // Title of the vacancy
-  final int contractType; // Contract type ID
-  final int functionId; // Function ID
-  final String? location; // Optional location
-  final List<int> skills; // List of skill IDs
-  final String weekDay; // Week day
-  final double salary; // Salary
-  final String description; // Description of the vacancy
-  final List<int> languages; // List of language IDs
-  final List<int> questions; // List of question IDs
-  final double? latitude; // Optional latitude
-  final double? longitude; // Optional longitude
+  List<VacancyDescription>? descriptions;
+  ContractType? contractType; // Contract type ID
+  FunctionType? function; // Function ID
+  LocationType? location; // Optional location
+  List<SkillType>? skills; // List of skill IDs
+  List<Weekday>? weekDays; // Week day
+  double? salary; // Salary
+  DateTime? jobDate;
+  Mastery? expectedMastery;
+  List<LanguageMastery>? languages; // List of language IDs
+  List<String>? questions; // List of question IDs
 
   Vacancy({
-    required this.employer,
-    required this.title,
-    required this.contractType,
-    required this.functionId,
+    this.descriptions,
+    this.contractType,
+    this.function,
     this.location,
-    required this.skills,
-    required this.weekDay,
-    required this.salary,
-    required this.description,
-    required this.languages,
-    required this.questions,
-    this.latitude,
-    this.longitude,
+    this.skills,
+    this.weekDays,
+    this.jobDate,
+    this.salary,
+    this.expectedMastery,
+    this.languages,
+    this.questions,
   });
 
   /// Factory constructor to create a Vacancy object from JSON
-  factory Vacancy.fromJson(Map<String, dynamic> json) {
+  factory Vacancy.fromJson(Map<dynamic, dynamic> json) {
     return Vacancy(
-      employer: json['employer'],
-      title: json['title'],
-      contractType: json['contract_type'],
-      functionId: json['function'],
-      location: json['location'],
-      skills: List<int>.from(json['skill'] ?? []),
-      weekDay: json['week_day'],
-      salary: double.parse(json['salary']),
-      description: json['description'],
-      languages: List<int>.from(json['language'] ?? []),
-      questions: List<int>.from(json['question'] ?? []),
-      latitude:
-          json['latitude'] != null ? double.parse(json['latitude']) : null,
-      longitude:
-          json['longitude'] != null ? double.parse(json['longitude']) : null,
+      descriptions: (json['skill']?.isEmpty ?? true)
+          ? []
+          : json['skill']!.map((e) => VacancyDescription.fromJson(e)).toList(),
+      // contractType: ContractType.fromJson(json['contract_type']),
+      // function: FunctionType.fromJson(json['function']),
+      // location: LocationType.fromJson(json['location']),
+      // skills: (json['skill'] ?? []).map((e) => SkillType.fromJson(e)).toList(),
+      // weekDays: (json['week_day'] ?? [])
+      //     .map((e) => WeekdayExtension.fromApi(e))
+      //     .toList(),
+      // jobDate:
+      //     json['job_date'] != null ? DateTime.parse(json['job_date']) : null,
+      // salary: json['salary'] != null ? double.parse(json['salary']) : null,
+      // expectedMastery: MasteryExtension.fromApi(json['expected_mastery']),
+      // languages: (json['language'] ?? [])
+      //     .map((e) => LanguageMastery.fromJson(e))
+      //     .toList(),
+      // questions: (json['question'] ?? []).map((e) => e.toString()).toList(),
     );
   }
 
   /// Method to convert a Vacancy object to JSON
   Map<String, dynamic> toJson() {
     return {
-      'employer': employer,
-      'title': title,
-      'contract_type': contractType,
-      'function': functionId,
-      'location': location,
-      'skill': skills,
-      'week_day': weekDay,
-      'salary': salary.toString(),
-      'description': description,
-      'language': languages,
-      'question': questions,
-      'latitude': latitude?.toString(),
-      'longitude': longitude?.toString(),
+      'descriptions': descriptions?.map((e) => e.toJson()).toList(),
+      'contract_type': contractType?.id,
+      'function': function?.id,
+      'location': location?.id,
+      'skill': skills?.map((e) => e.id).toList() ?? [],
+      'week_day': [] ?? weekDays?.map((e) => {"name": e.api()}).toList(),
+      'job_date': jobDate?.toString(),
+      'salary': salary,
+      'expected_mastery': expectedMastery?.api(),
+      'languages': languages?.map((e) => e.toJson()).toList() ?? [],
+      'questions': questions?.map((e) => {'question': e}).toList(),
     };
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
@@ -51,6 +52,9 @@ class BaseNavBarScreenState extends State<BaseNavBarScreen> {
               type: BottomNavigationBarType.fixed,
               currentIndex: widget.selectedIndex ?? 0,
               onTap: (int index) {
+                HapticFeedback.lightImpact();
+
+                String route = routes[index].route;
                 String route = widget.routes[index].route;
 
                 // Use GoRouter for navigation

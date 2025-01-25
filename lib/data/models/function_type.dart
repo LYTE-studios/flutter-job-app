@@ -4,7 +4,7 @@ class FunctionType {
 
   FunctionType({required this.id, required this.name});
 
-  FunctionType.fromJson(Map<String, dynamic> json)
+  FunctionType.fromJson(Map<dynamic, dynamic> json)
       : id = json['id'],
         name = json['function'];
 }

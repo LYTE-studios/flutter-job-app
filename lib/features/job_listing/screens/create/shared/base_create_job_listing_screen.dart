@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/core/utils/keyboard_util.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class BaseCreateJobListingScreen extends StatelessWidget {
@@ -18,6 +20,8 @@ class BaseCreateJobListingScreen extends StatelessWidget {
   final String? secondaryButtonLabel;
   final bool buttonMustBeAtBottom;
 
+  final bool loading;
+
   const BaseCreateJobListingScreen({
     super.key,
     required this.child,
@@ -27,6 +31,7 @@ class BaseCreateJobListingScreen extends StatelessWidget {
     this.buttonLabel = "Continue",
     this.secondaryButtonLabel,
     this.buttonMustBeAtBottom = true,
+    this.loading = false,
   });
 
   @override
@@ -82,6 +87,57 @@ class BaseCreateJobListingScreen extends StatelessWidget {
           ),
         ),
       ),
+//       body: GestureDetector(
+//         behavior: HitTestBehavior.translucent,
+//         onTap: () {
+//           KeyboardUtil.close();
+//         },
+//         child: Stack(
+//           children: [
+//             Positioned(
+//               top: 0,
+//               left: 0,
+//               right: 0,
+//               bottom: 0,
+//               child: SingleChildScrollView(
+//                 padding: EdgeInsets.all(
+//                   PaddingSizes.large,
+//                 ),
+//                 child: SafeArea(
+//                   minimum: const EdgeInsets.only(
+//                     bottom: 64,
+//                   ),
+//                   child: child,
+//                 ),
+//               ),
+//             ),
+//             Positioned(
+//               bottom: 10,
+//               right: 0,
+//               left: 0,
+//               child: SafeArea(
+//                 bottom: true,
+//                 child: Padding(
+//                   padding: const EdgeInsets.symmetric(
+//                     vertical: PaddingSizes.medium,
+//                     horizontal: PaddingSizes.extraLarge,
+//                   ),
+//                   child: Center(
+//                     child: PrimaryButton(
+//                       borderRadius: 30,
+//                       onTap: loading ? null : onNavigate,
+//                       buttonText: loading
+//                           ? 'Laden...'
+//                           : !isNavigationEnabled
+//                               ? buttonLabel
+//                               : (secondaryButtonLabel ?? buttonLabel),
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ],
+
       body: SafeArea(
         bottom: true,
         child: TweenAnimationBuilder<double>(

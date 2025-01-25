@@ -11,7 +11,7 @@ class Message {
     required this.timestamp,
   });
 
-  factory Message.fromJson(Map<String, dynamic> json) {
+  factory Message.fromJson(Map<dynamic, dynamic> json) {
     return Message(
       id: json['id'],
       content: json['content'],
