@@ -2,7 +2,7 @@ name: jobr
 description: ""
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+26
+version: 1.0.0+27
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -37,8 +37,8 @@ dependencies:
   hive: ^2.0.4
   hive_flutter: ^1.1.0
   image_picker: ^1.1.2
-  flutter_web_auth: ^0.6.0
-  flutter_facebook_auth: ^6.0.4
+  # flutter_web_auth: ^0.6.0
+  # flutter_facebook_auth: ^6.0.4
 
 dev_dependencies:
   flutter_test:
