@@ -8,7 +8,6 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_desc
 
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
-import 'package:jobr/features/job_listing/screens/create/used_widgets_in_creation.dart';
 import 'package:jobr/features/job_listing/widgets/bottom_info_snack_bar.dart';
 import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/function_type_bottom_sheet.dart';
@@ -47,7 +46,7 @@ class _CreateJobListingGeneralScreenState
   @override
   void initState() {
     super.initState();
-    usedWidgetsInCreation.clear();
+    // usedWidgetsInCreation.clear();
   }
 
   @override
@@ -62,26 +61,26 @@ class _CreateJobListingGeneralScreenState
         context.push(CreateJobListingDescriptionScreen.route, extra: vacancy);
 
 //        context.push(CreateJobListingDescriptionScreen.route);
-        usedWidgetsInCreation.addAll({
-          "Algemeen": [
-            JobrDropdownField(
-              showTitle: false,
-              title: "Contract type",
-              selectedValue: _selectedContractType?.name,
-              onPressed: () {},
-            ),
-            JobrDropdownField(
-                showTitle: false,
-                title: "Functie",
-                selectedValue: _selectedFunction?.name,
-                onPressed: () {}),
-            JobrDropdownField(
-                showTitle: false,
-                title: "Locatie",
-                selectedValue: _selectedLocation?.name,
-                onPressed: () {}),
-          ]
-        });
+        // usedWidgetsInCreation.addAll({
+        //   "Algemeen": [
+        //     JobrDropdownField(
+        //       showTitle: false,
+        //       title: "Contract type",
+        //       selectedValue: _selectedContractType?.name,
+        //       onPressed: () {},
+        //     ),
+        //     JobrDropdownField(
+        //         showTitle: false,
+        //         title: "Functie",
+        //         selectedValue: _selectedFunction?.name,
+        //         onPressed: () {}),
+        //     JobrDropdownField(
+        //         showTitle: false,
+        //         title: "Locatie",
+        //         selectedValue: _selectedLocation?.name,
+        //         onPressed: () {}),
+        //   ]
+        // });
       },
       isNavigationEnabled: _isButtonEnabled,
       buttonLabel: 'Naar beschrijving & media',

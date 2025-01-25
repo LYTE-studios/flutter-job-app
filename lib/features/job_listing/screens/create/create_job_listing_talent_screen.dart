@@ -46,68 +46,68 @@ class _CreateJobListingTalentScreenState
         context.push(CreateJobListingSalaryScreen.route, extra: vacancy);
 
 //         context.push(CreateJobListingSalaryScreen.route);
-        usedWidgetsInCreation.addAll({
-          "Talen": [
-            _selectedFunction.isNotEmpty
-                ? Column(
-                    children: [
-                      Divider(
-                        thickness: 1.3,
-                        color: Colors.grey.shade300.withOpacity(0.7),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: _selectedFunction
-                            .map(
-                              (function) => CustomSliderWidget(
-                                label: function,
-                                onRemove: () {
-                                 
-                                },
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ],
-                  )
-                : GestureDetector(
-                    onTap: () => {},
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text(
-                            '+ ',
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins'),
-                          ),
-                          Text(
-                            'Voeg talen toe',
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-          ],
-        });
+        // usedWidgetsInCreation.addAll({
+        //   "Talen": [
+        //     _selectedFunction.isNotEmpty
+        //         ? Column(
+        //             children: [
+        //               Divider(
+        //                 thickness: 1.3,
+        //                 color: Colors.grey.shade300.withOpacity(0.7),
+        //               ),
+        //               SizedBox(
+        //                 height: 8,
+        //               ),
+        //               Wrap(
+        //                 spacing: 8,
+        //                 runSpacing: 8,
+        //                 children: _selectedFunction
+        //                     .map(
+        //                       (function) => CustomSliderWidget(
+        //                         label: function,
+        //                         onRemove: () {
+
+        //                         },
+        //                       ),
+        //                     )
+        //                     .toList(),
+        //               ),
+        //             ],
+        //           )
+        //         : GestureDetector(
+        //             onTap: () => {},
+        //             child: Container(
+        //               decoration: BoxDecoration(
+        //                 color: Colors.grey.shade100,
+        //                 borderRadius: BorderRadius.circular(12),
+        //               ),
+        //               padding: const EdgeInsets.symmetric(
+        //                   vertical: 10, horizontal: 16),
+        //               child: Row(
+        //                 mainAxisAlignment: MainAxisAlignment.center,
+        //                 children: const [
+        //                   Text(
+        //                     '+ ',
+        //                     style: TextStyle(
+        //                         fontSize: 24,
+        //                         color: Colors.grey,
+        //                         fontWeight: FontWeight.w500,
+        //                         fontFamily: 'Poppins'),
+        //                   ),
+        //                   Text(
+        //                     'Voeg talen toe',
+        //                     style: TextStyle(
+        //                         fontSize: 17,
+        //                         color: Colors.grey,
+        //                         fontWeight: FontWeight.w500,
+        //                         fontFamily: 'Poppins'),
+        //                   ),
+        //                 ],
+        //               ),
+        //             ),
+        //           ),
+        //   ],
+        // });
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
