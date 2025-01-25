@@ -47,7 +47,6 @@ class _CreateJobListingSalaryScreenState
     extends State<CreateJobListingSalaryScreen> with CreateJobListingMixin {
   final bool _isButtonEnabled = true;
 
-
   Widget _buildSkillSection(String title, List<String> skills,
       {int maxSelection = 3, bool isSoftSkills = true}) {
     List<String> selectedSkills = isSoftSkills
@@ -121,7 +120,7 @@ class _CreateJobListingSalaryScreenState
   @override
   void dispose() {
     super.dispose();
-    usedWidgetsInCreation.remove('Salaris');
+    // usedWidgetsInCreation.remove('Salaris');
   }
 
   SalaryWidget salaryWidget = const SalaryWidget();
@@ -137,17 +136,17 @@ class _CreateJobListingSalaryScreenState
         context.push(CreateJobListingVragenlijstScreen.route, extra: vacancy);
 
         //context.push(CreateJobListingVragenlijstScreen.route);
-        usedWidgetsInCreation.addAll({
-          'Salaris': [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 1.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [salaryWidget],
-              ),
-            ),
-          ]
-        });
+        // usedWidgetsInCreation.addAll({
+        //   'Salaris': [
+        //     Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 1.0),
+        //       child: Column(
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: [salaryWidget],
+        //       ),
+        //     ),
+        //   ]
+        // });
       },
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
