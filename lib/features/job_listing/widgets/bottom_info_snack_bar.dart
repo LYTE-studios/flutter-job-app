@@ -13,7 +13,7 @@ class BottomSheetContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,27 +22,28 @@ class BottomSheetContent extends StatelessWidget {
           Center(
             child: Container(
               height: 4,
-              width: 50,
+              width: 60,
               decoration: BoxDecoration(
-                color: Colors.grey,
+                color: Colors.grey[300],
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 18),
           Row(
             children: [
               const Icon(
-                Icons.info,
-                color: Colors.white,
-                size: 24,
+                Icons.info_outline,
+                color: Colors.black,
+                size: 25,
+                weight: 100,
               ),
               const SizedBox(width: 8),
               Text(
                 label,
                 style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+                  color: Colors.black,
+                  fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -52,9 +53,11 @@ class BottomSheetContent extends StatelessWidget {
           Text(
             description,
             style: const TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              height: 1.5,
+              color: Colors.black54,
+              fontSize: 16,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
+              height: 1.2,
             ),
           ),
           const SizedBox(height: 16),
@@ -62,14 +65,26 @@ class BottomSheetContent extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
             },
-            child: const Text(
-              "Learn More",
-              style: TextStyle(
-                color: Colors.orange,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                decoration: TextDecoration.underline,
-              ),
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Text(
+                  "Learn More",
+                  style: TextStyle(
+                    color: Colors.pinkAccent.withOpacity(0.7),
+                      fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Positioned(
+                  bottom: -2, // Adjust this value for spacing
+                  child: Container(
+                    height: 4, // Thickness of the underline
+                    width: 90, // Width of the underline matching the text
+                    color: Colors.pinkAccent.withOpacity(0.7),
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 16),

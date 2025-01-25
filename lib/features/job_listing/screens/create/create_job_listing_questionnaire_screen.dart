@@ -38,6 +38,7 @@ class _CreateJobListingVragenlijstScreenState
   List<String> selectedQuestions = [];
   List<TextEditingController> questionControllers = [];
   List<bool> isEditable = [];
+  int? selectedValue; // Add this line
 
 //   void navigate() {
 //     vacancy.questions = selectedQuestions;
@@ -130,9 +131,8 @@ class _CreateJobListingVragenlijstScreenState
     });
   }
 
-
   void _navigateToOverviewScreen() {
-      vacancy.questions = selectedQuestions;
+    vacancy.questions = selectedQuestions;
     context.push(CreateJobListingOverviewScreen.route, extra: vacancy);
 
 //     context.push(CreateJobListingOverviewScreen.route);
@@ -173,7 +173,7 @@ class _CreateJobListingVragenlijstScreenState
     //             child: Container(
     //               decoration: BoxDecoration(
     //                 color: Colors.grey.shade100,
-    //                 borderRadius: BorderRadius.circular(12),
+//                 borderRadius: BorderRadius.circular(12),
     //               ),
     //               padding:
     //                   const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
@@ -209,7 +209,6 @@ class _CreateJobListingVragenlijstScreenState
     return BaseCreateJobListingScreen(
       progress: .9,
       buttonLabel: 'Naar overzicht',
-
       onNavigate: _navigateToOverviewScreen,
       isNavigationEnabled: _isButtonEnabled,
       child: Column(
@@ -223,9 +222,7 @@ class _CreateJobListingVragenlijstScreenState
                 style: TextStyles.titleMedium.copyWith(fontSize: 22),
               ),
               TextButton(
-
                 onPressed: _navigateToOverviewScreen,
-
                 child: Text(
                   "Overslaan",
                   style: TextStyles.titleMedium.copyWith(
@@ -321,6 +318,30 @@ class _CreateJobListingVragenlijstScreenState
                 ),
               ],
             ),
+          // Example DropdownButton usage
+          DropdownButton<int>(
+            value:
+                selectedValue, // Ensure this value exists exactly once in items
+            items: [
+              DropdownMenuItem<int>(
+                value: 10,
+                child: Text('Option 10'),
+              ),
+              DropdownMenuItem<int>(
+                value: 20,
+                child: Text('Option 20'),
+              ),
+              DropdownMenuItem<int>(
+                value: 30,
+                child: Text('Option 30'),
+              ),
+            ],
+            onChanged: (int? newValue) {
+              setState(() {
+                selectedValue = newValue;
+              });
+            },
+          ),
         ],
       ),
     );

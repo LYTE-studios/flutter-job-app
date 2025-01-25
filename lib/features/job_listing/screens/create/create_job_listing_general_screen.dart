@@ -144,12 +144,12 @@ class _CreateJobListingGeneralScreenState
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(16),
                       ),
-                      ),
-                    backgroundColor: Colors.black,
+                    ),
+                    backgroundColor: Colors.white,
                     builder: (context) => BottomSheetContent(
                         label: 'Interne functietitel',
                         description:
-                            'Geef hier een duidelijke naam voor de functie of rol binnen het bedrijf'),
+                            'Als Barista zorg je samen met je team voor het creëren van de perfecte koffie-ervaring voor onze klanten. Je bereidt zorgvuldig verschillende koffiespecialiteiten, adviseert klanten over hun keuzes, en zorgt ervoor dat de werkomgeving aangenaam en efficiënt is. Daarnaast draag je bij aan de gastvrijheid en sfeer die in lijn zijn met de hoge standaard van onze vestiging.'),
                   );
                 },
               ),

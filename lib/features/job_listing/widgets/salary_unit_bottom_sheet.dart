@@ -35,19 +35,6 @@ class _SalaryUnitTypeBottomSheetState extends State<SalaryUnitTypeBottomSheet>
     return super.loadData();
   }
 
-  Widget _buildOption(BuildContext context, String value) {
-    return ListTile(
-      title: Text(
-        value,
-        style: const TextStyle(color: Colors.white),
-      ),
-      onTap: () {
-        widget.onSelected(value);
-        Navigator.pop(context); // Make sure to close the bottom sheet
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return BaseOptionBottomSheet(
@@ -56,6 +43,7 @@ class _SalaryUnitTypeBottomSheetState extends State<SalaryUnitTypeBottomSheet>
       options: salaryUnitTypes.map((e) => e).toList(),
       onSelected: (index) {
         widget.onSelected.call(salaryUnitTypes[index]);
+
         Navigator.pop(context);
       },
     );
