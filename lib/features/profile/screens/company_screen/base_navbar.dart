@@ -54,7 +54,6 @@ class BaseNavBarScreenState extends State<BaseNavBarScreen> {
               onTap: (int index) {
                 HapticFeedback.lightImpact();
 
-                String route = routes[index].route;
                 String route = widget.routes[index].route;
 
                 // Use GoRouter for navigation

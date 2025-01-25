@@ -40,7 +40,7 @@ class _CreateJobListingSkillsScreenState
 
   @override
   void dispose() {
-    usedWidgetsInCreation.remove('Vaardigheden');
+    // usedWidgetsInCreation.remove('Vaardigheden');
     super.dispose();
   }
 
@@ -77,23 +77,23 @@ class _CreateJobListingSkillsScreenState
           //   ]
           // });
 //           context.push(CreateJobListingAvailabilityScreen.route);
-          usedWidgetsInCreation.addAll({
-            'Vaardigheden': [
-              _buildWerkervaringCard(
-                  cardColor: Colors.grey.shade100.withOpacity(0.7)),
-              _buildSkillSection(
-                'Soft skills',
-                selectedSoftSkills,
-                maxSelection: 0,
-                isSoftSkills: true,
-                showSelectionText: false,
-              ),
-              _buildSkillSection('Hard skills', selectedHardSkills,
-                  maxSelection: 0,
-                  isSoftSkills: false,
-                  showSelectionText: false),
-            ]
-          });
+          // usedWidgetsInCreation.addAll({
+          //   'Vaardigheden': [
+          //     _buildWerkervaringCard(
+          //         cardColor: Colors.grey.shade100.withOpacity(0.7)),
+          //     _buildSkillSection(
+          //       'Soft skills',
+          //       selectedSoftSkills,
+          //       maxSelection: 0,
+          //       isSoftSkills: true,
+          //       showSelectionText: false,
+          //     ),
+          //     _buildSkillSection('Hard skills', selectedHardSkills,
+          //         maxSelection: 0,
+          //         isSoftSkills: false,
+          //         showSelectionText: false),
+          //   ]
+          // });
         }
       },
       isNavigationEnabled: _isButtonEnabled,
