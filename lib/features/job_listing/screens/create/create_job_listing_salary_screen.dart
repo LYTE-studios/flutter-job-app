@@ -47,7 +47,6 @@ class _CreateJobListingSalaryScreenState
     extends State<CreateJobListingSalaryScreen> with CreateJobListingMixin {
   final bool _isButtonEnabled = true;
 
-
   Widget _buildSkillSection(String title, List<String> skills,
       {int maxSelection = 3, bool isSoftSkills = true}) {
     List<String> selectedSkills = isSoftSkills
@@ -87,16 +86,12 @@ class _CreateJobListingSalaryScreenState
                   }
                 });
               },
-              selectedColor: AppState.isToggleOn
-                  ? HexColor.fromHex("#FF3E68")
-                  : Colors.white,
+              selectedColor: Colors.white,
               backgroundColor: Colors.white,
               labelStyle: TextStyle(
                 fontFamily: 'Poppins',
                 color: selectedSkills.contains(skill)
-                    ? AppState.isToggleOn
-                        ? Colors.white
-                        : HexColor.fromHex("#FF3E68")
+                    ? HexColor.fromHex("#FF3E68")
                     : HexColor.fromHex("#A0A0A0"),
                 fontWeight: FontWeight.w500,
                 fontSize: 15.88,
@@ -159,7 +154,7 @@ class _CreateJobListingSalaryScreenState
           ),
           Divider(
             thickness: 1.3,
-            color: const Color.fromARGB(255, 50, 34, 34).withOpacity(0.7),
+            color: Colors.grey.shade300.withOpacity(0.7),
           ),
           const SizedBox(height: 15),
           Padding(
@@ -225,19 +220,12 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                   }
                 });
               },
-//               selectedColor: Colors.white,
-              selectedColor: AppState.isToggleOn
-                  ? HexColor.fromHex("#FF3E68")
-                  : Colors.white,
+              selectedColor: Colors.transparent,
               backgroundColor: Colors.white,
               labelStyle: TextStyle(
                 fontFamily: 'Poppins',
                 color: selectedSkills.contains(skill)
-//                     ? HexColor.fromHex("#FF3E68")
-
-                    ? AppState.isToggleOn
-                        ? Colors.white
-                        : HexColor.fromHex("#FF3E68")
+                    ? HexColor.fromHex("#FF3E68")
                     : HexColor.fromHex("#A0A0A0"),
                 fontWeight: FontWeight.w500,
                 fontSize: 15.88,
@@ -320,41 +308,43 @@ class _SalaryWidgetState extends State<SalaryWidget> {
         ),
         const SizedBox(height: 4),
         if (AppState.isToggleOn) ...[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 7.0),
-                  child: CustomInputField(),
+          if (!AppState.isRadioSelected) ...[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 7.0),
+                    child: CustomInputField(),
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              JobrDropdownField(
-                title: "Salary Unit",
-                hintText: AppState.selectedUnit,
-                selectedValue: AppState.selectedUnit,
-                showTitle: false,
-                showWijzigenText: false,
-                showDropdownMenu: true,
-                textStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
-                  color: Colors.black54,
+                const SizedBox(width: 10),
+                JobrDropdownField(
+                  title: "Salary Unit",
+                  hintText: AppState.selectedUnit,
+                  selectedValue: AppState.selectedUnit,
+                  showTitle: false,
+                  showWijzigenText: false,
+                  showDropdownMenu: true,
+                  textStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Poppins',
+                    color: Colors.black54,
+                  ),
+                  onPressed: () => SalaryUnitTypeBottomSheet(
+                    title: "Kies een salaris type",
+                    onSelected: (String value) {
+                      setState(() {
+                        AppState.selectedUnit = value;
+                      });
+                    },
+                  ).showBottomSheet(context: context),
                 ),
-                onPressed: () => SalaryUnitTypeBottomSheet(
-                  title: "Kies een salaris type",
-                  onSelected: (String value) {
-                    setState(() {
-                      AppState.selectedUnit = value;
-                    });
-                  },
-                ).showBottomSheet(context: context),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
+              ],
+            ),
+            const SizedBox(height: 10),
+          ],
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -410,7 +400,12 @@ class CustomInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       cursorHeight: 22,
-      style: const TextStyle(fontSize: 20),
+      style: TextStyle(
+        fontSize: 18,
+        color: Colors.grey[400],
+        fontWeight: FontWeight.w500,
+        fontFamily: 'Poppins',
+      ),
       decoration: InputDecoration(
         prefixIcon: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),

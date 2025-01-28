@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Add this import
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/models/language.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
-import 'package:jobr/features/job_listing/widgets/custom_slider.dart'
-    as jobListing; // Add alias
+import 'package:jobr/features/job_listing/widgets/custom_slider.dart';
+import 'package:jobr/features/job_listing/widgets/custom_slider_with_two_thumbs.dart';
 import 'package:jobr/features/job_listing/widgets/gender_toggle_box.dart';
+import 'package:jobr/features/job_listing/widgets/language_bottom_sheet.dart';
 // Add alias
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
@@ -26,13 +28,13 @@ class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
 
   @override
-  _FilterScreenState createState() => _FilterScreenState();
+  State<FilterScreen> createState() => _FilterScreenState();
 }
 
 class _FilterScreenState extends State<FilterScreen> {
-  double _ageSliderValue = 23;
   double _distanceSliderValue = 50;
-  double werkervaringValue = 1; // Initial value for slider
+  double werkervaringValue = 1;
+  RangeValues _ageRange = const RangeValues(18, 35);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class _FilterScreenState extends State<FilterScreen> {
         leading: IconButton(
           icon: SvgPicture.asset(
             'assets/images/icons/cross.svg',
-            color: Colors.black,
+            colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
             height: 15,
             width: 15,
           ),
@@ -103,7 +105,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           ),
                         ),
                         Text(
-                          '${_ageSliderValue.round()} jaar',
+                          '${_ageRange.start.round()} - ${_ageRange.end.round()} jaar',
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -111,15 +113,14 @@ class _FilterScreenState extends State<FilterScreen> {
                         ),
                       ],
                     ),
-                    jobListing.CustomSlider(
-                      value: _ageSliderValue,
-                      min: 0,
-                      max: 100,
-                      divisions: 100,
-                      label: '${_ageSliderValue.round()} jaar',
-                      onChanged: (value) {
+                    CustomSliderWithTwoThumbs(
+                      values: _ageRange,
+                      min: 18,
+                      max: 65,
+                      divisions: 47,
+                      onChanged: (RangeValues values) {
                         setState(() {
-                          _ageSliderValue = value;
+                          _ageRange = values;
                         });
                       },
                     ),
@@ -149,7 +150,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         activeTickMarkColor: Colors.white,
                         inactiveTickMarkColor: Colors.white,
                         activeTrackColor: HexColor.fromHex("#FF3E68"),
-                        inactiveTrackColor: Colors.grey[100],
+                        inactiveTrackColor: Colors.grey[200],
                         trackHeight: 10,
                         thumbShape: _CustomThumbShape(radius: 14),
                         trackShape: _CustomTrackShape(), // Custom track shape
@@ -181,7 +182,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     SizedBox(height: 12),
                     Divider(
                       thickness: 1.5,
-                      color: Colors.grey.shade200.withOpacity(0.7),
+                      color: Colors.grey.shade200.withAlpha(178),
                     ),
                     SizedBox(height: 12),
                   ],
@@ -226,7 +227,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ],
                 ),
-                jobListing.CustomSlider(
+                CustomSlider(
                   value: _distanceSliderValue,
                   min: 0,
                   max: 100,
@@ -331,15 +332,21 @@ class _CustomThumbShape extends SliderComponentShape {
   }
 }
 
-class LanguageSkillsSection extends StatelessWidget {
+class LanguageSkillsSection extends StatefulWidget {
   const LanguageSkillsSection({super.key});
+
+  @override
+  State<LanguageSkillsSection> createState() => _LanguageSkillsSectionState();
+}
+
+class _LanguageSkillsSectionState extends State<LanguageSkillsSection> {
+  final List<Language> _selectedLanguages = [];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Languages Section
         const Text(
           'Talen',
           style: TextStyle(
@@ -348,26 +355,53 @@ class LanguageSkillsSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Text(
-                '+ Kies een taal',
-                style: TextStyle(
+        GestureDetector(
+          onTap: () => LanguageBottomSheet(
+            title: "Voeg talen toe",
+            onSelected: (Language value) {
+              setState(() {
+                _selectedLanguages.add(value);
+              });
+            },
+          ).showBottomSheet(context: context),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text(
+                  '+ Kies een taal',
+                  style: TextStyle(
                     fontSize: 17,
                     color: Colors.grey,
                     fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins'),
-              ),
-            ],
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
+        if (_selectedLanguages.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            children: _selectedLanguages
+                .map((lang) => Chip(
+                      label: Text(lang.name),
+                      onDeleted: () {
+                        setState(() {
+                          _selectedLanguages.remove(lang);
+                        });
+                      },
+                    ))
+                .toList(),
+          ),
+        ],
         const SizedBox(height: 16),
         Divider(
           thickness: 1,
@@ -382,15 +416,21 @@ class LanguageSkillsSection extends StatelessWidget {
   }
 }
 
-class SkillsSection extends StatelessWidget {
+class SkillsSection extends StatefulWidget {
   const SkillsSection({super.key});
+
+  @override
+  State<SkillsSection> createState() => _SkillsSectionState();
+}
+
+class _SkillsSectionState extends State<SkillsSection> {
+  final List<Language> _selectedSkills = [];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Skills Title
         const Text(
           'Skills',
           style: TextStyle(
@@ -399,34 +439,59 @@ class SkillsSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-
-        // Skills Button
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            borderRadius: BorderRadius.circular(20), // Rounded button shape
-          ),
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-          child: Row(
-            mainAxisSize: MainAxisSize.min, // Shrink to content size
-            children: [
-              const Text(
-                'Kies skills',
-                style: TextStyle(
+        GestureDetector(
+          onTap: () => LanguageBottomSheet(
+            title: "Voeg skills toe",
+            onSelected: (Language value) {
+              setState(() {
+                _selectedSkills.add(value);
+              });
+            },
+          ).showBottomSheet(context: context),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Kies skills',
+                  style: TextStyle(
                     fontSize: 16,
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins'),
-              ),
-              const SizedBox(width: 8),
-              Icon(
-                Icons.add,
-                color: Colors.grey.shade500,
-                size: 20,
-              ),
-            ],
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Icon(
+                  Icons.add,
+                  color: Colors.grey.shade500,
+                  size: 20,
+                ),
+              ],
+            ),
           ),
         ),
+        if (_selectedSkills.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            children: _selectedSkills
+                .map((skill) => Chip(
+                      label: Text(skill.name),
+                      onDeleted: () {
+                        setState(() {
+                          _selectedSkills.remove(skill);
+                        });
+                      },
+                    ))
+                .toList(),
+          ),
+        ],
       ],
     );
   }

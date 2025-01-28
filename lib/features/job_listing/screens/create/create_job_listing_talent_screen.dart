@@ -66,7 +66,7 @@ class _CreateJobListingTalentScreenState
         //                       (function) => CustomSliderWidget(
         //                         label: function,
         //                         onRemove: () {
-                                 
+
         //                         },
         //                       ),
         //                     )
@@ -128,10 +128,10 @@ class _CreateJobListingTalentScreenState
                 child: Text(
                   "Overslaan",
                   style: TextStyles.titleMedium.copyWith(
-                      fontSize: 18,
+                      fontSize: 17.21,
                       fontWeight: FontWeight.w500,
                       fontFamily: 'Poppins',
-                      color: Colors.pink),
+                      color: Color(0xffFF3E68)),
                 ),
               ),
             ],
@@ -235,7 +235,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
   // Mapping slider value to labels
   final Map<double, String> labels = {
     0: 'Basis',
-    1: '        Gevorderd',
+    1: 'Gevorderd',
     2: 'Moedertaal',
   };
 
@@ -287,12 +287,15 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
                   value: _sliderValue,
                   min: 0,
                   max: 2,
-                  divisions: 100, // Smooth sliding (no fixed stops)
+                  divisions: null, // Make slider continuous
                   onChanged: (value) {
-                    setState(() {
-                      _sliderValue = value.roundToDouble();
-                      HapticFeedback.lightImpact(); // Add haptic feedback
-                    });
+                    final newValue = value.roundToDouble();
+                    if (_sliderValue != newValue) {
+                      setState(() {
+                        _sliderValue = newValue;
+                      });
+                      HapticFeedback.lightImpact();
+                    }
                   },
                 ),
               ),

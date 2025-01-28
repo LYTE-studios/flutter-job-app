@@ -31,14 +31,14 @@ class _JobListingsScreenState extends State<JobListingsScreen>
     with ScreenStateMixin {
   List<Vacancy> vacancies = [];
 
-  // @override
-  // Future<void> loadData() async {
-  //   vacancies = await VacanciesService().getVacancies();
+  @override
+  Future<void> loadData() async {
+    vacancies = await VacanciesService().getVacancies();
 
-  //   setState(() {
-  //     vacancies = vacancies;
-  //   });
-  // }
+    setState(() {
+      vacancies = vacancies;
+    });
+  }
 
   Widget buildEmtpyState(BuildContext context) {
     return Column(
@@ -128,8 +128,8 @@ class _JobListingsScreenState extends State<JobListingsScreen>
                       },
                       child: SvgPicture.asset(
                         'assets/images/icons/add_outlined.svg',
-                        height: 25,
-                        width: 25,
+                        height: 28,
+                        width: 28,
                       ),
                     ),
                   ),

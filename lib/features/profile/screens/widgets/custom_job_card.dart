@@ -172,10 +172,11 @@ class _CustomJobCardState extends State<CustomJobCard> {
         Text(
           widget.location,
           style: TextStyle(
-            fontFamily: 'Inter',
+            fontFamily: 'Poppins',
             color: HexColor.fromHex('#666666'),
             fontSize: 15,
             fontWeight: FontWeight.w500,
+            letterSpacing: 0.0001,
           ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -196,9 +197,10 @@ class _CustomJobCardState extends State<CustomJobCard> {
         Text(
           "${widget.age} jaar",
           style: TextStyle(
-            fontFamily: 'Inter',
+            fontFamily: 'Poppins',
             color: HexColor.fromHex('#666666'),
             fontSize: 15,
+            letterSpacing: 0.0001,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -212,9 +214,10 @@ class _CustomJobCardState extends State<CustomJobCard> {
       widget.description,
       trimLines: 3,
       style: TextStyle(
-        fontFamily: 'Inter',
+        fontFamily: 'Poppins',
         color: HexColor.fromHex('#4A4C53'),
-        fontSize: 16,
+        fontSize: 17,
+        letterSpacing: 0.0001,
         fontWeight: FontWeight.w500,
       ),
       trimMode: TrimMode.Line,
@@ -273,6 +276,7 @@ class _CustomJobCardState extends State<CustomJobCard> {
                   fontFamily: 'Inter',
                   color: HexColor.fromHex('#4A4C53'),
                   fontSize: 16,
+                  letterSpacing: -0.352,
                   fontWeight: FontWeight.w500,
                 ),
               ),

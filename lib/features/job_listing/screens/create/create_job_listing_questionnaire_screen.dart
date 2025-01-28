@@ -319,29 +319,6 @@ class _CreateJobListingVragenlijstScreenState
               ],
             ),
           // Example DropdownButton usage
-          DropdownButton<int>(
-            value:
-                selectedValue, // Ensure this value exists exactly once in items
-            items: [
-              DropdownMenuItem<int>(
-                value: 10,
-                child: Text('Option 10'),
-              ),
-              DropdownMenuItem<int>(
-                value: 20,
-                child: Text('Option 20'),
-              ),
-              DropdownMenuItem<int>(
-                value: 30,
-                child: Text('Option 30'),
-              ),
-            ],
-            onChanged: (int? newValue) {
-              setState(() {
-                selectedValue = newValue;
-              });
-            },
-          ),
         ],
       ),
     );

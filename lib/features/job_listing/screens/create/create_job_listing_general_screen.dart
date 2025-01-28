@@ -138,18 +138,10 @@ class _CreateJobListingGeneralScreenState
               suffixIcon: IconButton(
                 icon: Icon(Icons.info_outline),
                 onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(16),
-                      ),
-                    ),
-                    backgroundColor: Colors.white,
-                    builder: (context) => BottomSheetContent(
-                        label: 'Interne functietitel',
-                        description:
-                            'Als Barista zorg je samen met je team voor het creëren van de perfecte koffie-ervaring voor onze klanten. Je bereidt zorgvuldig verschillende koffiespecialiteiten, adviseert klanten over hun keuzes, en zorgt ervoor dat de werkomgeving aangenaam en efficiënt is. Daarnaast draag je bij aan de gastvrijheid en sfeer die in lijn zijn met de hoge standaard van onze vestiging.'),
+                  showInfoDialog(
+                    context,
+                    'Als Barista zorg je samen met je team voor het creëren van de perfecte koffie-ervaring voor onze klanten. Je bereidt zorgvuldig verschillende koffiespecialiteiten, adviseert klanten over hun keuzes, en zorgt ervoor dat de werkomgeving aangenaam en efficiënt is. Daarnaast draag je bij aan de gastvrijheid en sfeer die in lijn zijn met de hoge standaard van onze vestiging.',
+                    'Interne functietitel',
                   );
                 },
               ),

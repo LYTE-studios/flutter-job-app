@@ -130,23 +130,14 @@ class _CreateJobListingSkillsScreenState
               'Klantgericht',
               'Oog voor detail',
             ],
-            maxSelection: 3,
+            minSelection: 3,
+            maxSelection: 9,
             isSoftSkills: true,
             onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(16),
-                  ),
-                ),
-                backgroundColor: Colors.black,
-                builder: (context) => BottomSheetContent(
-                  label: 'Soft Skills',
-                  description:
-                      'Selecteer minimaal drie vaardigheden om door te gaan naar de volgende pagina.',
-                ),
-              );
+              showInfoDialog(
+                  context,
+                  'Selecteer minimaal drie vaardigheden om door te gaan naar de volgende pagina.',
+                  'Soft Skills');
             },
           ),
           const SizedBox(height: 10),
@@ -164,23 +155,14 @@ class _CreateJobListingSkillsScreenState
               'Afwas',
               'Tijdmanagement',
             ],
-            maxSelection: 3,
+            minSelection: 3,
+            maxSelection: 8,
             isSoftSkills: false,
             onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(16),
-                  ),
-                ),
-                backgroundColor: Colors.black,
-                builder: (context) => BottomSheetContent(
-                  label: 'Hard Skills',
-                  description:
-                      'Selecteer minimaal drie vaardigheden om door te gaan naar de volgende pagina.',
-                ),
-              );
+              showInfoDialog(
+                  context,
+                  'Selecteer minimaal drie vaardigheden om door te gaan naar de volgende pagina.',
+                  'Hard Skills');
             },
           ),
 
@@ -249,7 +231,7 @@ class _CreateJobListingSkillsScreenState
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _buildLabel('Geen', 0),
-                      _buildLabel('   Starter', 1),
+                      _buildLabel('       Starter', 1),
                       _buildLabel('⭐Ervaren', 2),
                       _buildLabel('💎Expert', 3),
                     ],
@@ -282,7 +264,7 @@ class _CreateJobListingSkillsScreenState
     return Text(
       text,
       style: TextStyles.titleMedium.copyWith(
-        fontSize: isSelected ? 18.0 : 15.63, // Increase font size if selected
+        fontSize: isSelected ? 15.63 : 15.63, // Increase font size if selected
         fontWeight: FontWeight.w600,
         color: labelColors[text], // Use mapped color for each label
       ),
@@ -291,6 +273,7 @@ class _CreateJobListingSkillsScreenState
 
   Widget _buildSkillSection(String title, List<String> skills,
       {int maxSelection = 3,
+      int minSelection = 0, // Added minSelection parameter
       bool isSoftSkills = true,
       bool showSelectionText = true,
       VoidCallback? onPressed}) {
@@ -316,7 +299,7 @@ class _CreateJobListingSkillsScreenState
             ]),
             if (showSelectionText)
               Text(
-                'Kies er $maxSelection',
+                'Kies er minimum $minSelection', // Updated text to show min and max selection
                 style: TextStyles.titleMedium.copyWith(
                   color: (isSoftSkills && showSoftWarning) ||
                           (!isSoftSkills && showHardWarning)

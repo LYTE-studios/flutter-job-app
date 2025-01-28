@@ -27,9 +27,9 @@ class CustomSlider extends StatelessWidget {
     final theme = Theme.of(context);
     return SliderTheme(
       data: SliderTheme.of(context).copyWith(
-        trackHeight: 6.0, // Custom track height for more width
+        trackHeight: 10.0, // Custom track height for more width
         activeTrackColor: theme.primaryColor,
-        inactiveTrackColor: Colors.grey[300],
+        inactiveTrackColor: Colors.grey[200],
         thumbColor: theme.primaryColor,
         overlayColor: theme.primaryColor.withOpacity(0.2),
         thumbShape: CustomThumbShape(
@@ -57,8 +57,10 @@ class CustomThumbShape extends SliderComponentShape {
   final double enabledThumbRadius;
   final Color borderColor;
 
-  CustomThumbShape(
-      {this.enabledThumbRadius = 12.0, this.borderColor = Colors.white});
+  CustomThumbShape({
+    this.enabledThumbRadius = 12.0,
+    this.borderColor = Colors.white,
+  });
 
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) =>
@@ -79,18 +81,26 @@ class CustomThumbShape extends SliderComponentShape {
     required double textScaleFactor,
     required Size sizeWithOverflow,
   }) {
-    final Paint outerCircle = Paint()
-      ..color = borderColor
+    // White border circle
+    final Paint borderPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.5;
+
+    // Background white fill
+    final Paint backgroundPaint = Paint()
+      ..color = Colors.white
       ..style = PaintingStyle.fill;
 
-    final Paint innerCircle = Paint()
+    // Inner colored circle
+    final Paint innerCirclePaint = Paint()
       ..color = sliderTheme.thumbColor!
       ..style = PaintingStyle.fill;
 
-    // Draw the outer circle
-    context.canvas.drawCircle(center, enabledThumbRadius, outerCircle);
-    // Draw the inner circle
-    context.canvas.drawCircle(center, enabledThumbRadius - 4, innerCircle);
+    // Draw order: white background, colored inner circle, white border
+    context.canvas.drawCircle(center, enabledThumbRadius, backgroundPaint);
+    context.canvas.drawCircle(center, enabledThumbRadius - 3, innerCirclePaint);
+    context.canvas.drawCircle(center, enabledThumbRadius, borderPaint);
   }
 }
 

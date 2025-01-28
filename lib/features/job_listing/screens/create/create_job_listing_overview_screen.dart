@@ -377,7 +377,7 @@ class __SelectableSectionState extends State<_SelectableSection> {
                       ),
                     ),
                     Icon(
-                      isExpanded
+                      !isExpanded
                           ? Icons.keyboard_arrow_up
                           : Icons.keyboard_arrow_down,
                       color: isExpanded ? Colors.pinkAccent : Colors.grey,

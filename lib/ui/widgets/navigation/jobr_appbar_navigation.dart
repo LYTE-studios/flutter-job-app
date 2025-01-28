@@ -82,6 +82,8 @@ class JobrAppbarNavigation extends StatelessWidget
                           description!,
                           style: TextStyle(
                             fontSize: 15.5,
+                            fontFamily: 'Poppins',
+                            letterSpacing: 0.001,
                             fontWeight: FontWeight.w500,
                             color: HexColor.fromHex('#6D6D6D'),
                           ),

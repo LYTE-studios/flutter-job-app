@@ -1,10 +1,12 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart'; // Ensure correct import for SvgPicture
 
-class BottomSheetContent extends StatelessWidget {
+class InfoDialog extends StatelessWidget {
   final String description;
   final String label;
 
-  const BottomSheetContent({
+  const InfoDialog({
     Key? key,
     required this.description,
     required this.label,
@@ -12,84 +14,77 @@ class BottomSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 5),
-          Center(
-            child: Container(
-              height: 4,
-              width: 60,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          ),
-          const SizedBox(height: 18),
-          Row(
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+      child: Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 15),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.95,
+          child: Stack(
             children: [
-              const Icon(
-                Icons.info_outline,
-                color: Colors.black,
-                size: 25,
-                weight: 100,
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 35, vertical: 30),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Text(
+                        label,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      description,
+                      style: const TextStyle(
+                        color: Colors.black38,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        height: 1.2,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(width: 8),
-              Text(
-                label,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+              Positioned(
+                top: 17,
+                right: 5,
+                child: IconButton(
+                  icon: SvgPicture.asset(
+                    'assets/images/icons/cross.svg', // Correct argument type
+                    colorFilter: ColorFilter.mode(Colors.grey[400]!,
+                        BlendMode.srcIn), // Correct parameter usage
+                  ),
+                  onPressed: () => Navigator.pop(context),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          Text(
-            description,
-            style: const TextStyle(
-              color: Colors.black54,
-              fontSize: 16,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w500,
-              height: 1.2,
-            ),
-          ),
-          const SizedBox(height: 16),
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Text(
-                  "Learn More",
-                  style: TextStyle(
-                    color: Colors.pinkAccent.withOpacity(0.7),
-                      fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Positioned(
-                  bottom: -2, // Adjust this value for spacing
-                  child: Container(
-                    height: 4, // Thickness of the underline
-                    width: 90, // Width of the underline matching the text
-                    color: Colors.pinkAccent.withOpacity(0.7),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 16),
-        ],
+        ),
       ),
     );
   }
+}
+
+void showInfoDialog(BuildContext context, String description, String label) {
+  showDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext context) {
+      return InfoDialog(
+        description: description,
+        label: label,
+      );
+    },
+  );
 }

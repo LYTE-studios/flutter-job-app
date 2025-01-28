@@ -14,6 +14,8 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  String selectedCategory = 'Alle';
+
   // Sample chat data
   final List<Map<String, dynamic>> chatData = [
     {
@@ -31,6 +33,13 @@ class _ChatScreenState extends State<ChatScreen> {
       'unreadCount': 1,
     },
   ];
+
+  List<Map<String, dynamic>> get filteredChats {
+    if (selectedCategory == 'Ongelezen') {
+      return chatData.where((chat) => chat['unreadCount'] > 0).toList();
+    }
+    return chatData;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,9 +116,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     context.push(ChatPageScreen.employerRoute);
                   },
                   child: ListView.builder(
-                    itemCount: chatData.length,
+                    itemCount: filteredChats.length,
                     itemBuilder: (context, index) {
-                      final chat = chatData[index];
+                      final chat = filteredChats[index];
                       return Column(
                         children: [
                           _buildChatItem(chat),
@@ -210,15 +219,47 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   // Helper method to build category buttons
-  Widget _buildCategoryButton(String text, Color bgColor, Color textColor) {
+  Widget _buildCategoryButton(
+      String text, Color defaultBgColor, Color defaultTextColor) {
+    final bool isSelected = selectedCategory == text;
+    final bool isOngelenzenSelected = selectedCategory == 'Ongelezen';
+
+    // Define colors based on selection state
+    Color bgColor;
+    Color textColor;
+
+    if (text == 'Alle') {
+      if (isOngelenzenSelected) {
+        bgColor = const Color(0xFFF8F8F8).withOpacity(0.4);
+        textColor = const Color(0xFFA0A0A0);
+      } else {
+        bgColor = const Color(0xFFFFEEF1).withOpacity(0.4);
+        textColor = const Color(0xFFFF3E68).withOpacity(0.9);
+      }
+    } else {
+      // For 'Ongelezen' button
+      if (isSelected) {
+        bgColor = const Color(0xFFFFEEF1).withOpacity(0.4);
+        textColor = const Color(0xFFFF3E68).withOpacity(0.9);
+      } else {
+        bgColor = const Color(0xFFF8F8F8).withOpacity(0.4);
+        textColor = const Color(0xFFA0A0A0);
+      }
+    }
+
     return SizedBox(
       height: 35,
       width: text == 'Alle' ? 52 : 104,
-      // Adjust width for 'Alle' and 'Ongelezen'
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            if (selectedCategory != text) {
+              selectedCategory = text;
+            }
+          });
+        },
         style: TextButton.styleFrom(
-          backgroundColor: bgColor.withOpacity(0.4),
+          backgroundColor: bgColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(11.0),
           ),
