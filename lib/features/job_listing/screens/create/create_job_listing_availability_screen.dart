@@ -10,8 +10,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_skil
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
-import 'package:jobr/features/job_listing/widgets/custom_time_picker.dart';
-import 'package:jobr/features/job_listing/widgets/date_picker.dart';
+import 'package:jobr/features/job_listing/widgets/date_time_picker.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:intl/intl.dart'; // Import for DateFormat
@@ -38,9 +37,8 @@ class _CreateJobListingAvailabilityScreenState
   List<Weekday> selectedDays = [];
 
   final TextEditingController _dateController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
   DateTime? selectedDate;
-  TimeOfDay? selectedTime;
+  TimeOfDay? selectedTime = TimeOfDay.now();
 
   String toVisibleDay(Weekday day) {
     return {
@@ -75,7 +73,7 @@ class _CreateJobListingAvailabilityScreenState
           ),
           Divider(
             thickness: 1.3,
-            color: Colors.grey.shade300.withOpacity(0.7),
+            color: Colors.grey.shade300.withAlpha(179),
           ),
           const SizedBox(height: 15),
           Padding(
@@ -90,7 +88,7 @@ class _CreateJobListingAvailabilityScreenState
                     style: TextStyles.bodyMedium.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black.withOpacity(0.7)),
+                        color: Colors.black.withAlpha(179)),
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -153,7 +151,7 @@ class _CreateJobListingAvailabilityScreenState
                         style: TextStyles.titleMedium.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: 16.72,
-                            color: Colors.black.withOpacity(0.7)),
+                            color: Colors.black.withAlpha(179)),
                       )
                     ],
                   ),
@@ -181,7 +179,7 @@ class _CreateJobListingAvailabilityScreenState
                         style: TextStyles.titleMedium.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: 16.72,
-                            color: Colors.black.withOpacity(0.7)),
+                            color: Colors.black.withAlpha(179)),
                       )
                     ],
                   ),
@@ -191,11 +189,11 @@ class _CreateJobListingAvailabilityScreenState
                   TextFormField(
                     controller: _dateController,
                     decoration: InputDecoration(
-                      labelText: 'Kies een datum',
+                      labelText: 'Kies een datum & tijdstip',
                       labelStyle: TextStyles.titleMedium.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 16.16,
-                        color: HexColor.fromHex("#000000").withOpacity(0.4),
+                        color: HexColor.fromHex("#000000").withAlpha(102),
                       ),
                       suffixIcon: Icon(
                         Icons.calendar_month,
@@ -204,8 +202,7 @@ class _CreateJobListingAvailabilityScreenState
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 16.0),
                       filled: true,
-                      fillColor:
-                          HexColor.fromHex("#00000008").withOpacity(0.03),
+                      fillColor: HexColor.fromHex("#00000008").withAlpha(8),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: const BorderSide(color: Colors.transparent),
@@ -220,87 +217,43 @@ class _CreateJobListingAvailabilityScreenState
                       ),
                     ),
                     style: TextStyle(
-                        fontSize: 20, color: Colors.grey.withOpacity(0.9)),
+                        fontSize: 20, color: Colors.grey.withAlpha(230)),
                     readOnly: true,
                     onTap: () async {
                       FocusScope.of(context).unfocus();
-                      await showModalBottomSheet(
+                      await showDialog(
                         context: context,
-                        isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(24)),
-                        ),
-                        builder: (context) {
-                          return CustomDatePickerBottomSheet(
-                            startDate: DateTime.now(),
-                            endDate: DateTime.now().add(Duration(days: 365)),
-                            onDateSelected: (pickedDate) {
-                              setState(() {
-                                selectedDate = pickedDate;
-                                _dateController.text =
-                                    "${pickedDate.day}-${pickedDate.month}-${pickedDate.year}";
-                              });
-                            },
-                          );
-                        },
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  TextFormField(
-                    controller: _timeController,
-                    decoration: InputDecoration(
-                      labelText: 'Kies een tijdstip',
-                      labelStyle: TextStyles.bodyMedium.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.16,
-                        color: HexColor.fromHex("#000000").withOpacity(0.4),
-                      ),
-                      suffixIcon: Icon(
-                        Icons.timer_outlined,
-                        color: HexColor.fromHex("#8B8B8B"),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 16.0),
-                      filled: true,
-                      fillColor:
-                          HexColor.fromHex("#00000008").withOpacity(0.03),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                    ),
-                    style: TextStyle(
-                        fontSize: 20,
-                        color:
-                            Colors.grey.withOpacity(0.9)), // Update font size
-                    readOnly: true,
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                      showModalBottomSheet(
-                        context: context,
-                        backgroundColor: Colors.black,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(24)),
-                        ),
-                        builder: (context) => CustomTimePickerBottomSheet(
-                          initialTime: TimeOfDay.now(),
-                          onTimeSelected: (selectedTime) {
-                            setState(() {
-                              _timeController.text =
-                                  selectedTime.format(context);
-                            });
-                          },
+                        barrierColor: Colors.black54,
+                        builder: (context) => Dialog(
+                          insetPadding: EdgeInsets.all(18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Container(
+                            constraints: BoxConstraints(
+                              maxWidth: 800,
+                              maxHeight:
+                                  MediaQuery.of(context).size.height * 0.8,
+                            ),
+                            width: double.infinity,
+                            child: CustomDateTimePicker(
+                              initialDate: selectedDate ?? DateTime.now(),
+                              initialTime: selectedTime ?? TimeOfDay.now(),
+                              onDateTimeSelected: (date, time) {
+                                setState(() {
+                                  selectedDate = date;
+                                  selectedTime = time;
+                                  final formattedDate =
+                                      DateFormat('d MMM yyyy').format(date);
+                                  final formattedTime =
+                                      '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+                                  _dateController.text =
+                                      '$formattedDate om $formattedTime';
+                                });
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
                         ),
                       );
                     },

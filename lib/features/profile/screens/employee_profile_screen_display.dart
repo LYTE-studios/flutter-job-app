@@ -55,13 +55,13 @@ class _EmployProfileDisplayScreenState
             return <Widget>[
               SliverAppBar(
                 leading: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(11.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     child: IconButton(
                       icon: SvgPicture.asset(
                         'assets/images/icons/back-arrow.svg',
-                        color: Colors.grey,
+                        color: Colors.black,
                       ),
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -209,7 +209,7 @@ class _EmployProfileDisplayScreenState
                     style: TextStyle(
                         fontSize: 15.5,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black54),
+                        color: Colors.black),
                   ),
                 ],
               ),

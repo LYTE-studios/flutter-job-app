@@ -38,6 +38,7 @@ class _CreateJobListingVragenlijstScreenState
   List<String> selectedQuestions = [];
   List<TextEditingController> questionControllers = [];
   List<bool> isEditable = [];
+  int? selectedValue; // Add this line
 
 //   void navigate() {
 //     vacancy.questions = selectedQuestions;
@@ -172,7 +173,7 @@ class _CreateJobListingVragenlijstScreenState
     //             child: Container(
     //               decoration: BoxDecoration(
     //                 color: Colors.grey.shade100,
-    //                 borderRadius: BorderRadius.circular(12),
+//                 borderRadius: BorderRadius.circular(12),
     //               ),
     //               padding:
     //                   const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
@@ -317,6 +318,7 @@ class _CreateJobListingVragenlijstScreenState
                 ),
               ],
             ),
+          // Example DropdownButton usage
         ],
       ),
     );

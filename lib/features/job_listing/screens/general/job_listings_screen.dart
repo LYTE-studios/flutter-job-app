@@ -128,8 +128,8 @@ class _JobListingsScreenState extends State<JobListingsScreen>
                       },
                       child: SvgPicture.asset(
                         'assets/images/icons/add_outlined.svg',
-                        height: 25,
-                        width: 25,
+                        height: 28,
+                        width: 28,
                       ),
                     ),
                   ),

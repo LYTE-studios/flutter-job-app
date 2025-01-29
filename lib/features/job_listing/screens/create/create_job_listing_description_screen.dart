@@ -58,19 +58,11 @@ class _CreateJobListingDescriptionScreenState
 
   void addOption(String title) {
     if (options.isNotEmpty && options.last['description']!.isEmpty) {
-      showModalBottomSheet(
-          context: context,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(16),
-            ),
-          ),
-          backgroundColor: Colors.black,
-          builder: (context) => BottomSheetContent(
-                label: 'Opgelet',
-                description:
-                    "Gelieve eerst de vorige beschrijving in te vullen.",
-              ));
+      showInfoDialog(
+        context,
+        "Gelieve eerst de vorige beschrijving in te vullen.",
+        'Opgelet',
+      );
 
       return;
     }
@@ -475,7 +467,7 @@ class _CreateJobListingDescriptionScreenState
                       Text(
                         "Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...",
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 14.5,
                           color: Colors.grey.shade500,
                         ),
                       )
@@ -490,14 +482,15 @@ class _CreateJobListingDescriptionScreenState
                           hintText:
                               'Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...',
                           hintStyle: TextStyle(
-                            color: Colors.grey.shade400,
+                            color: Colors.grey.shade500,
                             fontSize: 14.5,
+                            fontWeight: FontWeight.w400,
                           ),
                           border: InputBorder.none, // No border
                         ),
                         maxLines: null, // Allow multi-line input
                         textInputAction: TextInputAction.done,
-                        onSubmitted: (_) => _navigateToSkillsScreen(),
+                        onSubmitted: (_) => () {},
                       )
                     else
                       Text(
@@ -506,8 +499,9 @@ class _CreateJobListingDescriptionScreenState
                             ? mainDescriptionController.text
                             : 'Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...',
                         style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.grey,
+                          fontSize: 14.5,
+                          color: Colors.grey[500],
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     const SizedBox(height: 16),

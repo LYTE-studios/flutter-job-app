@@ -97,9 +97,7 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
                     height: PaddingSizes.medium,
                   ),
                   _buildFilterRow(theme),
-                  const SizedBox(
-                    height: PaddingSizes.extraLarge * 1.5,
-                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                   _buildJobrAISection(theme),
                 ],
               ),
@@ -244,23 +242,25 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
           (index) {
             return Padding(
               padding: const EdgeInsets.only(right: 10),
-              child: CustomJobCard(
-                descriptionPadding: 8,
-                isAICard: true,
-                description:
-                    "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
-                age: "20",
-                buttonColor: HexColor.fromHex('#3976FF'),
-                buttonText: "Chat starten",
-                onButtonPressed: () {
-                  context.push(ChatPageScreen.employerRoute);
-                },
-                buttonIcon: JobrIcons.send,
-                location: "Brussel",
-                userName: "Yassine Vuran",
-                profileImagePath: "assets/images/images/image-3.png",
-                suggestionPercentage: "74",
-                showBottomText: false,
+              child: Container(
+                child: CustomJobCard(
+                  descriptionPadding: 8,
+                  isAICard: true,
+                  description:
+                      "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
+                  age: "20",
+                  buttonColor: HexColor.fromHex('#3976FF'),
+                  buttonText: "Chat starten",
+                  onButtonPressed: () {
+                    context.push(ChatPageScreen.employerRoute);
+                  },
+                  buttonIcon: JobrIcons.send,
+                  location: "Brussel",
+                  userName: "Yassine Vuran",
+                  profileImagePath: "assets/images/images/image-3.png",
+                  suggestionPercentage: "74",
+                  showBottomText: false,
+                ),
               ),
             );
           },
