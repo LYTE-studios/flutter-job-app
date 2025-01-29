@@ -62,6 +62,7 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
         top: true,
         bottom: false,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(
@@ -97,13 +98,19 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
                     height: PaddingSizes.medium,
                   ),
                   _buildFilterRow(theme),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                  _buildJobrAISection(theme),
                 ],
               ),
             ),
-            Expanded(
-              child: _buildJobrAISuggestions(),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: PaddingSizes.medium,
+                  ),
+                  child: _buildJobrAISection(theme),
+                ),
+                _buildJobrAISuggestions(),
+              ],
             ),
           ],
         ),

@@ -98,7 +98,7 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
   void initState() {
     // nameController.text = 'Bedrijfsnaam';
     // websiteController.text = 'https://jouw-website.com';
-    // employeeController.text = 'Kies een aantal';
+    // employeeController.text = 'Kies locatie';
     // sectorController.text = 'Maak een keuze';
     locationController.text;
     // bioController.text = 'Schrijf een biografie';
@@ -482,7 +482,7 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
             SelectionButton(
               label: 'Werknemers',
               controller: employee1Controller,
-              hintText: 'Kies een aantal',
+              hintText: 'Kies locatie',
               hintTextStyle: hintTextStyle,
               prefixIcon: null,
               onTap: () => EmployeeTypeBottomSheet(
@@ -509,6 +509,7 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                 label: 'Aantal vestigingen',
                 controller: numberOfBranches,
                 readOnly: false,
+                hintText: 'Kies locatie',
                 hintTextStyle: hintTextStyle),
             const SizedBox(height: 10),
             SelectionButton(
@@ -529,7 +530,7 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
             SelectionButton(
               label: 'Werknemers',
               controller: employee1Controller,
-              hintText: 'Kies een aantal',
+              hintText: 'Kies locatie',
               hintTextStyle: hintTextStyle,
               prefixIcon: null,
               onTap: () => EmployeeTypeBottomSheet(
@@ -554,7 +555,7 @@ class SelectionButton extends StatefulWidget {
       required this.label,
       required this.controller,
       this.color,
-      this.hintText = 'Kies een aantal',
+      this.hintText = 'Kies locatie',
       this.hintTextStyle = const TextStyle(
         fontSize: 16,
         fontFamily: 'Inter',

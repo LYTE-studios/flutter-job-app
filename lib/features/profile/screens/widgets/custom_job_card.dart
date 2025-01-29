@@ -60,7 +60,7 @@ class _CustomJobCardState extends State<CustomJobCard> {
       children: [
         Container(
           width: widget.isAICard
-              ? MediaQuery.of(context).size.width * 0.83
+              ? MediaQuery.of(context).size.width * 0.87
               : MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
             color: HexColor.fromHex('#F6F6F6'),

@@ -128,45 +128,52 @@ class VacatureCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    PrimaryButton(
-                      suffixIcon: SvgPicture.asset(
-                        'assets/images/icons/edit.svg',
-                        color: Colors.grey,
-                        height: 20,
-                        width: 20,
-                      ),
-                      width: 200,
-                      buttonText: '  Aanpassen',
-                      onTap: () {
-                        context.push(VacancyInfoScreen.route);
-                      },
-                      borderRadius: 32,
-                      height: 40,
-                      textStyle: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins',
+                    Expanded(
+                      flex: 2,
+                      child: PrimaryButton(
+                        suffixIcon: SvgPicture.asset(
+                          'assets/images/icons/edit.svg',
                           color: Colors.grey,
-                          fontSize: 16.5),
-                      textColor: Colors.grey,
-                      buttonColor: Colors.grey.shade200,
+                          height: 20,
+                          width: 20,
+                        ),
+                        width: 200,
+                        buttonText: '  Aanpassen',
+                        onTap: () {
+                          context.push(VacancyInfoScreen.route);
+                        },
+                        borderRadius: 32,
+                        height: 40,
+                        textStyle: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Poppins',
+                            color: Colors.grey,
+                            fontSize: 16.5),
+                        textColor: Colors.grey,
+                        buttonColor: Colors.grey.shade200,
+                      ),
                     ),
-                    PrimaryButton(
-                      buttonText: ' 16 ',
-                      onTap: () {
-                        context.push(
-                          RecruitmentDetailScreen.employerRoute,
-                          extra: {
-                            'category': '',
-                            'title': 'Sollicitaties',
-                            "image": "",
-                          },
-                        );
-                      },
-                      height: 39,
-                      width: 80,
-                      icon: Icon(Icons.people),
-                      textColor: Colors.white,
-                      buttonColor: Colors.pink.shade400,
+                    SizedBox(width: 12),
+                    Expanded(
+                      flex: 1,
+                      child: PrimaryButton(
+                        buttonText: ' 16 ',
+                        onTap: () {
+                          context.push(
+                            RecruitmentDetailScreen.employerRoute,
+                            extra: {
+                              'category': '',
+                              'title': 'Sollicitaties',
+                              "image": "",
+                            },
+                          );
+                        },
+                        height: 39,
+                        width: 80,
+                        icon: Icon(Icons.people),
+                        textColor: Colors.white,
+                        buttonColor: Colors.pink.shade400,
+                      ),
                     ),
                   ],
                 ),
