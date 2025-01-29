@@ -4,6 +4,7 @@ import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/contract_type.dart';
 import 'package:jobr/data/models/function_type.dart';
 import 'package:jobr/data/models/location_type.dart';
+import 'package:jobr/data/services/vacancies_service.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
@@ -15,6 +16,7 @@ import 'package:jobr/features/job_listing/widgets/location_type_bottom_sheet.dar
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
+import 'package:lyte_studios_flutter_ui/mixins/screen_state_mixin.dart';
 
 class CreateJobListingGeneralScreen extends StatefulWidget {
   const CreateJobListingGeneralScreen({super.key});
@@ -32,7 +34,8 @@ class CreateJobListingGeneralScreen extends StatefulWidget {
 }
 
 class _CreateJobListingGeneralScreenState
-    extends State<CreateJobListingGeneralScreen> with CreateJobListingMixin {
+    extends State<CreateJobListingGeneralScreen>
+    with CreateJobListingMixin, ScreenStateMixin {
   // Dropdown selections
   ContractType? _selectedContractType;
   FunctionType? _selectedFunction;
@@ -44,9 +47,14 @@ class _CreateJobListingGeneralScreenState
       _selectedLocation != null;
 
   @override
-  void initState() {
-    super.initState();
-    // usedWidgetsInCreation.clear();
+  Future<void> loadData() async {
+    VacanciesService service = VacanciesService();
+
+    await service.getContractTypes();
+    await service.getFunctionTypes();
+    await service.getLocationTypes();
+
+    await super.loadData();
   }
 
   @override
