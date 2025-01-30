@@ -8,6 +8,8 @@ import 'package:jobr/features/profile/screens/tabs/general_item_widget.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoding/geocoding.dart';
 
 class CompanyProfileScreen extends StatefulWidget {
   static const String location = 'company-profile';
@@ -24,6 +26,37 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
   List<Widget> tabs = const [
     GeneralItemsWidget(),
   ];
+
+  GoogleMapController? _mapController;
+  LatLng _currentLocation = const LatLng(51.9225, 4.47917); // Default location
+  Set<Marker> _markers = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeLocation();
+  }
+
+  Future<void> _initializeLocation() async {
+    try {
+      List<Location> locations = await locationFromAddress(
+          "Kortrijk"); // Replace with actual company location
+      if (locations.isNotEmpty) {
+        setState(() {
+          _currentLocation =
+              LatLng(locations.first.latitude, locations.first.longitude);
+          _markers = {
+            Marker(
+              markerId: const MarkerId('companyLocation'),
+              position: _currentLocation,
+            ),
+          };
+        });
+      }
+    } catch (e) {
+      debugPrint('Error getting location: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -386,26 +419,24 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                   ),
                 ),
                 const SizedBox(height: 12),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 2),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.transparent,
-                          // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        'assets/images/images/Frame-m.png',
-                        // Replace with the actual map image path
-                        fit: BoxFit.cover,
+                Container(
+                  height: 200,
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 12.0, horizontal: 2),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: GoogleMap(
+                      onMapCreated: (controller) {
+                        _mapController = controller;
+                      },
+                      initialCameraPosition: CameraPosition(
+                        target: _currentLocation,
+                        zoom: 14.0,
                       ),
+                      markers: _markers,
+                      zoomControlsEnabled: false,
+                      mapToolbarEnabled: false,
+                      myLocationButtonEnabled: false,
                     ),
                   ),
                 ),

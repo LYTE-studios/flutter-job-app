@@ -44,6 +44,14 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
           ),
         ),
         centerTitle: true,
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context, _searchController.text);
+            },
+            child: const Text('OK'),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -76,6 +84,11 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
                 await _moveToLocation(suggestion);
               },
               builder: (context, controller, focusNode) {
+                _searchController.addListener(() {
+                  if (_searchController.text != controller.text) {
+                    controller.text = _searchController.text;
+                  }
+                });
                 return Container(
                   height: 52,
                   decoration: BoxDecoration(
@@ -122,6 +135,9 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
                         contentPadding:
                             const EdgeInsets.symmetric(vertical: 10),
                       ),
+                      onChanged: (text) {
+                        _searchController.text = text;
+                      },
                     ),
                   ),
                 );

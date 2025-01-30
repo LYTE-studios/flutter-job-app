@@ -469,7 +469,13 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
             const SizedBox(height: 10),
             SelectionButton(
               onTap: () {
-                context.push(SelectLocationPage.route);
+                context.push(SelectLocationPage.route).then((value) {
+                  if (value != null) {
+                    setState(() {
+                      locationController.text = value.toString();
+                    });
+                  }
+                });
               },
               label: 'Locatie',
               controller: locationController,
@@ -595,7 +601,7 @@ class _SelectionButtonState extends State<SelectionButton> {
             width: 87,
             padding: const EdgeInsets.only(top: 10),
             child: Text(
-              widget.label,
+              widget.label.padRight(12),
               style: TextStyle(
                 fontSize: 16,
                 fontFamily: 'Inter',
@@ -619,63 +625,29 @@ class _SelectionButtonState extends State<SelectionButton> {
               ),
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: FittedBox(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 0,
-                    vertical: 2,
+              child: Row(
+                children: [
+                  if (widget.prefixIcon != null) widget.prefixIcon!,
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      widget.controller.text.isEmpty
+                          ? widget.hintText
+                          : widget.controller.text,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: widget.controller.text.isEmpty
+                          ? widget.hintTextStyle
+                          : const TextStyle(
+                              fontSize: 15.36,
+                              fontFamily: 'Poppins',
+                              letterSpacing: 0.05,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                    ),
                   ),
-                  child: widget.controller.text.isEmpty
-                      ? Row(
-                          children: [
-                            if (widget.prefixIcon != null) widget.prefixIcon!,
-                            const SizedBox(width: 4),
-                            Text(
-                              widget.controller.text.isEmpty
-                                  ? widget.hintText
-                                  : widget.controller.text,
-                              style: (widget.hintTextStyle == null &&
-                                      widget.controller.text.isEmpty)
-                                  ? widget.hintTextStyle
-                                  : const TextStyle(
-                                      fontSize: 15.36,
-                                      fontFamily: 'Poppins',
-                                      letterSpacing: 0.05,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black,
-                                    ),
-                            ),
-                          ],
-                        )
-                      : Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: Colors.pinkAccent,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Row(
-                                children: [
-                                  if (widget.prefixIcon != null)
-                                    widget.prefixIcon!,
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    widget.controller.text,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                ),
+                ],
               ),
             ),
           ),
