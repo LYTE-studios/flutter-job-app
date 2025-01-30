@@ -71,7 +71,8 @@ class BaseNavBarScreenState extends State<BaseNavBarScreen> {
                         label: route.name,
                         icon: _NavigationBarIcon(
                           icon: route.icon,
-                          selected: widget.selectedIndex == widget.routes.indexOf(route),
+                          selected: widget.selectedIndex ==
+                              widget.routes.indexOf(route),
                         ),
                       ))
                   .toList(),

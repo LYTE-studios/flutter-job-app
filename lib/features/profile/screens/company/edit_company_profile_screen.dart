@@ -17,7 +17,7 @@ import 'package:jobr/features/profile/screens/company_screen/company_venue_profi
 import 'package:jobr/features/profile/screens/widgets/text_field_settings.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 import 'new_branch_screen.dart';
@@ -72,28 +72,28 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
     }
   }
 
-  Future<void> _loginWithFacebook() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login();
-      if (result.status == LoginStatus.success) {
-        final userData = await FacebookAuth.instance.getUserData();
-        setState(() {
-          facebookUsername = userData['name'];
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Logged in as $facebookUsername')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login failed: ${result.message}')),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
-    }
-  }
+  // Future<void> _loginWithFacebook() async {
+  //   try {
+  //     final LoginResult result = await FacebookAuth.instance.login();
+  //     if (result.status == LoginStatus.success) {
+  //       final userData = await FacebookAuth.instance.getUserData();
+  //       setState(() {
+  //         facebookUsername = userData['name'];
+  //       });
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text('Logged in as $facebookUsername')),
+  //       );
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text('Login failed: ${result.message}')),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Error: $e')),
+  //     );
+  //   }
+  // }
 
   @override
   void initState() {
@@ -284,7 +284,7 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
               children: [
                 ...badges.map(
                   (badge) => GestureDetector(
-                    onTap: badge.$2 == 'Facebook' ? _loginWithFacebook : null,
+                    // onTap: badge.$2 == 'Facebook' ? _loginWithFacebook : null,
                     child: FittedBox(
                       child: Container(
                         decoration: BoxDecoration(
