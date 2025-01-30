@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
+import 'package:jobr/secrets.dart';
 import 'dart:convert';
 
 import 'package:jobr/ui/theme/jobr_icons.dart';
@@ -23,7 +24,7 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
   GoogleMapController? _mapController;
   LatLng _currentLatLng = const LatLng(51.9225, 4.47917);
   final TextEditingController _searchController = TextEditingController();
-  final String _googleApiKey = 'AIzaSyBe6e1s2iKaRVYimRXFAkOVN2Y-xLybdug';
+  final String _googleApiKey = googleApiKey;
 
   @override
   Widget build(BuildContext context) {
