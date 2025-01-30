@@ -9,6 +9,7 @@ import 'dart:convert';
 
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
@@ -45,14 +46,6 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
           ),
         ),
         centerTitle: true,
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context, _searchController.text);
-            },
-            child: const Text('OK'),
-          ),
-        ],
       ),
       body: Column(
         children: [
@@ -167,6 +160,24 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
                 ),
               ),
             ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Center(
+            child: PrimaryButton(
+              buttonColor: HexColor.fromHex("#FF3E68"),
+              height: 50,
+              borderRadius: 60,
+              width: MediaQuery.of(context).size.width * 0.8,
+              onTap: () {
+                Navigator.pop(context, _searchController.text);
+              },
+              buttonText: 'Save',
+            ),
+          ),
+          SizedBox(
+            height: 10,
           ),
         ],
       ),
