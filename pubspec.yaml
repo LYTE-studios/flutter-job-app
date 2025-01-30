@@ -41,6 +41,10 @@ dependencies:
   flutter_facebook_auth: ^6.0.4
   # modal_bottom_sheet: ^3.0.0    # Removed this line
   intl: ^0.17.0  # or the latest version
+  google_maps_flutter: ^2.10.0
+  flutter_typeahead: ^5.2.0
+  geocoding: ^3.0.0
+  http: 
 
 dev_dependencies:
   flutter_test:

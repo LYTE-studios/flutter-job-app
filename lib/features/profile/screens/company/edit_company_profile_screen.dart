@@ -12,6 +12,7 @@ import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dar
 import 'package:jobr/features/job_listing/widgets/employee_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/function_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/sector_type_bottom_sheet.dart';
+import 'package:jobr/features/profile/screens/company/select_location_page.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';
 import 'package:jobr/features/profile/screens/widgets/text_field_settings.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -467,6 +468,9 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
             ),
             const SizedBox(height: 10),
             SelectionButton(
+              onTap: () {
+                context.push(SelectLocationPage.route);
+              },
               label: 'Locatie',
               controller: locationController,
               prefixIcon: SvgPicture.asset(

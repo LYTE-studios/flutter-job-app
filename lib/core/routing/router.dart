@@ -23,6 +23,7 @@ import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart'
 import 'package:jobr/features/job_listing/screens/vacatures/vacancy_info_page.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
+import 'package:jobr/features/profile/screens/company/select_location_page.dart';
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';
@@ -343,6 +344,16 @@ GoRouter router = GoRouter(
               context: context,
               state: state,
               child: const EditCompanyProfileScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: SelectLocationPage.route,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return buildPageWithSlideUpTransition(
+              context: context,
+              state: state,
+              child: const SelectLocationPage(),
             );
           },
         ),
