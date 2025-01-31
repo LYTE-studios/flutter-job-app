@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const location = 'settings';
 
   static const String route = '/$location';
+
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
-import 'package:jobr/data/models/contract_type.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
@@ -11,12 +10,10 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_skil
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
-import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/job_listing/widgets/salary_unit_bottom_sheet.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
-import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 // Static state storage for persistence
@@ -171,7 +168,7 @@ class _CreateJobListingSalaryScreenState
 }
 
 class SalaryWidget extends StatefulWidget {
-  const SalaryWidget({Key? key}) : super(key: key);
+  const SalaryWidget({super.key});
 
   @override
   _SalaryWidgetState createState() => _SalaryWidgetState();
@@ -394,7 +391,7 @@ class _SalaryWidgetState extends State<SalaryWidget> {
 }
 
 class CustomInputField extends StatelessWidget {
-  const CustomInputField({Key? key}) : super(key: key);
+  const CustomInputField({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -14,6 +14,8 @@ class DeleteVacancyPage extends StatelessWidget {
     '${JobListingsScreen.location}/${VacancyInfoScreen.location}/$location',
     JobrRouter.employerInitialroute,
   );
+
+  const DeleteVacancyPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(

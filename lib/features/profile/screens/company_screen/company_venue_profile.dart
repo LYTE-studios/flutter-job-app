@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/profile/screens/company_screen/social_button.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
-import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 class CompanyVenueProfile extends StatelessWidget {
   static const location = 'venue-profile';

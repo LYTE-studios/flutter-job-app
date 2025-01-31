@@ -269,7 +269,7 @@ class _CreateJobListingGeneralScreenState
 }
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({Key? key}) : super(key: key);
+  const CustomTextField({super.key});
 
   @override
   Widget build(BuildContext context) {

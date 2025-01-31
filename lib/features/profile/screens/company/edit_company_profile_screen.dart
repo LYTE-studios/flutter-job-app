@@ -2,15 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/data/models/employee_type.dart';
-import 'package:jobr/data/models/function_type.dart';
 import 'package:jobr/data/models/sector_type.dart';
-import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/employee_type_bottom_sheet.dart';
-import 'package:jobr/features/job_listing/widgets/function_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/sector_type_bottom_sheet.dart';
 import 'package:jobr/features/profile/screens/company/select_location_page.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';

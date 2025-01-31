@@ -67,9 +67,7 @@ class JobrDropdownField extends StatelessWidget {
               children: [
                 Text(
                   selectedValue ?? hintText,
-                  style: textStyle != null
-                      ? textStyle
-                      : TextStyles.titleSmall.copyWith(
+                  style: textStyle ?? TextStyles.titleSmall.copyWith(
                           fontSize: 16.5,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'Poppins',

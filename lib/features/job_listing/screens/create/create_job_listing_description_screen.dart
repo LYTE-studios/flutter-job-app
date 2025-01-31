@@ -104,7 +104,7 @@ class _CreateJobListingDescriptionScreenState
 
   @override
   Widget build(BuildContext context) {
-    void _navigateToSkillsScreen() {
+    void navigateToSkillsScreen() {
       vacancy.descriptions = options
           .map(
             (e) => VacancyDescription(
@@ -387,7 +387,7 @@ class _CreateJobListingDescriptionScreenState
 
     return BaseCreateJobListingScreen(
       progress: 0.3,
-      onNavigate: _navigateToSkillsScreen,
+      onNavigate: navigateToSkillsScreen,
       isNavigationEnabled: mandatoryTextFieldFilled,
       buttonLabel: "Naar vaardigheden",
       child: Padding(
@@ -590,7 +590,7 @@ class _CreateJobListingDescriptionScreenState
                                       maxLines: null, // Allow multi-line input
                                       textInputAction: TextInputAction.done,
                                       onSubmitted: (_) =>
-                                          _navigateToSkillsScreen(),
+                                          navigateToSkillsScreen(),
                                     ),
                                     const SizedBox(height: 10),
                                   ],

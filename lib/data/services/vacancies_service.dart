@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:jobr/data/models/contract_type.dart';
 import 'package:jobr/data/models/function_type.dart';

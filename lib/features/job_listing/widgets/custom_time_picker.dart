@@ -5,10 +5,10 @@ class CustomTimePickerBottomSheet extends StatefulWidget {
   final ValueChanged<TimeOfDay> onTimeSelected;
 
   const CustomTimePickerBottomSheet({
-    Key? key,
+    super.key,
     required this.initialTime,
     required this.onTimeSelected,
-  }) : super(key: key);
+  });
 
   @override
   State<CustomTimePickerBottomSheet> createState() =>
@@ -173,10 +173,10 @@ class TimePickerSpinner extends StatelessWidget {
   final ValueChanged<TimeOfDay> onTimeChanged;
 
   const TimePickerSpinner({
-    Key? key,
+    super.key,
     required this.initialTime,
     required this.onTimeChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -210,11 +210,11 @@ class Spinner extends StatelessWidget {
   final ValueChanged<int> onChanged;
 
   const Spinner({
-    Key? key,
+    super.key,
     required this.range,
     required this.selectedValue,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

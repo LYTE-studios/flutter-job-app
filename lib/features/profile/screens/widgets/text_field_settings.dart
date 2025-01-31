@@ -12,8 +12,8 @@ class TextFieldSettings extends StatelessWidget {
   final Color? color;
   final TextStyle hintTextStyle;
   final String hintText;
-  TextFieldSettings(
-      {required this.label,
+  const TextFieldSettings(
+      {super.key, required this.label,
       required this.controller,
       this.keyboardType = TextInputType.text,
       this.inputFormatters,
