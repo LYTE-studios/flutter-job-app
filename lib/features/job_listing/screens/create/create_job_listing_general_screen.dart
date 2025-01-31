@@ -130,7 +130,7 @@ class _CreateJobListingGeneralScreenState
                   _selectedFunction = value;
                 });
               },
-            ).showBottomSheet(context: context),
+            ).showPopup(context: context),
           ),
           TextField(
             cursorHeight: 22,

@@ -109,7 +109,8 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                                           children: [
                                             Icon(
                                               Icons.arrow_forward_ios,
-                                              color: Colors.pink,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
                                               size: 20,
                                             ),
                                             SizedBox(width: 8),
@@ -118,7 +119,8 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.pink,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
                                               ),
                                             ),
                                           ],
@@ -132,7 +134,8 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                                           style: TextStyle(
                                             fontSize: 20,
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.pink,
+                                            color:
+                                                Theme.of(context).primaryColor,
                                           ),
                                         ),
                                       ),
@@ -146,13 +149,13 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.pink,
+                                          color: Theme.of(context).primaryColor,
                                         ),
                                       ),
                                       SizedBox(width: 8),
                                       Icon(
                                         Icons.arrow_back_ios_new_outlined,
-                                        color: Colors.pink,
+                                        color: Theme.of(context).primaryColor,
                                         size: 20,
                                       ),
                                     ],
@@ -166,7 +169,7 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                                 IconButton(
                                   icon: Icon(
                                     Icons.arrow_back_ios_new_outlined,
-                                    color: Colors.pink,
+                                    color: Theme.of(context).primaryColor,
                                     size: 20,
                                   ),
                                   onPressed: () {
@@ -182,7 +185,7 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                                 IconButton(
                                   icon: Icon(
                                     Icons.arrow_forward_ios,
-                                    color: Colors.pink,
+                                    color: Theme.of(context).primaryColor,
                                     size: 20,
                                   ),
                                   onPressed: () {
@@ -266,9 +269,9 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                   DateFormat('MMM').format(DateTime(0, month)),
                   style: TextStyle(
                       color: isSelected
-                          ? Colors.pinkAccent
+                          ? Theme.of(context).primaryColor
                           : isCurrentMonth
-                              ? Colors.pink
+                              ? Theme.of(context).primaryColor
                               : Colors.black,
                       fontWeight: FontWeight.w400,
                       fontSize: 18),
@@ -317,7 +320,7 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
             margin: EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: isSelected
-                  ? Colors.pink
+                  ? Theme.of(context).primaryColor
                   : isToday
                       ? Color(0xFFBCCAD9)
                       : Colors.transparent,
@@ -369,19 +372,20 @@ class CustomDateTimePickerState extends State<CustomDateTimePicker> {
                       data: Theme.of(context).copyWith(
                         timePickerTheme: TimePickerThemeData(
                           backgroundColor: Colors.white,
-                          hourMinuteTextColor: Colors.pink,
-                          dialHandColor: Colors.pink,
-                          entryModeIconColor: Colors.pink,
-                          helpTextStyle: TextStyle(color: Colors.pink),
+                          hourMinuteTextColor: Theme.of(context).primaryColor,
+                          dialHandColor: Theme.of(context).primaryColor,
+                          entryModeIconColor: Theme.of(context).primaryColor,
+                          helpTextStyle:
+                              TextStyle(color: Theme.of(context).primaryColor),
                         ),
                         colorScheme: ColorScheme.light(
                           primary: Color(0xFFF0F3F7),
                           onPrimary: Colors.white,
-                          onSurface: Colors.pink,
+                          onSurface: Theme.of(context).primaryColor,
                         ),
                         textButtonTheme: TextButtonThemeData(
                           style: TextButton.styleFrom(
-                            foregroundColor: Colors.pinkAccent,
+                            foregroundColor: Theme.of(context).primaryColor,
                             backgroundColor: Color(0xFFBCCAD9),
                             padding: EdgeInsets.all(12),
                             textStyle: TextStyle(

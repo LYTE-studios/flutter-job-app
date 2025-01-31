@@ -80,8 +80,8 @@ class FilterButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
             horizontal: 8, vertical: 1), // Reduce padding inside the button
         decoration: BoxDecoration(
-          border:
-              Border.all(color: Colors.pinkAccent, width: 1.3), // Pink border
+          border: Border.all(
+              color: Theme.of(context).primaryColor, width: 1.3), // Pink border
           borderRadius: BorderRadius.circular(20),
           color: Colors.white, // White background
         ),
@@ -89,15 +89,16 @@ class FilterButton extends StatelessWidget {
           children: [
             Text(
               label,
-              style: const TextStyle(
-                  color: Colors.pinkAccent,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14),
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+              ),
             ),
             const SizedBox(width: 4),
-            const Icon(
+            Icon(
               Icons.keyboard_arrow_down,
-              color: Colors.pinkAccent,
+              color: Theme.of(context).primaryColor,
               size: 25, // Slightly smaller icon
             ),
           ],

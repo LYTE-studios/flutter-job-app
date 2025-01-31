@@ -68,8 +68,11 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
               ),
             ),
             const Spacer(),
-            const SvgIcon("assets/images/icons/phone.svg",
-                color: Colors.pinkAccent, size: 20),
+            SvgIcon(
+              "assets/images/icons/phone.svg",
+              color: Theme.of(context).primaryColor,
+              size: 20,
+            ),
             const SizedBox(width: 8),
             const SvgIcon("assets/images/logos/info.svg", size: 24),
           ],

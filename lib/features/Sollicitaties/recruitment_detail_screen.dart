@@ -179,7 +179,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
                         width: 80,
                         icon: Icon(Icons.people),
                         textColor: Colors.white,
-                        buttonColor: Colors.pink.shade400,
+                        buttonColor: Theme.of(context).primaryColor,
                       ),
                     ],
                   ),

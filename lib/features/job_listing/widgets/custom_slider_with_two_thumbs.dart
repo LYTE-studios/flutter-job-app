@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jobr/ui/theme/jobr_theme.dart';
 
 class CustomSliderWithTwoThumbs extends StatelessWidget {
   final RangeValues values;
@@ -8,7 +9,7 @@ class CustomSliderWithTwoThumbs extends StatelessWidget {
   final String? startLabel;
   final String? endLabel;
   final ValueChanged<RangeValues> onChanged;
-  final Color activeColor;
+  final Color? activeColor;
   final Color inactiveColor;
 
   const CustomSliderWithTwoThumbs({
@@ -20,7 +21,7 @@ class CustomSliderWithTwoThumbs extends StatelessWidget {
     this.startLabel,
     this.endLabel,
     required this.onChanged,
-    this.activeColor = Colors.pinkAccent,
+    this.activeColor,
     this.inactiveColor = Colors.grey,
   });
 

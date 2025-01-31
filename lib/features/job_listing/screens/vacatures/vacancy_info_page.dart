@@ -176,7 +176,7 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 8),
                             decoration: BoxDecoration(
-                              color: Colors.pink,
+                              color: Theme.of(context).primaryColor,
                               borderRadius: BorderRadius.circular(18),
                             ),
                             child: SvgIcon(
@@ -286,7 +286,7 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                             },
                           );
                         },
-                        buttonColor: Colors.pink,
+                        buttonColor: Theme.of(context).primaryColor,
                         height: 45,
                         textStyle: const TextStyle(
                           color: Colors.white,

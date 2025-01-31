@@ -32,14 +32,14 @@ class JobCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Location, job type, and salary
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
                         Icon(
                           Icons.location_on,
-                          color: Colors.pink,
+                          color: Theme.of(context).primaryColor,
                           size: 18,
                           weight: 12,
                         ),
@@ -120,7 +120,10 @@ class JobCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.pink, width: 1.5),
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 1.5,
+                        ),
                       ),
                       child: Row(
                         children: [
@@ -130,10 +133,10 @@ class JobCard extends StatelessWidget {
                             "assets/images/recruteren/jobrAI_suggesties.png",
                           ),
                           const SizedBox(width: 4),
-                          const Text(
+                          Text(
                             '98%',
                             style: TextStyle(
-                                color: Colors.pinkAccent,
+                                color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15),
                           ),

@@ -221,7 +221,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w600,
-              color: Colors.pink.withOpacity(0.8),
+              color: Theme.of(context).primaryColor.withOpacity(0.8),
             ),
           ),
         ),
@@ -271,7 +271,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                 TextSpan(
                   text: 'horeca-ervaring ',
                   style: TextStyle(
-                      color: Colors.pink.withOpacity(0.8),
+                      color: Theme.of(context).primaryColor.withOpacity(0.8),
                       fontWeight: FontWeight.w500),
                 ),
                 const TextSpan(
@@ -284,7 +284,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                 TextSpan(
                   text: 'klantgerichtheid.',
                   style: TextStyle(
-                      color: Colors.pink.withOpacity(0.8),
+                      color: Theme.of(context).primaryColor.withOpacity(0.8),
                       fontWeight: FontWeight.w500,
                       letterSpacing: 0.2),
                 ),
@@ -334,7 +334,8 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                 decoration: BoxDecoration(
                   color: Colors.grey[50],
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.pinkAccent, width: 2),
+                  border: Border.all(
+                      color: Theme.of(context).primaryColor, width: 2),
                 ),
                 child: Row(
                   children: [
@@ -344,10 +345,10 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                       "assets/images/recruteren/jobrAI_suggesties.png",
                     ),
                     const SizedBox(width: 4),
-                    const Text(
+                    Text(
                       '98%',
                       style: TextStyle(
-                          color: Colors.pinkAccent,
+                          color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 15),
                     ),

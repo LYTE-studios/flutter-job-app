@@ -7,10 +7,10 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_avai
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
-import 'package:jobr/features/job_listing/widgets/bottom_info_snack_bar.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:jobr/ui/widgets/buttons/information_popup_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
-import 'package:flutter/services.dart'; // For HapticFeedback.
+import 'package:flutter/services.dart';
 
 class CreateJobListingSkillsScreen extends StatefulWidget {
   const CreateJobListingSkillsScreen({super.key});
@@ -133,12 +133,6 @@ class _CreateJobListingSkillsScreenState
             minSelection: 3,
             maxSelection: 9,
             isSoftSkills: true,
-            onPressed: () {
-              showInfoDialog(
-                  context,
-                  'Selecteer minimaal drie vaardigheden om door te gaan naar de volgende pagina.',
-                  'Soft Skills');
-            },
           ),
           const SizedBox(height: 10),
 
@@ -158,12 +152,6 @@ class _CreateJobListingSkillsScreenState
             minSelection: 3,
             maxSelection: 8,
             isSoftSkills: false,
-            onPressed: () {
-              showInfoDialog(
-                  context,
-                  'Selecteer minimaal drie vaardigheden om door te gaan naar de volgende pagina.',
-                  'Hard Skills');
-            },
           ),
 
           // Bottom Button
@@ -191,10 +179,9 @@ class _CreateJobListingSkillsScreenState
                   style: TextStyles.titleMedium
                       .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
                 ),
-                Icon(
-                  Icons.info_outline,
-                  color: HexColor.fromHex("#A2A2A2"),
-                  size: 20,
+                InformationPopupButton(
+                  title: 'Werkervaring',
+                  description: "Wat is de vereiste werkervaring?",
                 ),
               ],
             ),
@@ -271,12 +258,14 @@ class _CreateJobListingSkillsScreenState
     );
   }
 
-  Widget _buildSkillSection(String title, List<String> skills,
-      {int maxSelection = 3,
-      int minSelection = 0, // Added minSelection parameter
-      bool isSoftSkills = true,
-      bool showSelectionText = true,
-      VoidCallback? onPressed}) {
+  Widget _buildSkillSection(
+    String title,
+    List<String> skills, {
+    int maxSelection = 3,
+    int minSelection = 0, // Added minSelection parameter
+    bool isSoftSkills = true,
+    bool showSelectionText = true,
+  }) {
     List<String> selectedSkills =
         isSoftSkills ? selectedSoftSkills : selectedHardSkills;
     return Column(
@@ -285,25 +274,29 @@ class _CreateJobListingSkillsScreenState
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(children: [
-              Text(
-                title,
-                style: TextStyles.titleMedium
-                    .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
-              ),
-              IconButton(
-                icon: const Icon(Icons.info_outline),
-                color: Colors.pink,
-                onPressed: onPressed,
-              )
-            ]),
+            Row(
+              children: [
+                Text(
+                  title,
+                  style: TextStyles.titleMedium.copyWith(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                InformationPopupButton(
+                  title: "Skills",
+                  description:
+                      "Selecteer minimaal drie vaardigheden om door te gaan naar de volgende pagina.",
+                )
+              ],
+            ),
             if (showSelectionText)
               Text(
                 'Kies er minimum $minSelection', // Updated text to show min and max selection
                 style: TextStyles.titleMedium.copyWith(
                   color: (isSoftSkills && showSoftWarning) ||
                           (!isSoftSkills && showHardWarning)
-                      ? Colors.pink
+                      ? Theme.of(context).primaryColor
                       : HexColor.fromHex("#0000003B").withOpacity(0.23),
                   fontSize: 15.4,
                   fontWeight: FontWeight.w600,
@@ -320,7 +313,7 @@ class _CreateJobListingSkillsScreenState
               showCheckmark: false,
               label: Text(skill),
               selected: selectedSkills.contains(skill),
-              pressElevation: 100, // Remove grey click effect
+              elevation: 0,
               onSelected: (selected) {
                 HapticFeedback.lightImpact();
                 setState(() {

@@ -226,10 +226,10 @@ class _CreateJobListingVragenlijstScreenState
                 child: Text(
                   "Overslaan",
                   style: TextStyles.titleMedium.copyWith(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Poppins',
-                      color: Colors.pink),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
               ),
             ],
@@ -384,9 +384,10 @@ class _CustomQuestionBoxState extends State<CustomQuestionBox> {
                 child: Text(
                   widget.label,
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.5,
-                      color: Colors.pinkAccent),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.5,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
               ),
               GestureDetector(

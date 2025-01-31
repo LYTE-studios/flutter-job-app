@@ -405,7 +405,7 @@ class _VragenlijstCardState extends State<VragenlijstCard> {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                   decoration: BoxDecoration(
                     color: selectedAnswers[questionId] == answer
-                        ? Colors.pinkAccent
+                        ? Theme.of(context).primaryColor
                         : Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(6),
                   ),

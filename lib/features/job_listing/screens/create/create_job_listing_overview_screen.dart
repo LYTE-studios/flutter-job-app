@@ -184,7 +184,15 @@ class _CreateJobListingOverviewScreenState
                                   children: vacancy.languages
                                           ?.map(
                                             (function) => CustomSliderWidget(
-                                              label: function.language.name,
+                                              mastery: function,
+                                              onChanged: (mastery) {
+                                                // setState(() {
+                                                //   vacancy.languages
+                                                //       ?.remove(function);
+                                                //   vacancy.languages
+                                                //       ?.add(mastery);
+                                                // });
+                                              },
                                               onRemove: () {
                                                 setState(() {
                                                   vacancy.languages
@@ -373,14 +381,18 @@ class __SelectableSectionState extends State<_SelectableSection> {
                       widget.title,
                       style: TextStyles.titleMedium.copyWith(
                         fontSize: 18,
-                        color: isExpanded ? Colors.pinkAccent : Colors.black,
+                        color: isExpanded
+                            ? Theme.of(context).primaryColor
+                            : Colors.black,
                       ),
                     ),
                     Icon(
                       !isExpanded
                           ? Icons.keyboard_arrow_up
                           : Icons.keyboard_arrow_down,
-                      color: isExpanded ? Colors.pinkAccent : Colors.grey,
+                      color: isExpanded
+                          ? Theme.of(context).primaryColor
+                          : Colors.grey,
                     ),
                   ],
                 ),

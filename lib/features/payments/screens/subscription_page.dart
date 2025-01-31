@@ -146,7 +146,7 @@ class MonthlyPlans extends StatelessWidget {
           right: 16,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.pink,
+              backgroundColor: Theme.of(context).primaryColor,
               minimumSize: const Size.fromHeight(50),
             ),
             onPressed: () {},
@@ -208,7 +208,7 @@ class YearlyPlans extends StatelessWidget {
           right: 16,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.pink,
+              backgroundColor: Theme.of(context).primaryColor,
               minimumSize: const Size.fromHeight(50),
             ),
             onPressed: () {},
@@ -254,7 +254,7 @@ class PlanCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(
           color: (title == 'Scale')
-              ? Colors.pink.shade300
+              ? Theme.of(context).primaryColor.withOpacity(.3)
               : Colors.black12, // Conditional border color
           width: (title == 'Scale') ? 2 : 0.5, // Border width
         ),
@@ -295,7 +295,9 @@ class PlanCard extends StatelessWidget {
                   price,
                   style: TextStyle(
                     fontSize: 22,
-                    color: (price == 'Gratis') ? Colors.grey : Colors.pink,
+                    color: (price == 'Gratis')
+                        ? Colors.grey
+                        : Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -23,9 +23,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> with ScreenStateMixin {
   @override
   Future<void> loadData() async {
-    try {
-      await Hive.initFlutter();
+    await Hive.initFlutter();
 
+    await JobrIcons.preload(context);
+
+    await Future.delayed(Duration(seconds: 1));
+
+    try {
       UserType userType = await AccountsService().checkAuthentication();
 
       switch (userType) {

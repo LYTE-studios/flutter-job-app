@@ -64,7 +64,7 @@ class _JobListingsScreenState extends State<JobListingsScreen>
           ),
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Colors.pink[500],
+            backgroundColor: Theme.of(context).primaryColor.withOpacity(.5),
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 8,
@@ -90,7 +90,7 @@ class _JobListingsScreenState extends State<JobListingsScreen>
           ),
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Colors.pink[500],
+            backgroundColor: Theme.of(context).primaryColor.withOpacity(.5),
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 8,
@@ -151,7 +151,9 @@ class _JobListingsScreenState extends State<JobListingsScreen>
                         ),
                         children: vacancies
                             .map(
-                              (vacancy) => VacatureCard(),
+                              (vacancy) => VacatureCard(
+                                vacancy: vacancy,
+                              ),
                             )
                             .toList(),
                       ),

@@ -374,7 +374,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                             SvgIcon(
                               JobrIcons.venueLocation,
                               size: 20,
-                              color: Colors.pinkAccent,
+                              color: Theme.of(context).primaryColor,
                             ),
                             const SizedBox(width: 4),
                           ],
@@ -580,11 +580,11 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const SvgIcon(
+                    SvgIcon(
                       JobrIcons.location,
                       size: 16,
                       leaveUnaltered: true,
-                      color: Colors.pinkAccent,
+                      color: Theme.of(context).primaryColor,
                     ),
                     const SizedBox(width: 4),
                     Text(
@@ -603,12 +603,12 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
           // "Kies" button
           TextButton(
             onPressed: onPressed,
-            child: const Text(
+            child: Text(
               "Kies",
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                color: Colors.pinkAccent,
+                color: Theme.of(context).primaryColor,
               ),
             ),
           ),

@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart'; // Ensure correct import for SvgPicture
+import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 class InfoDialog extends StatelessWidget {
   final String description;
@@ -22,15 +22,17 @@ class InfoDialog extends StatelessWidget {
         ),
         insetPadding: const EdgeInsets.symmetric(horizontal: 15),
         child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.95,
+          width: MediaQuery.of(context).size.width * 0.9,
           child: Stack(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 35, vertical: 30),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 35,
+                  vertical: 30,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Center(
                       child: Text(
@@ -57,13 +59,12 @@ class InfoDialog extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 17,
+                top: 5,
                 right: 5,
                 child: IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/images/icons/cross.svg', // Correct argument type
-                    colorFilter: ColorFilter.mode(Colors.grey[400]!,
-                        BlendMode.srcIn), // Correct parameter usage
+                  icon: SvgIcon(
+                    'assets/images/icons/cross.svg',
+                    color: Colors.grey,
                   ),
                   onPressed: () => Navigator.pop(context),
                 ),
@@ -76,15 +77,4 @@ class InfoDialog extends StatelessWidget {
   }
 }
 
-void showInfoDialog(BuildContext context, String description, String label) {
-  showDialog(
-    context: context,
-    barrierDismissible: true,
-    builder: (BuildContext context) {
-      return InfoDialog(
-        description: description,
-        label: label,
-      );
-    },
-  );
-}
+void showInfoDialog(BuildContext context, String description, String label) {}
