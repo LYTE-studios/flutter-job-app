@@ -3,19 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
-import 'package:jobr/features/chat/screens/chat_page_screen.dart';
-import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/widgets/vacancy_info_tabs.dart';
-import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
-import 'package:jobr/features/profile/screens/company_screen/settings.dart';
-import 'package:jobr/features/profile/screens/tabs/employee_profile_tab.dart';
-import 'package:jobr/features/profile/screens/tabs/general_item_widget.dart';
-import 'package:jobr/features/profile/screens/tabs/media_item_widget.dart';
-import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
-import 'package:jobr/ui/widgets/buttons/action_button.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
@@ -185,7 +176,7 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 8),
                             decoration: BoxDecoration(
-                              color: Colors.pink,
+                              color: Theme.of(context).primaryColor,
                               borderRadius: BorderRadius.circular(18),
                             ),
                             child: SvgIcon(
@@ -295,7 +286,7 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                             },
                           );
                         },
-                        buttonColor: Colors.pink,
+                        buttonColor: Theme.of(context).primaryColor,
                         height: 45,
                         textStyle: const TextStyle(
                           color: Colors.white,

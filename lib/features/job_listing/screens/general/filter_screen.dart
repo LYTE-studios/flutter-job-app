@@ -68,201 +68,197 @@ class _FilterScreenState extends State<FilterScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SafeArea(
-          bottom: true,
-          top: false,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Geslacht',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Geslacht',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 4),
+
+              GenderToggleBox(),
+              const SizedBox(height: 12),
+
+              Divider(
+                color: Colors.grey.shade200,
+              ),
+              const SizedBox(height: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Leeftijd',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        '${_ageRange.start.round()} - ${_ageRange.end.round()} jaar',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 4),
-
-                GenderToggleBox(),
-                const SizedBox(height: 12),
-
-                Divider(
-                  color: Colors.grey.shade200,
-                ),
-                const SizedBox(height: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Leeftijd',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
+                  CustomSliderWithTwoThumbs(
+                    values: _ageRange,
+                    min: 18,
+                    max: 65,
+                    divisions: 47,
+                    onChanged: (RangeValues values) {
+                      setState(() {
+                        _ageRange = values;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.grey[200],
+              ),
+              const SizedBox(height: 12),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Minimale ervaring',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
                         ),
-                        Text(
-                          '${_ageRange.start.round()} - ${_ageRange.end.round()} jaar',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
+                      ),
+                    ],
+                  ),
+                  SliderTheme(
+                    data: SliderThemeData(
+                      activeTickMarkColor: Colors.white,
+                      inactiveTickMarkColor: Colors.white,
+                      activeTrackColor: HexColor.fromHex("#FF3E68"),
+                      inactiveTrackColor: Colors.grey[200],
+                      trackHeight: 10,
+                      thumbShape: _CustomThumbShape(radius: 14),
+                      trackShape: _CustomTrackShape(), // Custom track shape
                     ),
-                    CustomSliderWithTwoThumbs(
-                      values: _ageRange,
-                      min: 18,
-                      max: 65,
-                      divisions: 47,
-                      onChanged: (RangeValues values) {
+                    child: Slider(
+                      value: werkervaringValue,
+                      min: 0,
+                      max: 3,
+                      divisions: 3,
+                      onChanged: (value) {
                         setState(() {
-                          _ageRange = values;
+                          werkervaringValue = value;
                         });
                       },
                     ),
-                  ],
-                ),
-                Divider(
-                  color: Colors.grey[200],
-                ),
-                const SizedBox(height: 12),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          'Minimale ervaring',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        _buildLabel('Geen', 0),
+                        _buildLabel('   Starter', 1),
+                        _buildLabel('  Ervaren', 2),
+                        _buildLabel('  Expert', 3),
                       ],
                     ),
-                    SliderTheme(
-                      data: SliderThemeData(
-                        activeTickMarkColor: Colors.white,
-                        inactiveTickMarkColor: Colors.white,
-                        activeTrackColor: HexColor.fromHex("#FF3E68"),
-                        inactiveTrackColor: Colors.grey[200],
-                        trackHeight: 10,
-                        thumbShape: _CustomThumbShape(radius: 14),
-                        trackShape: _CustomTrackShape(), // Custom track shape
-                      ),
-                      child: Slider(
-                        value: werkervaringValue,
-                        min: 0,
-                        max: 3,
-                        divisions: 3,
-                        onChanged: (value) {
-                          setState(() {
-                            werkervaringValue = value;
-                          });
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildLabel('Geen', 0),
-                          _buildLabel('   Starter', 1),
-                          _buildLabel('  Ervaren', 2),
-                          _buildLabel('  Expert', 3),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 12),
-                    Divider(
-                      thickness: 1.5,
-                      color: Colors.grey.shade200.withAlpha(178),
-                    ),
-                    SizedBox(height: 12),
+                  ),
+                  SizedBox(height: 12),
+                  Divider(
+                    thickness: 1.5,
+                    color: Colors.grey.shade200.withAlpha(178),
+                  ),
+                  SizedBox(height: 12),
+                ],
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    LanguageSkillsSection(),
+                    // Other widgets...
                   ],
                 ),
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+
+              // Required Experience Dropdown
+              // Distance Slider
+              Divider(
+                color: Colors.grey[200],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Afstand',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Row(
                     children: [
-                      LanguageSkillsSection(),
-                      // Other widgets...
+                      Image.asset('assets/images/jobs/map.png'),
+                      Text(
+                        '  ${_distanceSliderValue.round().toInt()} km',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ],
                   ),
+                ],
+              ),
+              CustomSlider(
+                value: _distanceSliderValue,
+                min: 0,
+                max: 100,
+                divisions: 100,
+                label: '${_distanceSliderValue.round()} km',
+                onChanged: (value) {
+                  setState(() {
+                    _distanceSliderValue = value;
+                  });
+                },
+              ),
+              // Show Results Button
+              PrimaryButton(
+                buttonText: 'Toon resultaten',
+                borderRadius: 30,
+                onTap: () {
+                  context.push(
+                    RecruitmentDetailScreen.employerRoute,
+                    extra: {
+                      'category': 'Filter Results',
+                      'title': 'Filter',
+                      'image': 'assets/images/recruteren/vast.png',
+                    },
+                  );
+                },
+                buttonColor: theme.primaryColor,
+                height: 55,
+                textStyle: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 18,
                 ),
-
-                // Required Experience Dropdown
-                // Distance Slider
-                Divider(
-                  color: Colors.grey[200],
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Afstand',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Image.asset('assets/images/jobs/map.png'),
-                        Text(
-                          '  ${_distanceSliderValue.round().toInt()} km',
-                          style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins'),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                CustomSlider(
-                  value: _distanceSliderValue,
-                  min: 0,
-                  max: 100,
-                  divisions: 100,
-                  label: '${_distanceSliderValue.round()} km',
-                  onChanged: (value) {
-                    setState(() {
-                      _distanceSliderValue = value;
-                    });
-                  },
-                ),
-                // Show Results Button
-                PrimaryButton(
-                  buttonText: 'Toon resultaten',
-                  borderRadius: 30,
-                  onTap: () {
-                    context.push(
-                      RecruitmentDetailScreen.employerRoute,
-                      extra: {
-                        'category': 'Filter Results',
-                        'title': 'Filter',
-                        'image': 'assets/images/recruteren/vast.png',
-                      },
-                    );
-                  },
-                  buttonColor: theme.primaryColor,
-                  height: 55,
-                  textStyle: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -286,7 +282,7 @@ class _FilterScreenState extends State<FilterScreen> {
         fontSize: isSelected ? 18.0 : 15.63, // Increase font size if selected
         fontWeight: FontWeight.w600,
         color: isSelected
-            ? Colors.pinkAccent
+            ? Theme.of(context).primaryColor
             : labelColors[text], // Use mapped color for each label
       ),
     );
@@ -358,12 +354,12 @@ class _LanguageSkillsSectionState extends State<LanguageSkillsSection> {
         GestureDetector(
           onTap: () => LanguageBottomSheet(
             title: "Voeg talen toe",
-            onSelected: (Language value) {
+            onSelected: (List<Language> value) {
               setState(() {
-                _selectedLanguages.add(value);
+                _selectedLanguages.addAll(value);
               });
             },
-          ).showBottomSheet(context: context),
+          ).showPopup(context: context),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.grey.shade100,
@@ -442,12 +438,12 @@ class _SkillsSectionState extends State<SkillsSection> {
         GestureDetector(
           onTap: () => LanguageBottomSheet(
             title: "Voeg skills toe",
-            onSelected: (Language value) {
+            onSelected: (List<Language> value) {
               setState(() {
-                _selectedSkills.add(value);
+                _selectedSkills.addAll(value);
               });
             },
-          ).showBottomSheet(context: context),
+          ).showPopup(context: context),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.grey.shade100,

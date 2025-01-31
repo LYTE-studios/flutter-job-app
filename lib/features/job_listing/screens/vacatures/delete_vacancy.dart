@@ -14,6 +14,8 @@ class DeleteVacancyPage extends StatelessWidget {
     '${JobListingsScreen.location}/${VacancyInfoScreen.location}/$location',
     JobrRouter.employerInitialroute,
   );
+
+  const DeleteVacancyPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,8 +58,10 @@ class DeleteVacancyPage extends StatelessWidget {
                     children: [
                       TextSpan(
                         text: 'via Jobr',
-                        style:
-                            TextStyle(color: Colors.pinkAccent, fontSize: 16),
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 16,
+                        ),
                       ),
                       TextSpan(
                         text: ' iemand gevonden voor deze vacature',

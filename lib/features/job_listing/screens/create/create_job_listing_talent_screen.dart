@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/enums/mastery.dart';
 import 'package:jobr/data/models/language.dart';
+import 'package:jobr/data/models/language_mastery.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_availability_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
@@ -12,6 +14,7 @@ import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_
 import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/widgets/language_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/ui/theme/jobr_theme.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 
 class CreateJobListingTalentScreen extends StatefulWidget {
@@ -34,7 +37,7 @@ class _CreateJobListingTalentScreenState
   bool _isButtonEnabled = false;
   int selectedRadio = 6;
   List<String> selectedDays = [];
-  final List<Language> _selectedlanguages = [];
+  final Set<LanguageMastery> _selectedlanguages = {};
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,8 @@ class _CreateJobListingTalentScreenState
       progress: .7,
       buttonLabel: 'Naar salaris',
       onNavigate: () {
+        vacancy.languages = _selectedlanguages.toList();
+
         context.push(CreateJobListingSalaryScreen.route, extra: vacancy);
 
 //         context.push(CreateJobListingSalaryScreen.route);
@@ -128,10 +133,10 @@ class _CreateJobListingTalentScreenState
                 child: Text(
                   "Overslaan",
                   style: TextStyles.titleMedium.copyWith(
-                      fontSize: 17.21,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Poppins',
-                      color: Color(0xffFF3E68)),
+                    fontSize: 17.21,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
               ),
             ],
@@ -146,12 +151,19 @@ class _CreateJobListingTalentScreenState
           GestureDetector(
             onTap: () => LanguageBottomSheet(
               title: "Voeg talen toe",
-              onSelected: (Language value) {
+              onSelected: (List<Language> value) {
                 setState(() {
-                  _selectedlanguages.add(value);
+                  _selectedlanguages.addAll(
+                    value.map(
+                      (e) => LanguageMastery(
+                        language: e,
+                        mastery: Mastery.intermediate,
+                      ),
+                    ),
+                  );
                 });
               },
-            ).showBottomSheet(context: context),
+            ).showPopup(context: context),
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.grey.shade100,
@@ -172,10 +184,10 @@ class _CreateJobListingTalentScreenState
                   Text(
                     'Voeg talen toe',
                     style: TextStyle(
-                        fontSize: 17,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Poppins'),
+                      fontSize: 17,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ],
               ),
@@ -200,7 +212,14 @@ class _CreateJobListingTalentScreenState
                   children: _selectedlanguages
                       .map(
                         (function) => CustomSliderWidget(
-                          label: function.name,
+                          mastery: function,
+                          onChanged: (mastery) {
+                            // setState(() {
+                            //   _selectedlanguages.remove(function);
+
+                            //   _selectedlanguages.add(mastery);
+                            // });
+                          },
                           onRemove: () {
                             setState(() {
                               _selectedlanguages.remove(function);
@@ -219,11 +238,16 @@ class _CreateJobListingTalentScreenState
 }
 
 class CustomSliderWidget extends StatefulWidget {
-  final String label;
+  final LanguageMastery mastery;
   final VoidCallback onRemove;
+  final Function(LanguageMastery) onChanged;
 
-  const CustomSliderWidget(
-      {super.key, required this.label, required this.onRemove});
+  const CustomSliderWidget({
+    super.key,
+    required this.mastery,
+    required this.onRemove,
+    required this.onChanged,
+  });
 
   @override
   _CustomSliderWidgetState createState() => _CustomSliderWidgetState();
@@ -262,7 +286,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                widget.label,
+                widget.mastery.language.name,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
               ),
               GestureDetector(
@@ -276,9 +300,9 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
             children: [
               SliderTheme(
                 data: SliderThemeData(
-                  activeTrackColor: Colors.pink,
+                  activeTrackColor: Theme.of(context).primaryColor,
                   inactiveTrackColor: Colors.grey[300],
-                  thumbColor: Colors.pink,
+                  thumbColor: Theme.of(context).primaryColor,
                   thumbShape: _CustomThumbShape(), // Custom thumb shape
                   trackHeight: 6,
                   overlayShape: RoundSliderOverlayShape(overlayRadius: 0),
@@ -309,7 +333,7 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
                       style: TextStyle(
                         fontSize: 16,
                         color: (_sliderValue - entry.key).abs() < 0.5
-                            ? Colors.pink
+                            ? Theme.of(context).primaryColor
                             : Colors.black,
                         fontWeight: (_sliderValue - entry.key).abs() < 0.5
                             ? FontWeight.bold
@@ -358,7 +382,7 @@ class _CustomThumbShape extends SliderComponentShape {
 
     // Inner circle
     final Paint innerCirclePaint = Paint()
-      ..color = Colors.pink
+      ..color = jobrTheme.primaryColor
       ..style = PaintingStyle.fill;
 
     canvas.drawCircle(center, 11, outerCirclePaint); // Outer circle (glow)

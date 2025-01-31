@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobr/configuration.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/services/accounts_service.dart';
+import 'package:jobr/features/authentication/screens/splash_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   static const location = 'settings';
 
   static const String route = '/$location';
+
+  const SettingsScreen({super.key});
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> with ScreenStateMixin {
+  String versionNumber = '';
+
+  @override
+  Future<void> loadData() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    setState(() {
+      versionNumber = packageInfo.version;
+    });
+
+    return super.loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +71,13 @@ class SettingsScreen extends StatelessWidget {
                 buildListTile(
                   title: 'Privacybeleid',
                   onTap: () {
-                    // Handle navigation to Privacybeleid
+                    launchUrl(Uri.parse(privacyPolicyUrl));
                   },
                 ),
                 buildListTile(
                   title: 'Algemene voorwaarden',
                   onTap: () {
-                    // Handle navigation to Algemene voorwaarden
+                    launchUrl(Uri.parse(tosUrl));
                   },
                 ),
                 buildListTile(
@@ -62,42 +89,48 @@ class SettingsScreen extends StatelessWidget {
               ],
             ),
           ),
-          Column(
-            children: [
-              PrimaryButton(
-                width: MediaQuery.of(context).size.width * 0.8,
-                textColor: Colors.grey,
-                buttonColor: Color(0xFFF7F7F7),
-                height: 50,
-                onTap: () {
-                  // Handle "Uitloggen" action
-                },
-                buttonText: 'Uitloggen',
-              ),
-              SizedBox(height: 8),
-              PrimaryButton(
-                width: MediaQuery.of(context).size.width * 0.8,
-                textColor: Colors.red,
-                buttonColor:
-                    Color(0xFFFEF4F4), // Colors.red.shade100.withOpacity(0.3),
-                height: 50,
-                onTap: () {
-                  // Handle "Uitloggen" action
-                },
-                buttonText: 'Account verwijderen',
-              ),
-              SizedBox(height: 24),
-              Text(
-                'Version 0.0.0',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
+          SafeArea(
+            top: false,
+            bottom: true,
+            child: Column(
+              children: [
+                PrimaryButton(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  textColor: Colors.grey,
+                  buttonColor: Color(0xFFF7F7F7),
+                  height: 50,
+                  onTap: () async {
+                    HapticFeedback.mediumImpact();
+
+                    await AccountsService().logout();
+
+                    router.pushReplacement(SplashScreen.route);
+                  },
+                  buttonText: 'Uitloggen',
                 ),
-              ),
-              SizedBox(height: 24),
-            ],
+                SizedBox(height: 8),
+                PrimaryButton(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  textColor: Colors.red,
+                  buttonColor: Color(
+                      0xFFFEF4F4), // Colors.red.shade100.withOpacity(0.3),
+                  height: 50,
+                  onTap: () {},
+                  buttonText: 'Account verwijderen',
+                ),
+                SizedBox(height: 24),
+                Text(
+                  'Version $versionNumber',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+                SizedBox(height: 21),
+              ],
+            ),
           ),
         ],
       ),

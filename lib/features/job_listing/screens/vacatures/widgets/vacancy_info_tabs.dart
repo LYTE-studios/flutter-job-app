@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
-import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 class VacancyInfoTab extends StatelessWidget {
-  VacancyInfoTab({Key? key}) : super(key: key);
+  VacancyInfoTab({super.key});
   final List<String> hardSkill = ['Fashion', 'Stockbeheer', 'Kassa', 'Verkoop'];
   final List<String> salarisTabs = ['Maaltijdcheques', 'Wagen', 'GSM'];
 

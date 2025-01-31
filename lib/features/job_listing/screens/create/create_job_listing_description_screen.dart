@@ -104,7 +104,7 @@ class _CreateJobListingDescriptionScreenState
 
   @override
   Widget build(BuildContext context) {
-    void _navigateToSkillsScreen() {
+    void navigateToSkillsScreen() {
       vacancy.descriptions = options
           .map(
             (e) => VacancyDescription(
@@ -387,7 +387,7 @@ class _CreateJobListingDescriptionScreenState
 
     return BaseCreateJobListingScreen(
       progress: 0.3,
-      onNavigate: _navigateToSkillsScreen,
+      onNavigate: navigateToSkillsScreen,
       isNavigationEnabled: mandatoryTextFieldFilled,
       buttonLabel: "Naar vaardigheden",
       child: Padding(
@@ -443,7 +443,7 @@ class _CreateJobListingDescriptionScreenState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
+                    Row(
                       children: [
                         Text(
                           "Je job als Barista",
@@ -455,55 +455,35 @@ class _CreateJobListingDescriptionScreenState
                         Text(
                           '*',
                           style: TextStyle(
-                            color: Colors.red,
+                            color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
-                    if (!isMainDescriptionExpanded &&
-                        mainDescriptionController.text.isEmpty)
-                      Text(
-                        "Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...",
-                        style: TextStyle(
-                          fontSize: 14.5,
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextField(
+                      controller: mainDescriptionController,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                      ),
+                      decoration: InputDecoration(
+                        hintText:
+                            'Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...',
+                        hintStyle: TextStyle(
                           color: Colors.grey.shade500,
-                        ),
-                      )
-                    else if (!isMainDescriptionLocked)
-                      TextField(
-                        controller: mainDescriptionController,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                        decoration: InputDecoration(
-                          hintText:
-                              'Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...',
-                          hintStyle: TextStyle(
-                            color: Colors.grey.shade500,
-                            fontSize: 14.5,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          border: InputBorder.none, // No border
-                        ),
-                        maxLines: null, // Allow multi-line input
-                        textInputAction: TextInputAction.done,
-                        onSubmitted: (_) => () {},
-                      )
-                    else
-                      Text(
-                        (mainDescriptionController.text.isNotEmpty ||
-                                mainDescriptionController.text != '')
-                            ? mainDescriptionController.text
-                            : 'Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...',
-                        style: TextStyle(
                           fontSize: 14.5,
-                          color: Colors.grey[500],
                           fontWeight: FontWeight.w400,
                         ),
+                        border: InputBorder.none, // No border
                       ),
+                      maxLines: null, // Allow multi-line input
+                      textInputAction: TextInputAction.done,
+                      onSubmitted: (_) => () {},
+                    ),
                     const SizedBox(height: 16),
                     AnimatedSwitcher(
                       duration: const Duration(milliseconds: 300),
@@ -582,15 +562,16 @@ class _CreateJobListingDescriptionScreenState
                                       decoration: InputDecoration(
                                         hintText: 'Hier typen...',
                                         hintStyle: TextStyle(
-                                          color: Colors.grey.shade400,
+                                          color: Colors.grey.shade500,
                                           fontSize: 14.5,
+                                          fontWeight: FontWeight.w400,
                                         ),
                                         border: InputBorder.none, // No border
                                       ),
                                       maxLines: null, // Allow multi-line input
                                       textInputAction: TextInputAction.done,
                                       onSubmitted: (_) =>
-                                          _navigateToSkillsScreen(),
+                                          navigateToSkillsScreen(),
                                     ),
                                     const SizedBox(height: 10),
                                   ],
@@ -621,10 +602,10 @@ class _CreateJobListingDescriptionScreenState
                     // Button to add new option
                     GestureDetector(
                       onTap: showOptionsBottomSheet,
-                      child: const Text(
+                      child: Text(
                         '+ Kies onderwerp',
                         style: TextStyle(
-                            color: Colors.pinkAccent,
+                            color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 17.5),
                       ),

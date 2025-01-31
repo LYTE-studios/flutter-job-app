@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
+import 'package:jobr/ui/theme/jobr_theme.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
@@ -15,7 +16,9 @@ Widget buildSocialButton({
   return ElevatedButton(
     onPressed: onPressed,
     style: ElevatedButton.styleFrom(
-      backgroundColor: isInstagram ? Colors.pink[50] : Colors.grey[100],
+      backgroundColor: isInstagram
+          ? jobrTheme.primaryColor.withOpacity(.05)
+          : Colors.grey[100],
       foregroundColor: isInstagram ? TextStyles.red : TextStyles.lightgrey,
       elevation: 0,
       padding: const EdgeInsets.symmetric(

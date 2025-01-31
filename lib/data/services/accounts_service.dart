@@ -1,28 +1,21 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/user.dart';
 import 'package:jobr/data/services/api_service.dart';
 import 'package:jobr/features/authentication/screens/splash_screen.dart';
 
 class AccountsService extends ApiService {
-  // Updated constructor with optional storage parameter
-  AccountsService([FlutterSecureStorage? secureStorage]);
-
-  Future<void> _storeTokens(String accessToken, String refreshToken) async {
-    await storage.write(key: 'access_token', value: accessToken);
-    await storage.write(key: 'refresh_token', value: refreshToken);
-  }
-
   Future<void> logout() async {
-    await storage.deleteAll();
+    await clearTokens();
 
     router.pushReplacement(SplashScreen.route);
   }
 
   Future<UserType> checkAuthentication() async {
-    final accessToken = await storage.read(key: 'access_token');
-    final refreshToken = await storage.read(key: 'refresh_token');
+    Map<String, String?> tokens = await ApiService.getTokens();
+
+    String? accessToken = tokens['access_token'];
+    String? refreshToken = tokens['refresh_token'];
 
     if (accessToken == null || refreshToken == null) {
       throw Exception("Access token not found. Please log in again.");
@@ -56,7 +49,7 @@ class AccountsService extends ApiService {
         },
       );
 
-      _storeTokens(response.data['access'], response.data['refresh']);
+      setTokens(response.data['access'], response.data['refresh']);
 
       // Optional: Call login endpoint (if necessary for further processing)
       final loginResponse = await postApi(
@@ -102,7 +95,7 @@ class AccountsService extends ApiService {
         },
       );
 
-      _storeTokens(response.data['access'], response.data['refresh']);
+      setTokens(response.data['access'], response.data['refresh']);
 
       return response.data;
     } on DioException catch (e) {
@@ -118,12 +111,6 @@ class AccountsService extends ApiService {
     Map<String, dynamic> employeeData,
   ) async {
     try {
-      // Retrieve access token from secure storage
-      final accessToken = await storage.read(key: 'access_token');
-      if (accessToken == null) {
-        throw Exception("Access token not found. Please log in again.");
-      }
-
       // Make the API call with the token in the Authorization header
       final response = await postApi(
         "/accounts/register/employee/",

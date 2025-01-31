@@ -276,13 +276,13 @@ class _JobScreenState extends State<JobScreen> {
                           width: 2,
                         ),
                       ),
-                      child: const Text(
+                      child: Text(
                         "Ga naar profiel",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           fontFamily: 'Poppins',
-                          color: Colors.pinkAccent,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                     ),
@@ -325,7 +325,7 @@ class _JobScreenState extends State<JobScreen> {
                 ),
                 SvgPicture.asset(
                   'assets/images/icons/bell.svg',
-                  color: Colors.pinkAccent,
+                  color: Theme.of(context).primaryColor,
                   height: 20,
                   width: 20,
                 ),

@@ -7,7 +7,7 @@ class CustomSlider extends StatelessWidget {
   final int divisions;
   final String label;
   final ValueChanged<double> onChanged;
-  final Color activeColor;
+  final Color? activeColor;
   final Color inactiveColor;
 
   const CustomSlider({
@@ -18,7 +18,7 @@ class CustomSlider extends StatelessWidget {
     required this.divisions,
     required this.label,
     required this.onChanged,
-    this.activeColor = Colors.pinkAccent,
+    this.activeColor,
     this.inactiveColor = Colors.grey,
   });
 
@@ -38,8 +38,9 @@ class CustomSlider extends StatelessWidget {
         ),
         overlayShape: const RoundSliderOverlayShape(overlayRadius: 24.0),
         trackShape: CustomTrackShape(
-            leftExtension: 10.0,
-            rightExtension: 10.0), // Use a custom track shape
+          leftExtension: 10.0,
+          rightExtension: 10.0,
+        ), // Use a custom track shape
       ),
       child: Slider(
         value: value,

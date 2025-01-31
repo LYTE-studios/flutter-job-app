@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
-import 'package:jobr/features/profile/screens/company_screen/settings.dart';
+import 'package:jobr/features/profile/screens/company_screen/settings_screen.dart';
 import 'package:jobr/features/profile/screens/tabs/general_item_widget.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
@@ -374,7 +374,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                             SvgIcon(
                               JobrIcons.venueLocation,
                               size: 20,
-                              color: Colors.pinkAccent,
+                              color: Theme.of(context).primaryColor,
                             ),
                             const SizedBox(width: 4),
                           ],
@@ -580,11 +580,11 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const SvgIcon(
+                    SvgIcon(
                       JobrIcons.location,
                       size: 16,
                       leaveUnaltered: true,
-                      color: Colors.pinkAccent,
+                      color: Theme.of(context).primaryColor,
                     ),
                     const SizedBox(width: 4),
                     Text(
@@ -603,12 +603,12 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
           // "Kies" button
           TextButton(
             onPressed: onPressed,
-            child: const Text(
+            child: Text(
               "Kies",
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
-                color: Colors.pinkAccent,
+                color: Theme.of(context).primaryColor,
               ),
             ),
           ),

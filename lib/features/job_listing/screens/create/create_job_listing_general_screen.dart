@@ -130,7 +130,7 @@ class _CreateJobListingGeneralScreenState
                   _selectedFunction = value;
                 });
               },
-            ).showBottomSheet(context: context),
+            ).showPopup(context: context),
           ),
           TextField(
             cursorHeight: 22,
@@ -269,7 +269,7 @@ class _CreateJobListingGeneralScreenState
 }
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({Key? key}) : super(key: key);
+  const CustomTextField({super.key});
 
   @override
   Widget build(BuildContext context) {

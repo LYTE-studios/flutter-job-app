@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/data/models/vacancy.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
-import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/vacancy_info_page.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
+import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 class VacatureCard extends StatelessWidget {
-  const VacatureCard({super.key});
+  final Vacancy vacancy;
+
+  const VacatureCard({super.key, required this.vacancy});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: Colors.grey[100],
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(24),
       ),
       elevation: 0, // Set elevation to 0 to remove shadow
       child: Column(
@@ -45,11 +47,10 @@ class VacatureCard extends StatelessWidget {
                     Row(
                       children: [
                         SizedBox(width: 4),
-                        SvgPicture.asset(
+                        SvgIcon(
                           'assets/images/icons/location.svg',
-                          color: Colors.pink,
-                          height: 17,
-                          width: 17,
+                          color: Theme.of(context).primaryColor,
+                          size: 17,
                         ),
                         SizedBox(width: 4),
                         Text(
@@ -131,29 +132,28 @@ class VacatureCard extends StatelessWidget {
                     Expanded(
                       flex: 2,
                       child: PrimaryButton(
-                        suffixIcon: SvgPicture.asset(
+                        icon: SvgIcon(
                           'assets/images/icons/edit.svg',
                           color: Colors.grey,
-                          height: 20,
-                          width: 20,
+                          size: 16,
                         ),
-                        width: 200,
-                        buttonText: '  Aanpassen',
+                        width: double.infinity,
+                        buttonText: 'Aanpassen',
                         onTap: () {
                           context.push(VacancyInfoScreen.route);
                         },
                         borderRadius: 32,
                         height: 40,
                         textStyle: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Poppins',
-                            color: Colors.grey,
-                            fontSize: 16.5),
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey,
+                          fontSize: 18,
+                        ),
                         textColor: Colors.grey,
                         buttonColor: Colors.grey.shade200,
                       ),
                     ),
-                    SizedBox(width: 12),
+                    SizedBox(width: 8),
                     Expanded(
                       flex: 1,
                       child: PrimaryButton(
@@ -172,7 +172,7 @@ class VacatureCard extends StatelessWidget {
                         width: 80,
                         icon: Icon(Icons.people),
                         textColor: Colors.white,
-                        buttonColor: Colors.pink.shade400,
+                        buttonColor: Theme.of(context).primaryColor,
                       ),
                     ),
                   ],

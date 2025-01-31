@@ -27,7 +27,7 @@ import 'package:jobr/features/profile/screens/company/select_location_page.dart'
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';
-import 'package:jobr/features/profile/screens/company_screen/settings.dart';
+import 'package:jobr/features/profile/screens/company_screen/settings_screen.dart';
 import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';

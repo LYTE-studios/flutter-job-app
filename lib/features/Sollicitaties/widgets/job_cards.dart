@@ -105,7 +105,7 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                           'assets/images/icons/location.svg',
                           width: 18,
                           height: 18,
-                          color: Colors.pink,
+                          color: Theme.of(context).primaryColor,
                         ),
                         const SizedBox(width: 4),
                         Text(
@@ -197,7 +197,8 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.pink, width: 1.5),
+                        border: Border.all(
+                            color: Theme.of(context).primaryColor, width: 1.5),
                       ),
                       child: Row(
                         children: [
@@ -209,8 +210,8 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                           const SizedBox(width: 4),
                           Text(
                             widget.suggestionPercentage,
-                            style: const TextStyle(
-                              color: Colors.pinkAccent,
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),

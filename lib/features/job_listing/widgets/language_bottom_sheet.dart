@@ -6,7 +6,7 @@ import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
 class LanguageBottomSheet extends StatefulWidget with BottomSheetMixin {
-  final void Function(Language language) onSelected;
+  final void Function(List<Language> languages) onSelected;
   final String title;
 
   LanguageBottomSheet({
@@ -39,15 +39,15 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet>
     return SearchFunctionBottomSheet(
       allowMultipleOptionSelection: true,
       onSelected: (String value) {
-        widget.onSelected.call(languages.firstWhere(
-          (element) => element.name == value,
-          orElse: () => languages.first,
-        ));
-
+        List<String> values = value.split(', ');
+        widget.onSelected(languages.where((element) {
+          return values.contains(element.name);
+        }).toList());
         Navigator.of(context).pop();
       },
       options: languages.map((e) => e.name).toList(),
-      title: "Function type",
+      description: "Zoek een taal",
+      title: "Talen",
     );
   }
 }

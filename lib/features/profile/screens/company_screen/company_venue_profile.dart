@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/profile/screens/company_screen/social_button.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
+import 'package:jobr/ui/theme/jobr_theme.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
-import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 class CompanyVenueProfile extends StatelessWidget {
   static const location = 'venue-profile';
@@ -326,7 +325,7 @@ class CompanyVenueProfile extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 6),
                       decoration: BoxDecoration(
-                        color: Colors.pinkAccent,
+                        color: jobrTheme.primaryColor,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
@@ -381,14 +380,13 @@ class CompanyVenueProfile extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(icon, color: Colors.pink, size: 16),
+                      Icon(icon, color: jobrTheme.primaryColor, size: 16),
                       const SizedBox(width: 4),
                       Text(
                         value,
-                        style: const TextStyle(
-                          color: Colors.pink,
+                        style: TextStyle(
+                          color: jobrTheme.primaryColor,
                           fontSize: 16,
-                          fontFamily: 'Inter',
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -440,7 +438,7 @@ class CompanyVenueProfile extends StatelessWidget {
                         onPressed: () {},
                         style: TextButton.styleFrom(
                           foregroundColor: Colors.white,
-                          backgroundColor: Colors.pink,
+                          backgroundColor: jobrTheme.primaryColor,
                           padding: const EdgeInsets.symmetric(
                             horizontal: 24,
                             vertical: 5,

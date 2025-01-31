@@ -203,7 +203,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       '/jobs/filters/jobupdates',
                     );
                   },
-                  buttonColor: Colors.pinkAccent,
+                  buttonColor: Theme.of(context).primaryColor,
                   height: 55,
                   textStyle: const TextStyle(
                     color: Colors.white,

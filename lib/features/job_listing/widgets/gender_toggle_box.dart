@@ -33,7 +33,9 @@ class _GenderToggleBoxState extends State<GenderToggleBox> {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
               decoration: BoxDecoration(
-                color: isSelected ? Colors.pinkAccent : Colors.transparent,
+                color: isSelected
+                    ? Theme.of(context).primaryColor
+                    : Colors.transparent,
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(

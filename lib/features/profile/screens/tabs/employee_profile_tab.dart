@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class EmployeeProfileTab extends StatelessWidget {
-  const EmployeeProfileTab({Key? key}) : super(key: key);
+  const EmployeeProfileTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -317,7 +317,7 @@ class EmployeeProfileTab extends StatelessWidget {
 }
 
 class VragenlijstCard extends StatefulWidget {
-  const VragenlijstCard({Key? key}) : super(key: key);
+  const VragenlijstCard({super.key});
 
   @override
   State<VragenlijstCard> createState() => _VragenlijstCardState();
@@ -405,7 +405,7 @@ class _VragenlijstCardState extends State<VragenlijstCard> {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                   decoration: BoxDecoration(
                     color: selectedAnswers[questionId] == answer
-                        ? Colors.pinkAccent
+                        ? Theme.of(context).primaryColor
                         : Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(6),
                   ),

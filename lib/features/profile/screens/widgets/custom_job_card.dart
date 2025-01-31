@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
-import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/ui/widgets/buttons/action_button.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:readmore/readmore.dart';
 
 class CustomJobCard extends StatefulWidget {
+  final double height;
   final String description;
   final String userName;
   final String location;
@@ -25,6 +25,7 @@ class CustomJobCard extends StatefulWidget {
 
   const CustomJobCard({
     super.key,
+    this.height = 272,
     required this.description,
     required this.userName,
     required this.location,
@@ -56,55 +57,55 @@ class _CustomJobCardState extends State<CustomJobCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: widget.isAICard
-              ? MediaQuery.of(context).size.width * 0.87
-              : MediaQuery.of(context).size.width * 0.9,
-          decoration: BoxDecoration(
-            color: HexColor.fromHex('#F6F6F6'),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Padding(
+    return Container(
+      height: 300,
+      decoration: BoxDecoration(
+        color: HexColor.fromHex('#F6F6F6'),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Stack(
+        children: [
+          Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildProfileHeader(context),
                 const SizedBox(height: 10),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: widget.descriptionPadding.toDouble(),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: widget.descriptionPadding.toDouble(),
+                    ),
+                    child: _buildDescription(context),
                   ),
-                  child: _buildDescription(context),
                 ),
-                const SizedBox(height: 10),
                 _buildActionRow(context),
                 if (widget.showBottomText) _buildBottomRow(context),
               ],
             ),
           ),
-        ),
-        // Like button in the top-left corner
-        if (widget.showLikeButton)
-          Positioned(
-            top: 10,
-            right: 16,
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: IconButton(
-                color: Colors.white,
-                icon: Icon(
-                  Icons.favorite,
-                  color: isLiked ? Colors.pink : Colors.grey.shade400,
-                  size: 26,
+          if (widget.showLikeButton)
+            Positioned(
+              top: 10,
+              right: 16,
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: IconButton(
+                  color: Colors.white,
+                  icon: Icon(
+                    Icons.favorite,
+                    color: isLiked
+                        ? Theme.of(context).primaryColor
+                        : Colors.grey.shade400,
+                    size: 26,
+                  ),
+                  onPressed: toggleLike,
                 ),
-                onPressed: toggleLike,
               ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 

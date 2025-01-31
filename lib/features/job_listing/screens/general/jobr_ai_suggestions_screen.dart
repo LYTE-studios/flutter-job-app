@@ -55,40 +55,32 @@ class JobrAiSuggestionsScreen extends StatelessWidget {
         appbarTitle: 'Jobr-AI suggesties',
         canGoBack: true,
       ),
-      body: Padding(
+      body: ListView.separated(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.separated(
-                separatorBuilder: (context, index) => const Divider(
-                  height: 10,
-                  color: Colors.transparent,
-                ),
-                itemCount: jobSuggestions.length,
-                itemBuilder: (context, index) {
-                  final suggestion = jobSuggestions[index];
-                  return CustomJobCard(
-                    userName: suggestion["userName"]!,
-                    location: suggestion["location"]!,
-                    age: suggestion["age"]!,
-                    description: suggestion["description"]!,
-                    profileImagePath: suggestion["profileImagePath"]!,
-                    suggestionPercentage: suggestion["suggestionPercentage"]!,
-                    buttonColor: HexColor.fromHex('#3976FF'),
-                    buttonText: "Chat starten",
-                    onButtonPressed: () {
-                      context.push(ChatPageScreen.employerRoute);
-                    },
-                    descriptionPadding: 15,
-                    buttonIcon: JobrIcons.send,
-                    showBottomText: true,
-                  );
-                },
-              ),
-            ),
-          ],
+        separatorBuilder: (context, index) => const Divider(
+          height: 10,
+          color: Colors.transparent,
         ),
+        itemCount: jobSuggestions.length,
+        itemBuilder: (context, index) {
+          final suggestion = jobSuggestions[index];
+          return CustomJobCard(
+            userName: suggestion["userName"]!,
+            location: suggestion["location"]!,
+            age: suggestion["age"]!,
+            description: suggestion["description"]!,
+            profileImagePath: suggestion["profileImagePath"]!,
+            suggestionPercentage: suggestion["suggestionPercentage"]!,
+            buttonColor: HexColor.fromHex('#3976FF'),
+            buttonText: "Chat starten",
+            onButtonPressed: () {
+              context.push(ChatPageScreen.employerRoute);
+            },
+            descriptionPadding: 15,
+            buttonIcon: JobrIcons.send,
+            showBottomText: true,
+          );
+        },
       ),
     );
   }
