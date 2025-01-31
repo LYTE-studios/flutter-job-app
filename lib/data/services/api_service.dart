@@ -1,15 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:logger/logger.dart';
 
 class ApiService {
   late Dio dio;
-  final FlutterSecureStorage storage;
   final Logger logger = Logger();
 
-  ApiService({FlutterSecureStorage? secureStorage})
-      : storage = secureStorage ?? const FlutterSecureStorage() {
+  ApiService() {
     BaseOptions options = BaseOptions(
       baseUrl: _getBaseUrl(),
       connectTimeout: const Duration(seconds: 10),
@@ -23,15 +20,44 @@ class ApiService {
     _setupInterceptors();
   }
 
+  static Future<Box> _getTokenBox() async {
+    return await Hive.openBox('tokens');
+  }
+
+  static Future<Map<String, String?>> getTokens() async {
+    Box box = await _getTokenBox();
+
+    final token = await box.get('access_token');
+    final refreshToken = await box.get('refresh_token');
+
+    return {'access_token': token, 'refresh_token': refreshToken};
+  }
+
+  Future<void> setTokens(String accessToken, String refreshToken) async {
+    Box box = await _getTokenBox();
+
+    await box.put('access_token', accessToken);
+    await box.put('refresh_token', refreshToken);
+  }
+
+  Future<void> clearTokens() async {
+    Box box = await _getTokenBox();
+
+    await box.delete('access_token');
+    await box.delete('refresh_token');
+  }
+
   static String _getBaseUrl() {
-    return const String.fromEnvironment('BASE_URL',
-        defaultValue: "https://api.jobr.lytestudios.be/api/");
+    return const String.fromEnvironment(
+      'BASE_URL',
+      defaultValue: "https://api.jobr.lytestudios.be/api/",
+    );
   }
 
   void _setupInterceptors() {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        final token = await storage.read(key: 'access_token');
+        final token = (await getTokens())['access_token'];
         if (token != null) {
           options.headers['Authorization'] = 'Bearer $token';
         }
@@ -53,7 +79,7 @@ class ApiService {
   }
 
   Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {
-    final token = await storage.read(key: 'access_token');
+    final token = (await getTokens())['access_token'];
     final options = Options(
       method: requestOptions.method,
       headers: {
@@ -82,7 +108,7 @@ class ApiService {
 
   Future<bool> _refreshToken() async {
     try {
-      final refreshToken = await storage.read(key: 'refresh_token');
+      final refreshToken = (await getTokens())['refresh_token'];
       if (refreshToken == null) return false;
 
       dio.interceptors.clear();
@@ -104,17 +130,6 @@ class ApiService {
       logger.e('Error refreshing token: $e');
       return false;
     }
-  }
-
-  Future<void> setTokens(String accessToken, String refreshToken) async {
-    await storage.write(key: 'access_token', value: accessToken);
-    await storage.write(key: 'refresh_token', value: refreshToken);
-  }
-
-  Future<void> clearTokens() async {
-    dio.options.headers.remove('Authorization');
-    await storage.delete(key: 'access_token');
-    await storage.delete(key: 'refresh_token');
   }
 
   static String _formatUrl(String url) {
