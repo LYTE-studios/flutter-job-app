@@ -19,6 +19,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_sala
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_talent_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
+import 'package:jobr/features/job_listing/screens/general/skills_info_screen.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/vacancy_info_page.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
@@ -364,6 +365,16 @@ GoRouter router = GoRouter(
               context: context,
               state: state,
               child: const FilterScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: SkillsInfoScreen.employerRoute,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return buildPageWithSlideUpTransition(
+              context: context,
+              state: state,
+              child: const SkillsInfoScreen(),
             );
           },
         ),

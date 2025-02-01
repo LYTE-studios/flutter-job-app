@@ -7,6 +7,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_avai
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/features/job_listing/screens/general/skills_info_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/information_popup_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -179,10 +180,13 @@ class _CreateJobListingSkillsScreenState
                   style: TextStyles.titleMedium
                       .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
                 ),
-                InformationPopupButton(
-                  title: 'Werkervaring',
-                  description: "Wat is de vereiste werkervaring?",
-                ),
+                IconButton(
+                  icon: const Icon(Icons.info_outline),
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () {
+                    context.push(SkillsInfoScreen.employerRoute);
+                  },
+                )
               ],
             ),
             Column(

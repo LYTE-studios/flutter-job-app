@@ -587,28 +587,36 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     for (var answer in ['Ja', 'Nee'])
-                                      Container(
-                                        // Replaced GestureDetector with Container
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8, horizontal: 20),
-                                        decoration: BoxDecoration(
-                                          color: selectedAnswers['question1'] ==
-                                                  answer
-                                              ? Colors.pinkAccent
-                                              : Colors.grey.shade200,
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                        child: Text(
-                                          answer,
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w600,
-                                            color: !(selectedAnswers[
-                                                        'question2'] ==
-                                                    answer)
-                                                ? Colors.white
-                                                : Colors.grey,
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedAnswers['question1'] =
+                                                answer;
+                                          });
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8, horizontal: 20),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                selectedAnswers['question1'] ==
+                                                        answer
+                                                    ? Colors.pinkAccent
+                                                    : Colors.grey.shade200,
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          child: Text(
+                                            answer,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600,
+                                              color: selectedAnswers[
+                                                          'question1'] ==
+                                                      answer
+                                                  ? Colors.white
+                                                  : Colors.grey,
+                                            ),
                                           ),
                                         ),
                                       ),
