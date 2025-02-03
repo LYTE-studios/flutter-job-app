@@ -77,6 +77,19 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
                 _searchController.text = suggestion;
                 await _moveToLocation(suggestion);
               },
+              emptyBuilder: (context) => _searchController.text.isEmpty
+                  ? Row()
+                  : ListTile(
+                      title: Text(
+                        'Geen zoekresultaten gevonden',
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: TextStyles.labelSmall.fontSize,
+                          fontWeight: FontWeight.w500,
+                          color: TextStyles.labelSmall.color,
+                        ),
+                      ),
+                    ),
               builder: (context, controller, focusNode) {
                 _searchController.addListener(() {
                   if (_searchController.text != controller.text) {
@@ -167,9 +180,9 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
           Center(
             child: PrimaryButton(
               buttonColor: HexColor.fromHex("#FF3E68"),
-              height: 50,
+              height: 58,
               borderRadius: 60,
-              width: MediaQuery.of(context).size.width * 0.8,
+              width: MediaQuery.of(context).size.width * 0.88,
               onTap: () {
                 Navigator.pop(context, _searchController.text);
               },

@@ -11,6 +11,7 @@ import 'package:jobr/features/job_listing/widgets/sector_type_bottom_sheet.dart'
 import 'package:jobr/features/profile/screens/company/select_location_page.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';
 import 'package:jobr/features/profile/screens/widgets/text_field_settings.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -52,6 +53,11 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
   File? bannerImage;
   File? profileImage;
   final ImagePicker _picker = ImagePicker();
+
+  final Map<String, String> selectedAnswers = {
+    'question1': 'Ja',
+    'question2': 'Nee',
+  };
 
   Future<void> _pickImage(bool isBanner) async {
     final XFile? pickedFile =
@@ -134,16 +140,18 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
               expandedHeight: 210,
               floating: false,
               pinned: true,
-              title: innerBoxIsScrolled
-                  ? const Text(
-                      "Louis Ottevaere",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    )
-                  : null,
+              title:
+                  // innerBoxIsScrolled
+                  //     ? const Text(
+                  //         "Louis Ottevaere",
+                  //         style: TextStyle(
+                  //           fontSize: 18,
+                  //           fontFamily: 'Inter',
+                  //           fontWeight: FontWeight.w600,
+                  //         ),
+                  //       )
+                  //     :
+                  null,
               scrolledUnderElevation: 0,
               elevation: 0,
               automaticallyImplyLeading: false,
@@ -269,284 +277,380 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
             ),
           ];
         },
-        body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          physics: const ClampingScrollPhysics(),
+        body: Stack(
           children: [
-            const SizedBox(height: 15),
-            Wrap(
-              spacing: 10,
-              runSpacing: 10,
+            ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              physics: const ClampingScrollPhysics(),
               children: [
-                ...badges.map(
-                  (badge) => GestureDetector(
-                    onTap: badge.$2 == 'Facebook' ? _loginWithFacebook : null,
-                    child: FittedBox(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(63),
-                          color: HexColor.fromHex('#E4E4E4').withOpacity(.5),
-                        ),
-                        padding: const EdgeInsets.all(8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            SvgPicture.asset(
-                              badge.$1,
-                              width: 22,
-                              height: 22,
-                              colorFilter: ColorFilter.mode(
-                                HexColor.fromHex('#616161'),
-                                BlendMode.srcIn,
-                              ),
+                const SizedBox(height: 15),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: [
+                    ...badges.map(
+                      (badge) => GestureDetector(
+                        onTap:
+                            badge.$2 == 'Facebook' ? _loginWithFacebook : null,
+                        child: FittedBox(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(63),
+                              color:
+                                  HexColor.fromHex('#E4E4E4').withOpacity(.5),
                             ),
-                            const SizedBox(width: 5),
-                            Text(
-                              badge.$2 == 'Facebook' && facebookUsername != null
-                                  ? facebookUsername!
-                                  : badge.$2,
-                              style: TextStyle(
-                                fontSize: 15.2,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w600,
-                                color: HexColor.fromHex('#616161'),
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            SvgPicture.asset(
-                              JobrIcons.addIcon,
-                              width: 14,
-                              colorFilter: ColorFilter.mode(
-                                HexColor.fromHex('#77747473'),
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            InkWell(
-              borderRadius: BorderRadius.circular(64),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (context) => const NewBranchScreen(),
-                  ),
-                );
-              },
-              child: Container(
-                height: 48,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(63),
-                  color: theme.primaryColor,
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Vestiging toevoegen',
-                      style: TextStyle(
-                        fontSize: 15.2,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                        color: HexColor.fromHex('#FFFFFF'),
-                      ),
-                    ),
-                    Icon(
-                      CupertinoIcons.add,
-                      color: HexColor.fromHex('#FFFFFF'),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            GestureDetector(
-              onTap: () {
-                context.push(CompanyVenueProfile.employerRoute);
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(21),
-                  color: HexColor.fromHex('#F5F5F5'),
-                ),
-                padding: const EdgeInsets.all(12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Row(
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          width: 45,
-                          height: 45,
-                          clipBehavior: Clip.antiAlias,
-                          child: Image.asset(
-                            JobrIcons.placeholder1,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              'Brooklyn',
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w700,
-                                color: HexColor.fromHex('#000000'),
-                              ),
-                            ),
-                            Row(
-                              children: [
+                            padding: const EdgeInsets.all(8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
                                 SvgPicture.asset(
-                                  JobrIcons.location,
-                                  width: 12,
+                                  badge.$1,
+                                  width: 22,
+                                  height: 22,
                                   colorFilter: ColorFilter.mode(
-                                    theme.primaryColor,
+                                    HexColor.fromHex('#616161'),
                                     BlendMode.srcIn,
                                   ),
                                 ),
-                                const SizedBox(width: 4),
+                                const SizedBox(width: 5),
                                 Text(
-                                  'Gent, Voorstraat',
+                                  badge.$2 == 'Facebook' &&
+                                          facebookUsername != null
+                                      ? facebookUsername!
+                                      : badge.$2,
                                   style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 15.2,
                                     fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w500,
-                                    color: HexColor.fromHex('#666666'),
+                                    fontWeight: FontWeight.w600,
+                                    color: HexColor.fromHex('#616161'),
                                   ),
+                                ),
+                                const SizedBox(width: 5),
+                                SvgPicture.asset(
+                                  JobrIcons.addIcon,
+                                  width: 14,
+                                  colorFilter: ColorFilter.mode(
+                                    HexColor.fromHex('#77747473'),
+                                    BlendMode.srcIn,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15),
+                InkWell(
+                  borderRadius: BorderRadius.circular(64),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => const NewBranchScreen(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 48,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(63),
+                      color: theme.primaryColor,
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Vestiging toevoegen',
+                          style: TextStyle(
+                            fontSize: 15.2,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w600,
+                            color: HexColor.fromHex('#FFFFFF'),
+                          ),
+                        ),
+                        Icon(
+                          CupertinoIcons.add,
+                          color: HexColor.fromHex('#FFFFFF'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () {
+                    context.push(CompanyVenueProfile.employerRoute);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(21),
+                      color: HexColor.fromHex('#F5F5F5'),
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              width: 45,
+                              height: 45,
+                              clipBehavior: Clip.antiAlias,
+                              child: Image.asset(
+                                JobrIcons.placeholder1,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'Brooklyn',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w700,
+                                    color: HexColor.fromHex('#000000'),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                      JobrIcons.location,
+                                      width: 12,
+                                      colorFilter: ColorFilter.mode(
+                                        theme.primaryColor,
+                                        BlendMode.srcIn,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      'Gent, Voorstraat',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w500,
+                                        color: HexColor.fromHex('#666666'),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
                           ],
                         ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Aanpassen',
+                            style: TextStyle(
+                              color: theme.primaryColor,
+                              fontSize: 16,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    TextButton(
-                      onPressed: () {},
+                  ),
+                ),
+                const SizedBox(height: 10),
+                TextFieldSettings(
+                    label: 'Bedrijfsnaam',
+                    hintText: 'Bedrijfsnaam',
+                    controller: nameController,
+                    readOnly: false),
+                const SizedBox(height: 10),
+                TextFieldSettings(
+                  label: 'Website',
+                  hintText: 'https://jouw-website.com',
+                  controller: websiteController,
+                  readOnly: false,
+                ),
+                const SizedBox(height: 10),
+                SelectionButton(
+                  onTap: () {
+                    context.push(SelectLocationPage.route).then((value) {
+                      if (value != null) {
+                        setState(() {
+                          locationController.text = value.toString();
+                        });
+                      }
+                    });
+                  },
+                  label: 'Locatie',
+                  controller: locationController,
+                  prefixIcon: SvgPicture.asset(
+                    JobrIcons.location,
+                    width: 12,
+                    colorFilter: ColorFilter.mode(
+                      theme.primaryColor,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                SelectionButton(
+                  label: 'Werknemers',
+                  controller: employee1Controller,
+                  hintText: 'Kies locatie',
+                  hintTextStyle: hintTextStyle,
+                  prefixIcon: null,
+                  onTap: () => EmployeeTypeBottomSheet(
+                    title: "Kies een functie",
+                    onSelected: (EmployeeType value) {
+                      setState(() {
+                        employee1Controller.text = value.name;
+                      });
+                    },
+                  ).showBottomSheet(context: context),
+                ),
+                const SizedBox(height: 10),
+                TextFieldSettings(
+                  label: 'Bio',
+                  hintText: 'Schrijf een biografie',
+                  controller: bioController,
+                  maxLines: 3,
+                  keyboardType: TextInputType.multiline,
+                  color: Colors.black,
+                  readOnly: false,
+                ),
+                const SizedBox(height: 10),
+                TextFieldSettings(
+                    label: 'Aantal vestigingen',
+                    controller: numberOfBranches,
+                    readOnly: false,
+                    hintText: 'Kies locatie',
+                    hintTextStyle: hintTextStyle),
+                const SizedBox(height: 10),
+                SelectionButton(
+                  label: 'Sector',
+                  hintText: 'Maak een keuze',
+                  controller: sectorController,
+                  hintTextStyle: hintTextStyle,
+                  onTap: () => SectorTypeBottomSheet(
+                    onSelected: (SectorType value) {
+                      setState(() {
+                        sectorController.text = value.name;
+                      });
+                    },
+                    title: "Kies één of meerdere",
+                  ).showBottomSheet(context: context),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 101,
+                      padding: const EdgeInsets.only(top: 10),
                       child: Text(
-                        'Aanpassen',
+                        'Interne opleiding',
                         style: TextStyle(
-                          color: theme.primaryColor,
                           fontSize: 16,
                           fontFamily: 'Inter',
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
+                          color: HexColor.fromHex('#565656'),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: GestureDetector(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: Colors.black.withOpacity(.2),
+                              ),
+                            ),
+                          ),
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade200,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    for (var answer in ['Ja', 'Nee'])
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedAnswers['question1'] =
+                                                answer;
+                                          });
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8, horizontal: 20),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                selectedAnswers['question1'] ==
+                                                        answer
+                                                    ? Colors.pinkAccent
+                                                    : Colors.grey.shade200,
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                          ),
+                                          child: Text(
+                                            answer,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600,
+                                              color: selectedAnswers[
+                                                          'question1'] ==
+                                                      answer
+                                                  ? Colors.white
+                                                  : Colors.grey,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
+                SizedBox(
+                  height: 120,
+                ),
+              ],
             ),
-            const SizedBox(height: 10),
-            TextFieldSettings(
-                label: 'Bedrijfsnaam',
-                hintText: 'Bedrijfsnaam',
-                controller: nameController,
-                readOnly: false),
-            const SizedBox(height: 10),
-            TextFieldSettings(
-              label: 'Website',
-              hintText: 'https://jouw-website.com',
-              controller: websiteController,
-              readOnly: false,
-            ),
-            const SizedBox(height: 10),
-            SelectionButton(
-              onTap: () {
-                context.push(SelectLocationPage.route).then((value) {
-                  if (value != null) {
-                    setState(() {
-                      locationController.text = value.toString();
-                    });
-                  }
-                });
-              },
-              label: 'Locatie',
-              controller: locationController,
-              prefixIcon: SvgPicture.asset(
-                JobrIcons.location,
-                width: 12,
-                colorFilter: ColorFilter.mode(
-                  theme.primaryColor,
-                  BlendMode.srcIn,
+            Positioned(
+              bottom: 20,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: PrimaryButton(
+                  buttonColor: HexColor.fromHex("#FF3E68"),
+                  height: 58,
+                  borderRadius: 60,
+                  width: MediaQuery.of(context).size.width * 0.88,
+                  onTap: () {
+                    context.pop();
+                  },
+                  buttonText: 'Save',
                 ),
               ),
-            ),
-            const SizedBox(height: 10),
-            SelectionButton(
-              label: 'Werknemers',
-              controller: employee1Controller,
-              hintText: 'Kies locatie',
-              hintTextStyle: hintTextStyle,
-              prefixIcon: null,
-              onTap: () => EmployeeTypeBottomSheet(
-                title: "Kies een functie",
-                onSelected: (EmployeeType value) {
-                  setState(() {
-                    employee1Controller.text = value.name;
-                  });
-                },
-              ).showBottomSheet(context: context),
-            ),
-            const SizedBox(height: 10),
-            TextFieldSettings(
-              label: 'Bio',
-              hintText: 'Schrijf een biografie',
-              controller: bioController,
-              maxLines: 3,
-              keyboardType: TextInputType.multiline,
-              color: Colors.black,
-              readOnly: false,
-            ),
-            const SizedBox(height: 10),
-            TextFieldSettings(
-                label: 'Aantal vestigingen',
-                controller: numberOfBranches,
-                readOnly: false,
-                hintText: 'Kies locatie',
-                hintTextStyle: hintTextStyle),
-            const SizedBox(height: 10),
-            SelectionButton(
-              label: 'Sector',
-              hintText: 'Maak een keuze',
-              controller: sectorController,
-              hintTextStyle: hintTextStyle,
-              onTap: () => SectorTypeBottomSheet(
-                onSelected: (SectorType value) {
-                  setState(() {
-                    sectorController.text = value.name;
-                  });
-                },
-                title: "Kies één of meerdere",
-              ).showBottomSheet(context: context),
-            ),
-            const SizedBox(height: 10),
-            SelectionButton(
-              label: 'Werknemers',
-              controller: employee1Controller,
-              hintText: 'Kies locatie',
-              hintTextStyle: hintTextStyle,
-              prefixIcon: null,
-              onTap: () => EmployeeTypeBottomSheet(
-                title: "Kies een functie",
-                onSelected: (EmployeeType value) {
-                  setState(() {
-                    employee2Controller.text = value.name;
-                  });
-                },
-              ).showBottomSheet(context: context),
             ),
           ],
         ),
@@ -591,24 +695,20 @@ class _SelectionButtonState extends State<SelectionButton> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          flex: 2,
-          child: Container(
-            width: 87,
-            padding: const EdgeInsets.only(top: 10),
-            child: Text(
-              widget.label.padRight(12),
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w500,
-                color: HexColor.fromHex('#565656'),
-              ),
+        Container(
+          width: 101,
+          padding: const EdgeInsets.only(top: 10),
+          child: Text(
+            widget.label.padRight(12),
+            style: TextStyle(
+              fontSize: 16,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w500,
+              color: HexColor.fromHex('#565656'),
             ),
           ),
         ),
         Expanded(
-          flex: 4,
           child: GestureDetector(
             onTap: widget.onTap,
             child: Container(
