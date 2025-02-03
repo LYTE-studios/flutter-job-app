@@ -20,10 +20,7 @@ class FilterScreen extends StatefulWidget {
     '${FilterScreen.location}/$location',
     JobrRouter.employerInitialroute,
   );
-  static String employeeRoute = JobrRouter.getRoute(
-    '${FilterScreen.location}/$location',
-    JobrRouter.employeeInitialroute,
-  );
+  
 
   const FilterScreen({super.key});
 

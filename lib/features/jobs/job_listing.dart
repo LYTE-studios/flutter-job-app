@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/jobs/filter.dart';
+import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/jobs/widgets/job_card.dart';
 import 'package:jobr/features/jobs/widgets/return_arrow.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class JobListScreen extends StatelessWidget {
-  const JobListScreen({super.key});
+  static final String location = 'job-list';
 
+  JobListScreen({super.key});
+
+  static String employeeRoute = JobrRouter.getRoute(
+    '${JobScreen.location}/${FilterScreenEmployee.location}/$location',
+    JobrRouter.employeeInitialroute,
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,10 +88,10 @@ class FilterButton extends StatelessWidget {
           const EdgeInsets.only(left: 4.0), // Reduce padding around the button
       child: Container(
         padding: const EdgeInsets.symmetric(
-            horizontal: 8, vertical: 1), // Reduce padding inside the button
+            horizontal: 8, vertical: 2), // Reduce padding inside the button
         decoration: BoxDecoration(
           border: Border.all(
-              color: Theme.of(context).primaryColor, width: 1.3), // Pink border
+              color: HexColor.fromHex('#FF3E68'), width: 1.3), // Pink border
           borderRadius: BorderRadius.circular(20),
           color: Colors.white, // White background
         ),
@@ -90,15 +100,15 @@ class FilterButton extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
-                color: Theme.of(context).primaryColor,
+                color: HexColor.fromHex('#FF3E68'),
                 fontWeight: FontWeight.w500,
-                fontSize: 14,
+                fontSize: 15.45,
               ),
             ),
             const SizedBox(width: 4),
             Icon(
               Icons.keyboard_arrow_down,
-              color: Theme.of(context).primaryColor,
+              color: HexColor.fromHex('#FF3E68'),
               size: 25, // Slightly smaller icon
             ),
           ],

@@ -6,6 +6,7 @@ import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
 import 'package:jobr/features/core/widgets/exception_popup.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_textfield.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
@@ -82,7 +83,8 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
 
       switch (widget.userType) {
         case UserType.employee:
-          context.pushReplacement(JobListingsScreen.employerRoute);
+          print('object');
+          context.pushReplacement(JobScreen.employeeRoute);
         case UserType.employer:
           context.pushReplacement(JobListingsScreen.employerRoute);
       }

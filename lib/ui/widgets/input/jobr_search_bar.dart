@@ -24,9 +24,9 @@ class JobrSearchBar extends StatelessWidget {
     );
 
     return Container(
-      height: 42,
+      height: 43,
       decoration: BoxDecoration(
-        color: HexColor.fromHex('#D9D9D9').withOpacity(0.3),
+        color: HexColor.fromHex('#D9D9D94F').withOpacity(0.3),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Center(
@@ -45,12 +45,14 @@ class JobrSearchBar extends StatelessWidget {
             prefixIcon: Container(
               width: 40,
               height: double.infinity,
-              padding: const EdgeInsets.all(10),
               child: Center(
-                child: SvgIcon(
-                  JobrIcons.magnifyingGlass,
-                  size: 21,
-                  color: HexColor.fromHex('#999999'),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: SvgIcon(
+                    JobrIcons.magnifyingGlass,
+                    size: 21,
+                    color: HexColor.fromHex('#999999'),
+                  ),
                 ),
               ),
             ),
