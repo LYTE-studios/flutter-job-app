@@ -80,22 +80,22 @@ class RecruitmentDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Define a constant header height (adjust as necessary)
+    const double headerHeight = 70.0;
     return Scaffold(
       appBar: JobrAppbarNavigation(
-        trailing: (title == "Sollicitaties")
-            ? IconButton(
-                icon: SvgPicture.asset(
-                  "assets/images/icons/filter.svg", // Ensure the path is correct and uses .svg extension
-                  height: 20,
-                  width: 20,
-                ),
-                onPressed: () {
-                  context.push(
-                    FilterScreen.employerRoute,
-                  );
-                },
-              )
-            : Container(),
+        trailing: IconButton(
+          icon: SvgPicture.asset(
+            "assets/images/icons/filter.svg", // Ensure the path is correct and uses .svg extension
+            height: 20,
+            width: 20,
+          ),
+          onPressed: () {
+            context.push(
+              FilterScreen.employerRoute,
+            );
+          },
+        ),
         canGoBack: true,
         appbarTitle: title,
         appBarFontSize: 22,
@@ -108,115 +108,153 @@ class RecruitmentDetailScreen extends StatelessWidget {
               )
             : Container(),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            if (title == "Sollicitaties")
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 16.0, right: 16.0, top: 16.0, bottom: 0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(21),
-                    color: HexColor.fromHex('#F5F5F5'),
-                  ),
-                  padding: const EdgeInsets.all(12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            width: 45,
-                            height: 45,
-                            clipBehavior: Clip.antiAlias,
-                            child: Image.asset(
-                              JobrIcons.placeholder1,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                'Brooklyn',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w700,
-                                  color: HexColor.fromHex('#000000'),
-                                ),
+      body: (title == "Sollicitaties")
+          ? Stack(
+              children: [
+                // Scrollable list with top padding to account for header widget and spacing
+                ListView.separated(
+                  padding: const EdgeInsets.only(
+                      top: 16 + headerHeight + 16,
+                      left: 16.0,
+                      right: 16.0,
+                      bottom: 16.0),
+                  shrinkWrap: true,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemCount: jobCards.length,
+                  separatorBuilder: (context, index) =>
+                      const Divider(height: 10, color: Colors.transparent),
+                  itemBuilder: (context, index) {
+                    final card = jobCards[index];
+                    return CustomJobCard(
+                      showLikeButton: (title == 'Sollicitaties'),
+                      description: card["description"]!,
+                      age: card["age"]!,
+                      buttonColor: HexColor.fromHex('#3976FF'),
+                      buttonText: "Chat starten",
+                      onButtonPressed: () {
+                        context.push(ChatPageScreen.employerRoute);
+                      },
+                      buttonIcon: JobrIcons.send,
+                      showBottomText: true,
+                      location: card["location"]!,
+                      userName: card["userName"]!,
+                      profileImagePath: card["profileImagePath"]!,
+                      suggestionPercentage: card["suggestionPercentage"]!,
+                    );
+                  },
+                ),
+                // Positioned header that remains at the top
+                Positioned(
+                  top: 16,
+                  left: 16,
+                  right: 16,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(21),
+                      color: HexColor.fromHex('#F5F5F5'),
+                    ),
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
                               ),
-                              Text(
-                                'Gent, Voorstraat',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                  color: HexColor.fromHex('#666666'),
-                                ),
+                              width: 45,
+                              height: 45,
+                              clipBehavior: Clip.antiAlias,
+                              child: Image.asset(
+                                JobrIcons.placeholder1,
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      PrimaryButton(
-                        buttonText: ' 16 ',
-                        onTap: () {
-                          context.push(
-                            RecruitmentDetailScreen.employerRoute,
-                            extra: {
-                              'category': '',
-                              'title': 'Sollicitaties',
-                              "image": "",
-                            },
-                          );
-                        },
-                        height: 39,
-                        width: 80,
-                        icon: Icon(Icons.people),
-                        textColor: Colors.white,
-                        buttonColor: Theme.of(context).primaryColor,
-                      ),
-                    ],
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Brooklyn',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFF000000),
+                                  ),
+                                ),
+                                Text(
+                                  'Gent, Voorstraat',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF666666),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        PrimaryButton(
+                          buttonText: ' 16 ',
+                          onTap: () {
+                            context.push(
+                              RecruitmentDetailScreen.employerRoute,
+                              extra: {
+                                'category': '',
+                                'title': 'Sollicitaties',
+                                "image": "",
+                              },
+                            );
+                          },
+                          height: 39,
+                          width: 80,
+                          icon: Icon(Icons.people),
+                          textColor: Colors.white,
+                          buttonColor: Theme.of(context).primaryColor,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
+              ],
+            )
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  ListView.separated(
+                    padding: const EdgeInsets.all(16.0),
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: jobCards.length,
+                    separatorBuilder: (context, index) => const Divider(
+                      height: 10,
+                      color: Colors.transparent,
+                    ),
+                    itemBuilder: (context, index) {
+                      final card = jobCards[index];
+                      return CustomJobCard(
+                        showLikeButton: (title == 'Sollicitaties'),
+                        description: card["description"]!,
+                        age: card["age"]!,
+                        buttonColor: HexColor.fromHex('#3976FF'),
+                        buttonText: "Chat starten",
+                        onButtonPressed: () {
+                          context.push(ChatPageScreen.employerRoute);
+                        },
+                        buttonIcon: JobrIcons.send,
+                        showBottomText: true,
+                        location: card["location"]!,
+                        userName: card["userName"]!,
+                        profileImagePath: card["profileImagePath"]!,
+                        suggestionPercentage: card["suggestionPercentage"]!,
+                      );
+                    },
+                  ),
+                ],
               ),
-            ListView.separated(
-              padding: const EdgeInsets.all(16.0),
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: jobCards.length,
-              separatorBuilder: (context, index) => const Divider(
-                height: 10,
-                color: Colors.transparent,
-              ),
-              itemBuilder: (context, index) {
-                final card = jobCards[index];
-                return CustomJobCard(
-                  showLikeButton: (title == 'Sollicitaties'),
-                  description: card["description"]!,
-                  age: card["age"]!,
-                  buttonColor: HexColor.fromHex('#3976FF'),
-                  buttonText: "Chat starten",
-                  onButtonPressed: () {
-                    context.push(ChatPageScreen.employerRoute);
-                  },
-                  buttonIcon: JobrIcons.send,
-                  showBottomText: true,
-                  location: card["location"]!,
-                  userName: card["userName"]!,
-                  profileImagePath: card["profileImagePath"]!,
-                  suggestionPercentage: card["suggestionPercentage"]!,
-                );
-              },
             ),
-          ],
-        ),
-      ),
     );
   }
 }

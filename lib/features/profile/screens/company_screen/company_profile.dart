@@ -124,20 +124,66 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                         Positioned(
                           bottom: 0,
                           left: 10,
-                          child: Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 4,
-                              ),
-                              image: const DecorationImage(
-                                image: AssetImage(
-                                  'assets/images/logos/brooklyn_kortrijk.png',
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => Dialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        140), // Makes it circular
+                                  ),
+                                  elevation: 10, // Adds depth
+                                  backgroundColor: Colors
+                                      .white, // Keep it clean and professional
+                                  insetPadding: const EdgeInsets.all(16),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        100), // Ensures circular clip
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                            color: Colors.grey.shade300,
+                                            width: 3), // Outer frame
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.1),
+                                            blurRadius: 10,
+                                            spreadRadius: 2,
+                                          ),
+                                        ],
+                                      ),
+                                      child: InteractiveViewer(
+                                        child: ClipOval(
+                                          // Ensures circular image
+                                          child: Image.asset(
+                                            'assets/images/logos/brooklyn_kortrijk.png',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                fit: BoxFit.cover,
+                              );
+                            },
+                            child: Container(
+                              width: 120,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 4,
+                                ),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                    'assets/images/logos/brooklyn_kortrijk.png',
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),

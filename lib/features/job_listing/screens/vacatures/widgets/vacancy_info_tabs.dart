@@ -163,69 +163,69 @@ class VacancyInfoTab extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    shadowColor: Colors.transparent,
-                    backgroundColor: Colors.white,
-                    side: BorderSide(color: Colors.grey), // Added border color
-                  ),
-                  label: Text(
-                    "Vacature",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  icon: Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: SvgPicture.asset(
-                      'assets/images/logos/info.svg',
-                      width: 16,
-                      height: 16,
-                      colorFilter: ColorFilter.mode(Colors.grey,
-                          BlendMode.srcIn), // Updated to use colorFilter
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 4,
-                ),
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: theme.primaryColor,
-                  ),
-                  label: Text(
-                    "Over dit bedrijf",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  icon: Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: SvgPicture.asset(
-                      color: Colors.white,
-                      JobrIcons.venueLocation,
-                      width: 16,
-                      height: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Availability Card
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 12.0),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     children: [
+          //       ElevatedButton.icon(
+          //         onPressed: () {},
+          //         style: ElevatedButton.styleFrom(
+          //           shadowColor: Colors.transparent,
+          //           backgroundColor: Colors.white,
+          //           side: BorderSide(color: Colors.grey), // Added border color
+          //         ),
+          //         label: Text(
+          //           "Vacature",
+          //           style: TextStyle(
+          //             color: Colors.grey,
+          //             fontSize: 16,
+          //             fontFamily: 'Inter',
+          //             fontWeight: FontWeight.w700,
+          //           ),
+          //         ),
+          //         icon: Padding(
+          //           padding: const EdgeInsets.only(left: 4.0),
+          //           child: SvgPicture.asset(
+          //             'assets/images/logos/info.svg',
+          //             width: 16,
+          //             height: 16,
+          //             colorFilter: ColorFilter.mode(Colors.grey,
+          //                 BlendMode.srcIn), // Updated to use colorFilter
+          //           ),
+          //         ),
+          //       ),
+          //       SizedBox(
+          //         width: 4,
+          //       ),
+          //       ElevatedButton.icon(
+          //         onPressed: () {},
+          //         style: ElevatedButton.styleFrom(
+          //           backgroundColor: theme.primaryColor,
+          //         ),
+          //         label: Text(
+          //           "Over dit bedrijf",
+          //           style: TextStyle(
+          //             color: Colors.white,
+          //             fontSize: 16,
+          //             fontFamily: 'Inter',
+          //             fontWeight: FontWeight.w700,
+          //           ),
+          //         ),
+          //         icon: Padding(
+          //           padding: const EdgeInsets.only(left: 4.0),
+          //           child: SvgPicture.asset(
+          //             color: Colors.white,
+          //             JobrIcons.venueLocation,
+          //             width: 16,
+          //             height: 16,
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // // Availability Card
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(21), color: Colors.white),
