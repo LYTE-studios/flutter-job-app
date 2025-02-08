@@ -15,8 +15,11 @@ class InformationPopupButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.info_outline),
-      color: Theme.of(context).primaryColor,
+      icon: const Icon(
+        Icons.info_outline,
+        size: 22,
+      ),
+      color: Color(0xFFA6A6A6),
       onPressed: () {
         showDialog(
           context: context,

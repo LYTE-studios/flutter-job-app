@@ -72,13 +72,13 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
                 title: "Contract type",
                 selectedValue: _selectedContractType?.name,
                 onPressed: () => ContractTypeBottomSheet(
-                  onSelected: (ContractType value) {
-                    setState(() {
-                      _selectedContractType = value;
-                    });
-                  },
+                  onSelected: (List<ContractType> values) {
+                      setState(() {
+                        _selectedContractType = values.isNotEmpty ? values.first : null;
+                      });
+                    },
                   title: "Kies één of meerdere",
-                ).showBottomSheet(context: context),
+                ).showPopup(context: context),
               ),
               Divider(
                 color: HexColor.fromHex('#DCDCDC').withOpacity(0.45),

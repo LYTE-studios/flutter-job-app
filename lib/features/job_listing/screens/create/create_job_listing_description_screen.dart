@@ -600,14 +600,22 @@ class _CreateJobListingDescriptionScreenState
                       height: 6,
                     ),
                     // Button to add new option
-                    GestureDetector(
-                      onTap: showOptionsBottomSheet,
-                      child: Text(
-                        '+ Kies onderwerp',
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17.5),
+                    FilledButton(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        elevation: 0,
+                      ),
+                      onPressed: showOptionsBottomSheet,
+                      child: Row(
+                        children: [
+                          Text(
+                            '+ Kies onderwerp',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17.5),
+                          ),
+                        ],
                       ),
                     ),
                   ],

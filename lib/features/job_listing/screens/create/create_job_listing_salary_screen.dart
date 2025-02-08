@@ -410,6 +410,7 @@ class CustomInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      keyboardType: TextInputType.number,
       cursorHeight: 22,
       style: TextStyles.labelMedium,
       decoration: InputDecoration(

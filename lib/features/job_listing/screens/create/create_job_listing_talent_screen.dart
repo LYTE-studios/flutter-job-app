@@ -254,12 +254,12 @@ class CustomSliderWidget extends StatefulWidget {
 }
 
 class _CustomSliderWidgetState extends State<CustomSliderWidget> {
-  double _sliderValue = 1; // Default position: "Gevorderd"
+  double _sliderValue = 0; // Default position: "Gevorderd"
 
   // Mapping slider value to labels
   final Map<double, String> labels = {
     0: 'Basis',
-    1: 'Gevorderd',
+    1: '    Gevorderd',
     2: 'Moedertaal',
   };
 

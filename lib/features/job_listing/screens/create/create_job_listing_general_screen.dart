@@ -36,13 +36,13 @@ class CreateJobListingGeneralScreen extends StatefulWidget {
 class _CreateJobListingGeneralScreenState
     extends State<CreateJobListingGeneralScreen>
     with CreateJobListingMixin, ScreenStateMixin {
-  // Dropdown selections
-  ContractType? _selectedContractType;
+  // Update: Use list for contract types
+  List<ContractType> _selectedContractTypes = [];
   FunctionType? _selectedFunction;
   LocationType? _selectedLocation;
 
   bool get _isButtonEnabled =>
-      _selectedContractType != null &&
+      _selectedContractTypes.isNotEmpty &&
       _selectedFunction != null &&
       _selectedLocation != null;
 
@@ -62,7 +62,7 @@ class _CreateJobListingGeneralScreenState
     return BaseCreateJobListingScreen(
       progress: .2,
       onNavigate: () {
-        vacancy.contractType = _selectedContractType;
+        vacancy.contractType = _selectedContractTypes.first;
         vacancy.function = _selectedFunction;
         vacancy.location = _selectedLocation;
 
@@ -102,21 +102,23 @@ class _CreateJobListingGeneralScreenState
           ),
           Divider(
             thickness: 0.6,
-            color: Colors.grey[300],
+            color: const Color.fromRGBO(224, 224, 224, 1),
           ),
           const SizedBox(height: 16),
           // Contract Type
           JobrDropdownField(
             title: "Contract type",
-            selectedValue: _selectedContractType?.name,
+            selectedValue: _selectedContractTypes.isNotEmpty
+                ? _selectedContractTypes.map((ct) => ct.name).join(', ')
+                : null,
             onPressed: () => ContractTypeBottomSheet(
-              onSelected: (ContractType value) {
+              onSelected: (List<ContractType> values) {
                 setState(() {
-                  _selectedContractType = value;
+                  _selectedContractTypes = values;
                 });
               },
               title: "Kies één of meerdere",
-            ).showBottomSheet(context: context),
+            ).showPopup(context: context),
           ),
 
           // Function

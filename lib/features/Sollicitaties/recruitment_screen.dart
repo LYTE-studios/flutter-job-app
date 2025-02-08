@@ -3,11 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/features/chat/screens/chat_page_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
+import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_job_card.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../job_listing/screens/general/jobr_ai_suggestions_screen.dart';
@@ -247,24 +249,29 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
                 padding: const EdgeInsets.only(right: 16),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * .9,
-                  child: CustomJobCard(
-                    height: double.infinity,
-                    descriptionPadding: 8,
-                    isAICard: true,
-                    description:
-                        "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
-                    age: "20",
-                    buttonColor: HexColor.fromHex('#3976FF'),
-                    buttonText: "Chat starten",
-                    onButtonPressed: () {
-                      context.push(ChatPageScreen.employerRoute);
+                  child: ClearInkWell(
+                    onTap: () {
+                      context.push(EmployProfileDisplayScreen.employerRoute);
                     },
-                    buttonIcon: JobrIcons.send,
-                    location: "Brussel",
-                    userName: "Yassine Vuran",
-                    profileImagePath: "assets/images/images/image-3.png",
-                    suggestionPercentage: "74",
-                    showBottomText: false,
+                    child: CustomJobCard(
+                      height: double.infinity,
+                      descriptionPadding: 8,
+                      isAICard: true,
+                      description:
+                          "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
+                      age: "20",
+                      buttonColor: HexColor.fromHex('#3976FF'),
+                      buttonText: "Chat starten",
+                      onButtonPressed: () {
+                        context.push(ChatPageScreen.employerRoute);
+                      },
+                      buttonIcon: JobrIcons.send,
+                      location: "Brussel",
+                      userName: "Yassine Vuran",
+                      profileImagePath: "assets/images/images/image-3.png",
+                      suggestionPercentage: "74",
+                      showBottomText: false,
+                    ),
                   ),
                 ),
               );

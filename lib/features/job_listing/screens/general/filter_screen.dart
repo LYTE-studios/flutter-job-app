@@ -20,7 +20,6 @@ class FilterScreen extends StatefulWidget {
     '${FilterScreen.location}/$location',
     JobrRouter.employerInitialroute,
   );
-  
 
   const FilterScreen({super.key});
 
@@ -31,7 +30,7 @@ class FilterScreen extends StatefulWidget {
 class _FilterScreenState extends State<FilterScreen> {
   double _distanceSliderValue = 50;
   double werkervaringValue = 1;
-  RangeValues _ageRange = const RangeValues(18, 35);
+  RangeValues _ageRange = const RangeValues(15, 35);
 
   @override
   Widget build(BuildContext context) {
@@ -109,8 +108,8 @@ class _FilterScreenState extends State<FilterScreen> {
                   ),
                   CustomSliderWithTwoThumbs(
                     values: _ageRange,
-                    min: 18,
-                    max: 65,
+                    min: 15,
+                    max: 80,
                     divisions: 47,
                     onChanged: (RangeValues values) {
                       setState(() {

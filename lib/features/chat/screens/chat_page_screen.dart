@@ -90,7 +90,82 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
               height: 20,
               thickness: 2,
             ),
-            const SizedBox(height: 8),
+            const Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  "Vandaag",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF696969),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 50),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF6F6F6),
+                  borderRadius: BorderRadius.circular(17),
+                ),
+                padding: const EdgeInsets.all(17),
+                margin: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Winkelmedewerker',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          'Student',
+                          style: TextStyle(fontSize: 15, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFF6F6F6),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(19.21),
+                          side: const BorderSide(
+                            color: Color(0xFFFF3E68),
+                            width: 1.5,
+                          ),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/icons/paper.svg',
+                            height: 15,
+                            width: 15,
+                          ),
+                          const SizedBox(width: 2),
+                          const Text(
+                            'Sollicitatie',
+                            style: TextStyle(
+                              color: Color(0xFFFF3E68),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
 
             // Chat messages container
             Expanded(
@@ -104,82 +179,7 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
                     // Add "Vandaag" and "WinkelMedewerker" at the top
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.0),
-                            child: Text(
-                              "Vandaag",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Color(0xFF696969),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF6F6F6),
-                            borderRadius: BorderRadius.circular(17),
-                          ),
-                          padding: const EdgeInsets.all(17),
-                          margin: const EdgeInsets.only(bottom: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Winkelmedewerker',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Student',
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                              ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFFF6F6F6),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(19.21),
-                                    side: const BorderSide(
-                                      color: Color(0xFFFF3E68),
-                                      width: 1.5,
-                                    ),
-                                  ),
-                                ),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/icons/paper.svg',
-                                      height: 15,
-                                      width: 15,
-                                    ),
-                                    const SizedBox(width: 2),
-                                    const Text(
-                                      'Sollicitatie',
-                                      style: TextStyle(
-                                        color: Color(0xFFFF3E68),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                      children: [],
                     );
                   }
 

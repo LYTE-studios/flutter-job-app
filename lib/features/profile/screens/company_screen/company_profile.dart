@@ -87,8 +87,9 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                   scrolledUnderElevation: 0,
                   elevation: 0,
                   leading: innerBoxIsScrolled
-                      ? Padding(
-                          padding: const EdgeInsets.all(8.0),
+                      ? Transform.translate(
+                          offset: const Offset(16.0,
+                              0.0), // Shift widget left without negative margin
                           child: Container(
                             width: 70,
                             height: 70,
@@ -115,74 +116,62 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           top: 0,
                           left: 0,
                           right: 0,
-                          child: Image.asset(
-                            'assets/images/images/profile_image.png',
-                            fit: BoxFit.cover,
-                            height: 180,
+                          child: Hero(
+                            tag: 'profileBackground',
+                            child: GestureDetector(
+                              onTap: () {
+                                showGeneralDialog(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  barrierColor: Colors.black54,
+                                  pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                    tag: 'profileBackground',
+                                    imagePath:
+                                        'assets/images/images/profile_image.png',
+                                  ),
+                                );
+                              },
+                              child: Image.asset(
+                                'assets/images/images/profile_image.png',
+                                fit: BoxFit.cover,
+                                height: 180,
+                              ),
+                            ),
                           ),
                         ),
                         Positioned(
                           bottom: 0,
                           left: 10,
-                          child: GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) => Dialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        140), // Makes it circular
+                          child: Hero(
+                            tag: 'profileLogo',
+                            child: GestureDetector(
+                              onTap: () {
+                                showGeneralDialog(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  barrierColor: Colors.black54,
+                                  pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                    tag: 'profileLogo',
+                                    imagePath:
+                                        'assets/images/logos/brooklyn_kortrijk.png',
                                   ),
-                                  elevation: 10, // Adds depth
-                                  backgroundColor: Colors
-                                      .white, // Keep it clean and professional
-                                  insetPadding: const EdgeInsets.all(16),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(
-                                        100), // Ensures circular clip
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                            color: Colors.grey.shade300,
-                                            width: 3), // Outer frame
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.1),
-                                            blurRadius: 10,
-                                            spreadRadius: 2,
-                                          ),
-                                        ],
-                                      ),
-                                      child: InteractiveViewer(
-                                        child: ClipOval(
-                                          // Ensures circular image
-                                          child: Image.asset(
-                                            'assets/images/logos/brooklyn_kortrijk.png',
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
+                                );
+                              },
+                              child: Container(
+                                width: 120,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 4,
+                                  ),
+                                  image: const DecorationImage(
+                                    image: AssetImage(
+                                      'assets/images/logos/brooklyn_kortrijk.png',
                                     ),
+                                    fit: BoxFit.cover,
                                   ),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              width: 120,
-                              height: 120,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 4,
-                                ),
-                                image: const DecorationImage(
-                                  image: AssetImage(
-                                    'assets/images/logos/brooklyn_kortrijk.png',
-                                  ),
-                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
@@ -659,6 +648,33 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class ZoomImageDialog extends StatelessWidget {
+  final String tag;
+  final String imagePath;
+
+  const ZoomImageDialog(
+      {super.key, required this.tag, required this.imagePath});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.pop(context),
+      child: Material(
+        color: Colors.black54,
+        child: Center(
+          child: Hero(
+            tag: tag,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(imagePath, fit: BoxFit.cover),
+            ),
+          ),
+        ),
       ),
     );
   }

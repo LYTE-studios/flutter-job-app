@@ -182,7 +182,7 @@ class _CreateJobListingSkillsScreenState
                 ),
                 IconButton(
                   icon: const Icon(Icons.info_outline),
-                  color: Theme.of(context).primaryColor,
+                  color: Color(0xFFA6A6A6),
                   onPressed: () {
                     context.push(SkillsInfoScreen.employerRoute);
                   },
