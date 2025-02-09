@@ -210,7 +210,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     children: [
                       Image.asset('assets/images/jobs/map.png'),
                       Text(
-                        '  ${_distanceSliderValue.round().toInt()} km',
+                        '  18 - 35 km',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

@@ -10,6 +10,8 @@ import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:flutter/foundation.dart'; // add this import
+import 'package:flutter/gestures.dart'; // add this import
 
 class CompanyProfileScreen extends StatefulWidget {
   static const String location = 'company-profile';
@@ -472,6 +474,11 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                       zoomControlsEnabled: false,
                       mapToolbarEnabled: false,
                       myLocationButtonEnabled: false,
+                      gestureRecognizers: <Factory<
+                          OneSequenceGestureRecognizer>>{
+                        Factory<EagerGestureRecognizer>(
+                            () => EagerGestureRecognizer()),
+                      },
                     ),
                   ),
                 ),

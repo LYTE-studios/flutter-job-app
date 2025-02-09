@@ -41,6 +41,15 @@ class CustomSlider extends StatelessWidget {
           leftExtension: 10.0,
           rightExtension: 10.0,
         ), // Use a custom track shape
+        showValueIndicator: ShowValueIndicator.always,
+        valueIndicatorColor: theme.primaryColor,
+        valueIndicatorTextStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          fontFamily: 'Poppins',
+          color: Colors.white,
+        ),
+        valueIndicatorShape: PaddleSliderValueIndicatorShape(),
       ),
       child: Slider(
         value: value,
