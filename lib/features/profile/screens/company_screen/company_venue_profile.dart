@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
-import 'package:jobr/features/profile/screens/company_screen/social_button.dart';
+import 'package:jobr/features/profile/screens/widgets/social_button.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/jobr_theme.dart';
 import 'package:jobr/ui/theme/text_styles.dart';

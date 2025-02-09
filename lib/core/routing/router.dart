@@ -623,7 +623,17 @@ GoRouter router = GoRouter(
               child: const ChatRequestScreen(),
             );
           },
+        )
+        , GoRoute(
+          path:
+            CreateProfileScreen.employeeRoute,
+           
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: CreateProfileScreen(),
+          ),
         ),
+     
         GoRoute(
           path: ChatRequestPageScreen.employeeRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
@@ -642,16 +652,6 @@ GoRouter router = GoRouter(
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(
             child: ProfileScreen(),
-          ),
-        ),
-        GoRoute(
-          path: JobrRouter.getRoute(
-            CreateProfileScreen.location,
-            JobrRouter.employeeInitialroute,
-          ),
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
-            child: CreateProfileScreen(),
           ),
         ),
       ],

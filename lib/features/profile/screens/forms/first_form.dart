@@ -10,9 +10,11 @@ class FirstForm extends StatefulWidget {
   const FirstForm({
     super.key,
     required this.width,
+    this.onFormValidityChanged,
   });
 
   final double width;
+  final ValueChanged<bool>? onFormValidityChanged;
 
   @override
   State<FirstForm> createState() => _FirstFormState();
@@ -20,38 +22,110 @@ class FirstForm extends StatefulWidget {
 
 class _FirstFormState extends State<FirstForm> {
   String? selectedGender;
+  String? status;
+  bool _isValid = false;
+
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+
+  void _validateForm() {
+    bool valid = _nameController.text.isNotEmpty &&
+        _emailController.text.isNotEmpty &&
+        _phoneController.text.isNotEmpty &&
+        selectedGender != null &&
+        status != null;
+    if (valid != _isValid) {
+      setState(() {
+        _isValid = valid;
+      });
+      widget.onFormValidityChanged?.call(valid);
+    }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
         const SizedBox(height: 20),
-        _buildTextField('Naam', 'Vul je naam in'),
+        _buildTextField(
+          'Naam',
+          'Vul je naam in',
+          controller: _nameController,
+          onChanged: (value) => _validateForm(),
+        ),
         const SizedBox(height: 20),
         _buildInlineCupertinoDatePicker(widget.width),
         const SizedBox(height: 20),
         _buildDropdownField(
-            'Geslacht', selectedGender ?? 'Kies een optie', context),
+          'Geslacht',
+          selectedGender ?? 'Kies een optie',
+          context,
+          options: const ['Mannelijk', 'Vrouwelijk'],
+          onOptionSelected: (selectedOption) {
+            setState(() {
+              selectedGender = selectedOption;
+            });
+            _validateForm();
+          },
+        ),
         const SizedBox(height: 20),
-        _buildTextField('Email', 'voorbeeld@mail.com',
-            keyboardType: TextInputType.emailAddress),
+        _buildDropdownField(
+          'Statuut',
+          status ?? 'Kies een statuut',
+          context,
+          options: const ['Student', 'Freelancer', 'Part-time', 'Full-time'],
+          onOptionSelected: (selectedOption) {
+            setState(() {
+              status = selectedOption;
+            });
+            _validateForm();
+          },
+        ),
         const SizedBox(height: 20),
-        _buildTextField('Telefoonnummer', '0400 00 00 00',
-            keyboardType: TextInputType.phone),
+        _buildTextField(
+          'Email',
+          'voorbeeld@mail.com',
+          keyboardType: TextInputType.emailAddress,
+          controller: _emailController,
+          onChanged: (value) => _validateForm(),
+        ),
+        const SizedBox(height: 20),
+        _buildTextField(
+          'Telefoonnummer',
+          '0400 00 00 00',
+          keyboardType: TextInputType.phone,
+          controller: _phoneController,
+          onChanged: (value) => _validateForm(),
+        ),
         const SizedBox(height: 20),
       ],
     );
   }
 
-  Widget _buildDropdownField(String label, String hint, BuildContext context) {
+  Widget _buildDropdownField(
+    String label,
+    String hint,
+    BuildContext context, {
+    required List<String> options,
+    required ValueChanged<String> onOptionSelected,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         RichText(
           text: TextSpan(
             text: label,
-            style: const TextStyle(
-              fontSize: 16,
+            style: TextStyle(
+              fontSize: 18,
               fontFamily: 'Inter',
               fontWeight: FontWeight.w700,
               color: Colors.black,
@@ -72,14 +146,13 @@ class _FirstFormState extends State<FirstForm> {
           onTap: () {
             showModalBottomSheet(
               context: context,
-              builder: (context) {
+              builder: (BuildContext sheetContext) {
+                // use separate context
                 return CustomListPicker(
                   hint: hint,
-                  options: const ['Mannelijk', 'Vrouwelijk'],
+                  options: options,
                   onOptionSelected: (selectedOption) {
-                    setState(() {
-                      selectedGender = selectedOption;
-                    });
+                    onOptionSelected(selectedOption);
                   },
                 );
               },
@@ -92,7 +165,7 @@ class _FirstFormState extends State<FirstForm> {
               borderRadius: BorderRadius.circular(20),
             ),
             padding: const EdgeInsets.symmetric(
-              vertical: 20,
+              vertical: 14,
               horizontal: 16,
             ),
             child: Row(
@@ -101,8 +174,10 @@ class _FirstFormState extends State<FirstForm> {
                 Text(
                   hint,
                   style: TextStyle(
-                    color: HexColor.fromHex('#B7B7B7'),
-                    fontSize: 16,
+                    color: Colors.black.withOpacity(0.47),
+                    fontSize: 18,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 SvgPicture.asset(
@@ -153,7 +228,9 @@ class _FirstFormState extends State<FirstForm> {
   }
 
   Widget _buildTextField(String label, String hint,
-      {TextInputType keyboardType = TextInputType.text}) {
+      {TextInputType keyboardType = TextInputType.text,
+      TextEditingController? controller,
+      ValueChanged<String>? onChanged}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -161,7 +238,7 @@ class _FirstFormState extends State<FirstForm> {
           text: TextSpan(
             text: label,
             style: const TextStyle(
-              fontSize: 16,
+              fontSize: 16.23,
               fontFamily: 'Inter',
               fontWeight: FontWeight.w700,
               color: Colors.black,
@@ -179,15 +256,18 @@ class _FirstFormState extends State<FirstForm> {
         ),
         const SizedBox(height: 10),
         TextFormField(
+          controller: controller,
           keyboardType: keyboardType,
+          onChanged: onChanged,
           textAlignVertical: TextAlignVertical.center,
           style: const TextStyle(fontSize: 16),
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(
-              color: HexColor.fromHex('#B7B7B7'),
-              fontSize: 16,
-            ),
+                color: HexColor.fromHex('#B7B7B7'),
+                fontSize: 18.2,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w500),
             filled: true,
             fillColor: HexColor.fromHex('#F7F7F7'),
             border: OutlineInputBorder(
@@ -203,7 +283,7 @@ class _FirstFormState extends State<FirstForm> {
               borderSide: BorderSide.none,
             ),
             contentPadding: const EdgeInsets.symmetric(
-              vertical: 20,
+              vertical: 14,
               horizontal: 16,
             ),
           ),
