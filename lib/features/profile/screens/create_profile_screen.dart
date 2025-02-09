@@ -137,13 +137,12 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                     );
                   }
                 } else {
-  context.pushReplacement(
-            JobrRouter.getRoute(
-              CreateProfileScreen.location,
-              JobrRouter.employeeInitialroute,
-            ),
-          );
-        
+                  context.pushReplacement(
+                    JobrRouter.getRoute(
+                      JobScreen.location,
+                      JobrRouter.employeeInitialroute,
+                    ),
+                  );
                 }
               },
               child: const Text(
