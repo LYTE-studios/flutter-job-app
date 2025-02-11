@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
-import 'package:jobr/features/chat/screens/chat_page_screen.dart';
+import 'package:jobr/features/chat/screens/employee/chat_page_employee_screen.dart';
+import 'package:jobr/features/chat/screens/employer/chat_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String location = 'chat';
-static String employeeRoute = JobrRouter.getRoute(
+  final bool isEmployeeSide;
+  static String employeeRoute = JobrRouter.getRoute(
     location,
     JobrRouter.employeeInitialroute,
   );
-  const ChatScreen({super.key});
+  const ChatScreen({super.key, this.isEmployeeSide = false});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -94,7 +96,11 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        context.push(ChatRequestScreen.employerRoute);
+                        if (widget.isEmployeeSide) {
+                          context.push(ChatRequestScreen.employeeRoute);
+                        } else {
+                          context.push(ChatRequestScreen.employerRoute);
+                        }
                       },
                       child: const Text(
                         '3 verzoeken',
@@ -117,7 +123,11 @@ class _ChatScreenState extends State<ChatScreen> {
                 Expanded(
                     child: GestureDetector(
                   onTap: () {
-                    context.push(ChatPageScreen.employerRoute);
+                    if (widget.isEmployeeSide) {
+                      context.push(ChatPageEmployeeScreen.employeeRoute);
+                    } else {
+                      context.push(ChatPageScreen.employerRoute);
+                    }
                   },
                   child: ListView.builder(
                     itemCount: filteredChats.length,

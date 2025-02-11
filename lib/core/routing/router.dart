@@ -9,8 +9,10 @@ import 'package:jobr/features/authentication/screens/email_register_screen.dart'
 import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/screens/splash_screen.dart';
-import 'package:jobr/features/chat/screens/chat_page_screen.dart';
-import 'package:jobr/features/chat/screens/chat_request_page_screen.dart';
+import 'package:jobr/features/chat/screens/employee/chat_page_employee_screen.dart';
+import 'package:jobr/features/chat/screens/employee/chat_request_page_employee_screen.dart';
+import 'package:jobr/features/chat/screens/employer/chat_page_screen.dart';
+import 'package:jobr/features/chat/screens/employer/chat_request_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/features/chat/screens/chat_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
@@ -28,6 +30,7 @@ import 'package:jobr/features/job_listing/screens/vacatures/vacancy_info_page.da
 import 'package:jobr/features/jobs/filter.dart';
 import 'package:jobr/features/jobs/job_listing.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
+import 'package:jobr/features/jobs/job_screen_verified.dart';
 import 'package:jobr/features/jobs/jobdetail_screen.dart';
 import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
 import 'package:jobr/features/profile/screens/company/select_location_page.dart';
@@ -122,7 +125,7 @@ class JobrRouter {
   }
 
   static List<String> employeeNavigationLocations = [
-    JobScreen.location,
+    JobVerifiedScreen.location,
     SollicitatiesScreen.location,
     ChatScreen.location,
     ProfileScreen.location,
@@ -485,7 +488,7 @@ GoRouter router = GoRouter(
           routes: [
             JobrNavigationItem(
               route: JobrRouter.getRoute(
-                JobScreen.location,
+                JobVerifiedScreen.location,
                 JobrRouter.employeeInitialroute,
               ),
               icon: JobrIcons.magnifyingGlass,
@@ -520,6 +523,33 @@ GoRouter router = GoRouter(
         );
       },
       routes: [
+        GoRoute(
+          path: JobrRouter.getRoute(
+            JobVerifiedScreen.location,
+            JobrRouter.employeeInitialroute,
+          ),
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: JobVerifiedScreen(),
+          ),
+          routes: [
+            GoRoute(
+              path: JobDetailScreen.location,
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                final data = state.extra as Map;
+                return buildPageWithSlideUpTransition(
+                  context: context,
+                  state: state,
+                  child: JobDetailScreen(
+                    category: data["category"],
+                    title: data["title"],
+                    image: data["image"],
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
         GoRoute(
           path: JobrRouter.getRoute(
             JobScreen.location,
@@ -601,16 +631,16 @@ GoRouter router = GoRouter(
           ),
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(
-            child: ChatScreen(),
+            child: ChatScreen(isEmployeeSide: true),
           ),
         ),
         GoRoute(
-          path: ChatPageScreen.employeeRoute,
+          path: ChatPageEmployeeScreen.employeeRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return buildPageWithSlideLeftTransition(
               context: context,
               state: state,
-              child: const ChatPageScreen(),
+              child: const ChatPageEmployeeScreen(),
             );
           },
         ),
@@ -620,27 +650,26 @@ GoRouter router = GoRouter(
             return buildPageWithSlideLeftTransition(
               context: context,
               state: state,
-              child: const ChatRequestScreen(),
+              child: const ChatRequestScreen(
+                isEmployeeSide: true,
+              ),
             );
           },
-        )
-        , GoRoute(
-          path:
-            CreateProfileScreen.employeeRoute,
-           
+        ),
+        GoRoute(
+          path: CreateProfileScreen.employeeRoute,
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(
             child: CreateProfileScreen(),
           ),
         ),
-     
         GoRoute(
-          path: ChatRequestPageScreen.employeeRoute,
+          path: ChatRequestEmployeePageScreen.employeeRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return buildPageWithSlideLeftTransition(
               context: context,
               state: state,
-              child: const ChatRequestPageScreen(),
+              child: const ChatRequestEmployeePageScreen(),
             );
           },
         ),

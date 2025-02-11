@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';
+import 'package:jobr/features/jobs/jobdetail_screen.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:jobr/features/jobs/filter.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 
 class JobVerifiedScreen extends StatefulWidget {
   static const String location = 'jobs';
@@ -65,26 +68,30 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
     return Scaffold(
       appBar: const JobrAppbarNavigation(
         appbarTitle: "Vind jouw job",
+        center: false, // Added to match JobScreen
       ),
       backgroundColor: theme.colorScheme.surface,
-      body: Padding(
-        padding: const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            const JobrSearchBar(
-              hintText: "Zoek een bedrijf, functie...",
-            ),
-            const SizedBox(height: 14),
-            _buildGridView(),
-            const SizedBox(height: 10),
-            _buildFilterRow(theme),
-            const SizedBox(height: 20),
-            _buildJobrAISection(theme),
-            const SizedBox(height: 10),
-            _buildJobrAISuggestions(),
-            const SizedBox(height: 15),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding:
+              const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const JobrSearchBar(
+                hintText: "Zoek een bedrijf, functie...",
+              ),
+              const SizedBox(height: 14),
+              _buildGridView(),
+              const SizedBox(height: 10),
+              _buildFilterRow(theme),
+              const SizedBox(height: 20),
+              _buildJobrAISection(theme),
+              const SizedBox(height: 10),
+              _buildJobrAISuggestions(),
+              const SizedBox(height: 15),
+            ],
+          ),
         ),
       ),
     );
@@ -113,7 +120,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
           ? () {}
           : () {
               context.push(
-                '/jobs/${item["category"]}',
+                JobDetailScreen.employeeRoute,
                 extra: {
                   'category': item["category"],
                   'title': item["text"],
@@ -158,37 +165,17 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
   }
 
   Widget _buildFilterRow(ThemeData theme) {
-    return GestureDetector(
+    return PrimaryButton(
       onTap: () {
-        context.push(
-          '/jobs/filters',
-        ); // Push to FilterScreen
+        context.push(FilterScreenEmployee.employeeRoute);
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 11),
-        decoration: BoxDecoration(
-          color: theme.primaryColor,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Zoek met filters ",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: theme.colorScheme.onPrimary,
-              ),
-            ),
-            Image.asset(
-              height: 20,
-              width: 20,
-              "assets/images/recruteren/filter.png",
-            ),
-          ],
-        ),
+      suffixIcon: Image.asset(
+        height: 20,
+        width: 20,
+        "assets/images/recruteren/filter.png",
       ),
+      height: 50,
+      buttonText: "Zoek met filters",
     );
   }
 

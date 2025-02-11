@@ -7,7 +7,7 @@ import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
-import 'package:jobr/features/profile/screens/create_profile_screen.dart';
+import 'package:jobr/features/jobs/job_screen_verified.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> with ScreenStateMixin {
         case UserType.employee:
           context.pushReplacement(
             JobrRouter.getRoute(
-              CreateProfileScreen.location,
+              JobVerifiedScreen.location,
               JobrRouter.employeeInitialroute,
             ),
           );

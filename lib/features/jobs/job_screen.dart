@@ -175,6 +175,7 @@ class _JobScreenState extends State<JobScreen> {
       onTap: () {
         context.push(FilterScreenEmployee.employeeRoute);
       },
+      height: 50,
       suffixIcon: Image.asset(
         height: 20,
         width: 20,

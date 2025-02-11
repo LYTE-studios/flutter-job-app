@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
-import 'package:jobr/features/chat/screens/chat_request_page_screen.dart';
+import 'package:jobr/features/chat/screens/employee/chat_request_page_employee_screen.dart';
+import 'package:jobr/features/chat/screens/employer/chat_request_page_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
-
 class ChatRequestScreen extends StatefulWidget {
-  const ChatRequestScreen({super.key});
-
+  const ChatRequestScreen({super.key, this.isEmployeeSide = false});
+  final bool isEmployeeSide;
   static const String location = 'chat-request';
 
   static String employerRoute = JobrRouter.getRoute(
@@ -62,9 +62,9 @@ class _ChatScreenState extends State<ChatRequestScreen> {
               ),
             ),
             const SizedBox(width: 10),
-            const Text(
+            Text(
               'Berichtverzoeken',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
@@ -78,7 +78,9 @@ class _ChatScreenState extends State<ChatRequestScreen> {
           child: Column(
             children: [
               Text(
-                'Hier vind je werkzoekenden die zelf contact opnemen. Dit kan een vraag zijn of een spontane sollicitatie.',
+                widget.isEmployeeSide
+                    ? 'Hier vind je bedrijven die jouw profiel interessant vinden en willen chatten met jou.'
+                    : 'Hier vind je werkzoekenden die zelf contact opnemen. Dit kan een vraag zijn of een spontane sollicitatie.',
                 style: TextStyle(
                     fontSize: 15,
                     color: Colors.black54,
@@ -94,7 +96,11 @@ class _ChatScreenState extends State<ChatRequestScreen> {
               Expanded(
                   child: GestureDetector(
                 onTap: () {
-                  context.push(ChatRequestPageScreen.employerRoute);
+                  if (widget.isEmployeeSide) {
+                    context.push(ChatRequestEmployeePageScreen.employeeRoute);
+                  } else {
+                    context.push(ChatRequestPageScreen.employerRoute);
+                  }
                 },
                 child: ListView.builder(
                   itemCount: chatData.length,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
-import 'package:jobr/features/chat/screens/chat_page_screen.dart';
+import 'package:jobr/features/chat/screens/employer/chat_page_screen.dart';
 import 'package:jobr/features/profile/screens/tabs/employee_profile_tab.dart';
 import 'package:jobr/features/profile/screens/tabs/media_item_widget.dart';
 import 'package:jobr/ui/theme/text_styles.dart';

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/Sollicitaties/sollicitaties.dart';
 import 'package:jobr/features/Sollicitaties/sollicitaties_tabs_info.dart';
-import 'package:jobr/features/chat/screens/chat_request_page_screen.dart';
+import 'package:jobr/features/chat/screens/employer/chat_request_page_screen.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
@@ -105,7 +105,7 @@ class _QuestionPageState extends State<QuestionPage> {
               buttonText: 'Sollicitatie versturen',
               onTap: () {
                 context.push(
-                  ChatRequestPageScreen.employeeRoute,
+                  ChatRequestPageScreen.location,
                 );
               },
               buttonColor: HexColor.fromHex('#3A77FF'),

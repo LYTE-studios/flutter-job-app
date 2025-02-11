@@ -13,10 +13,6 @@ class ChatPageScreen extends StatefulWidget {
     JobrRouter.employerInitialroute,
   );
 
-  static String employeeRoute = JobrRouter.getRoute(
-    location,
-    JobrRouter.employeeInitialroute,
-  );
   @override
   State<ChatPageScreen> createState() => _ChatPageScreenState();
 }
