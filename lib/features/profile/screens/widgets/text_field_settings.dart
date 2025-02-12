@@ -13,7 +13,8 @@ class TextFieldSettings extends StatelessWidget {
   final TextStyle hintTextStyle;
   final String hintText;
   const TextFieldSettings(
-      {super.key, required this.label,
+      {super.key,
+      required this.label,
       required this.controller,
       this.keyboardType = TextInputType.text,
       this.inputFormatters,
@@ -86,7 +87,7 @@ class TextFieldSettings extends StatelessWidget {
                 filled: false,
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black.withOpacity(.2),
+                    color: Colors.black.withOpacity(.06),
                   ),
                 ),
                 contentPadding: const EdgeInsets.symmetric(
@@ -95,7 +96,7 @@ class TextFieldSettings extends StatelessWidget {
                 ),
                 focusedBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black.withOpacity(.2),
+                    color: Colors.black.withOpacity(.06),
                   ),
                 ),
               ),

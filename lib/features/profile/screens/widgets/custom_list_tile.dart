@@ -28,7 +28,7 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     double width = MediaQuery.sizeOf(context).width;
-    return Row(
+    Widget content = Row(
       crossAxisAlignment:
           centerImage ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: <Widget>[
@@ -51,50 +51,56 @@ class CustomListTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 16.5,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w600,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 16.5,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      Text(
-                        subTitle,
-                        style: TextStyle(
-                          fontSize: 15,
-                          letterSpacing: 0.4,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          color: HexColor.fromHex('#00000000').withOpacity(.6),
+                        Text(
+                          subTitle,
+                          style: TextStyle(
+                            fontSize: 15,
+                            letterSpacing: 0.4,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                            color:
+                                HexColor.fromHex('#00000000').withOpacity(.6),
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   if (edit)
                     Container(
-                        // padding: const EdgeInsets.all(5),
-                        // decoration: BoxDecoration(
-                        //   shape: BoxShape.circle,
-                        //   color: HexColor.fromHex('#F62C2C'),
-                        // ),
-                        // alignment: Alignment.center,
-                        // child: SvgPicture.asset(
-                        //   JobrIcons.close,
-                        //   width: 18,
-                        //   height: 18,
-                        //   colorFilter: const ColorFilter.mode(
-                        //     Colors.white,
-                        //     BlendMode.srcIn,
-                        //   ),
-                        // ),
+                      padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: HexColor.fromHex('#F62C2C'),
+                      ),
+                      alignment: Alignment.center,
+                      child: SvgPicture.asset(
+                        JobrIcons.close,
+                        width: 11,
+                        height: 12,
+                        colorFilter: const ColorFilter.mode(
+                          Colors.white,
+                          BlendMode.srcIn,
                         ),
+                      ),
+                    ),
                 ],
               ),
-              Row(
+              Wrap(
+                spacing: 5,
                 children: <Widget>[
                   Text(
                     duration,
@@ -107,7 +113,7 @@ class CustomListTile extends StatelessWidget {
                   ),
                   if (time != null) ...[
                     Container(
-                      margin: const EdgeInsets.all(7),
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
                       width: 5,
                       height: 5,
                       decoration: BoxDecoration(
@@ -131,6 +137,23 @@ class CustomListTile extends StatelessWidget {
           ),
         ),
       ],
+    );
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: edit
+            ? HexColor.fromHex('#D9D9D9').withOpacity(0.31)
+            : Colors.transparent,
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: HexColor.fromHex('#00000000'),
+            offset: const Offset(0, 3),
+            blurRadius: 6,
+          ),
+        ],
+      ),
+      child: content,
     );
   }
 }

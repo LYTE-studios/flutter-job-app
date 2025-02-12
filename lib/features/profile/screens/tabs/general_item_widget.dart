@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/features/profile/screens/edit/choose_sector_screen.dart';
+import 'package:jobr/features/profile/screens/edit/create_new_company_screen.dart';
+import 'package:jobr/features/profile/screens/edit/make_a_choice_screen.dart';
+import 'package:jobr/features/profile/screens/edit/new_experience_screen.dart';
 import 'package:jobr/ui/widgets/base/base_container.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -68,6 +73,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
   List<String> skills = ['📝 Schrijven', '📷 Content creation', '💄 Make-up'];
   bool editExperience = false;
   bool editSkills = false;
+  bool editEducation = false; // Added flag for education
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +120,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                       InkWell(
                         onTap: () {
                           // context.push(CreateNewCompanyScreen.route);
-                          // context.push(NewExpereinceScreen.route);
+                          context.push(NewExpereinceScreen.route);
                         },
                         child: SvgPicture.asset(
                           JobrIcons.addIcon,
@@ -156,15 +162,17 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   padding: const EdgeInsets.all(0),
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: experience.length,
-                  separatorBuilder: (context, index) => Column(
-                    children: <Widget>[
-                      const SizedBox(height: 10),
-                      Divider(
-                        color: Colors.black.withOpacity(0.07),
-                      ),
-                      const SizedBox(height: 10),
-                    ],
-                  ),
+                  separatorBuilder: (context, index) => editExperience
+                      ? const SizedBox(height: 10)
+                      : Column(
+                          children: <Widget>[
+                            const SizedBox(height: 5),
+                            Divider(
+                              color: Colors.black.withOpacity(0.07),
+                            ),
+                            const SizedBox(height: 5),
+                          ],
+                        ),
                   itemBuilder: (context, index) => CustomListTile(
                     image: experience[index].image,
                     title: experience[index].title,
@@ -223,15 +231,38 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      SvgIcon(
-                        JobrIcons.edit,
-                        size: 17,
-                        color: TextStyles.unselectedText,
-                      ),
+                      if (!editEducation)
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              editEducation = true;
+                            });
+                          },
+                          child: SvgIcon(
+                            JobrIcons.edit,
+                            size: 17,
+                            color: TextStyles.unselectedText,
+                          ),
+                        )
+                      else
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              editEducation = false;
+                            });
+                          },
+                          child: SvgIcon(
+                            JobrIcons.check,
+                            size: 17,
+                            color: theme.primaryColor,
+                          ),
+                        ),
                       const SizedBox(width: 10),
                       InkWell(
                         onTap: () {
-                          // context.push(ChooseCompanyScreen.route);
+                          context.push(CreateNewCompanyScreen.route);
+
+                          // Add logic for adding a new education item.
                         },
                         child: SvgPicture.asset(
                           JobrIcons.addIcon,
@@ -258,11 +289,11 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   itemCount: education.length,
                   separatorBuilder: (context, index) => Column(
                     children: <Widget>[
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 5),
                       Divider(
                         color: Colors.black.withOpacity(0.07),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 5),
                     ],
                   ),
                   itemBuilder: (context, index) => CustomListTile(
@@ -271,6 +302,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                     subTitle: education[index].subTitle,
                     duration: education[index].duration,
                     time: education[index].time,
+                    edit: editEducation, // Pass the flag here
                   ),
                 )
               else ...[
@@ -407,7 +439,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                     children: <Widget>[
                       InkWell(
                         onTap: () {
-                          // context.push(ChooseSectorScreen.route);
+                          context.push(ChooseSectorScreen.route);
                         },
                         child: SvgPicture.asset(
                           JobrIcons.edit,
@@ -463,7 +495,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                       const SizedBox(width: 10),
                       InkWell(
                         onTap: () {
-                          // context.push(MakeAChoiceScreen.route);
+                          context.push(MakeAChoiceScreen.route);
                         },
                         child: SvgPicture.asset(
                           JobrIcons.addIcon,

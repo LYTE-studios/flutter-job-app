@@ -7,6 +7,8 @@ import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io'; // Added import for File
+import 'package:jobr/features/profile/screens/widgets/text_field_settings.dart'; // New import
+import 'package:jobr/features/profile/screens/company/select_location_page.dart'; // New import for location selection
 
 import '../../../../core/utils/input_formatters.dart';
 import '../../../../ui/theme/jobr_icons.dart';
@@ -34,6 +36,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
   TextEditingController bioController = TextEditingController();
   TextEditingController dobController = TextEditingController();
   TextEditingController locationController = TextEditingController();
+  TextEditingController statusController = TextEditingController();
 
   String backgroundImage = 'assets/images/images/image-4.png';
   String profileImage = 'assets/images/images/profile.png';
@@ -54,13 +57,8 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
 
   @override
   void initState() {
-    nameController.text = 'Louis Ottevaere';
-    emailController.text = 'louisottevaere@gmail.com';
-    phoneController.text = '+32472181414';
-    dobController.text = '30 jaar';
     locationController.text = 'Kies locatie';
-    bioController.text =
-        'Multibrandstores & Webshop. Brooklyn, da’s een mix van merken en heel veel broeken. Dat laatste nemen we als broekenspecialist au sérieux met een jeans assortiment om ‘u’ tegen te zeggen.';
+
     super.initState();
   }
 
@@ -136,16 +134,16 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                       left: 0,
                       right: 0,
                       child: backgroundImage.startsWith('assets/')
-                        ? Image.asset(
-                            backgroundImage,
-                            fit: BoxFit.cover,
-                            height: 180,
-                          )
-                        : Image.file(
-                            File(backgroundImage),
-                            fit: BoxFit.cover,
-                            height: 180,
-                          ),
+                          ? Image.asset(
+                              backgroundImage,
+                              fit: BoxFit.cover,
+                              height: 180,
+                            )
+                          : Image.file(
+                              File(backgroundImage),
+                              fit: BoxFit.cover,
+                              height: 180,
+                            ),
                     ),
                     Positioned(
                       bottom: 0,
@@ -167,8 +165,9 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                                   ),
                                   image: DecorationImage(
                                     image: profileImage.startsWith('assets/')
-                                      ? AssetImage(profileImage)
-                                      : FileImage(File(profileImage)) as ImageProvider,
+                                        ? AssetImage(profileImage)
+                                        : FileImage(File(profileImage))
+                                            as ImageProvider,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -253,91 +252,96 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
           physics: const ClampingScrollPhysics(),
           children: [
             const SizedBox(height: 15),
-            _buildTextField('Naam en voornaam', nameController),
+            // Replaced _buildTextField calls with TextFieldSettings
+            TextFieldSettings(
+              label: 'Naam en voornaam',
+              hintText: 'Naam en voornaam',
+              controller: nameController,
+              readOnly: false,
+            ),
             const SizedBox(height: 10),
-            _buildTextField('Email', emailController),
+            TextFieldSettings(
+              label: 'Email',
+              hintText: 'Email',
+              controller: emailController,
+              readOnly: false,
+            ),
             const SizedBox(height: 10),
-            _buildTextField(
-              'Telefoon',
-              phoneController,
+            TextFieldSettings(
+              label: 'Telefoon',
+              hintText: 'Telefoon',
+              controller: phoneController,
+              keyboardType: TextInputType.phone,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
                 PhoneNumberFormatter(),
               ],
-              keyboardType: TextInputType.phone,
               readOnly: false,
               color: Colors.black,
             ),
+
             const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 87,
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    'Locatie',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w500,
-                      color: HexColor.fromHex('#565656'),
-                    ),
+
+            // Replaced custom location row with SelectionButton
+            SelectionButton(
+              label: 'Statuut',
+              hintText: 'Student',
+              controller: statusController,
+              leading: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 3.0),
+                child: Text(
+                  'Aanpassen',
+                  style: TextStyle(
+                    color: theme.primaryColor,
+                    fontSize: 16,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Colors.black.withOpacity(.2),
-                        ),
-                      ),
-                    ),
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: FittedBox(
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 5),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: theme.primaryColor,
-                        ),
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              JobrIcons.location,
-                              width: 12,
-                              colorFilter: const ColorFilter.mode(
-                                  Colors.white, BlendMode.srcIn),
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              locationController.text,
-                              style: const TextStyle(
-                                fontSize: 15.36,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w500,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
+              onTap: () {},
             ),
             const SizedBox(height: 10),
-            _buildTextField('Geboorte-datum', dobController),
+            // Replaced custom location row with SelectionButton
+            SelectionButton(
+              label: 'Locatie',
+              hintText: 'Kies locatie',
+              controller: locationController,
+              prefixIcon: SvgPicture.asset(
+                JobrIcons.location,
+                width: 12,
+                colorFilter: ColorFilter.mode(
+                  theme.primaryColor,
+                  BlendMode.srcIn,
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SelectLocationPage()),
+                ).then((value) {
+                  if (value != null) {
+                    setState(() {
+                      locationController.text = value.toString();
+                    });
+                  }
+                });
+              },
+            ),
             const SizedBox(height: 10),
-            _buildTextField(
-              'Bio',
-              bioController,
+            TextFieldSettings(
+              label: 'Geboorte-datum',
+              hintText: 'Geboorte-datum',
+              controller: dobController,
+              readOnly: false,
+            ),
+            const SizedBox(height: 10),
+            TextFieldSettings(
+              label: 'Bio',
+              hintText:
+                  'Multibrandstores & Webshop. Brooklyn, da’s een mix van merken en heel veel broeken. Dat laatste nemen we als broekenspecialist au sérieux met een jeans assortiment om ‘u’ tegen te zeggen.',
+              controller: bioController,
               maxLines: 5,
               keyboardType: TextInputType.multiline,
               color: Colors.black,
@@ -349,25 +353,50 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
       ),
     );
   }
+}
 
-  Widget _buildTextField(
-    String label,
-    TextEditingController controller, {
-    TextInputType keyboardType = TextInputType.text,
-    List<TextInputFormatter>? inputFormatters,
-    bool readOnly = true,
-    int? maxLines,
-    Color? color,
-  }) {
+class SelectionButton extends StatefulWidget {
+  const SelectionButton(
+      {super.key,
+      required this.label,
+      required this.controller,
+      this.color,
+      this.hintText = 'Kies locatie',
+      this.hintTextStyle = const TextStyle(
+        fontSize: 16,
+        fontFamily: 'Inter',
+        fontWeight: FontWeight.w500,
+        color: Color(0xFF919191),
+      ),
+      this.leading,
+      this.onTap,
+      this.prefixIcon});
+  final Widget? prefixIcon;
+  final Widget? leading;
+  final String label;
+  final TextEditingController controller;
+
+  final Color? color;
+  final TextStyle hintTextStyle;
+  final String hintText;
+  final GestureTapCallback? onTap;
+
+  @override
+  State<SelectionButton> createState() => _SelectionButtonState();
+}
+
+class _SelectionButtonState extends State<SelectionButton> {
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 87,
+          width: 110,
           padding: const EdgeInsets.only(top: 10),
           child: Text(
-            label,
+            widget.label.padRight(12),
             style: TextStyle(
               fontSize: 16,
               fontFamily: 'Inter',
@@ -376,75 +405,47 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
             ),
           ),
         ),
-        const SizedBox(width: 10),
-        if (readOnly)
-          Expanded(
+        Expanded(
+          child: GestureDetector(
+            onTap: widget.onTap,
             child: Container(
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.black.withOpacity(.2),
+                    color: Colors.black.withOpacity(.06),
                   ),
                 ),
               ),
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    controller.text,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w500,
-                      color: HexColor.fromHex('#919191'),
+                  if (widget.prefixIcon != null) widget.prefixIcon!,
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      widget.controller.text.isEmpty
+                          ? widget.hintText
+                          : widget.controller.text,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: widget.controller.text.isEmpty
+                          ? widget.hintTextStyle
+                          : const TextStyle(
+                              fontSize: 15.36,
+                              fontFamily: 'Poppins',
+                              letterSpacing: 0.05,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
                     ),
                   ),
-                  const SizedBox(width: 5),
-                  Icon(
-                    CupertinoIcons.info,
-                    color: HexColor.fromHex('#919191'),
-                    size: 18,
-                  )
+                  if (widget.leading != null) widget.leading!,
                 ],
               ),
             ),
-          )
-        else
-          Expanded(
-            child: TextFormField(
-              keyboardType: keyboardType,
-              textAlignVertical: TextAlignVertical.center,
-              controller: controller,
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w500,
-                color: color ?? HexColor.fromHex('#919191'),
-              ),
-              inputFormatters: inputFormatters,
-              readOnly: readOnly,
-              maxLines: maxLines,
-              decoration: InputDecoration(
-                filled: false,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black.withOpacity(.2),
-                  ),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 0,
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black.withOpacity(.2),
-                  ),
-                ),
-              ),
-            ),
           ),
+        ),
       ],
     );
   }

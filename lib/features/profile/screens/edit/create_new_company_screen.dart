@@ -3,12 +3,17 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobr/core/routing/router.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 
 class CreateNewCompanyScreen extends StatefulWidget {
-  static const String location = '/create-company';
+  static const String location = 'create-company';
+  static String route = JobrRouter.getRoute(
+    location,
+    JobrRouter.employeeInitialroute,
+  );
   const CreateNewCompanyScreen({super.key});
 
   @override
@@ -47,8 +52,8 @@ class _CreateNewCompanyScreenState extends State<CreateNewCompanyScreen> {
             onPressed: () => Navigator.pop(context),
             icon: SvgPicture.asset(
               JobrIcons.close,
-              width: 30,
-              height: 30,
+              width: 15,
+              height: 15,
             ),
           ),
         ),
@@ -136,7 +141,7 @@ class _CreateNewCompanyScreenState extends State<CreateNewCompanyScreen> {
                       padding: const EdgeInsets.all(5),
                       icon: selectedFile == null
                           ? SvgPicture.asset(
-                              JobrIcons.addIcon,
+                              JobrIcons.add,
                               width: 16,
                               height: 16,
                               colorFilter: ColorFilter.mode(

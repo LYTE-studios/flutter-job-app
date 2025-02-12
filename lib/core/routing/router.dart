@@ -38,7 +38,11 @@ import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings_screen.dart';
+import 'package:jobr/features/profile/screens/edit/choose_sector_screen.dart';
+import 'package:jobr/features/profile/screens/edit/create_new_company_screen.dart';
 import 'package:jobr/features/profile/screens/edit/edit_profile_details_screen.dart';
+import 'package:jobr/features/profile/screens/edit/make_a_choice_screen.dart';
+import 'package:jobr/features/profile/screens/edit/new_experience_screen.dart';
 import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';
@@ -683,6 +687,11 @@ GoRouter router = GoRouter(
                 child: EditProfileDetailsScreen(),
               ),
             ),
+            GoRoute(
+              path: ChooseSectorScreen.route,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const NoTransitionPage(child: ChooseSectorScreen()),
+            ),
           ],
           path: JobrRouter.getRoute(
             ProfileScreen.location,
@@ -697,8 +706,30 @@ GoRouter router = GoRouter(
         GoRoute(
           path: EditProfileDetailsScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(child: EditProfileDetailsScreen()),
+              const NoTransitionPage(
+            child: EditProfileDetailsScreen(),
+          ),
         ),
+        GoRoute(
+          path: ChooseSectorScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(child: ChooseSectorScreen()),
+        ),
+        GoRoute(
+          path: NewExpereinceScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(child: NewExpereinceScreen()),
+        ),
+        GoRoute(
+          path: MakeAChoiceScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(child: MakeAChoiceScreen()),
+        ),
+        GoRoute(
+          path: CreateNewCompanyScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(child: CreateNewCompanyScreen()),
+        )
       ],
     ),
     ShellRoute(

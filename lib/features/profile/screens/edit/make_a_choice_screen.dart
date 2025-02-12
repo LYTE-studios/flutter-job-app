@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobr/core/routing/router.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 
 class MakeAChoiceScreen extends StatefulWidget {
-  static const String location = '/make-a-choice';
+  static const String location = 'make-a-choice';
+  static String route = JobrRouter.getRoute(
+    location,
+    JobrRouter.employeeInitialroute,
+  );
   const MakeAChoiceScreen({super.key});
 
   @override
