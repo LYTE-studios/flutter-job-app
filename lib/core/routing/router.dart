@@ -38,6 +38,7 @@ import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings_screen.dart';
+import 'package:jobr/features/profile/screens/edit/edit_profile_details_screen.dart';
 import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';
@@ -674,6 +675,15 @@ GoRouter router = GoRouter(
           },
         ),
         GoRoute(
+          routes: [
+            GoRoute(
+              path: EditProfileDetailsScreen.route,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const NoTransitionPage(
+                child: EditProfileDetailsScreen(),
+              ),
+            ),
+          ],
           path: JobrRouter.getRoute(
             ProfileScreen.location,
             JobrRouter.employeeInitialroute,
@@ -682,6 +692,12 @@ GoRouter router = GoRouter(
               const NoTransitionPage(
             child: ProfileScreen(),
           ),
+        ),
+        // Add new route for Edit Profile:
+        GoRoute(
+          path: EditProfileDetailsScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(child: EditProfileDetailsScreen()),
         ),
       ],
     ),

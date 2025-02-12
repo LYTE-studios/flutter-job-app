@@ -9,8 +9,9 @@ class ApiService {
   ApiService() {
     BaseOptions options = BaseOptions(
       baseUrl: _getBaseUrl(),
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
+      connectTimeout: const Duration(seconds: 30), // Increased from 10 to 30
+      receiveTimeout: const Duration(seconds: 30), // Increased from 10 to 30
+      sendTimeout: const Duration(seconds: 30), // Added send timeout
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',

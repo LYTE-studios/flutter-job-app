@@ -2,14 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io'; // Added import for File
 
 import '../../../../core/utils/input_formatters.dart';
 import '../../../../ui/theme/jobr_icons.dart';
 import '../../../../ui/theme/text_styles.dart';
 
 class EditProfileDetailsScreen extends StatefulWidget {
-  static const String location = '/edit-profile';
+  static const String location = 'edit-profile';
+
+  static String route = JobrRouter.getRoute(
+    location,
+    JobrRouter.employeeInitialroute,
+  );
+
   const EditProfileDetailsScreen({super.key});
 
   @override
@@ -24,6 +34,23 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
   TextEditingController bioController = TextEditingController();
   TextEditingController dobController = TextEditingController();
   TextEditingController locationController = TextEditingController();
+
+  String backgroundImage = 'assets/images/images/image-4.png';
+  String profileImage = 'assets/images/images/profile.png';
+
+  Future<void> _pickImage(bool isBackground) async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        if (isBackground) {
+          backgroundImage = pickedFile.path;
+        } else {
+          profileImage = pickedFile.path;
+        }
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -108,11 +135,17 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                       top: 0,
                       left: 0,
                       right: 0,
-                      child: Image.asset(
-                        'assets/images/images/image-4.png',
-                        fit: BoxFit.cover,
-                        height: 180,
-                      ),
+                      child: backgroundImage.startsWith('assets/')
+                        ? Image.asset(
+                            backgroundImage,
+                            fit: BoxFit.cover,
+                            height: 180,
+                          )
+                        : Image.file(
+                            File(backgroundImage),
+                            fit: BoxFit.cover,
+                            height: 180,
+                          ),
                     ),
                     Positioned(
                       bottom: 0,
@@ -132,9 +165,10 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                                     color: Colors.white,
                                     width: 4,
                                   ),
-                                  image: const DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/images/profile.png'),
+                                  image: DecorationImage(
+                                    image: profileImage.startsWith('assets/')
+                                      ? AssetImage(profileImage)
+                                      : FileImage(File(profileImage)) as ImageProvider,
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -151,7 +185,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                                     EdgeInsets.all(10),
                                   ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () => _pickImage(false),
                                 padding: const EdgeInsets.all(5),
                                 icon: SvgPicture.asset(
                                   JobrIcons.edit,
@@ -172,7 +206,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                       top: 120,
                       right: 10,
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () => _pickImage(true),
                         style: IconButton.styleFrom(
                           backgroundColor: theme.primaryColor,
                           shape: RoundedRectangleBorder(

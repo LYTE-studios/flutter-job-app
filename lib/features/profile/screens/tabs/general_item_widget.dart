@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobr/ui/widgets/base/base_container.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 import '../../models/list_model.dart';
@@ -92,39 +93,39 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      // if (!editExperience)
-                      //   InkWell(
-                      //     onTap: () {
-                      //       setState(() {
-                      //         editExperience = !editExperience;
-                      //       });
-                      //     },
-                      //     child: SvgPicture.asset(
-                      //       JobrIcons.edit,
-                      //       width: 17,
-                      //       height: 17,
-                      //       colorFilter: ColorFilter.mode(
-                      //         HexColor.fromHex('#A4A4A4'),
-                      //         BlendMode.srcIn,
-                      //       ),
-                      //     ),
-                      //   ),
+                      if (!editExperience)
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              editExperience = !editExperience;
+                            });
+                          },
+                          child: SvgPicture.asset(
+                            JobrIcons.edit,
+                            width: 17,
+                            height: 17,
+                            colorFilter: ColorFilter.mode(
+                              HexColor.fromHex('#A4A4A4'),
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
                       const SizedBox(width: 10),
-                      // InkWell(
-                      //   onTap: () {
-                      //     // context.push(CreateNewCompanyScreen.route);
-                      //     // context.push(NewExpereinceScreen.route);
-                      //   },
-                      //   child: SvgPicture.asset(
-                      //     JobrIcons.addIcon,
-                      //     width: 20,
-                      //     height: 20,
-                      //     colorFilter: ColorFilter.mode(
-                      //       HexColor.fromHex('#A4A4A4'),
-                      //       BlendMode.srcIn,
-                      //     ),
-                      //   ),
-                      // ),
+                      InkWell(
+                        onTap: () {
+                          // context.push(CreateNewCompanyScreen.route);
+                          // context.push(NewExpereinceScreen.route);
+                        },
+                        child: SvgPicture.asset(
+                          JobrIcons.addIcon,
+                          width: 20,
+                          height: 20,
+                          colorFilter: ColorFilter.mode(
+                            HexColor.fromHex('#A4A4A4'),
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
                       if (editExperience) ...[
                         const SizedBox(width: 10),
                         InkWell(
@@ -222,26 +223,26 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      // SvgIcon(
-                      //   JobrIcons.edit,
-                      //   size: 17,
-                      //   color: TextStyles.unselectedText,
-                      // ),
-                      // const SizedBox(width: 10),
-                      // InkWell(
-                      //   onTap: () {
-                      //     // context.push(ChooseCompanyScreen.route);
-                      //   },
-                      //   child: SvgPicture.asset(
-                      //     JobrIcons.addIcon,
-                      //     width: 20,
-                      //     height: 20,
-                      //     colorFilter: ColorFilter.mode(
-                      //       HexColor.fromHex('#A4A4A4'),
-                      //       BlendMode.srcIn,
-                      //     ),
-                      //   ),
-                      // ),
+                      SvgIcon(
+                        JobrIcons.edit,
+                        size: 17,
+                        color: TextStyles.unselectedText,
+                      ),
+                      const SizedBox(width: 10),
+                      InkWell(
+                        onTap: () {
+                          // context.push(ChooseCompanyScreen.route);
+                        },
+                        child: SvgPicture.asset(
+                          JobrIcons.addIcon,
+                          width: 20,
+                          height: 20,
+                          colorFilter: ColorFilter.mode(
+                            HexColor.fromHex('#A4A4A4'),
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -320,40 +321,40 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      // if (!editSkills)
-                      //   InkWell(
-                      //     onTap: () {
-                      //       setState(() {
-                      //         editSkills = !editSkills;
-                      //       });
-                      //     },
-                      //     child: SvgPicture.asset(
-                      //       JobrIcons.edit,
-                      //       width: 17,
-                      //       height: 17,
-                      //       colorFilter: ColorFilter.mode(
-                      //         HexColor.fromHex('#A4A4A4'),
-                      //         BlendMode.srcIn,
-                      //       ),
-                      //     ),
-                      //   )
-                      // else
-                      //   GestureDetector(
-                      //     onTap: () {
-                      //       setState(() {
-                      //         editSkills = !editSkills;
-                      //       });
-                      //     },
-                      //     child: Text(
-                      //       'Aanpassen',
-                      //       style: TextStyle(
-                      //         color: theme.primaryColor,
-                      //         fontSize: 16,
-                      //         fontFamily: 'Inter',
-                      //         fontWeight: FontWeight.w600,
-                      //       ),
-                      //     ),
-                      //   ),
+                      if (!editSkills)
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              editSkills = !editSkills;
+                            });
+                          },
+                          child: SvgPicture.asset(
+                            JobrIcons.edit,
+                            width: 17,
+                            height: 17,
+                            colorFilter: ColorFilter.mode(
+                              HexColor.fromHex('#A4A4A4'),
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        )
+                      else
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              editSkills = !editSkills;
+                            });
+                          },
+                          child: Text(
+                            'Aanpassen',
+                            style: TextStyle(
+                              color: theme.primaryColor,
+                              fontSize: 16,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ],
@@ -404,20 +405,20 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      // InkWell(
-                      //   onTap: () {
-                      //     // context.push(ChooseSectorScreen.route);
-                      //   },
-                      //   child: SvgPicture.asset(
-                      //     JobrIcons.edit,
-                      //     width: 17,
-                      //     height: 17,
-                      //     colorFilter: ColorFilter.mode(
-                      //       HexColor.fromHex('#A4A4A4'),
-                      //       BlendMode.srcIn,
-                      //     ),
-                      //   ),
-                      // ),
+                      InkWell(
+                        onTap: () {
+                          // context.push(ChooseSectorScreen.route);
+                        },
+                        child: SvgPicture.asset(
+                          JobrIcons.edit,
+                          width: 17,
+                          height: 17,
+                          colorFilter: ColorFilter.mode(
+                            HexColor.fromHex('#A4A4A4'),
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -454,26 +455,26 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   ),
                   Row(
                     children: <Widget>[
-                      // SvgIcon(
-                      //   JobrIcons.edit,
-                      //   size: 17,
-                      //   color: TextStyles.unselectedText,
-                      // ),
-                      // const SizedBox(width: 10),
-                      // InkWell(
-                      //   onTap: () {
-                      //     // context.push(MakeAChoiceScreen.route);
-                      //   },
-                      //   child: SvgPicture.asset(
-                      //     JobrIcons.addIcon,
-                      //     width: 20,
-                      //     height: 20,
-                      //     colorFilter: ColorFilter.mode(
-                      //       HexColor.fromHex('#A4A4A4'),
-                      //       BlendMode.srcIn,
-                      //     ),
-                      //   ),
-                      // ),
+                      SvgIcon(
+                        JobrIcons.edit,
+                        size: 17,
+                        color: TextStyles.unselectedText,
+                      ),
+                      const SizedBox(width: 10),
+                      InkWell(
+                        onTap: () {
+                          // context.push(MakeAChoiceScreen.route);
+                        },
+                        child: SvgPicture.asset(
+                          JobrIcons.addIcon,
+                          width: 20,
+                          height: 20,
+                          colorFilter: ColorFilter.mode(
+                            HexColor.fromHex('#A4A4A4'),
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -502,28 +503,28 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                   color: HexColor.fromHex('#00000000').withOpacity(.6),
                 ),
               ),
-              const SizedBox(height: 20),
-              SvgPicture.asset(
-                JobrIcons.blockquote,
-              ),
-              const SizedBox(height: 5),
-              const Text(
-                'Mijn favoriete boek is...',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w800,
-                  fontFamily: 'Inter',
-                ),
-              ),
-              Text(
-                'Hier typen...',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w600,
-                  color: HexColor.fromHex('#00000000').withOpacity(.4),
-                ),
-              ),
+              // const SizedBox(height: 20),
+              // SvgPicture.asset(
+              //   JobrIcons.blockquote,
+              // ),
+              // const SizedBox(height: 5),
+              // const Text(
+              //   'Mijn favoriete boek is...',
+              //   style: TextStyle(
+              //     fontSize: 16,
+              //     fontWeight: FontWeight.w800,
+              //     fontFamily: 'Inter',
+              //   ),
+              // ),
+              // Text(
+              //   'Hier typen...',
+              //   style: TextStyle(
+              //     fontSize: 14,
+              //     fontFamily: 'Inter',
+              //     fontWeight: FontWeight.w600,
+              //     color: HexColor.fromHex('#00000000').withOpacity(.4),
+              //   ),
+              // ),
             ],
           ),
         ),

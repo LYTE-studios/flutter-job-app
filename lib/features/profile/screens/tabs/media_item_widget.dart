@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 
 import '../widgets/media_widget.dart';
@@ -33,9 +36,10 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             'Voeg foto\'s of video\'s toe van jezelf.',
             style: TextStyle(
               color: TextStyles.unselectedText,
-              fontSize: 15,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              fontFamily: 'Poppins',
+              letterSpacing: 0.25,
+              fontWeight: FontWeight.w500,
             ),
           ),
           const SizedBox(height: 10),
@@ -66,9 +70,10 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             'Voeg hier je portfolio of belangrijke prestaties',
             style: TextStyle(
               color: TextStyles.unselectedText,
-              fontSize: 15,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              fontFamily: 'Poppins',
+              letterSpacing: 0.15,
+              fontWeight: FontWeight.w500,
             ),
           ),
           const SizedBox(height: 10),
@@ -84,21 +89,32 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Icon(
-                //   CupertinoIcons.plus_circle_fill,
-                //   color: TextStyles.unselectedText.withOpacity(.6),
-                //   size: 32,
-                // ),
-                // const SizedBox(height: 5),
-                // Text(
-                //   'Voeg PDF, PNG toe',
-                //   style: TextStyle(
-                //     color: TextStyles.unselectedText,
-                //     fontSize: 15,
-                //     fontFamily: 'Inter',
-                //     fontWeight: FontWeight.w600,
-                //   ),
-                // ),
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFFC4C4C4),
+                  ),
+                  padding: const EdgeInsets.all(6),
+                  child: SvgPicture.asset(
+                    JobrIcons.addIcon,
+                    width: 20,
+                    height: 20,
+                    colorFilter: ColorFilter.mode(
+                      Colors.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 7),
+                Text(
+                  'Voeg PDF, PNG toe',
+                  style: TextStyle(
+                    color: Color(0xFFA8A8A8),
+                    fontSize: 15,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ],
             ),
           )

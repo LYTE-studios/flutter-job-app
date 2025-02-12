@@ -42,12 +42,12 @@ class CustomListTile extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              width: width * .65,
-              child: Row(
+        Expanded(
+          // Wrap the Column with Expanded
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -66,7 +66,8 @@ class CustomListTile extends StatelessWidget {
                         subTitle,
                         style: TextStyle(
                           fontSize: 15,
-                          fontFamily: 'Inter',
+                          letterSpacing: 0.4,
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                           color: HexColor.fromHex('#00000000').withOpacity(.6),
                         ),
@@ -75,48 +76,28 @@ class CustomListTile extends StatelessWidget {
                   ),
                   if (edit)
                     Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: HexColor.fromHex('#F62C2C'),
-                      ),
-                      alignment: Alignment.center,
-                      child: SvgPicture.asset(
-                        JobrIcons.close,
-                        width: 18,
-                        height: 18,
-                        colorFilter: const ColorFilter.mode(
-                          Colors.white,
-                          BlendMode.srcIn,
+                        // padding: const EdgeInsets.all(5),
+                        // decoration: BoxDecoration(
+                        //   shape: BoxShape.circle,
+                        //   color: HexColor.fromHex('#F62C2C'),
+                        // ),
+                        // alignment: Alignment.center,
+                        // child: SvgPicture.asset(
+                        //   JobrIcons.close,
+                        //   width: 18,
+                        //   height: 18,
+                        //   colorFilter: const ColorFilter.mode(
+                        //     Colors.white,
+                        //     BlendMode.srcIn,
+                        //   ),
+                        // ),
                         ),
-                      ),
-                    ),
                 ],
               ),
-            ),
-            Row(
-              children: <Widget>[
-                Text(
-                  duration,
-                  style: TextStyle(
-                    fontSize: 14.5,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                    color: TextStyles.unselectedText,
-                  ),
-                ),
-                if (time != null) ...[
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    width: 10,
-                    height: 10,
-                    decoration: BoxDecoration(
-                      color: TextStyles.unselectedText,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
+              Row(
+                children: <Widget>[
                   Text(
-                    time ?? '',
+                    duration,
                     style: TextStyle(
                       fontSize: 14.5,
                       fontFamily: 'Inter',
@@ -124,10 +105,30 @@ class CustomListTile extends StatelessWidget {
                       color: TextStyles.unselectedText,
                     ),
                   ),
-                ]
-              ],
-            )
-          ],
+                  if (time != null) ...[
+                    Container(
+                      margin: const EdgeInsets.all(7),
+                      width: 5,
+                      height: 5,
+                      decoration: BoxDecoration(
+                        color: TextStyles.unselectedText,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    Text(
+                      time ?? '',
+                      style: TextStyle(
+                        fontSize: 14.5,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w500,
+                        color: TextStyles.unselectedText,
+                      ),
+                    ),
+                  ]
+                ],
+              )
+            ],
+          ),
         ),
       ],
     );
