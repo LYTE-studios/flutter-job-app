@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/edit/fill_choice_form.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
@@ -47,13 +49,14 @@ class _MakeAChoiceScreenState extends State<MakeAChoiceScreen> {
     double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         leading: Center(
           child: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: SvgPicture.asset(
               JobrIcons.close,
-              width: 30,
-              height: 30,
+              width: 15,
+              height: 15,
             ),
           ),
         ),
@@ -86,34 +89,40 @@ class _MakeAChoiceScreenState extends State<MakeAChoiceScreen> {
                 ),
               ),
               const SizedBox(height: 5),
-              Divider(color: Colors.grey[300]),
+              Divider(color: Color(0xFF000000).withOpacity(0.05)),
               const SizedBox(height: 5),
               ...categories[index].items.map(
-                    (item) => Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        color: HexColor.fromHex('#F8F8F8'),
-                        borderRadius: BorderRadius.circular(18),
+                    (item) => InkWell(
+                      onTap: () => context.push(
+                        FillChoiceForm.route,
+                        extra: item.text,
                       ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
-                      width: width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SvgPicture.asset(
-                            JobrIcons.blockquote,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            item.text,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Inter',
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                          color: HexColor.fromHex('#F8F8F8'),
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 10),
+                        width: width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            SvgPicture.asset(
+                              JobrIcons.blockquote,
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 5),
+                            Text(
+                              item.text,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'Inter',
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   )

@@ -47,7 +47,7 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet>
       },
       options: languages.map((e) => e.name).toList(),
       description: "Zoek een taal",
-      title: "Talen",
+      title: widget.title ?? "Talen",
     );
   }
 }

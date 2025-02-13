@@ -88,8 +88,8 @@ class _ChooseSectorScreenState extends State<ChooseSectorScreen> {
             onPressed: () => Navigator.pop(context),
             icon: SvgPicture.asset(
               JobrIcons.close,
-              width: 30,
-              height: 30,
+              width: 15,
+              height: 15,
             ),
           ),
         ),
@@ -108,13 +108,19 @@ class _ChooseSectorScreenState extends State<ChooseSectorScreen> {
         width: width,
         height: height * .9,
         padding: const EdgeInsets.all(20.0),
-        child: Wrap(
-          runSpacing: 10,
-          spacing: 8,
-          // alignment: WrapAlignment.spaceBetween,
-          children: List.generate(
-            sectors.length,
-            (index) => Container(
+        child: GridView.builder(
+          itemCount: sectors.length,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 6,
+            mainAxisSpacing: 10,
+          ),
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.pop(context, sectors[index]);
+              },
+              child: Container(
                 width: 85.8,
                 height: 85.8,
                 decoration: BoxDecoration(
@@ -127,8 +133,8 @@ class _ChooseSectorScreenState extends State<ChooseSectorScreen> {
                   children: [
                     Image.asset(
                       sectors[index].image,
-                      width: 41.35,
-                      height: 41.35,
+                      width: sectors[index].name == 'Andere' ? 25 : 35.35,
+                      height: sectors[index].name == 'Andere' ? 30 : 35.35,
                       fit: BoxFit.contain,
                     ),
                     FittedBox(
@@ -137,14 +143,15 @@ class _ChooseSectorScreenState extends State<ChooseSectorScreen> {
                         style: const TextStyle(
                           fontSize: 14.47,
                           fontFamily: 'Inter',
-                          // height: 17.5,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                   ],
-                )),
-          ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

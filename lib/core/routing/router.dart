@@ -39,8 +39,11 @@ import 'package:jobr/features/profile/screens/company_screen/company_profile.dar
 import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings_screen.dart';
 import 'package:jobr/features/profile/screens/edit/choose_sector_screen.dart';
+import 'package:jobr/features/profile/screens/edit/choose_skills.dart';
+import 'package:jobr/features/profile/screens/edit/choose_talent_screen.dart';
 import 'package:jobr/features/profile/screens/edit/create_new_company_screen.dart';
 import 'package:jobr/features/profile/screens/edit/edit_profile_details_screen.dart';
+import 'package:jobr/features/profile/screens/edit/fill_choice_form.dart';
 import 'package:jobr/features/profile/screens/edit/make_a_choice_screen.dart';
 import 'package:jobr/features/profile/screens/edit/new_experience_screen.dart';
 import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
@@ -729,7 +732,26 @@ GoRouter router = GoRouter(
           path: CreateNewCompanyScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(child: CreateNewCompanyScreen()),
-        )
+        ),
+        GoRoute(
+          path: ChooseTalentScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(child: ChooseTalentScreen()),
+        ),
+        GoRoute(
+          path: ChooseSkillsScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(child: ChooseSkillsScreen()),
+        ),
+        GoRoute(
+          path: FillChoiceForm.route,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            final String? selectedText = state.extra as String?;
+            return NoTransitionPage(
+              child: FillChoiceForm(selectedText: selectedText),
+            );
+          },
+        ),
       ],
     ),
     ShellRoute(

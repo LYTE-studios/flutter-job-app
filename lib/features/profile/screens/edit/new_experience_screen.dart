@@ -9,6 +9,7 @@ import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:intl/intl.dart'; // added for date formatting
 import 'package:jobr/features/job_listing/widgets/date_time_picker.dart'; // added for date-time picker
+import 'package:jobr/features/job_listing/widgets/company_type_bottomsheet.dart'; // added for company selection
 
 // Import the bottom sheet and function type (assumed to be available)
 import '../../models/list_model.dart';
@@ -61,8 +62,8 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
 
   @override
   void initState() {
-    companyController.text = initialExperience.subTitle;
-    functionController.text = initialExperience.title;
+    companyController.text = 'Kies een bedrijf';
+    functionController.text = 'Kies een functie';
     companyText = companyController.text;
     functionText = functionController.text;
     // Listener to update companyText when text changes
@@ -131,28 +132,33 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
           // Replaced withOpacity with withAlpha (0.04 * 255 ≃ 10)
           Divider(color: const Color(0xFF000000).withAlpha(10)),
           const SizedBox(height: 20),
+          // Updated "Bedrijf" field to show CompanyTypeBottomSheet on tap
           _buildTextField(
             'Bedrijf',
-            'Kies een bedrijf',
+            companyText,
             controller: companyController,
-            suffixIcon: InkWell(
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Add company tapped")),
-                );
-              },
-              child: Container(
+            onTap: () {
+              CompanyTypeBottomSheet(
+                title: "Kies een bedrijf",
+                onSelected: (companyType) {
+                  setState(() {
+                    companyText = companyType.name;
+                    companyController.text = companyType.name;
+                  });
+                },
+              ).showPopup(context: context);
+            },
+            suffixIcon: Container(
+              width: 20,
+              height: 20,
+              margin: const EdgeInsets.only(right: 10),
+              child: SvgPicture.asset(
+                JobrIcons.add,
                 width: 20,
                 height: 20,
-                margin: const EdgeInsets.only(right: 10),
-                child: SvgPicture.asset(
-                  JobrIcons.add,
-                  width: 20,
-                  height: 20,
-                  colorFilter: ColorFilter.mode(
-                    theme.primaryColor,
-                    BlendMode.srcIn,
-                  ),
+                colorFilter: ColorFilter.mode(
+                  theme.primaryColor,
+                  BlendMode.srcIn,
                 ),
               ),
             ),
@@ -169,8 +175,8 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
                 onSelected: (FunctionType value) {
                   setState(() {
                     _selectedFunction = value;
-                    functionText = value.toString();
-                    functionController.text = functionText;
+                    functionText = value.name;
+                    functionController.text = value.name;
                   });
                 },
               ).showPopup(context: context);
