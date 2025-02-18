@@ -13,6 +13,7 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_skil
 import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/widgets/language_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/ui/theme/jobr_theme.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:flutter/cupertino.dart'; // Added for CupertinoIcons
@@ -24,7 +25,7 @@ class ChooseTalentScreen extends StatefulWidget {
 
   static const String location = 'choose-talent';
   static String route = JobrRouter.getRoute(
-    location,
+    '${ProfileScreen.location}/$location',
     JobrRouter.employeeInitialroute,
   );
 

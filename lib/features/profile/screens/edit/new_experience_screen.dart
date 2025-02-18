@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/function_type.dart';
 import 'package:jobr/features/job_listing/widgets/function_type_bottom_sheet.dart';
+import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_list_tile.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -17,7 +18,7 @@ import '../../models/list_model.dart';
 class NewExpereinceScreen extends StatefulWidget {
   static const String location = 'new-experience';
   static String route = JobrRouter.getRoute(
-    location,
+    '${ProfileScreen.location}/$location',
     JobrRouter.employeeInitialroute,
   );
   const NewExpereinceScreen({super.key});

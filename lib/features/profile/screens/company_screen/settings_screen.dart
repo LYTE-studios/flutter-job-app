@@ -5,6 +5,7 @@ import 'package:jobr/configuration.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/features/authentication/screens/splash_screen.dart';
+import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -13,8 +14,10 @@ import 'package:url_launcher/url_launcher.dart';
 class SettingsScreen extends StatefulWidget {
   static const location = 'settings';
 
-  static const String route = '/$location';
-
+static String route = JobrRouter.getRoute(
+    '${ProfileScreen.location}/$location',
+    JobrRouter.employeeInitialroute,
+  );
   const SettingsScreen({super.key});
 
   @override

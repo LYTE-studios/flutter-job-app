@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/profile_screen.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 
 class ChooseSectorScreen extends StatefulWidget {
   static const String location = 'choose-sector';
   static String route = JobrRouter.getRoute(
-    location,
+    '${ProfileScreen.location}/$location',
     JobrRouter.employeeInitialroute,
   );
 

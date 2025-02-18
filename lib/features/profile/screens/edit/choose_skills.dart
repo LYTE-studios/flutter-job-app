@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,7 +14,7 @@ class ChooseSkillsScreen extends StatefulWidget {
 
   static const String location = 'choose-skills';
   static String route = JobrRouter.getRoute(
-    location,
+    '${ProfileScreen.location}/$location',
     JobrRouter.employeeInitialroute,
   );
 

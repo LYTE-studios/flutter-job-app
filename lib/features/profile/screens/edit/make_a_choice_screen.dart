@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/profile/screens/edit/fill_choice_form.dart';
+import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
@@ -10,7 +11,7 @@ import '../../../../ui/theme/jobr_icons.dart';
 class MakeAChoiceScreen extends StatefulWidget {
   static const String location = 'make-a-choice';
   static String route = JobrRouter.getRoute(
-    location,
+    '${ProfileScreen.location}/$location',
     JobrRouter.employeeInitialroute,
   );
   const MakeAChoiceScreen({super.key});

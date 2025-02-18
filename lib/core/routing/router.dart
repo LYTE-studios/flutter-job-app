@@ -682,69 +682,65 @@ GoRouter router = GoRouter(
           },
         ),
         GoRoute(
-          routes: [
-            GoRoute(
-              path: EditProfileDetailsScreen.route,
-              pageBuilder: (BuildContext context, GoRouterState state) =>
-                  const NoTransitionPage(
-                child: EditProfileDetailsScreen(),
+            path: ProfileScreen.employeeRoute,
+            pageBuilder: (BuildContext context, GoRouterState state) =>
+                const NoTransitionPage(
+                  child: ProfileScreen(),
+                ),
+            routes: [
+              GoRoute(
+                path: EditProfileDetailsScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                    const NoTransitionPage(
+                  child: EditProfileDetailsScreen(),
+                ),
               ),
-            ),
-            GoRoute(
-              path: ChooseSectorScreen.route,
-              pageBuilder: (BuildContext context, GoRouterState state) =>
-                  const NoTransitionPage(child: ChooseSectorScreen()),
-            ),
-          ],
-          path: JobrRouter.getRoute(
-            ProfileScreen.location,
-            JobrRouter.employeeInitialroute,
-          ),
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
-            child: ProfileScreen(),
-          ),
-        ),
+              GoRoute(
+                path: ChooseSectorScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                    const NoTransitionPage(child: ChooseSectorScreen()),
+              ),
+              GoRoute(
+                path: NewExpereinceScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                    const NoTransitionPage(child: NewExpereinceScreen()),
+              ),
+              GoRoute(
+                path: MakeAChoiceScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                    const NoTransitionPage(child: MakeAChoiceScreen()),
+              ),
+              GoRoute(
+                path: CreateNewCompanyScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                    const NoTransitionPage(child: CreateNewCompanyScreen()),
+              ),
+              GoRoute(
+                path: SettingsScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                    const NoTransitionPage(child: SettingsScreen()),
+              ),
+              GoRoute(
+                path: ChooseTalentScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                    const NoTransitionPage(child: ChooseTalentScreen()),
+              ),
+              GoRoute(
+                path: ChooseSkillsScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                    const NoTransitionPage(child: ChooseSkillsScreen()),
+              ),
+              GoRoute(
+                path: FillChoiceForm.location,
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  final String? selectedText = state.extra as String?;
+                  return NoTransitionPage(
+                    child: FillChoiceForm(selectedText: selectedText),
+                  );
+                },
+              ),
+            ]),
         // Add new route for Edit Profile:
-        GoRoute(
-          path: NewExpereinceScreen.route,
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(child: NewExpereinceScreen()),
-        ),
-        GoRoute(
-          path: MakeAChoiceScreen.route,
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(child: MakeAChoiceScreen()),
-        ),
-        GoRoute(
-          path: CreateNewCompanyScreen.route,
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(child: CreateNewCompanyScreen()),
-        ),
-        GoRoute(
-          path: SettingsScreen.route,
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(child: SettingsScreen()),
-        ),
-        GoRoute(
-          path: ChooseTalentScreen.route,
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(child: ChooseTalentScreen()),
-        ),
-        GoRoute(
-          path: ChooseSkillsScreen.route,
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(child: ChooseSkillsScreen()),
-        ),
-        GoRoute(
-          path: FillChoiceForm.route,
-          pageBuilder: (BuildContext context, GoRouterState state) {
-            final String? selectedText = state.extra as String?;
-            return NoTransitionPage(
-              child: FillChoiceForm(selectedText: selectedText),
-            );
-          },
-        ),
       ],
     ),
     ShellRoute(

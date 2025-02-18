@@ -20,7 +20,7 @@ class ProfileScreen extends StatefulWidget {
 
   static String employeeRoute = JobrRouter.getRoute(
     location,
-    JobrRouter.employerInitialroute,
+    JobrRouter.employeeInitialroute,
   );
 
   @override
