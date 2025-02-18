@@ -707,18 +707,6 @@ GoRouter router = GoRouter(
         ),
         // Add new route for Edit Profile:
         GoRoute(
-          path: EditProfileDetailsScreen.route,
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
-            child: EditProfileDetailsScreen(),
-          ),
-        ),
-        GoRoute(
-          path: ChooseSectorScreen.route,
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(child: ChooseSectorScreen()),
-        ),
-        GoRoute(
           path: NewExpereinceScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(child: NewExpereinceScreen()),
@@ -732,6 +720,11 @@ GoRouter router = GoRouter(
           path: CreateNewCompanyScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(child: CreateNewCompanyScreen()),
+        ),
+        GoRoute(
+          path: SettingsScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(child: SettingsScreen()),
         ),
         GoRoute(
           path: ChooseTalentScreen.route,

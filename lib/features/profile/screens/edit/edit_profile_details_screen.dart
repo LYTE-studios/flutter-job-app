@@ -18,7 +18,7 @@ class EditProfileDetailsScreen extends StatefulWidget {
   static const String location = 'edit-profile';
 
   static String route = JobrRouter.getRoute(
-    location,
+    '${ProfileScreen.location}/$location',
     JobrRouter.employeeInitialroute,
   );
 

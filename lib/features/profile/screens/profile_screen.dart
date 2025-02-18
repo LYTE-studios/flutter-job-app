@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/company_screen/settings_screen.dart';
 import 'package:jobr/features/profile/screens/edit/edit_profile_details_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
@@ -142,7 +143,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Positioned(
                       top: 156,
-                      right: 10,
+                      right: 60,
                       child: ElevatedButton.icon(
                         onPressed: () {
                           context.push(EditProfileDetailsScreen.route);
@@ -169,6 +170,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               TextStyles.clearText,
                               BlendMode.srcIn,
                             ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 40,
+                      right: 10,
+                      child: InkWell(
+                        onTap: () {
+                          // Add your settings action here
+                          context.push(SettingsScreen.route);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey.shade100,
+                          ),
+                          child: SvgIcon(
+                            JobrIcons.settings1,
+                            size: 20.68,
+                            color: TextStyles.disabledText,
                           ),
                         ),
                       ),
