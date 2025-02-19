@@ -208,7 +208,12 @@ class _FilterScreenState extends State<FilterScreen> {
                   ),
                   Row(
                     children: [
-                      Image.asset('assets/images/jobs/map.png'),
+                      SvgPicture.asset(
+                        'assets/images/icons/map.svg',
+                        color: Colors.black,
+                        height: 8,
+                        width: 8,
+                      ),
                       Text(
                         '  18 - 35 km',
                         style: const TextStyle(

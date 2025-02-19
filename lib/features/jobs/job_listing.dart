@@ -28,7 +28,7 @@ class JobListScreen extends StatelessWidget {
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
-            fontSize: 16,
+            fontSize: 20,
           ),
         ),
         actions: [
@@ -105,11 +105,10 @@ class FilterButton extends StatelessWidget {
                 fontSize: 15.45,
               ),
             ),
-            const SizedBox(width: 4),
             Icon(
               Icons.keyboard_arrow_down,
               color: HexColor.fromHex('#FF3E68'),
-              size: 25, // Slightly smaller icon
+              size: 27, // Slightly smaller icon
             ),
           ],
         ),

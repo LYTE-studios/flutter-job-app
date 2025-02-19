@@ -112,26 +112,24 @@ class _SollicitatiesScreenState extends State<SollicitatiesScreen> {
   }
 
   Widget _buildGridView() {
-    final double rowHeight = 80.0; // Reduced height for rows
-    final double spacing = 8.0; // Reduced spacing between rows
-    final int rowCount = (items.length / 4).ceil(); // Calculate total rows
-
-    return SizedBox(
-      height: (rowHeight * rowCount) +
-          (spacing * (rowCount - 1)), // Reduced total height
-      child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          crossAxisSpacing: 8, // Reduced cross-axis spacing
-          mainAxisSpacing: 8, // Reduced main-axis spacing
-          childAspectRatio: 1,
-        ),
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          return _buildGridItem(items[index], index: index);
-        },
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final int crossAxisCount = constraints.maxWidth > 400 ? 5 : 4;
+        return GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true, // Added to constrain the height
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            childAspectRatio: 1,
+          ),
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            return _buildGridItem(items[index], index: index);
+          },
+        );
+      },
     );
   }
 

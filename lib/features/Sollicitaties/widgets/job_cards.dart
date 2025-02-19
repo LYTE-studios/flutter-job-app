@@ -139,7 +139,7 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                                   ? Colors.black
                                   : Colors.grey[500],
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'Inter',
+                              fontFamily: 'Poppins',
                               fontSize: 17,
                               letterSpacing: 0.1,
                             ),
@@ -187,6 +187,8 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                                 widget.companyName,
                                 style: const TextStyle(
                                   color: Colors.grey,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w500,
                                   fontSize: 16,
                                 ),
                               ),
@@ -199,7 +201,7 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                         margin: const EdgeInsets.only(
                             top: 12), // Add top margin to move it lower
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 4),
+                            horizontal: 9, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20),

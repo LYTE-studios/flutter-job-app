@@ -69,14 +69,16 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
             children: [
               JobrDropdownField(
                 showstar: false,
+                hintText: 'Maak een keuze',
                 title: "Contract type",
                 selectedValue: _selectedContractType?.name,
                 onPressed: () => ContractTypeBottomSheet(
                   onSelected: (List<ContractType> values) {
-                      setState(() {
-                        _selectedContractType = values.isNotEmpty ? values.first : null;
-                      });
-                    },
+                    setState(() {
+                      _selectedContractType =
+                          values.isNotEmpty ? values.first : null;
+                    });
+                  },
                   title: "Kies één of meerdere",
                 ).showPopup(context: context),
               ),
@@ -88,6 +90,7 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
               // Function
               JobrDropdownField(
                 title: "Functie",
+                hintText: 'Maak een keuze',
                 showstar: false,
                 selectedValue: _selectedFunction?.name,
                 onPressed: () => FunctionTypeBottomSheet(
@@ -140,6 +143,7 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
               ),
               const SizedBox(height: 4),
               JobrDropdownField(
+                hintText: 'Maak een keuze',
                 title: "Benodigde ervaring",
                 showstar: false,
                 selectedValue: _selectedFunction?.name,
@@ -172,7 +176,12 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
                   ),
                   Row(
                     children: [
-                      Image.asset('assets/images/jobs/map.png'),
+                      SvgPicture.asset(
+                        'assets/images/icons/map.svg',
+                        color: Colors.black,
+                        height: 8,
+                        width: 8,
+                      ),
                       Text(
                         '  ${_distanceSliderValue.round().toInt()} km',
                         style: const TextStyle(
@@ -210,6 +219,7 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
                     },
                     buttonColor: Theme.of(context).primaryColor,
                     height: 55,
+                    borderRadius: 50,
                     textStyle: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,

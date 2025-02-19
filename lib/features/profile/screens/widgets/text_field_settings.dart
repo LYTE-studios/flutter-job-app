@@ -12,6 +12,7 @@ class TextFieldSettings extends StatelessWidget {
   final Color? color;
   final TextStyle hintTextStyle;
   final String hintText;
+  final TextStyle? inputTextStyle;
   const TextFieldSettings(
       {super.key,
       required this.label,
@@ -27,17 +28,18 @@ class TextFieldSettings extends StatelessWidget {
         fontFamily: 'Inter',
         fontWeight: FontWeight.w500,
         color: Color(0xFF919191),
-      )});
+      ),
+      this.inputTextStyle});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           width: 101,
-          padding: const EdgeInsets.only(top: 10),
+          padding: EdgeInsets.zero,
           child: Text(
             label,
             style: TextStyle(
@@ -68,35 +70,38 @@ class TextFieldSettings extends StatelessWidget {
           )
         else
           Expanded(
-            child: TextFormField(
-              keyboardType: keyboardType,
-              textAlignVertical: TextAlignVertical.center,
-              controller: controller,
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w500,
-                color: color ?? HexColor.fromHex('#000000'),
-              ),
-              inputFormatters: inputFormatters,
-              readOnly: readOnly,
-              maxLines: maxLines,
-              decoration: InputDecoration(
-                hintText: hintText,
-                hintStyle: hintTextStyle,
-                filled: false,
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black.withOpacity(.06),
+            child: Container(
+              child: TextFormField(
+                keyboardType: keyboardType,
+                textAlignVertical: TextAlignVertical.center,
+                controller: controller,
+                style: inputTextStyle ??
+                    TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w500,
+                      color: color ?? HexColor.fromHex('#000000'),
+                    ),
+                inputFormatters: inputFormatters,
+                readOnly: readOnly,
+                maxLines: maxLines,
+                decoration: InputDecoration(
+                  hintText: hintText,
+                  hintStyle: hintTextStyle,
+                  filled: false,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black.withOpacity(.06),
+                    ),
                   ),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 0,
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Colors.black.withOpacity(.06),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 0,
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.black.withOpacity(.06),
+                    ),
                   ),
                 ),
               ),

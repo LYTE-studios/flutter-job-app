@@ -38,8 +38,8 @@ class JobDetailScreen extends StatelessWidget {
               },
               child: Container(
                 child: Image.asset(
-                  height: 20,
-                  width: 20,
+                  height: 22,
+                  width: 22,
                   color: Colors.black,
                   "assets/images/recruteren/filter.png",
                 ),
@@ -56,7 +56,7 @@ class JobDetailScreen extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -72,6 +72,7 @@ class JobDetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 FilterButton(label: "Nieuwste eerst"),
+                SizedBox(width: 2),
                 FilterButton(label: "€ Laag-Hoog"),
               ],
             ),

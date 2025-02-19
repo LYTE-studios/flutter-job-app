@@ -119,29 +119,29 @@ class _ChooseSkillsScreenState extends State<ChooseSkillsScreen> {
                         runSpacing: 8.0,
                         children: [
                           ...selectedCreatiefOne.map(
-                            (skill) => Container(
-                              decoration: BoxDecoration(
-                                color: HexColor.fromHex('#191919'),
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              padding: const EdgeInsets.all(10),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    skill,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
+                            (skill) => GestureDetector(
+                              onTap: () => setState(() {
+                                selectedCreatiefOne.remove(skill);
+                              }),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: HexColor.fromHex('#191919'),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                padding: const EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      skill,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 5),
-                                  GestureDetector(
-                                    onTap: () => setState(() {
-                                      selectedCreatiefOne.remove(skill);
-                                    }),
-                                    child: SvgPicture.asset(
+                                    const SizedBox(width: 5),
+                                    SvgPicture.asset(
                                       JobrIcons.close,
                                       colorFilter: const ColorFilter.mode(
                                         Colors.white,
@@ -150,8 +150,8 @@ class _ChooseSkillsScreenState extends State<ChooseSkillsScreen> {
                                       width: 12,
                                       height: 12,
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

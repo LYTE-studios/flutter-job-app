@@ -113,9 +113,9 @@ class CustomListTile extends StatelessWidget {
                   ),
                   if (time != null) ...[
                     Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
-                      width: 5,
-                      height: 5,
+                      margin: const EdgeInsets.only(right: 4, left: 4, top: 8),
+                      constraints: BoxConstraints(
+                          minWidth: 4, minHeight: 4, maxHeight: 4, maxWidth: 4),
                       decoration: BoxDecoration(
                         color: TextStyles.unselectedText,
                         shape: BoxShape.circle,
@@ -222,9 +222,9 @@ class CustomListTile2 extends StatelessWidget {
                 ),
                 if (time != null) ...[
                   Container(
-                    margin: const EdgeInsets.all(10),
-                    width: 10,
-                    height: 10,
+                    margin: const EdgeInsets.all(8),
+                    constraints: BoxConstraints(
+                        minWidth: 4, minHeight: 4, maxHeight: 4, maxWidth: 4),
                     decoration: BoxDecoration(
                       color: TextStyles.unselectedText,
                       shape: BoxShape.circle,

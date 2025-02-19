@@ -262,7 +262,9 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                       const SizedBox(width: 10),
                       InkWell(
                         onTap: () {
-                          context.push(CreateNewCompanyScreen.route);
+                          context.push(NewExpereinceScreen.route);
+
+                          // context.push(CreateNewCompanyScreen.route);
 
                           // Add logic for adding a new education item.
                         },

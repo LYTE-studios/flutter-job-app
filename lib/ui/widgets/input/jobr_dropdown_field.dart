@@ -75,7 +75,7 @@ class JobrDropdownField extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           fontFamily: 'Poppins',
                           color: selectedValue == null
-                              ? Colors.grey[400]
+                              ? Color(0xFF878787)
                               : Colors.black),
                 ),
                 selectedValue == null
@@ -102,7 +102,7 @@ class JobrDropdownField extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: SvgPicture.asset(
                       'assets/images/icons/chevron-down.svg',
-                      color: Colors.black45,
+                      color: Color(0xFF4A4C53),
                       height: 8,
                     ),
                   ),

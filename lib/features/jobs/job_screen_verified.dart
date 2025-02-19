@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/features/jobs/jobdetail_screen.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -87,7 +88,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
               _buildFilterRow(theme),
               const SizedBox(height: 20),
               _buildJobrAISection(theme),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               _buildJobrAISuggestions(),
               const SizedBox(height: 15),
             ],
@@ -194,7 +195,8 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
             Text(
               "Jobr-AI suggesties",
               style: TextStyle(
-                fontSize: 16,
+                fontFamily: 'Inter',
+                fontSize: 18,
                 fontWeight: FontWeight.w700,
                 color: theme.colorScheme.onPrimaryContainer,
               ),
@@ -206,9 +208,10 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
           child: Text(
             "Bekijk alle",
             style: TextStyle(
-              fontSize: 15,
+              fontFamily: 'Inter',
+              fontSize: 16,
               fontWeight: FontWeight.w600,
-              color: Theme.of(context).primaryColor.withOpacity(0.8),
+              color: theme.primaryColor,
             ),
           ),
         ),
@@ -232,7 +235,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
 
   Widget _buildJobCard() {
     return Container(
-      width: 300,
+      width: MediaQuery.of(context).size.width * 0.84,
       height: 240,
       // Adjust card width as needed
       padding: const EdgeInsets.all(16),
