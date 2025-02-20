@@ -47,6 +47,9 @@ class _MakeAChoiceScreenState extends State<MakeAChoiceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double sportsHeight = screenHeight * 0.55;
+    double careerHeight = screenHeight * 0.30;
     double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
@@ -73,62 +76,119 @@ class _MakeAChoiceScreenState extends State<MakeAChoiceScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 15.0),
-        child: ListView.separated(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          itemCount: categories.length,
-          physics: const BouncingScrollPhysics(),
-          separatorBuilder: (context, index) => const SizedBox(height: 10),
-          itemBuilder: (context, index) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                categories[index].category,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Divider(color: Color(0xFF000000).withOpacity(0.05)),
-              const SizedBox(height: 5),
-              ...categories[index].items.map(
-                    (item) => InkWell(
-                      onTap: () => context.push(
-                        FillChoiceForm.route,
-                        extra: item.text,
-                      ),
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        decoration: BoxDecoration(
-                          color: HexColor.fromHex('#F8F8F8'),
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 10),
-                        width: width,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SvgPicture.asset(
-                              JobrIcons.blockquote,
+        child: Column(
+          children: [
+            // Sport & vrije tijd section at 70% of screen height
+            SizedBox(
+              height: sportsHeight,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  Text(
+                    categories[0].category,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Divider(color: const Color(0xFF000000).withOpacity(0.05)),
+                  const SizedBox(height: 5),
+                  ...categories[0]
+                      .items
+                      .map((item) => InkWell(
+                            onTap: () => context.push(
+                              FillChoiceForm.route,
+                              extra: item.text,
                             ),
-                            const SizedBox(height: 5),
-                            Text(
-                              item.text,
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Inter',
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 10),
+                              decoration: BoxDecoration(
+                                color: HexColor.fromHex('#F8F8F8'),
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 10),
+                              width: width,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  SvgPicture.asset(JobrIcons.blockquote),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    item.text,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'Inter',
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
+                          ))
+                      .toList(),
+                ],
+              ),
+            ),
+            // Carrière section at 39% of screen height
+            SizedBox(
+              height: careerHeight,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  Text(
+                    categories[1].category,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w700,
                     ),
-                  )
-            ],
-          ),
+                  ),
+                  const SizedBox(height: 5),
+                  Divider(color: const Color(0xFF000000).withOpacity(0.05)),
+                  const SizedBox(height: 5),
+                  ...categories[1]
+                      .items
+                      .map((item) => InkWell(
+                            onTap: () => context.push(
+                              FillChoiceForm.route,
+                              extra: item.text,
+                            ),
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 10),
+                              decoration: BoxDecoration(
+                                color: HexColor.fromHex('#F8F8F8'),
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 15, vertical: 10),
+                              width: width,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  SvgPicture.asset(JobrIcons.blockquote),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    item.text,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'Inter',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ))
+                      .toList(),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

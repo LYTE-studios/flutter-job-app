@@ -73,6 +73,7 @@ class JobrIcons {
   static const String delete_icon = '$_baseIconPath/delete.svg';
   static const String dollar_bag = '$_baseIconPath/dollar_bag.svg';
   static const String uploadIcon = '$_baseIconPath/upload.svg';
+  static const String food_basket = '$_baseIconPath/food_bar.svg';
 
   static const List<String> icons = [
     logoLight,

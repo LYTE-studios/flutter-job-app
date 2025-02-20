@@ -62,15 +62,14 @@ class TextFieldSettings extends StatelessWidget {
                 ),
               ),
               alignment: Alignment.centerLeft,
-              padding: maxLines != null && maxLines == 3
-                  ? const EdgeInsets.only(top: 10, bottom: 40)
-                  : const EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.zero,
               child: Text(hintText, style: hintTextStyle),
             ),
           )
         else
           Expanded(
             child: Container(
+              padding: EdgeInsets.only(bottom: 3),
               child: TextFormField(
                 keyboardType: keyboardType,
                 textAlignVertical: TextAlignVertical.center,

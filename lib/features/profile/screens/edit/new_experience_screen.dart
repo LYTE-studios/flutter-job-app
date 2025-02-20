@@ -22,8 +22,9 @@ class NewExpereinceScreen extends StatefulWidget {
     JobrRouter.employeeInitialroute,
   );
 
-  final bool? isAddNewCertificationPage ;
-  const NewExpereinceScreen({super.key, this.isAddNewCertificationPage = false});
+  final bool? isAddNewCertificationPage;
+  const NewExpereinceScreen(
+      {super.key, this.isAddNewCertificationPage = false});
 
   @override
   State<NewExpereinceScreen> createState() => _NewExpereinceScreenState();
@@ -104,7 +105,9 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
         ),
         centerTitle: true,
         title: Text(
-         (widget.isAddNewCertificationPage ?? false) ? "Onderwijs & certificaten" :  "Nieuwe ervaring",
+          (widget.isAddNewCertificationPage ?? false)
+              ? "Onderwijs & certificaten"
+              : "Nieuwe ervaring",
           style: const TextStyle(
             fontSize: 20,
             fontFamily: 'Inter',

@@ -125,8 +125,11 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                 showGeneralDialog(
                                   context: context,
                                   barrierDismissible: true,
+                                  barrierLabel: 'Dismiss',
                                   barrierColor: Colors.black54,
                                   pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                    height: 200,
+                                    width: 200,
                                     tag: 'profileBackground',
                                     imagePath:
                                         'assets/images/images/profile_image.png',
@@ -151,6 +154,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                 showGeneralDialog(
                                   context: context,
                                   barrierDismissible: true,
+                                  barrierLabel: 'Dismiss',
                                   barrierColor: Colors.black54,
                                   pageBuilder: (_, __, ___) => ZoomImageDialog(
                                     tag: 'profileLogo',
@@ -663,9 +667,15 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
 class ZoomImageDialog extends StatelessWidget {
   final String tag;
   final String imagePath;
+  final double? height;
 
+  final double? width;
   const ZoomImageDialog(
-      {super.key, required this.tag, required this.imagePath});
+      {super.key,
+      required this.tag,
+      required this.imagePath,
+      this.height,
+      this.width});
 
   @override
   Widget build(BuildContext context) {
@@ -678,7 +688,12 @@ class ZoomImageDialog extends StatelessWidget {
             tag: tag,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.asset(imagePath, fit: BoxFit.cover),
+              child: (height != null)
+                  ? Image.asset(imagePath,
+                      height: height ?? 200,
+                      width: width ?? 200,
+                      fit: BoxFit.cover)
+                  : Image.asset(imagePath, fit: BoxFit.cover),
             ),
           ),
         ),

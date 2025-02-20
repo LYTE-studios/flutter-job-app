@@ -236,7 +236,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
   Widget _buildJobCard() {
     return Container(
       width: MediaQuery.of(context).size.width * 0.84,
-      height: 240,
+      height: MediaQuery.of(context).size.height * 0.27,
       // Adjust card width as needed
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -281,7 +281,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
               ],
             ),
           ),
-          const SizedBox(height: 70),
+          const Spacer(),
           // Job Title and Suggestion Percentage
           Row(
             children: [

@@ -4,26 +4,35 @@ import 'package:flutter_svg/svg.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+import 'package:image_picker/image_picker.dart'; // added dependency
+import 'dart:io'; // added import
 
 class MediaWidget extends StatefulWidget {
   final String? image;
-  const MediaWidget({Key? key, this.image}) : super(key: key);
+  const MediaWidget({
+    super.key,
+    this.image,
+  });
 
   @override
   State<MediaWidget> createState() => _MediaWidgetState();
 }
 
 class _MediaWidgetState extends State<MediaWidget> {
-  String? _selectedImage;
+  String? _imagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    _imagePath = widget.image;
+  }
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
-        _selectedImage = pickedFile.path;
+        _imagePath = pickedFile.path;
       });
     }
   }
@@ -33,33 +42,45 @@ class _MediaWidgetState extends State<MediaWidget> {
     final theme = Theme.of(context);
     double width = MediaQuery.sizeOf(context).width;
     return GestureDetector(
-      onTap: () {
-        if ((widget.image == null || widget.image!.isEmpty) &&
-            _selectedImage == null) {
-          _pickImage();
-        }
-      },
+      onTap: _pickImage,
       child: Container(
         height: 200,
         width: width * .43,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color:
-              widget.image == null ? theme.colorScheme.primaryContainer : null,
-          image: _selectedImage != null ||
-                  (widget.image != null && widget.image!.isNotEmpty)
-              ? DecorationImage(
-                  image: FileImage(File(_selectedImage ?? widget.image!)),
+          color: _imagePath == null ? theme.colorScheme.primaryContainer : null,
+          image: _imagePath == null
+              ? null
+              : DecorationImage(
+                  image: _imagePath!.startsWith('assets/')
+                      ? AssetImage(
+                          _imagePath!) // use asset image if path starts with assets/
+                      : FileImage(File(_imagePath!))
+                          as ImageProvider, // else use file image
                   fit: BoxFit.cover,
-                )
-              : null,
+                ),
         ),
         margin: const EdgeInsets.only(bottom: 20),
         padding: const EdgeInsets.all(10),
-        alignment: widget.image == null ? Alignment.center : Alignment.topRight,
-        child: _selectedImage != null ||
-                (widget.image != null && widget.image!.isNotEmpty)
+        alignment: _imagePath == null ? Alignment.center : Alignment.topRight,
+        child: _imagePath == null
             ? Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xFFC4C4C4),
+                ),
+                padding: const EdgeInsets.all(6),
+                child: SvgPicture.asset(
+                  JobrIcons.addIcon,
+                  width: 30,
+                  height: 20,
+                  colorFilter: const ColorFilter.mode(
+                    Colors.white,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              )
+            : Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: theme.primaryColor,
@@ -69,22 +90,6 @@ class _MediaWidgetState extends State<MediaWidget> {
                   CupertinoIcons.person_fill,
                   color: TextStyles.clearText,
                   size: 28,
-                ),
-              )
-            : Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xFFC4C4C4),
-                ),
-                padding: const EdgeInsets.all(6),
-                child: SvgPicture.asset(
-                  JobrIcons.addIcon,
-                  width: 30,
-                  height: 20,
-                  colorFilter: ColorFilter.mode(
-                    Colors.white,
-                    BlendMode.srcIn,
-                  ),
                 ),
               ),
       ),

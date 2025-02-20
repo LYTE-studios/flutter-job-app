@@ -10,7 +10,6 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io'; // Added import for File
 import 'package:jobr/features/profile/screens/widgets/text_field_settings.dart'; // New import
 import 'package:jobr/features/profile/screens/company/select_location_page.dart'; // New import for location selection
-import 'package:jobr/ui/widgets/buttons/primary_button.dart'; // <-- added import
 
 import '../../../../core/utils/input_formatters.dart';
 import '../../../../ui/theme/jobr_icons.dart';
@@ -249,170 +248,147 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
             ),
           ];
         },
-        body: Stack(
+        body: ListView(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          physics: const ClampingScrollPhysics(),
           children: [
-            ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 20)
-                  .copyWith(bottom: 120),
-              physics: const ClampingScrollPhysics(),
-              children: [
-                const SizedBox(height: 15),
-                // Replaced _buildTextField calls with TextFieldSettings
-                TextFieldSettings(
-                  inputTextStyle: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF919191),
-                  ),
-                  label: 'Naam en voornaam',
-                  hintText: 'Naam en voornaam',
-                  controller: nameController,
-                  readOnly: false,
-                ),
-                const SizedBox(height: 10),
-                TextFieldSettings(
-                  inputTextStyle: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF919191),
-                  ),
-                  label: 'Email',
-                  hintText: 'Email',
-                  controller: emailController,
-                  readOnly: false,
-                ),
-                const SizedBox(height: 10),
-                TextFieldSettings(
-                  inputTextStyle: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
-                  label: 'Telefoon',
-                  hintText: 'Telefoon',
-                  controller: phoneController,
-                  keyboardType: TextInputType.phone,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r'[0-9+]+')),
-                    PhoneNumberFormatter(),
-                  ],
-                  readOnly: false,
-                  color: Colors.black,
-                ),
-
-                const SizedBox(height: 10),
-
-                // Replaced custom location row with SelectionButton
-                SelectionButton(
-                  label: 'Statuut',
-                  hintText: 'Student',
-                  controller: statusController,
-                  leading: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 3.0),
-                    child: Text(
-                      'Aanpassen',
-                      style: TextStyle(
-                        color: theme.primaryColor,
-                        fontSize: 16,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  onTap: () {
-                    StatusTypeBottomSheet(
-                      title: "Kies een bedrijf",
-                      onSelected: (statusType) {
-                        setState(() {
-                          // statusText = statusType.name;
-                          statusController.text = statusType.name;
-                        });
-                      },
-                    ).showPopup(context: context);
-                  },
-                ),
-                const SizedBox(height: 10),
-                // Replaced custom location row with SelectionButton
-                SelectionButton(
-                  label: 'Locatie',
-                  hintText: 'Kies locatie',
-                  controller: locationController,
-                  prefixIcon: SvgPicture.asset(
-                    JobrIcons.location,
-                    width: 12,
-                    colorFilter: ColorFilter.mode(
-                      theme.primaryColor,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SelectLocationPage()),
-                    ).then((value) {
-                      if (value != null) {
-                        setState(() {
-                          locationController.text = value.toString();
-                        });
-                      }
-                    });
-                  },
-                ),
-                const SizedBox(height: 10),
-                TextFieldSettings(
-                  inputTextStyle: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xFF919191),
-                  ),
-                  label: 'Geboorte-datum',
-                  hintText: 'Geboorte-datum',
-                  controller: dobController,
-                  readOnly: false,
-                ),
-                const SizedBox(height: 10),
-                TextFieldSettings(
-                  inputTextStyle: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
-                  label: 'Bio',
-                  hintText:
-                      'Multibrandstores & Webshop. Brooklyn, da’s een mix van merken en heel veel broeken. Dat laatste nemen we als broekenspecialist au sérieux met een jeans assortiment om ‘u’ tegen te zeggen.',
-                  controller: bioController,
-                  maxLines: 5,
-                  keyboardType: TextInputType.multiline,
-                  color: Colors.black,
-                  readOnly: false,
-                ),
-              ],
+            const SizedBox(height: 15),
+            // Replaced _buildTextField calls with TextFieldSettings
+            TextFieldSettings(
+              inputTextStyle: TextStyle(
+                fontSize: 16,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF919191),
+              ),
+              label: 'Naam en voornaam',
+              hintText: 'Naam en voornaam',
+              controller: nameController,
+              readOnly: false,
             ),
-            Positioned(
-              bottom: 20,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: PrimaryButton(
-                  buttonColor: HexColor.fromHex("#FF3E68"),
-                  height: 58,
-                  borderRadius: 60,
-                  width: MediaQuery.of(context).size.width * 0.88,
-                  onTap: () {
-                    if (Navigator.canPop(context)) {
-                      Navigator.pop(context);
-                    }
-                  },
-                  buttonText: 'Save',
+            const SizedBox(height: 10),
+            TextFieldSettings(
+              inputTextStyle: TextStyle(
+                fontSize: 16,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF919191),
+              ),
+              label: 'Email',
+              hintText: 'Email',
+              controller: emailController,
+              readOnly: false,
+            ),
+            const SizedBox(height: 10),
+            TextFieldSettings(
+              inputTextStyle: TextStyle(
+                fontSize: 16,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
+              label: 'Telefoon',
+              hintText: 'Telefoon',
+              controller: phoneController,
+              keyboardType: TextInputType.phone,
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'[0-9+]+')),
+                PhoneNumberFormatter(),
+              ],
+              readOnly: false,
+              color: Colors.black,
+            ),
+
+            const SizedBox(height: 10),
+
+            // Replaced custom location row with SelectionButton
+            SelectionButton(
+              label: 'Statuut',
+              hintText: 'Student',
+              controller: statusController,
+              leading: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 3.0),
+                child: Text(
+                  'Aanpassen',
+                  style: TextStyle(
+                    color: theme.primaryColor,
+                    fontSize: 16,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
+              onTap: () {
+                StatusTypeBottomSheet(
+                  title: "Kies een bedrijf",
+                  onSelected: (statusType) {
+                    setState(() {
+                      // statusText = statusType.name;
+                      statusController.text = statusType.name;
+                    });
+                  },
+                ).showPopup(context: context);
+              },
             ),
+            const SizedBox(height: 10),
+            // Replaced custom location row with SelectionButton
+            SelectionButton(
+              label: 'Locatie',
+              hintText: 'Kies locatie',
+              controller: locationController,
+              prefixIcon: SvgPicture.asset(
+                JobrIcons.location,
+                width: 12,
+                colorFilter: ColorFilter.mode(
+                  theme.primaryColor,
+                  BlendMode.srcIn,
+                ),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SelectLocationPage()),
+                ).then((value) {
+                  if (value != null) {
+                    setState(() {
+                      locationController.text = value.toString();
+                    });
+                  }
+                });
+              },
+            ),
+            const SizedBox(height: 10),
+            TextFieldSettings(
+              inputTextStyle: TextStyle(
+                fontSize: 16,
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w500,
+                color: Color(0xFF919191),
+              ),
+              label: 'Geboorte-datum',
+              hintText: 'Geboorte-datum',
+              controller: dobController,
+              readOnly: false,
+            ),
+            const SizedBox(height: 10),
+            TextFieldSettings(
+              inputTextStyle: TextStyle(
+                fontSize: 16,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+                color: Colors.black,
+              ),
+              label: 'Bio',
+              hintText:
+                  'Multibrandstores & Webshop. Brooklyn, da’s een mix van merken en heel veel broeken. Dat laatste nemen we als broekenspecialist au sérieux met een jeans assortiment om ‘u’ tegen te zeggen.',
+              controller: bioController,
+              maxLines: 5,
+              keyboardType: TextInputType.multiline,
+              color: Colors.black,
+              readOnly: false,
+            ),
+            const SizedBox(height: 10),
           ],
         ),
       ),
@@ -453,6 +429,8 @@ class SelectionButton extends StatefulWidget {
 class _SelectionButtonState extends State<SelectionButton> {
   @override
   Widget build(BuildContext context) {
+    bool isLocationSelected =
+        widget.label == 'Locatie' && widget.controller.text != widget.hintText;
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -473,47 +451,96 @@ class _SelectionButtonState extends State<SelectionButton> {
         Expanded(
           child: GestureDetector(
             onTap: widget.onTap,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.black.withOpacity(.06),
-                  ),
-                ),
-              ),
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
+            child: isLocationSelected
+                ? Column(
                     children: [
-                      if (widget.prefixIcon != null) widget.prefixIcon!,
-                      const SizedBox(width: 4),
-                      Expanded(
-                        child: Text(
-                          widget.controller.text.isEmpty
-                              ? widget.hintText
-                              : widget.controller.text,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: widget.controller.text.isEmpty
-                              ? widget.hintTextStyle
-                              : const TextStyle(
-                                  fontSize: 15.36,
-                                  fontFamily: 'Poppins',
-                                  letterSpacing: 0.05,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IntrinsicWidth(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Colors.black.withOpacity(.06),
+                                  ),
                                 ),
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 8),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (widget.prefixIcon != null)
+                                  SvgPicture.asset(
+                                    JobrIcons.location,
+                                    width: 12,
+                                    colorFilter: const ColorFilter.mode(
+                                        Colors.white, BlendMode.srcIn),
+                                  ),
+                                const SizedBox(width: 4),
+                                Flexible(
+                                  child: Text(
+                                    widget.controller.text,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: 15.36,
+                                      fontFamily: 'Poppins',
+                                      letterSpacing: 0.05,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                if (widget.leading != null) widget.leading!,
+                              ],
+                            ),
+                          ),
                         ),
                       ),
+                      Divider(
+                        color: Colors.black.withOpacity(.06),
+                      )
                     ],
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.black.withOpacity(.06),
+                        ),
+                      ),
+                    ),
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Row(
+                      children: [
+                        if (widget.prefixIcon != null) widget.prefixIcon!,
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            widget.controller.text.isEmpty
+                                ? widget.hintText
+                                : widget.controller.text,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: widget.controller.text.isEmpty
+                                ? widget.hintTextStyle
+                                : const TextStyle(
+                                    fontSize: 15.36,
+                                    fontFamily: 'Poppins',
+                                    letterSpacing: 0.05,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                  ),
+                          ),
+                        ),
+                        if (widget.leading != null) widget.leading!,
+                      ],
+                    ),
                   ),
-                  if (widget.leading != null) widget.leading!,
-                ],
-              ),
-            ),
           ),
         ),
       ],

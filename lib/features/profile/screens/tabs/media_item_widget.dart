@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:image_picker/image_picker.dart'; // added dependency
+import 'dart:io'; // added dependency
 
 import '../widgets/media_widget.dart';
 
@@ -14,6 +16,18 @@ class MediaItemWidget extends StatefulWidget {
 }
 
 class _MediaItemWidgetState extends State<MediaItemWidget> {
+  String? _portfolioImagePath; // added state variable
+
+  Future<void> _pickPortfolioImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _portfolioImagePath = pickedFile.path;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -77,45 +91,59 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             ),
           ),
           const SizedBox(height: 10),
-          Container(
-            height: 170,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: theme.colorScheme.primaryContainer,
-            ),
-            width: width,
-            margin: const EdgeInsets.only(bottom: 20),
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(0xFFC4C4C4),
-                  ),
-                  padding: const EdgeInsets.all(6),
-                  child: SvgPicture.asset(
-                    JobrIcons.addIcon,
-                    width: 20,
-                    height: 20,
-                    colorFilter: ColorFilter.mode(
-                      Colors.white,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 7),
-                Text(
-                  'Voeg PDF, PNG toe',
-                  style: TextStyle(
-                    color: Color(0xFFA8A8A8),
-                    fontSize: 15,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
+          GestureDetector(
+            onTap: _pickPortfolioImage, // trigger image picker
+            child: Container(
+              height: 170,
+              width: width,
+              margin: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: theme.colorScheme.primaryContainer,
+                image: _portfolioImagePath == null
+                    ? null
+                    : DecorationImage(
+                        image: _portfolioImagePath!.startsWith('assets/')
+                            ? AssetImage(_portfolioImagePath!)
+                            : FileImage(File(_portfolioImagePath!))
+                                as ImageProvider,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+              child: _portfolioImagePath == null
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFFC4C4C4),
+                          ),
+                          padding: const EdgeInsets.all(6),
+                          child: SvgPicture.asset(
+                            JobrIcons.addIcon,
+                            width: 20,
+                            height: 20,
+                            colorFilter: const ColorFilter.mode(
+                              Colors.white,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 7),
+                        const Text(
+                          'Voeg PDF, PNG toe',
+                          style: TextStyle(
+                            color: Color(0xFFA8A8A8),
+                            fontSize: 15,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    )
+                  : null,
             ),
           )
         ],

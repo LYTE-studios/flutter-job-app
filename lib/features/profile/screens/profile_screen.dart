@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings_screen.dart';
 import 'package:jobr/features/profile/screens/edit/edit_profile_details_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
@@ -115,34 +116,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       top: 0,
                       left: 0,
                       right: 0,
-                      child: Image.asset(
-                        'assets/images/images/image-4.png',
-                        fit: BoxFit.cover,
-                        height: 180,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 10,
-                      child: Container(
-                        width: 135,
-                        height: 135,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 4,
-                          ),
-                          image: const DecorationImage(
-                            image:
-                                AssetImage('assets/images/images/profile.png'),
+                      child: Hero(
+                        tag: 'profileBackground',
+                        child: GestureDetector(
+                          onTap: () {
+                            showGeneralDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              barrierLabel: 'Dismiss',
+                              barrierColor: Colors.black54,
+                              pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                tag: 'profileBackground',
+                                imagePath: 'assets/images/images/image-4.png',
+                              ),
+                            );
+                          },
+                          child: Image.asset(
+                            'assets/images/images/image-4.png',
                             fit: BoxFit.cover,
+                            height: 180,
                           ),
                         ),
                       ),
                     ),
                     Positioned(
-                      top: 156,
+                      bottom: 0,
+                      left: 10,
+                      child: Hero(
+                        tag: 'profileLogo',
+                        child: GestureDetector(
+                          onTap: () {
+                            showGeneralDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              barrierLabel: 'Dismiss',
+                              barrierColor: Colors.black54,
+                              pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                height: 200,
+                                width: 200,
+                                tag: 'profileLogo',
+                                imagePath: 'assets/images/images/profile.png',
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 135,
+                            height: 135,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 4,
+                              ),
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/images/profile.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 166,
                       right: 60,
                       child: ElevatedButton.icon(
                         onPressed: () {
