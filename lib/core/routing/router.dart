@@ -32,6 +32,7 @@ import 'package:jobr/features/jobs/job_listing.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/jobs/job_screen_verified.dart';
 import 'package:jobr/features/jobs/jobdetail_screen.dart';
+import 'package:jobr/features/payments/screens/subscription_page.dart';
 import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
 import 'package:jobr/features/profile/screens/company/select_location_page.dart';
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
@@ -671,6 +672,17 @@ GoRouter router = GoRouter(
             child: CreateProfileScreen(),
           ),
         ),
+        GoRoute(
+          path: SubscriptionPage.route,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return buildPageWithSlideLeftTransition(
+              context: context,
+              state: state,
+              child: const SubscriptionPage(),
+            );
+          },
+        ),
+
         GoRoute(
           path: ChatRequestEmployeePageScreen.employeeRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {

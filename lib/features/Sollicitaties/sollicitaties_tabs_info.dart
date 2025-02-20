@@ -13,6 +13,7 @@ import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 
@@ -40,6 +41,9 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
   List<Widget> tabs = [
     JobInfo(),
   ];
+
+  // Add the toggle state
+  bool isLiked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -146,12 +150,15 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
                           ),
                         ),
                       ),
+                      // Modified toggle button
                       Positioned(
                         bottom: 10,
                         right: 55,
                         child: InkWell(
                           onTap: () {
-                            // Add your settings action here
+                            setState(() {
+                              isLiked = !isLiked;
+                            });
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -161,7 +168,10 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
                             ),
                             child: SvgIcon(
                               JobrIcons.like_icon_pink,
-                              color: HexColor.fromHex('#FF0000'),
+                              color: isLiked
+                                  ? HexColor.fromHex('#FF0000')
+                                  : HexColor.fromHex('#000000')
+                                      .withOpacity(0.26),
                               size: 22.68,
                             ),
                           ),
@@ -224,6 +234,7 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
                           text: "Kortrijk",
                           style: TextStyle(
                             fontSize: 15.5,
+                            fontFamily: 'Inter',
                             fontWeight: FontWeight.w500,
                             color: HexColor.fromHex('#666666'),
                           ),
@@ -239,6 +250,7 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
                         TextSpan(
                           text: "0.6km",
                           style: TextStyle(
+                            fontFamily: 'Inter',
                             fontSize: 15.5,
                             fontWeight: FontWeight.w500,
                             color: HexColor.fromHex('#666666'),
@@ -255,6 +267,8 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
                         TextSpan(
                           text: "12 kandidaten",
                           style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontFamily: 'Inter',
                             fontSize: 15.5,
                             fontWeight: FontWeight.w500,
                             color: HexColor.fromHex('#666666'),
@@ -354,7 +368,7 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
                         onTap: () {
                           context.push(
                             QuestionPage.employeeRoute,
-                           );
+                          );
                         },
                         buttonColor: HexColor.fromHex('#3A77FF'),
                         height: 45,
@@ -381,7 +395,9 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
                           ),
                           borderRadius: 25,
                           buttonText: 'Delen',
-                          onTap: () {},
+                          onTap: () {
+                            Share.share('www.apple.com');
+                          },
                           buttonColor: Colors.white,
                           height: 45,
                           textStyle: const TextStyle(

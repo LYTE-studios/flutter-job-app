@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/features/payments/screens/subscription_page.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
@@ -40,7 +42,7 @@ class JobInfo extends StatelessWidget {
                         const Text(
                           "Match met jouw vacature",
                           style: TextStyle(
-                            fontSize: 15.5,
+                            fontSize: 16,
                             fontWeight: FontWeight.w500,
                             fontFamily: 'Poppins',
                           ),
@@ -58,7 +60,7 @@ class JobInfo extends StatelessWidget {
                             const Text(
                               "90%",
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 17,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.red,
                               ),
@@ -172,11 +174,16 @@ class JobInfo extends StatelessWidget {
                             SizedBox(
                               width: 5,
                             ),
-                            SvgPicture.asset(
-                              height: 20,
-                              width: 20,
-                              "assets/images/logos/info.svg",
-                              color: Colors.grey[500],
+                            GestureDetector(
+                              onTap: () {
+                                context.push(SubscriptionPage.route);
+                              },
+                              child: SvgPicture.asset(
+                                height: 20,
+                                width: 20,
+                                "assets/images/logos/info.svg",
+                                color: Colors.grey[500],
+                              ),
                             ),
                           ],
                         )
