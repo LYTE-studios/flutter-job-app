@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/configuration.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/payments/widgets/custom_plan_card_border.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -203,12 +204,14 @@ class YearlyPlans extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           children: const [
             PlanCard(
+              isYearPlan: true,
               title: 'Starter',
               price: 'Gratis',
               description: 'Maak kennis met jobr',
               offers: '📍 1 vestiging  📄 1 vacature',
             ),
             PlanCard(
+              isYearPlan: true,
               title: 'Local ⚡',
               price: '€19,90',
               description: 'Ideaal voor lokale zaken',
@@ -217,12 +220,13 @@ class YearlyPlans extends StatelessWidget {
               isPopular: true,
             ),
             PlanCard(
+              isYearPlan: true,
               title: 'Scale',
               price: '€89,90',
               description: 'Voor groeiende kmo’s',
-              offers:
-                  '📍 Meerdere vestigingen   📄 5 vacatures\n🔍 AI matchmaking  👀 Wie bekeek je profiel? \n ✔️ Vragenlijst',
-              backgroundColor: Color.fromARGB(255, 255, 249, 251),
+              subdetails: 'Alles van Local',
+              offers: '✔️ Vragenlijst   🙋‍♂️🙋‍♀️ Meerdere vestigingen',
+              backgroundColor: Colors.transparent,
             ),
             SizedBox(height: 130),
           ],
@@ -264,6 +268,8 @@ class PlanCard extends StatelessWidget {
   final String offers;
   final Color backgroundColor;
   final bool isPopular;
+  final bool isYearPlan;
+  final String? subdetails;
 
   const PlanCard({
     super.key,
@@ -272,6 +278,8 @@ class PlanCard extends StatelessWidget {
     required this.description,
     this.backgroundColor = Colors.white,
     this.isPopular = false,
+    this.isYearPlan = false,
+    this.subdetails,
     required this.offers,
   });
 
@@ -281,15 +289,17 @@ class PlanCard extends StatelessWidget {
       shadowColor: Colors.transparent,
       margin: const EdgeInsets.symmetric(vertical: 8),
       color: backgroundColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: (title == 'Scale')
-              ? Color(0xFFFF3E68).withOpacity(0.64)
-              : Color(0xFFF3F3F3), // Conditional border color
-          width: (title == 'Scale') ? 2 : 2, // Border width
-        ),
-      ),
+      shape: isYearPlan
+          ? CustomPlanCardBorder(title)
+          : RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(
+                color: (title == 'Scale')
+                    ? Color(0xFFFF3E68).withAlpha((0.64 * 255).round())
+                    : const Color(0xFFF3F3F3),
+                width: 2,
+              ),
+            ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -327,7 +337,8 @@ class PlanCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 21,
                     color: (price == 'Gratis')
-                        ? Color(0xFF000000).withOpacity(0.32)
+                        ? const Color(0xFF000000)
+                            .withAlpha((0.32 * 255).round())
                         : Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
@@ -345,6 +356,18 @@ class PlanCard extends StatelessWidget {
                 height: 1.5,
               ),
             ),
+            const SizedBox(height: 8),
+            if (subdetails != null)
+              Text(
+                subdetails!,
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFFAA5FE8),
+                  height: 1.5,
+                ),
+              ),
             const SizedBox(height: 8),
             Text(
               offers,
