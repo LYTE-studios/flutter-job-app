@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/availability_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings_screen.dart';
 import 'package:jobr/features/profile/screens/edit/edit_profile_details_screen.dart';
@@ -34,6 +35,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     TabData(label: 'Media', icon: JobrIcons.camera),
   ];
   int selectedIndex = 0;
+  List<String> selectedDays = ['V', 'Z1']; // using 'Z1' for Saturday
+
+  // Add a local dayData list that maps ID to label
+  final List<Map<String, String>> dayData = [
+    {'id': 'M', 'label': 'M'},
+    {'id': 'D1', 'label': 'D'},
+    {'id': 'W', 'label': 'W'},
+    {'id': 'D2', 'label': 'D'},
+    {'id': 'V', 'label': 'V'},
+    {'id': 'Z1', 'label': 'Z'},
+    {'id': 'Z2', 'label': 'Z'},
+  ];
 
   List<Widget> tabs = const [
     GeneralItemsWidget(),
@@ -326,61 +339,75 @@ service geven.''',
             const SizedBox(height: 27),
 
             // Availability Card
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFFF2F2F2)),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Card(
-                shadowColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
+            GestureDetector(
+              onTap: () async {
+                final updated = await context.push(
+                  AvailabilityScreen.employeeRoute,
+                  extra: selectedDays,
+                );
+                if (updated != null) {
+                  setState(() => selectedDays = updated as List<String>);
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFFF2F2F2)),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                elevation: 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Beschikbaarheid",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
+                child: Card(
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  elevation: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Beschikbaarheid",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Divider(
-                        color: HexColor.fromHex('#F0F1F3'),
-                        thickness: 1,
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          for (var day in ['M', 'D', 'W', 'D', 'V', 'Z', 'Z'])
-                            Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: CircleAvatar(
-                                radius: 18,
-                                backgroundColor: day == 'V' || day == 'Z'
-                                    ? Colors.red.shade100.withOpacity(0.5)
-                                    : Color(0xFFF5F5F5),
-                                child: Text(
-                                  day,
-                                  style: TextStyle(
-                                    color: day == 'V' || day == 'Z'
-                                        ? Colors.red
-                                        : Color(0xFFCECECE),
-                                    fontSize: 16.5,
-                                    fontWeight: FontWeight.bold,
+                        const SizedBox(height: 4),
+                        Divider(
+                          color: HexColor.fromHex('#F0F1F3'),
+                          thickness: 1,
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            // Iterate over dayData instead of hard-coded letters
+                            for (var day in dayData)
+                              Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: CircleAvatar(
+                                  radius: 18,
+                                  backgroundColor:
+                                      selectedDays.contains(day['id']!)
+                                          ? Colors.red.shade100
+                                              .withAlpha((255 * 0.5).toInt())
+                                          : const Color(0xFFF5F5F5),
+                                  child: Text(
+                                    day['label']!,
+                                    style: TextStyle(
+                                      color: selectedDays.contains(day['id']!)
+                                          ? Colors.red
+                                          : const Color(0xFFCECECE),
+                                      fontSize: 16.5,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -169,7 +169,7 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
                             child: SvgIcon(
                               JobrIcons.like_icon_pink,
                               color: isLiked
-                                  ? HexColor.fromHex('#FF0000')
+                                  ? HexColor.fromHex('#FF3E68')
                                   : HexColor.fromHex('#000000')
                                       .withOpacity(0.26),
                               size: 22.68,

@@ -38,8 +38,8 @@ class JobDetailScreen extends StatelessWidget {
               },
               child: Container(
                 child: Image.asset(
-                  height: 22,
-                  width: 22,
+                  height: 23,
+                  width: 23,
                   color: Colors.black,
                   "assets/images/recruteren/filter.png",
                 ),

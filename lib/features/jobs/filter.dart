@@ -11,6 +11,7 @@ import 'package:jobr/features/jobs/job_listing.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/jobs/widgets/custom_slider.dart';
 import 'package:jobr/features/jobs/widgets/dropdown_menu.dart';
+import 'package:jobr/features/profile/screens/edit/choose_sector_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -32,6 +33,8 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
   // Dropdown selections
   ContractType? _selectedContractType;
   FunctionType? _selectedFunction;
+  // Added state to hold the selected sector.
+  Sector? _selectedSector;
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +119,14 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
               ),
               const SizedBox(height: 4),
               GestureDetector(
-                onTap: () {
-                  // Handle sector selection
+                onTap: () async {
+                  final chosenSector =
+                      await context.push(ChooseSectorScreen.route);
+                  if (chosenSector is Sector) {
+                    setState(() {
+                      _selectedSector = chosenSector;
+                    });
+                  }
                 },
                 child: Container(
                   height: 80,
@@ -125,16 +134,38 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
                   decoration: BoxDecoration(
                     color: HexColor.fromHex('#F3F3F3'),
                     border: Border.all(color: Colors.grey[100]!),
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(12.49),
                   ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/images/icons/add.svg',
-                      color: HexColor.fromHex('#979797'),
-                      height: 30,
-                      width: 30,
-                    ),
-                  ),
+                  alignment: Alignment.center,
+                  child: _selectedSector != null
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              _selectedSector!.image,
+                              width: 40,
+                              height: 40,
+                              fit: BoxFit.contain,
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              _selectedSector!.name,
+                              style: const TextStyle(
+                                fontSize: 14.47,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        )
+                      : Center(
+                          child: SvgPicture.asset(
+                            'assets/images/icons/add.svg',
+                            color: HexColor.fromHex('#979797'),
+                            height: 30,
+                            width: 30,
+                          ),
+                        ),
                 ),
               ),
               const SizedBox(height: 4),

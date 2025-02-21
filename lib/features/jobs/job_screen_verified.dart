@@ -62,20 +62,39 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
     },
   ];
 
+  // Added state variable for like status
+  bool isLiked = false;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: const JobrAppbarNavigation(
+      // Removed const to allow dynamic values
+      appBar: JobrAppbarNavigation(
+        trailing: InkWell(
+          onTap: () {
+            setState(() {
+              isLiked = !isLiked;
+            });
+          },
+          child: Icon(
+            Icons.favorite,
+            color: isLiked
+                ? HexColor.fromHex('#FF3E68')
+                : HexColor.fromHex('#000000').withAlpha((0.26 * 255).toInt()),
+            size: 23.68,
+          ),
+        ),
         appbarTitle: "Vind jouw job",
         center: false, // Added to match JobScreen
       ),
       backgroundColor: theme.colorScheme.surface,
       body: SingleChildScrollView(
         child: Padding(
-          padding:
-              const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 0),
+          padding: const EdgeInsets.symmetric(
+            horizontal: PaddingSizes.medium * 1.5,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -86,7 +105,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
               _buildGridView(),
               const SizedBox(height: 10),
               _buildFilterRow(theme),
-              const SizedBox(height: 20),
+              const SizedBox(height: 23),
               _buildJobrAISection(theme),
               const SizedBox(height: 20),
               _buildJobrAISuggestions(),
@@ -141,8 +160,8 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
           children: [
             Center(
               child: Image.asset(
-                height: 30,
-                width: 30,
+                height: 36,
+                width: 36,
                 item["image"]!,
               ),
             ),
@@ -171,8 +190,8 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
         context.push(FilterScreenEmployee.employeeRoute);
       },
       suffixIcon: Image.asset(
-        height: 20,
-        width: 20,
+        height: 23,
+        width: 23,
         "assets/images/recruteren/filter.png",
       ),
       height: 50,
@@ -187,8 +206,8 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
         Row(
           children: [
             Image.asset(
-              height: 20,
-              width: 20,
+              height: 23,
+              width: 23,
               "assets/images/recruteren/jobrAI_suggesties.png",
             ),
             const SizedBox(width: 6),
@@ -209,7 +228,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
             "Bekijk alle",
             style: TextStyle(
               fontFamily: 'Inter',
-              fontSize: 16,
+              fontSize: 16.55,
               fontWeight: FontWeight.w600,
               color: theme.primaryColor,
             ),
@@ -220,25 +239,32 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
   }
 
   Widget _buildJobrAISuggestions() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: List.generate(5, (index) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: _buildJobCard(),
-          );
-        }),
+    return Transform.scale(
+      scaleX: 1.1,
+      scaleY: 1.1,
+      child: Transform.translate(
+        offset: const Offset((PaddingSizes.medium * 1.5), 0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(5, (index) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 12),
+                child: _buildJobCard(),
+              );
+            }),
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildJobCard() {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.84,
+      width: MediaQuery.of(context).size.width * 0.80,
       height: MediaQuery.of(context).size.height * 0.27,
       // Adjust card width as needed
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: Colors.grey[100], // Light background color
         borderRadius: BorderRadius.circular(12),
@@ -252,15 +278,20 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
               text: 'Op basis van je profiel past deze barman-vacature',
               style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 16,
+                  fontSize: 17,
                   fontWeight: FontWeight.w500),
               children: [
                 const TextSpan(
                   text: 'goed bij je, dankzij je ',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500),
                 ),
                 TextSpan(
                   text: 'horeca-ervaring ',
                   style: TextStyle(
+                      fontSize: 17,
                       color: Theme.of(context).primaryColor.withOpacity(0.8),
                       fontWeight: FontWeight.w500),
                 ),
@@ -268,7 +299,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                   text: 'en sterke ',
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 16,
+                      fontSize: 17,
                       fontWeight: FontWeight.w500),
                 ),
                 TextSpan(
@@ -276,6 +307,7 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                   style: TextStyle(
                       color: Theme.of(context).primaryColor.withOpacity(0.8),
                       fontWeight: FontWeight.w500,
+                      fontSize: 17,
                       letterSpacing: 0.2),
                 ),
               ],
@@ -283,69 +315,74 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
           ),
           const Spacer(),
           // Job Title and Suggestion Percentage
-          Row(
-            children: [
-              // Profile Image
-              Container(
-                width: 50, // double the radius for the container width
-                height: 50, // double the radius for the container height
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.black,
-                    width: 10,
-                  ),
-                ),
-                child: CircleAvatar(
-                  backgroundColor: Colors.black,
-                  child: Image.asset(
-                      'assets/images/jobs/sample_image.png'), // Replace with actual path
-                ),
-              ),
-              const SizedBox(width: 12),
-              // Job Title and Group
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Bartender',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  Text(
-                    'Kurkumama group',
-                    style: TextStyle(color: Colors.grey, fontSize: 14),
-                  ),
-                ],
-              ),
-              const Spacer(),
-              // Suggestion Percentage
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                      color: Theme.of(context).primaryColor, width: 2),
-                ),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      height: 20,
-                      width: 20,
-                      "assets/images/recruteren/jobrAI_suggesties.png",
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Row(
+              children: [
+                // Profile Image
+                Container(
+                  width: 53, // double the radius for the container width
+                  height: 55, // double the radius for the container height
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 10,
                     ),
-                    const SizedBox(width: 4),
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.black,
+                    child: Image.asset(
+                        'assets/images/jobs/sample_image.png'), // Replace with actual path
+                  ),
+                ),
+                const SizedBox(width: 12),
+                // Job Title and Group
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Text(
-                      '98%',
-                      style: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15),
+                      'Bartender',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    Text(
+                      'Kurkumama group',
+                      style: TextStyle(color: Colors.grey, fontSize: 16.79),
                     ),
                   ],
                 ),
-              ),
-            ],
+                const Spacer(),
+                // Suggestion Percentage
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[50],
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                        color: Theme.of(context).primaryColor, width: 2),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        height: 23,
+                        width: 23,
+                        "assets/images/recruteren/jobrAI_suggesties.png",
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        '98%',
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.1),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
