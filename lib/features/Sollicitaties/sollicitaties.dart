@@ -29,6 +29,9 @@ class _SollicitatiesScreenState extends State<SollicitatiesScreen> {
     },
   ];
 
+  // New state variable for toggle
+  bool isLiked = false;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -37,9 +40,20 @@ class _SollicitatiesScreenState extends State<SollicitatiesScreen> {
       appBar: JobrAppbarNavigation(
         appbarTitle: "Mijn sollicitaties",
         center: false,
-        trailing: Icon(
-          Icons.favorite_rounded,
-          color: HexColor.fromHex('#FF3E68'),
+        // Updated trailing icon to toggle on tap
+        trailing: InkWell(
+          onTap: () {
+            setState(() {
+              isLiked = !isLiked;
+            });
+          },
+          child: Icon(
+            Icons.favorite,
+            color: isLiked
+                ? HexColor.fromHex('#FF3E68')
+                : HexColor.fromHex('#000000').withAlpha((0.26 * 255).toInt()),
+            size: 23.68,
+          ),
         ),
       ),
       backgroundColor: theme.colorScheme.surface,
@@ -48,6 +62,9 @@ class _SollicitatiesScreenState extends State<SollicitatiesScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Column(
             children: [
+              const SizedBox(
+                  height: 8), // Reduced spacing between grid and cards
+
               _buildGridView(),
               const SizedBox(
                   height: 8), // Reduced spacing between grid and cards

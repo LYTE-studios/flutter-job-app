@@ -17,12 +17,14 @@ class BaseCreateJobListingScreen extends StatelessWidget {
   final String buttonLabel;
   final String? secondaryButtonLabel;
   final bool buttonMustBeAtBottom;
-
+  final bool showProgressBar;
   final bool loading;
+  final String title;
 
   const BaseCreateJobListingScreen({
     super.key,
     required this.child,
+    this.title = "Nieuwe vacature",
     this.isNavigationEnabled = false,
     this.onNavigate,
     this.progress = 0,
@@ -30,6 +32,7 @@ class BaseCreateJobListingScreen extends StatelessWidget {
     this.secondaryButtonLabel,
     this.buttonMustBeAtBottom = true,
     this.loading = false,
+    this.showProgressBar = true,
   });
 
   @override
@@ -50,39 +53,40 @@ class BaseCreateJobListingScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
-          "Nieuwe vacature",
-          style: TextStyles.titleMedium,
+title,          style: TextStyles.titleMedium,
         ),
         centerTitle: true,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
-          child: Row(
-            children: [
-              TweenAnimationBuilder<double>(
-                tween: Tween<double>(begin: 0, end: progress),
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut,
-                builder: (context, value, child) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(8),
-                          bottomRight: Radius.circular(8)),
-                      color: HexColor.fromHex("#FF3E68"),
+          child: !showProgressBar
+              ? Row()
+              : Row(
+                  children: [
+                    TweenAnimationBuilder<double>(
+                      tween: Tween<double>(begin: 0, end: progress),
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
+                      builder: (context, value, child) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(8),
+                                bottomRight: Radius.circular(8)),
+                            color: HexColor.fromHex("#FF3E68"),
+                          ),
+                          height: 6,
+                          width: MediaQuery.of(context).size.width * value,
+                        );
+                      },
                     ),
-                    height: 6,
-                    width: MediaQuery.of(context).size.width * value,
-                  );
-                },
-              ),
-              Expanded(
-                child: Container(
-                  height: 6,
-                  color: Colors.grey[100], // Remaining 80% width
+                    Expanded(
+                      child: Container(
+                        height: 6,
+                        color: Colors.grey[100], // Remaining 80% width
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
         ),
       ),
 //       body: GestureDetector(

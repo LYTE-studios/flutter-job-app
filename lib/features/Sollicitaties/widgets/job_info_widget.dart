@@ -48,10 +48,11 @@ class JobInfo extends StatelessWidget {
                           ),
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Image.asset(
-                              height: 20,
-                              width: 20,
+                              height: 22,
+                              width: 22,
                               "assets/images/recruteren/jobrAI_suggesties.png",
                             ),
                             SizedBox(
@@ -60,9 +61,10 @@ class JobInfo extends StatelessWidget {
                             const Text(
                               "90%",
                               style: TextStyle(
+                                height: 2,
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.red,
+                                color: Color(0xFFFF3E68),
                               ),
                             ),
                           ],

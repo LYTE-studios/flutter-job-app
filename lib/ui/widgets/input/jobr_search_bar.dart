@@ -18,7 +18,7 @@ class JobrSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextStyle interTextStyle = TextStyle(
       fontFamily: 'Inter',
-      fontSize: TextStyles.labelSmall.fontSize,
+      fontSize: 17.21,
       fontWeight: TextStyles.labelSmall.fontWeight,
       color: TextStyles.labelSmall.color,
     );

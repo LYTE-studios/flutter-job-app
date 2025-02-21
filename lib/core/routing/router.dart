@@ -33,6 +33,7 @@ import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/jobs/job_screen_verified.dart';
 import 'package:jobr/features/jobs/jobdetail_screen.dart';
 import 'package:jobr/features/payments/screens/subscription_page.dart';
+import 'package:jobr/features/profile/screens/availability_screen.dart';
 import 'package:jobr/features/profile/screens/company/edit_company_profile_screen.dart';
 import 'package:jobr/features/profile/screens/company/select_location_page.dart';
 import 'package:jobr/features/profile/screens/company_screen/base_navbar.dart';
@@ -706,6 +707,17 @@ GoRouter router = GoRouter(
                     const NoTransitionPage(
                   child: EditProfileDetailsScreen(),
                 ),
+              ),
+              GoRoute(
+                path: AvailabilityScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  final data = state.extra as List<String>?;
+                  return NoTransitionPage(
+                    child: AvailabilityScreen(
+                      initialDays: data ?? [],
+                    ),
+                  );
+                },
               ),
               GoRoute(
                 path: ChooseSectorScreen.location,

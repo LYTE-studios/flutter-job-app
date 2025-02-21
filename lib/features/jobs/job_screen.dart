@@ -9,10 +9,10 @@ import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart'; // added import
 
 class JobScreen extends StatefulWidget {
   static const String location = 'jobs';
-
   static String employeeRoute = JobrRouter.getRoute(
     location,
     JobrRouter.employeeInitialroute,
@@ -75,8 +75,9 @@ class _JobScreenState extends State<JobScreen> {
       backgroundColor: theme.colorScheme.surface,
       body: SingleChildScrollView(
         child: Padding(
+          // Updated scaffold padding to match verified screen
           padding:
-              const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 0),
+              const EdgeInsets.symmetric(horizontal: PaddingSizes.medium * 1.5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -146,8 +147,9 @@ class _JobScreenState extends State<JobScreen> {
           children: [
             Center(
               child: Image.asset(
-                height: 30,
-                width: 30,
+                // Updated image dimensions to match verified screen
+                height: 36,
+                width: 36,
                 item["image"]!,
               ),
             ),
@@ -177,8 +179,9 @@ class _JobScreenState extends State<JobScreen> {
       },
       height: 50,
       suffixIcon: Image.asset(
-        height: 20,
-        width: 20,
+        // Updated filter icon size
+        height: 23,
+        width: 23,
         "assets/images/recruteren/filter.png",
       ),
       buttonText: "Zoek met filters",
@@ -194,8 +197,9 @@ class _JobScreenState extends State<JobScreen> {
           Row(
             children: [
               Image.asset(
-                height: 20,
-                width: 20,
+                // Updated Jobr-AI icon size
+                height: 23,
+                width: 23,
                 "assets/images/recruteren/jobrAI_suggesties.png",
               ),
               const SizedBox(width: 6),
@@ -278,7 +282,7 @@ class _JobScreenState extends State<JobScreen> {
                       child: Text(
                         "Ga naar profiel",
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 17,
                           fontWeight: FontWeight.w600,
                           fontFamily: 'Inter',
                           color: HexColor.fromHex('#FF3E68'),

@@ -35,8 +35,8 @@ class JobListScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: Image.asset(
-              height: 20,
-              width: 20,
+              height: 24,
+              width: 24,
               color: Colors.black,
               "assets/images/recruteren/filter.png",
             ),
@@ -76,41 +76,57 @@ class JobListScreen extends StatelessWidget {
   }
 }
 
-class FilterButton extends StatelessWidget {
+class FilterButton extends StatefulWidget {
   final String label;
 
   const FilterButton({super.key, required this.label});
+
+  @override
+  _FilterButtonState createState() => _FilterButtonState();
+}
+
+class _FilterButtonState extends State<FilterButton> {
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding:
           const EdgeInsets.only(left: 4.0), // Reduce padding around the button
-      child: Container(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 8, vertical: 2), // Reduce padding inside the button
-        decoration: BoxDecoration(
-          border: Border.all(
-              color: HexColor.fromHex('#FF3E68'), width: 1.3), // Pink border
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.white, // White background
-        ),
-        child: Row(
-          children: [
-            Text(
-              label,
-              style: TextStyle(
-                color: HexColor.fromHex('#FF3E68'),
-                fontWeight: FontWeight.w500,
-                fontSize: 15.45,
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            isExpanded = !isExpanded;
+          });
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: 8, vertical: 2), // Reduce padding inside the button
+          decoration: BoxDecoration(
+            border: Border.all(
+                color: HexColor.fromHex('#FF3E68'), width: 1.3), // Pink border
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white, // White background
+          ),
+          child: Row(
+            children: [
+              Text(
+                widget.label,
+                style: TextStyle(
+                  color: HexColor.fromHex('#FF3E68'),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15.45,
+                ),
               ),
-            ),
-            Icon(
-              Icons.keyboard_arrow_down,
-              color: HexColor.fromHex('#FF3E68'),
-              size: 27, // Slightly smaller icon
-            ),
-          ],
+              Icon(
+                isExpanded
+                    ? Icons.keyboard_arrow_up
+                    : Icons.keyboard_arrow_down,
+                color: HexColor.fromHex('#FF3E68'),
+                size: 27, // Slightly smaller icon
+              ),
+            ],
+          ),
         ),
       ),
     );
