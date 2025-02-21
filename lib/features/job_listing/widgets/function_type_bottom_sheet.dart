@@ -8,9 +8,10 @@ import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 class FunctionTypeBottomSheet extends StatefulWidget with BottomSheetMixin {
   final void Function(FunctionType functionType) onSelected;
   final String title;
-
+  final bool showTitle;
   FunctionTypeBottomSheet({
     super.key,
+    this.showTitle = false,
     required this.onSelected,
     required this.title,
   });
@@ -51,7 +52,7 @@ class _FunctionTypeBottomSheetState extends State<FunctionTypeBottomSheet>
         Navigator.of(context).pop();
       },
       options: functionTypes.map((e) => e.name).toList(),
-      title: "Function type",
+      title: widget.showTitle ? widget.title : "Function type",
     );
   }
 }

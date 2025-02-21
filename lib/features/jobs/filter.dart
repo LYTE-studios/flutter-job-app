@@ -138,32 +138,40 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
                   ),
                   alignment: Alignment.center,
                   child: _selectedSector != null
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              _selectedSector!.image,
-                              width: 40,
-                              height: 40,
-                              fit: BoxFit.contain,
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              _selectedSector!.name,
-                              style: const TextStyle(
-                                fontSize: 14.47,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w600,
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                _selectedSector!.image,
+                                width: 40,
+                                height: 40,
+                                fit: BoxFit.contain,
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: 6),
+                              Text(
+                                _selectedSector!.name,
+                                style: const TextStyle(
+                                  fontSize: 14.47,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
                         )
-                      : Center(
-                          child: SvgPicture.asset(
-                            'assets/images/icons/add.svg',
-                            color: HexColor.fromHex('#979797'),
-                            height: 30,
-                            width: 30,
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 10),
+                          child: Center(
+                            child: SvgPicture.asset(
+                              'assets/images/icons/add.svg',
+                              color: HexColor.fromHex('#979797'),
+                              height: 30,
+                              width: 30,
+                            ),
                           ),
                         ),
                 ),
@@ -179,7 +187,8 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
                 showstar: false,
                 selectedValue: _selectedFunction?.name,
                 onPressed: () => FunctionTypeBottomSheet(
-                  title: "Maak een keuze",
+                  showTitle: true,
+                  title: "Benodigde ervaring",
                   onSelected: (FunctionType value) {
                     setState(() {
                       _selectedFunction = value;
