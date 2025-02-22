@@ -125,7 +125,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                           context.push(NewExpereinceScreen.route);
                         },
                         child: SvgPicture.asset(
-                          JobrIcons.addIcon,
+                          JobrIcons.add,
                           width: 20,
                           height: 20,
                           colorFilter: ColorFilter.mode(
@@ -269,7 +269,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                           // Add logic for adding a new education item.
                         },
                         child: SvgPicture.asset(
-                          JobrIcons.addIcon,
+                          JobrIcons.add,
                           width: 20,
                           height: 20,
                           colorFilter: ColorFilter.mode(
@@ -505,7 +505,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                           context.push(MakeAChoiceScreen.route);
                         },
                         child: SvgPicture.asset(
-                          JobrIcons.addIcon,
+                          JobrIcons.add,
                           width: 20,
                           height: 20,
                           colorFilter: ColorFilter.mode(

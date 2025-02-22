@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/features/jobs/jobdetail_screen.dart';
+import 'package:jobr/features/profile/screens/edit/choose_sector_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
@@ -78,39 +80,42 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
               isLiked = !isLiked;
             });
           },
-          child: Icon(
-            Icons.favorite,
-            color: isLiked
-                ? HexColor.fromHex('#FF3E68')
-                : HexColor.fromHex('#000000').withAlpha((0.26 * 255).toInt()),
-            size: 23.68,
-          ),
+          child: SvgPicture.asset(
+                        isLiked
+                            ? 'assets/images/icons/like_icon-pink.svg'
+                            : 'assets/images/icons/like_icon_grey.svg',
+                        width: 20,
+                        height: 20,
+                      ),
         ),
         appbarTitle: "Vind jouw job",
         center: false, // Added to match JobScreen
       ),
       backgroundColor: theme.colorScheme.surface,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: PaddingSizes.medium * 1.5,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              const JobrSearchBar(
-                hintText: "Zoek een bedrijf, functie...",
-              ),
-              const SizedBox(height: 14),
-              _buildGridView(),
-              const SizedBox(height: 10),
-              _buildFilterRow(theme),
-              const SizedBox(height: 23),
-              _buildJobrAISection(theme),
-              const SizedBox(height: 20),
-              _buildJobrAISuggestions(),
-              const SizedBox(height: 15),
-            ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          // Added for vertical scrolling
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: PaddingSizes.medium * 1.5,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const JobrSearchBar(
+                  hintText: "Zoek een bedrijf, functie...",
+                ),
+                const SizedBox(height: 14),
+                _buildGridView(),
+                const SizedBox(height: 10),
+                _buildFilterRow(theme),
+                const SizedBox(height: 23),
+                _buildJobrAISection(theme),
+                const SizedBox(height: 20),
+                _buildJobrAISuggestions(),
+                const SizedBox(height: 15),
+              ],
+            ),
           ),
         ),
       ),
@@ -137,7 +142,9 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
   Widget _buildGridItem(Map<String, dynamic> item, {required index}) {
     return GestureDetector(
       onTap: index >= 7
-          ? () {}
+          ? () {
+              context.push(ChooseSectorScreen.route, extra: true);
+            }
           : () {
               context.push(
                 JobDetailScreen.employeeRoute,

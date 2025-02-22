@@ -203,7 +203,7 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 9, vertical: 4),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.transparent,
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                               color: Theme.of(context).primaryColor,

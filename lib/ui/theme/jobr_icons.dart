@@ -23,6 +23,8 @@ class JobrIcons {
   }
 
   static const String logoLight = '$_baseLogoPath/jobr_logo_light.svg';
+  static const String tick = '$_baseIconPath/tick.svg';
+  static const String tick2 = '$_baseIconPath/tick2.svg';
 
   static const String googleIcon = '$_baseIconPath/google.svg';
   static const String appleIcon = '$_baseIconPath/apple.svg';
@@ -64,6 +66,8 @@ class JobrIcons {
   static const String people = '$_baseIconPath/people.svg';
   static const String company = '$_baseIconPath/company.svg';
   static const String placeholder1 = 'assets/images/images/placeholder-1.png';
+  static const String placeholder4 = 'assets/images/images/placeholder-4.png';
+
   static const String send = '$_baseIconPath/send.svg';
   static const String aboutUs = '$_baseIconPath/about_us.svg';
   static const String venueLocation = '$_baseIconPath/venue_location.svg';

@@ -626,11 +626,12 @@ GoRouter router = GoRouter(
                   routes: [
                     GoRoute(
                       path: QuestionPage.location,
-                      pageBuilder:
-                          (BuildContext context, GoRouterState state) =>
-                              NoTransitionPage(
-                        child: QuestionPage(),
-                      ),
+                      pageBuilder: (BuildContext context, GoRouterState state) {
+                        final String data = state.extra as String;
+                        return NoTransitionPage(
+                          child: QuestionPage(companyName: data),
+                        );    
+                      },
                     ),
                   ]),
             ]),
@@ -721,8 +722,12 @@ GoRouter router = GoRouter(
               ),
               GoRoute(
                 path: ChooseSectorScreen.location,
-                pageBuilder: (BuildContext context, GoRouterState state) =>
-                    const NoTransitionPage(child: ChooseSectorScreen()),
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  final bool isRedirector = state.extra as bool? ?? false;
+                  return NoTransitionPage(
+                    child: ChooseSectorScreen(isSectorRedirector: isRedirector),
+                  );
+                },
               ),
               GoRoute(
                 path: NewExpereinceScreen.location,

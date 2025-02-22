@@ -9,6 +9,7 @@ import 'package:jobr/features/Sollicitaties/widgets/job_info_widget.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/widgets/vacancy_info_tabs.dart';
+import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -119,33 +120,74 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
                     clipBehavior: Clip.none, // Allow overflow
                     fit: StackFit.expand,
                     children: [
+                      // Modified background image:
                       Positioned(
                         top: 0,
                         left: 0,
                         right: 0,
-                        child: Image.asset(
-                          'assets/images/images/placeholder-2.png',
-                          fit: BoxFit.cover,
-                          height: 180,
+                        child: Hero(
+                          tag: 'jobInfoBackground',
+                          child: GestureDetector(
+                            onTap: () {
+                              showGeneralDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                barrierLabel: 'Dismiss',
+                                barrierColor: Colors.black54,
+                                pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                  tag: 'jobInfoBackground',
+                                  imagePath:
+                                      'assets/images/images/placeholder-2.png',
+                                ),
+                              );
+                            },
+                            child: Image.asset(
+                              'assets/images/images/placeholder-2.png',
+                              fit: BoxFit.cover,
+                              height: 180,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Container(color: Colors.grey),
+                            ),
+                          ),
                         ),
                       ),
+                      // Modified profile image:
                       Positioned(
                         bottom: 0,
                         left: 10,
-                        child: Container(
-                          width: 135,
-                          height: 135,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 4,
-                            ),
-                            image: const DecorationImage(
-                              image: AssetImage(
-                                'assets/images/images/placeholder-4.png',
+                        child: Hero(
+                          tag: 'jobInfoProfile',
+                          child: GestureDetector(
+                            onTap: () {
+                              showGeneralDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                barrierLabel: 'Dismiss',
+                                barrierColor: Colors.black54,
+                                pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                  tag: 'jobInfoProfile',
+                                  height: 200,
+                                  width: 200,
+                                  imagePath:
+                                      'assets/images/images/placeholder-4.png',
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 135,
+                              height: 135,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 4,
+                                ),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/images/placeholder-4.png'),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              fit: BoxFit.cover,
                             ),
                           ),
                         ),
@@ -366,9 +408,8 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
                         borderRadius: 25,
                         buttonText: 'Ik wil deze job',
                         onTap: () {
-                          context.push(
-                            QuestionPage.employeeRoute,
-                          );
+                          context.push(QuestionPage.employeeRoute,
+                              extra: 'Spacex');
                         },
                         buttonColor: HexColor.fromHex('#3A77FF'),
                         height: 45,

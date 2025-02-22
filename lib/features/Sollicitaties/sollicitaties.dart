@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/Sollicitaties/widgets/job_cards.dart';
 import 'package:jobr/features/jobs/jobdetail_screen.dart';
@@ -47,12 +48,12 @@ class _SollicitatiesScreenState extends State<SollicitatiesScreen> {
               isLiked = !isLiked;
             });
           },
-          child: Icon(
-            Icons.favorite,
-            color: isLiked
-                ? HexColor.fromHex('#FF3E68')
-                : HexColor.fromHex('#000000').withAlpha((0.26 * 255).toInt()),
-            size: 23.68,
+          child: SvgPicture.asset(
+            isLiked
+                ? 'assets/images/icons/like_icon-pink.svg'
+                : 'assets/images/icons/like_icon_grey.svg',
+            width: 20,
+            height: 20,
           ),
         ),
       ),
@@ -67,7 +68,7 @@ class _SollicitatiesScreenState extends State<SollicitatiesScreen> {
 
               _buildGridView(),
               const SizedBox(
-                  height: 8), // Reduced spacing between grid and cards
+                  height: 14), // Reduced spacing between grid and cards
               const JobCardSollicitaties(
                 backgroundImagePath: 'assets/images/recruteren/bekeken.png',
                 location: 'Kortrijk',
@@ -137,7 +138,7 @@ class _SollicitatiesScreenState extends State<SollicitatiesScreen> {
           shrinkWrap: true, // Added to constrain the height
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: crossAxisCount,
-            crossAxisSpacing: 8,
+            crossAxisSpacing: 10,
             mainAxisSpacing: 8,
             childAspectRatio: 1,
           ),

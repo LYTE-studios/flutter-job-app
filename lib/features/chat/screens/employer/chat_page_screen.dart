@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 class ChatPageScreen extends StatefulWidget {
@@ -46,7 +48,7 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(Icons.arrow_back_ios, size: 21),
+              icon: const Icon(Icons.arrow_back_ios, size: 23),
             ),
             Container(
               width: 33,
@@ -74,7 +76,10 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
               size: 20,
             ),
             const SizedBox(width: 8),
-            const SvgIcon("assets/images/logos/info.svg", size: 24),
+            GestureDetector(
+                onTap: () =>
+                    context.push(EmployProfileDisplayScreen.employerRoute),
+                child: const SvgIcon("assets/images/logos/info.svg", size: 24)),
           ],
         ),
       ),

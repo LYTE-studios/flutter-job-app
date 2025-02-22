@@ -42,7 +42,8 @@ class _CompanyTypeBottomSheetState extends State<CompanyTypeBottomSheet>
         Navigator.of(context).pop();
       },
       options: companyTypes.map((e) => e.name).toList(),
-      title: "Bedrijf type",
+      title: "kies een bedrijf",
+      description: 'Zoek een bedrijf',
     );
   }
 }

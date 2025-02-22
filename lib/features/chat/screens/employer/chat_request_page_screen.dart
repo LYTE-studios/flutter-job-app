@@ -64,7 +64,7 @@ class _ChatScreenState extends State<ChatRequestPageScreen> {
                 ),
                 child: Icon(
                   Icons.arrow_back_ios,
-                  size: 21,
+                  size: 23,
                   color: Color(0xFF000000),
                 ),
               ),

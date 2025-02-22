@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/Sollicitaties/sollicitaties_tabs_info.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 class ChatPageEmployeeScreen extends StatefulWidget {
@@ -34,6 +36,26 @@ langs te komen?''', isSentByMe: false),
     Message(content: "Thanks, tot morgen!", isSentByMe: true),
   ];
 
+  // New variables for text input control and icon color change
+  final TextEditingController _messageController = TextEditingController();
+  bool hasMessage = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _messageController.addListener(() {
+      setState(() {
+        hasMessage = _messageController.text.isNotEmpty;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _messageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -49,7 +71,7 @@ langs te komen?''', isSentByMe: false),
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(Icons.arrow_back_ios, size: 21),
+              icon: const Icon(Icons.arrow_back_ios, size: 23),
             ),
             Container(
               width: 33,
@@ -71,10 +93,13 @@ langs te komen?''', isSentByMe: false),
               ),
             ),
             const Spacer(),
-            SvgIcon(
-              "assets/images/logos/info.svg",
-              size: 24,
-              color: Colors.grey[400],
+            GestureDetector(
+              onTap: () => context.push(JobInfoScreen.route),
+              child: SvgIcon(
+                "assets/images/logos/info.svg",
+                size: 24,
+                color: Colors.grey[400],
+              ),
             ),
           ],
         ),
@@ -82,13 +107,10 @@ langs te komen?''', isSentByMe: false),
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: const Divider(
-                color: Color(0x0F000000),
-                height: 20,
-                thickness: 2,
-              ),
+            const Divider(
+              color: Color(0x0F000000),
+              height: 20,
+              thickness: 2,
             ),
 
             Padding(
@@ -236,13 +258,20 @@ langs te komen?''', isSentByMe: false),
                     child: SizedBox(
                       height: 42,
                       child: TextField(
+                        controller: _messageController,
+                        textAlignVertical: TextAlignVertical.center,
                         style: const TextStyle(
-                          fontSize: 19.5,
+                          fontSize: 16.5,
                           fontWeight: FontWeight.normal,
                           color: Color(0xFFBABABA),
                         ),
                         decoration: InputDecoration(
                           hintText: 'Hier typen...',
+                          hintStyle: const TextStyle(
+                            fontSize: 16.5,
+                            fontWeight: FontWeight.normal,
+                            color: Color(0xFFBABABA),
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(21.0),
                             borderSide: BorderSide.none,
@@ -257,7 +286,9 @@ langs te komen?''', isSentByMe: false),
                   ),
                   const SizedBox(width: 6),
                   SvgPicture.asset(
-                    "assets/images/logos/send_message.svg",
+                    !hasMessage
+                        ? "assets/images/icons/empty_send_icon.svg"
+                        : "assets/images/logos/send_message.svg",
                     height: 42,
                     width: 42,
                   ),

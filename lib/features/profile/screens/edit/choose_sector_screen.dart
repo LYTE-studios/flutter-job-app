@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/jobs/jobdetail_screen.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
@@ -12,7 +14,8 @@ class ChooseSectorScreen extends StatefulWidget {
     JobrRouter.employeeInitialroute,
   );
 
-  const ChooseSectorScreen({super.key});
+  final bool isSectorRedirector;
+  const ChooseSectorScreen({super.key, this.isSectorRedirector = false});
 
   @override
   State<ChooseSectorScreen> createState() => _ChooseSectorScreenState();
@@ -23,58 +26,72 @@ class _ChooseSectorScreenState extends State<ChooseSectorScreen> {
     Sector(
       name: 'Horeca',
       image: 'assets/images/images/Food Bar.png',
+      tagCategory: 'students',
     ),
     Sector(
       name: 'Winkel',
       image: 'assets/images/images/Shopping Basket.png',
+      tagCategory: 'freelancers',
     ),
     Sector(
       name: 'Event',
       image: 'assets/images/images/Star.png',
+      tagCategory: 'interns',
     ),
     Sector(
       name: 'Telecom',
       image: 'assets/images/images/Phone.png',
+      tagCategory: 'students',
     ),
     Sector(
       name: 'Zorg',
       image: 'assets/images/images/Doctors Bag.png',
+      tagCategory: 'freelancers',
     ),
     Sector(
       name: 'Tech/ICT',
       image: 'assets/images/images/iMac.png',
+      tagCategory: 'interns',
     ),
     Sector(
       name: 'Bouw',
       image: 'assets/images/images/Brick Wall.png',
+      tagCategory: 'interns',
     ),
     Sector(
       name: 'Vastgoed',
       image: 'assets/images/images/Real Estate.png',
+      tagCategory: 'freelancers',
     ),
     Sector(
       name: 'Logistiek',
       image: 'assets/images/images/Trolley.png',
+      tagCategory: 'students',
     ),
     Sector(
       name: 'Transport',
       image: 'assets/images/images/Car.png',
+      tagCategory: 'interns',
     ),
     Sector(
       name: 'Marketing',
       image: 'assets/images/images/Statistics.png',
+      tagCategory: 'students',
     ),
     Sector(
       name: 'Toerisme',
       image: 'assets/images/images/Island On Water.png',
+      tagCategory: 'freelancers',
     ),
     Sector(
       name: 'Industrie',
       image: 'assets/images/images/Factory.png',
+      tagCategory: 'interns',
     ),
     Sector(
       name: 'Andere',
       image: 'assets/images/images/andere.png',
+      tagCategory: 'students',
     ),
   ];
 
@@ -119,6 +136,18 @@ class _ChooseSectorScreenState extends State<ChooseSectorScreen> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
+                if (widget.isSectorRedirector) {
+                  context.push(
+                    JobDetailScreen.employeeRoute,
+                    extra: {
+                      'category':
+                          sectors[index].tagCategory, // fixed index access
+                      'title': sectors[index].name, // fixed index access
+                      'image': sectors[index].image, // fixed index access
+                    },
+                  );
+                  return;
+                }
                 Navigator.pop(context, sectors[index]);
               },
               child: Container(
@@ -162,6 +191,7 @@ class _ChooseSectorScreenState extends State<ChooseSectorScreen> {
 class Sector {
   final String name;
   final String image;
+  final String tagCategory;
 
-  Sector({required this.name, required this.image});
+  Sector({required this.name, required this.image, required this.tagCategory});
 }

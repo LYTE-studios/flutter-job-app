@@ -12,6 +12,7 @@ import 'dart:io'; // Added import for File
 import 'package:jobr/features/profile/screens/widgets/text_field_settings.dart'; // New import
 import 'package:jobr/features/profile/screens/company/select_location_page.dart'; // New import for location selection
 import 'package:jobr/ui/widgets/buttons/primary_button.dart'; // New import
+import 'package:flutter/scheduler.dart'; // NEW import
 
 import '../../../../core/utils/input_formatters.dart';
 import '../../../../ui/theme/jobr_icons.dart';
@@ -232,22 +233,6 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                             ),
                           ),
                         ),
-                        Positioned(
-                          bottom: 10,
-                          right: 10,
-                          child: TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              'Wijzigingen opslaan',
-                              style: TextStyle(
-                                color: theme.primaryColor,
-                                fontSize: 16,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -328,9 +313,10 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                     StatusTypeBottomSheet(
                       title: "Kies een bedrijf",
                       onSelected: (statusType) {
-                        setState(() {
-                          // statusText = statusType.name;
-                          statusController.text = statusType.name;
+                        SchedulerBinding.instance.addPostFrameCallback((_) {
+                          setState(() {
+                            statusController.text = statusType.name;
+                          });
                         });
                       },
                     ).showPopup(context: context);
@@ -357,8 +343,10 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                           builder: (context) => const SelectLocationPage()),
                     ).then((value) {
                       if (value != null) {
-                        setState(() {
-                          locationController.text = value.toString();
+                        SchedulerBinding.instance.addPostFrameCallback((_) {
+                          setState(() {
+                            locationController.text = value.toString();
+                          });
                         });
                       }
                     });
@@ -386,8 +374,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                     color: Colors.black,
                   ),
                   label: 'Bio',
-                  hintText:
-                      'Multibrandstores & Webshop. Brooklyn, da’s een mix van merken en heel veel broeken. Dat laatste nemen we als broekenspecialist au sérieux met een jeans assortiment om ‘u’ tegen te zeggen.',
+                  hintText: 'Schrijf bio',
                   controller: bioController,
                   maxLines: 5,
                   keyboardType: TextInputType.multiline,
@@ -405,7 +392,9 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
             child: Center(
               child: PrimaryButton(
                 onTap: () {
-                  context.pop();
+                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                    context.pop();
+                  });
                 },
                 buttonText: 'Save',
                 buttonColor: HexColor.fromHex("#FF3E68"),

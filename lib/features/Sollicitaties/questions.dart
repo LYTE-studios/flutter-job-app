@@ -12,9 +12,10 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 class QuestionPage extends StatefulWidget {
-  const QuestionPage({super.key});
+  const QuestionPage({super.key, required this.companyName});
   static const String location = 'questions';
 
+  final String companyName;
   static String employeeRoute = JobrRouter.getRoute(
     '${SollicitatiesScreen.location}/${JobInfoScreen.location}/$location', // changed to "jobs/filter"
     JobrRouter.employeeInitialroute,
@@ -44,8 +45,8 @@ class _QuestionPageState extends State<QuestionPage> {
           icon: SvgPicture.asset(
             JobrIcons.chevronLeftIcon,
             colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
-            height: 15,
-            width: 15,
+            height: 16,
+            width: 16,
           ),
           onPressed: () {
             Navigator.pop(context); // Pops the screen
@@ -70,7 +71,7 @@ class _QuestionPageState extends State<QuestionPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      'Voor we je sollicitatie kunnen finaliseren, heeft Barouche nog enkele vragen voor je.',
+                      'Voor we je sollicitatie kunnen finaliseren, heeft ${widget.companyName} nog enkele vragen voor je.',
                       style: TextStyles.bodyMedium.copyWith(
                           fontWeight: FontWeight.w400,
                           letterSpacing: 0.1,

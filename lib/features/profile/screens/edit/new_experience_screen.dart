@@ -266,7 +266,7 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
             text: label,
             style: const TextStyle(
               fontSize: 16.5,
-              fontFamily: 'Inter',
+              fontFamily: 'Poppins',
               fontWeight: FontWeight.w500,
               color: Colors.black,
             ),
@@ -290,7 +290,7 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
           textAlignVertical: TextAlignVertical.center,
           style: const TextStyle(
             fontSize: 16.5,
-            fontFamily: 'Inter',
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
           ),
           decoration: InputDecoration(
@@ -410,9 +410,11 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
                           : formatDateTime(startDate!, startTime!),
                       hintStyle: TextStyle(
                         fontSize: 16,
-                        fontFamily: 'Inter',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
-                        color: HexColor.fromHex('#B7B7B7'),
+                        color: startDate == null || startTime == null
+                            ? HexColor.fromHex('#B7B7B7')
+                            : Colors.black,
                       ),
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 12,
