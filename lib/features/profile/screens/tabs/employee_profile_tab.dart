@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/features/payments/screens/subscription_page.dart';
 
 class EmployeeProfileTab extends StatelessWidget {
   const EmployeeProfileTab({super.key});
@@ -167,11 +169,17 @@ class EmployeeProfileTab extends StatelessWidget {
                             SizedBox(
                               width: 5,
                             ),
-                            SvgPicture.asset(
-                              height: 20,
-                              width: 20,
-                              "assets/images/logos/info.svg",
-                              color: Colors.grey[500],
+                            GestureDetector(
+                              onTap: (){
+                                                              context.push(SubscriptionPage.route);
+
+                              },
+                              child: SvgPicture.asset(
+                                height: 20,
+                                width: 20,
+                                "assets/images/logos/info.svg",
+                                color: Colors.grey[500],
+                              ),
                             ),
                           ],
                         )
