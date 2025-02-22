@@ -121,6 +121,8 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
                       hintText: "Kies wachtwoord",
                       obscureText: true,
                       height: 45,
+                                            isPassword : true,
+
                     ),
                     const SizedBox(height: 10),
                     JobrTextField(
@@ -128,6 +130,7 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
                       hintText: "Herhaal wachtwoord",
                       obscureText: true,
                       height: 45,
+                      isPassword : true,
                     ),
                     const SizedBox(height: 10),
                     PrimaryButton(

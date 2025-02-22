@@ -121,6 +121,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen>
                       hintText: "Wachtwoord",
                       height: 45,
                       obscureText: true,
+                      isPassword: true,
                     ),
                     const SizedBox(height: 10),
                     PrimaryButton(
