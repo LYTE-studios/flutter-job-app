@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/data/models/employee_type.dart';
@@ -10,6 +11,8 @@ import 'package:jobr/features/job_listing/widgets/employee_type_bottom_sheet.dar
 import 'package:jobr/features/job_listing/widgets/sector_type_bottom_sheet.dart';
 import 'package:jobr/features/profile/screens/company/select_location_page.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_venue_profile.dart';
+import 'package:jobr/features/profile/screens/widgets/media_widget.dart';
+import 'package:jobr/features/profile/screens/widgets/selection_text_field.dart';
 import 'package:jobr/features/profile/screens/widgets/text_field_settings.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -103,7 +106,7 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
     // websiteController.text = 'https://jouw-website.com';
     // employeeController.text = 'Kies locatie';
     // sectorController.text = 'Maak een keuze';
-    locationController.text;
+    locationController.text = 'Kies locatie';
     // bioController.text = 'Schrijf een biografie';
     super.initState();
   }
@@ -463,6 +466,16 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
+                SizedBox(
+                  child: const Wrap(
+                    alignment: WrapAlignment.spaceBetween,
+                    children: [
+                      MediaWidget(),
+                      MediaWidget(),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
                 TextFieldSettings(
                     label: 'Bedrijfsnaam',
                     hintText: 'Bedrijfsnaam',
@@ -477,16 +490,8 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                 ),
                 const SizedBox(height: 10),
                 SelectionButton(
-                  onTap: () {
-                    context.push(SelectLocationPage.route).then((value) {
-                      if (value != null) {
-                        setState(() {
-                          locationController.text = value.toString();
-                        });
-                      }
-                    });
-                  },
                   label: 'Locatie',
+                  hintText: 'Kies locatie',
                   controller: locationController,
                   prefixIcon: SvgPicture.asset(
                     JobrIcons.location,
@@ -496,6 +501,21 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                       BlendMode.srcIn,
                     ),
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SelectLocationPage()),
+                    ).then((value) {
+                      if (value != null) {
+                        SchedulerBinding.instance.addPostFrameCallback((_) {
+                          setState(() {
+                            locationController.text = value.toString();
+                          });
+                        });
+                      }
+                    });
+                  },
                 ),
                 const SizedBox(height: 10),
                 SelectionButton(
@@ -566,15 +586,17 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                     Expanded(
                       child: GestureDetector(
                         child: Container(
+                          margin: const EdgeInsets.only(left: 10),
                           decoration: BoxDecoration(
                             border: Border(
                               bottom: BorderSide(
-                                color: Colors.black.withOpacity(.2),
+                                color: Colors.black.withOpacity(.06),
                               ),
                             ),
                           ),
                           alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 4),
                           child: Row(
                             children: [
                               Container(
@@ -598,11 +620,11 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 8, horizontal: 20),
                                           decoration: BoxDecoration(
-                                            color:
-                                                selectedAnswers['question1'] ==
-                                                        answer
-                                                    ? Colors.pinkAccent
-                                                    : Colors.grey.shade200,
+                                            color: selectedAnswers[
+                                                        'question1'] ==
+                                                    answer
+                                                ? HexColor.fromHex("#FF3E68")
+                                                : Colors.grey.shade200,
                                             borderRadius:
                                                 BorderRadius.circular(6),
                                           ),
@@ -655,100 +677,6 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class SelectionButton extends StatefulWidget {
-  const SelectionButton(
-      {super.key,
-      required this.label,
-      required this.controller,
-      this.color,
-      this.hintText = 'Kies locatie',
-      this.hintTextStyle = const TextStyle(
-        fontSize: 16,
-        fontFamily: 'Inter',
-        fontWeight: FontWeight.w500,
-        color: Color(0xFF919191),
-      ),
-      this.onTap,
-      this.prefixIcon});
-  final Widget? prefixIcon;
-
-  final String label;
-  final TextEditingController controller;
-
-  final Color? color;
-  final TextStyle hintTextStyle;
-  final String hintText;
-  final GestureTapCallback? onTap;
-
-  @override
-  State<SelectionButton> createState() => _SelectionButtonState();
-}
-
-class _SelectionButtonState extends State<SelectionButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 101,
-          padding: const EdgeInsets.only(top: 10),
-          child: Text(
-            widget.label.padRight(12),
-            style: TextStyle(
-              fontSize: 16,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w500,
-              color: HexColor.fromHex('#565656'),
-            ),
-          ),
-        ),
-        Expanded(
-          child: GestureDetector(
-            onTap: widget.onTap,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Colors.black.withOpacity(.2),
-                  ),
-                ),
-              ),
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                children: [
-                  if (widget.prefixIcon != null) widget.prefixIcon!,
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: Text(
-                      widget.controller.text.isEmpty
-                          ? widget.hintText
-                          : widget.controller.text,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: widget.controller.text.isEmpty
-                          ? widget.hintTextStyle
-                          : const TextStyle(
-                              fontSize: 15.36,
-                              fontFamily: 'Poppins',
-                              letterSpacing: 0.05,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
