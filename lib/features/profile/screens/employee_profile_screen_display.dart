@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/chat/screens/employer/chat_page_screen.dart';
+import 'package:jobr/features/payments/screens/subscription_page.dart';
+import 'package:jobr/features/profile/screens/reviews/employee_reviews.dart';
 import 'package:jobr/features/profile/screens/tabs/employee_profile_tab.dart';
 import 'package:jobr/features/profile/screens/tabs/media_item_widget.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
@@ -12,7 +14,7 @@ import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 import '../../../../ui/theme/jobr_icons.dart';
 
 class EmployProfileDisplayScreen extends StatefulWidget {
-  static const String location = 'employ-profile';
+  static const String location = 'employee-profile';
 
   const EmployProfileDisplayScreen({super.key});
 
@@ -36,7 +38,6 @@ class _EmployProfileDisplayScreenState
 
   List<Widget> tabs = const [
     EmployeeProfileTab(),
-    MediaItemWidget(),
   ];
 
   @override
@@ -170,7 +171,6 @@ class _EmployProfileDisplayScreenState
                   fontWeight: FontWeight.w800,
                 ),
               ),
-              const SizedBox(height: 4),
               Row(
                 children: [
                   SvgIcon(
@@ -189,8 +189,18 @@ class _EmployProfileDisplayScreenState
                   ),
                 ],
               ),
+              const SizedBox(height: 14),
+              CustomStarRating(
+                rating: 3.5,
+                onIconTap: () {
+                  context.push(EmployeeReviewsDisplayScreen.employerRoute);
+                },
+                containerBackgroundColor:
+                    HexColor.fromHex('#F0F0F0').withOpacity(0.24),
+                borderColor: HexColor.fromHex('#EDEDED').withOpacity(0.36),
+              ),
               SizedBox(
-                height: 8,
+                height: 14,
               ),
               Row(
                 children: [
@@ -319,4 +329,100 @@ class TabData {
   final String icon;
 
   TabData({required this.label, required this.icon});
+}
+
+class CustomStarRating extends StatelessWidget {
+  final double rating;
+  final int totalStars;
+  final double size;
+  // New parameters
+  final VoidCallback? onIconTap;
+  final Color containerBackgroundColor;
+  final Color borderColor;
+
+  const CustomStarRating({
+    Key? key,
+    required this.rating,
+    this.totalStars = 5,
+    this.size = 24.0,
+    this.onIconTap,
+    this.containerBackgroundColor =
+        const Color(0xFFF0F0F0), // Default: use your desired color (example)
+    this.borderColor =
+        const Color(0xFFEDEDED), // Default: use your desired color (example)
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: borderColor,
+            ),
+            color: containerBackgroundColor,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Wrap(
+                spacing: -4,
+                children: List.generate(totalStars, (index) {
+                  if (rating >= index + 1) {
+                    return Icon(Icons.star_rounded,
+                        size: size, color: const Color(0xFFFFD400));
+                  } else if (rating > index) {
+                    final double fraction = rating - index;
+                    return Stack(
+                      children: [
+                        Icon(Icons.star_rounded,
+                            size: size, color: const Color(0xFFD9D9D9)),
+                        ClipRect(
+                          clipper: _StarClipper(fraction),
+                          child: Icon(Icons.star_rounded,
+                              size: size, color: const Color(0xFFFFD400)),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Icon(Icons.star_rounded,
+                        size: size, color: const Color(0xFFD9D9D9));
+                  }
+                }),
+              ),
+              const SizedBox(width: 6),
+              GestureDetector(
+                onTap: onIconTap,
+                child: SvgPicture.asset(
+                  "assets/images/logos/info.svg",
+                  height: 20,
+                  width: 20,
+                  color: HexColor.fromHex('#B9B8B8'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _StarClipper extends CustomClipper<Rect> {
+  final double fraction;
+  _StarClipper(this.fraction);
+
+  @override
+  Rect getClip(Size size) {
+    return Rect.fromLTWH(0, 0, size.width * fraction, size.height);
+  }
+
+  @override
+  bool shouldReclip(covariant _StarClipper oldClipper) {
+    return oldClipper.fraction != fraction;
+  }
 }

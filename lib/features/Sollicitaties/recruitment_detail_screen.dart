@@ -41,6 +41,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "userName": "Yassine Vuran",
       "profileImagePath": "assets/images/images/image.png",
       "suggestionPercentage": "74",
+      "rating": "4.5",
     },
     {
       "description":
@@ -50,6 +51,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "userName": "Sarah De Vries",
       "profileImagePath": "assets/images/images/image-3.png",
       "suggestionPercentage": "82",
+      "rating": "4.5",
     },
     {
       "description":
@@ -59,6 +61,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "userName": "Thomas Peeters",
       "profileImagePath": "assets/images/images/image-9.png",
       "suggestionPercentage": "68",
+      "rating": "4.5",
     },
     {
       "description": "Ervaren verkoper met passie voor klantenrelaties",
@@ -67,6 +70,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "userName": "Lisa Janssens",
       "profileImagePath": "assets/images/images/image-6.png",
       "suggestionPercentage": "79",
+      "rating": "4.5",
     },
     {
       "description": "IT specialist zoekend naar nieuwe uitdagingen",
@@ -75,6 +79,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "userName": "Kevin Van Dam",
       "profileImagePath": "assets/images/images/image-7.png",
       "suggestionPercentage": "88",
+      "rating": "4.5",
     },
   ];
 
@@ -126,6 +131,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final card = jobCards[index];
                     return CustomJobCard(
+                      rating: double.parse(card["rating"]!),
                       showLikeButton: (title == 'Sollicitaties'),
                       description: card["description"]!,
                       age: card["age"]!,
@@ -235,6 +241,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final card = jobCards[index];
                       return CustomJobCard(
+                        rating: double.parse(card["rating"]!),
                         showLikeButton: (title == 'Sollicitaties'),
                         description: card["description"]!,
                         age: card["age"]!,

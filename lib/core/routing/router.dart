@@ -54,6 +54,8 @@ import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_sc
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/features/profile/screens/reviews/employee_reviews.dart';
+import 'package:jobr/features/profile/screens/reviews/profile_review_screen.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 
 import '../../features/profile/screens/create_profile_screen.dart';
@@ -337,6 +339,18 @@ GoRouter router = GoRouter(
               child: const EmployProfileDisplayScreen(),
             );
           },
+
+          routes: [
+             GoRoute(
+          path: EmployeeReviewsDisplayScreen.location,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return buildPageWithSlideUpTransition(
+              context: context,
+              state: state,
+              child:  EmployeeReviewsDisplayScreen(),
+            );
+          },)
+          ]
         ),
         GoRoute(
           path: CompanyVenueProfile.employerRoute,
@@ -702,6 +716,13 @@ GoRouter router = GoRouter(
                   child: ProfileScreen(),
                 ),
             routes: [
+               GoRoute(
+                path: DisplayProfileReviews.location,
+                pageBuilder: (BuildContext context, GoRouterState state) =>
+                    NoTransitionPage(
+                  child: DisplayProfileReviews(),
+                ),
+              ),
               GoRoute(
                 path: EditProfileDetailsScreen.location,
                 pageBuilder: (BuildContext context, GoRouterState state) =>

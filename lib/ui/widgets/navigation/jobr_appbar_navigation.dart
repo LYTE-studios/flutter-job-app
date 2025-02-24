@@ -42,8 +42,7 @@ class JobrAppbarNavigation extends StatelessWidget
     return Container(
       padding: EdgeInsets.only(
         top: statusbarHeight,
-        left: PaddingSizes.extraLarge,
-        right: PaddingSizes.medium,
+        left: PaddingSizes.medium,
       ),
       child: Stack(
         children: [
