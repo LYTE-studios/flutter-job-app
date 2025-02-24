@@ -161,6 +161,7 @@ class _CreateJobListingAvailabilityScreenState
                   onTap: () {
                     setState(() {
                       selectedRadio = 1;
+                      selectedDays.clear();
                     });
                   },
                   child: Row(

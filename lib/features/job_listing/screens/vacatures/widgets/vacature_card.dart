@@ -105,7 +105,8 @@ class VacatureCard extends StatelessWidget {
                         radius: 24,
                         backgroundColor: Colors.blue,
                         child: Image.asset(
-                            'assets/images/logos/brooklyn_kortrijk.png'),
+                          'assets/images/logos/brooklyn_kortrijk.png',
+                        ),
                       ),
                       SizedBox(width: 12),
                       // Title and Subtitle

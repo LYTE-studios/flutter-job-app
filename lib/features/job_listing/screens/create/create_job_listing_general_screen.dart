@@ -15,6 +15,7 @@ import 'package:jobr/features/job_listing/widgets/function_type_bottom_sheet.dar
 import 'package:jobr/features/job_listing/widgets/location_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:jobr/ui/widgets/buttons/information_popup_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
 import 'package:lyte_studios_flutter_ui/mixins/screen_state_mixin.dart';
 
@@ -145,15 +146,10 @@ class _CreateJobListingGeneralScreenState
             enabled: _selectedFunction !=
                 null, // Enable only when _selectedFunction is not null
             decoration: InputDecoration(
-              suffixIcon: IconButton(
-                icon: Icon(Icons.info_outline),
-                onPressed: () {
-                  showInfoDialog(
-                    context,
+              suffixIcon: InformationPopupButton(
+                title: 'Interne functietitel',
+                description:
                     'Als Barista zorg je samen met je team voor het creëren van de perfecte koffie-ervaring voor onze klanten. Je bereidt zorgvuldig verschillende koffiespecialiteiten, adviseert klanten over hun keuzes, en zorgt ervoor dat de werkomgeving aangenaam en efficiënt is. Daarnaast draag je bij aan de gastvrijheid en sfeer die in lijn zijn met de hoge standaard van onze vestiging.',
-                    'Interne functietitel',
-                  );
-                },
               ),
               suffixIconColor: (_selectedFunction == null)
                   ? Colors.grey.shade300

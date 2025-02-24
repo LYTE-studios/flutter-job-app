@@ -53,7 +53,8 @@ class BaseCreateJobListingScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
-title,          style: TextStyles.titleMedium,
+          title,
+          style: TextStyles.titleMedium,
         ),
         centerTitle: true,
         bottom: PreferredSize(
@@ -140,36 +141,35 @@ title,          style: TextStyles.titleMedium,
 //             ),
 //           ],
 
-      body: SafeArea(
-        bottom: true,
-        child: TweenAnimationBuilder<double>(
-          tween: Tween<double>(begin: 0, end: 1),
-          duration: const Duration(milliseconds: 500),
-          builder: (context, value, child) {
-            return Opacity(
-              opacity: value,
-              child: child,
-            );
-          },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(PaddingSizes.large),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: PaddingSizes.small),
-                      child,
-                    ],
-                  ),
-                ),
+      body: TweenAnimationBuilder<double>(
+        tween: Tween<double>(begin: 0, end: 1),
+        duration: const Duration(milliseconds: 500),
+        builder: (context, value, child) {
+          return Opacity(
+            opacity: value,
+            child: child,
+          );
+        },
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: ListView(
+                padding: EdgeInsets.all(PaddingSizes.large),
+                children: [
+                  child,
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: PaddingSizes.large,
-                ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: PaddingSizes.large,
+              right: PaddingSizes.large,
+              child: SafeArea(
+                bottom: true,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -204,9 +204,8 @@ title,          style: TextStyles.titleMedium,
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

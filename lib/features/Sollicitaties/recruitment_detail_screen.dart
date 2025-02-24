@@ -5,6 +5,7 @@ import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/chat/screens/employer/chat_page_screen.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -112,111 +113,111 @@ class RecruitmentDetailScreen extends StatelessWidget {
           ? Stack(
               children: [
                 // Scrollable list with top padding to account for header widget and spacing
-                ListView.separated(
+                ListView(
                   padding: const EdgeInsets.only(
-                      top: 16 + headerHeight + 16,
-                      left: 16.0,
-                      right: 16.0,
-                      bottom: 16.0),
+                    top: 16,
+                    left: 16.0,
+                    right: 16.0,
+                    bottom: 16.0,
+                  ),
                   shrinkWrap: true,
                   physics: const AlwaysScrollableScrollPhysics(),
-                  itemCount: jobCards.length,
-                  separatorBuilder: (context, index) =>
-                      const Divider(height: 10, color: Colors.transparent),
-                  itemBuilder: (context, index) {
-                    final card = jobCards[index];
-                    return CustomJobCard(
-                      showLikeButton: (title == 'Sollicitaties'),
-                      description: card["description"]!,
-                      age: card["age"]!,
-                      buttonColor: HexColor.fromHex('#3976FF'),
-                      buttonText: "Chat starten",
-                      onButtonPressed: () {
-                        context.push(ChatPageScreen.employerRoute);
-                      },
-                      buttonIcon: JobrIcons.send,
-                      showBottomText: true,
-                      location: card["location"]!,
-                      userName: card["userName"]!,
-                      profileImagePath: card["profileImagePath"]!,
-                      suggestionPercentage: card["suggestionPercentage"]!,
-                    );
-                  },
-                ),
-                // Positioned header that remains at the top
-                Positioned(
-                  top: 16,
-                  left: 16,
-                  right: 16,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(21),
-                      color: HexColor.fromHex('#F5F5F5'),
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(21),
+                        color: HexColor.fromHex('#F5F5F5'),
+                      ),
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                width: 45,
+                                height: 45,
+                                clipBehavior: Clip.antiAlias,
+                                child: Image.asset(
+                                  JobrIcons.placeholder1,
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Text(
+                                    'Brooklyn',
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xFF000000),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Gent, Voorstraat',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0xFF666666),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          PrimaryButton(
+                            buttonText: ' 16 ',
+                            onTap: () {},
+                            height: 39,
+                            width: 80,
+                            icon: Icon(Icons.people),
+                            textColor: Colors.white,
+                            buttonColor: Theme.of(context).primaryColor,
+                          ),
+                        ],
+                      ),
                     ),
-                    padding: const EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            Container(
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
-                              width: 45,
-                              height: 45,
-                              clipBehavior: Clip.antiAlias,
-                              child: Image.asset(
-                                JobrIcons.placeholder1,
-                              ),
+                    const SizedBox(
+                      height: PaddingSizes.medium,
+                    ),
+                    ...jobCards
+                        .map(
+                          (card) => Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: PaddingSizes.medium,
                             ),
-                            const SizedBox(width: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  'Brooklyn',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xFF000000),
-                                  ),
-                                ),
-                                Text(
-                                  'Gent, Voorstraat',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF666666),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        PrimaryButton(
-                          buttonText: ' 16 ',
-                          onTap: () {
-                            context.push(
-                              RecruitmentDetailScreen.employerRoute,
-                              extra: {
-                                'category': '',
-                                'title': 'Sollicitaties',
-                                "image": "",
+                            child: CustomJobCard(
+                              showLikeButton: (title == 'Sollicitaties'),
+                              description: card["description"]!,
+                              age: card["age"]!,
+                              buttonColor: HexColor.fromHex('#3976FF'),
+                              buttonText: "Chat starten",
+                              onButtonPressed: () {
+                                context.push(ChatPageScreen.employerRoute);
                               },
-                            );
-                          },
-                          height: 39,
-                          width: 80,
-                          icon: Icon(Icons.people),
-                          textColor: Colors.white,
-                          buttonColor: Theme.of(context).primaryColor,
-                        ),
-                      ],
-                    ),
-                  ),
+                              buttonIcon: JobrIcons.send,
+                              showBottomText: true,
+                              location: card["location"]!,
+                              userName: card["userName"]!,
+                              profileImagePath: card["profileImagePath"]!,
+                              suggestionPercentage:
+                                  card["suggestionPercentage"]!,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    SafeArea(
+                      top: false,
+                      bottom: true,
+                      child: const SizedBox(),
+                    )
+                  ],
                 ),
               ],
             )

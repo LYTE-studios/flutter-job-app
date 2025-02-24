@@ -390,240 +390,236 @@ class _CreateJobListingDescriptionScreenState
       onNavigate: navigateToSkillsScreen,
       isNavigationEnabled: mandatoryTextFieldFilled,
       buttonLabel: "Naar vaardigheden",
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10),
-            Text(
-              "Beschrijving",
-              style: TextStyles.titleMedium.copyWith(fontSize: 22),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Beschrijving",
+            style: TextStyles.titleMedium.copyWith(fontSize: 22),
+          ),
+          Text(
+            "Schrijf een inleidende jobbeschrijving en kies \nextra onderwerpen.",
+            style: TextStyles.bodyMedium.copyWith(
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.1,
+                fontFamily: 'Poppins',
+                fontSize: 14.5,
+                color: HexColor.fromHex("#6D6D6D")),
+          ),
+          SizedBox(
+            height: 6,
+          ),
+          SizedBox(
+            height: 10,
+            child: Divider(
+              thickness: 1.5,
+              color: Colors.grey.shade200.withOpacity(0.7),
             ),
-            Text(
-              "Schrijf een inleidende jobbeschrijving en kies \nextra onderwerpen.",
-              style: TextStyles.bodyMedium.copyWith(
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: 0.1,
-                  fontFamily: 'Poppins',
-                  fontSize: 14.5,
-                  color: HexColor.fromHex("#6D6D6D")),
-            ),
-            SizedBox(
-              height: 6,
-            ),
-            SizedBox(
-              height: 10,
-              child: Divider(
-                thickness: 1.5,
-                color: Colors.grey.shade200.withOpacity(0.7),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                if (!isMainDescriptionExpanded) {
+                  isMainDescriptionExpanded = true;
+                } else if (!isMainDescriptionLocked) {
+                  isMainDescriptionLocked = true;
+                } else if (isMainDescriptionLocked) {
+                  isMainDescriptionLocked = false;
+                }
+              });
+            },
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: HexColor.fromHex("#F7F7F7"),
+                borderRadius: BorderRadius.circular(12),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  if (!isMainDescriptionExpanded) {
-                    isMainDescriptionExpanded = true;
-                  } else if (!isMainDescriptionLocked) {
-                    isMainDescriptionLocked = true;
-                  } else if (isMainDescriptionLocked) {
-                    isMainDescriptionLocked = false;
-                  }
-                });
-              },
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: HexColor.fromHex("#F7F7F7"),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Je job als Barista",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        '*',
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  TextField(
+                    controller: mainDescriptionController,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      hintText:
+                          'Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...',
+                      hintStyle: TextStyle(
+                        color: Colors.grey.shade500,
+                        fontSize: 14.5,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      border: InputBorder.none, // No border
+                    ),
+                    maxLines: null, // Allow multi-line input
+                    textInputAction: TextInputAction.done,
+                    onSubmitted: (_) => () {},
+                  ),
+                  const SizedBox(height: 16),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    transitionBuilder: (child, animation) => FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    ),
+                    child: Column(
+                      key: ValueKey<int>(options.length),
+                      children: options.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        String title = entry.value['title']!;
+                        String description = entry.value['description']!;
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Divider(
+                                color: Colors.grey[200],
+                                thickness: 2,
+                              ),
+                              SizedBox(height: 6),
+                              // Title
+                              GestureDetector(
+                                onTap: () => toggleExpansion(index),
+                                child: Text(
+                                  title,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              // Expandable description with ellipsis
+                              if (description.isNotEmpty) ...[
+                                // If description exists, show full description
+                                if (!isExpanded[index]) ...[
+                                  Text(
+                                    description,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.grey.shade500,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                                // Show the full description when expanded
+                                if (isExpanded[index]) ...[
+                                  Text(
+                                    description,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey.shade600,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                ],
+                              ] else ...[
+                                // If description doesn't exist, show text field
+                                if (!isExpanded[index]) ...[
+                                  TextField(
+                                    controller: descriptionControllers[index],
+                                    onChanged: (value) {
+                                      // Update only if the value is different to avoid constant rebuilds
+                                      if (options[index]['description'] !=
+                                          value) {
+                                        options[index]['description'] = value;
+                                      }
+                                    },
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                    ),
+                                    decoration: InputDecoration(
+                                      hintText: 'Hier typen...',
+                                      hintStyle: TextStyle(
+                                        color: Colors.grey.shade500,
+                                        fontSize: 14.5,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      border: InputBorder.none, // No border
+                                    ),
+                                    maxLines: null, // Allow multi-line input
+                                    textInputAction: TextInputAction.done,
+                                    onSubmitted: (_) =>
+                                        navigateToSkillsScreen(),
+                                  ),
+                                  const SizedBox(height: 10),
+                                ],
+                              ],
+                              (index != options.length - 1)
+                                  ? Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 6,
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
+                            ],
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Divider(
+                    color: Colors.grey[200],
+                    thickness: 2,
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  // Button to add new option
+                  FilledButton(
+                    style: FilledButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                    ),
+                    onPressed: showOptionsBottomSheet,
+                    child: Row(
                       children: [
                         Text(
-                          "Je job als Barista",
+                          '+ Kies onderwerp',
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          '*',
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17.5),
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    TextField(
-                      controller: mainDescriptionController,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                      ),
-                      decoration: InputDecoration(
-                        hintText:
-                            'Uit wat bestaat de takenlijst, wat houdt de \njob juist in, ...',
-                        hintStyle: TextStyle(
-                          color: Colors.grey.shade500,
-                          fontSize: 14.5,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        border: InputBorder.none, // No border
-                      ),
-                      maxLines: null, // Allow multi-line input
-                      textInputAction: TextInputAction.done,
-                      onSubmitted: (_) => () {},
-                    ),
-                    const SizedBox(height: 16),
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      transitionBuilder: (child, animation) => FadeTransition(
-                        opacity: animation,
-                        child: child,
-                      ),
-                      child: Column(
-                        key: ValueKey<int>(options.length),
-                        children: options.asMap().entries.map((entry) {
-                          int index = entry.key;
-                          String title = entry.value['title']!;
-                          String description = entry.value['description']!;
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Divider(
-                                  color: Colors.grey[200],
-                                  thickness: 2,
-                                ),
-                                SizedBox(height: 6),
-                                // Title
-                                GestureDetector(
-                                  onTap: () => toggleExpansion(index),
-                                  child: Text(
-                                    title,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 6),
-                                // Expandable description with ellipsis
-                                if (description.isNotEmpty) ...[
-                                  // If description exists, show full description
-                                  if (!isExpanded[index]) ...[
-                                    Text(
-                                      description,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.grey.shade500,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                  // Show the full description when expanded
-                                  if (isExpanded[index]) ...[
-                                    Text(
-                                      description,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey.shade600,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                  ],
-                                ] else ...[
-                                  // If description doesn't exist, show text field
-                                  if (!isExpanded[index]) ...[
-                                    TextField(
-                                      controller: descriptionControllers[index],
-                                      onChanged: (value) {
-                                        // Update only if the value is different to avoid constant rebuilds
-                                        if (options[index]['description'] !=
-                                            value) {
-                                          options[index]['description'] = value;
-                                        }
-                                      },
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.black,
-                                      ),
-                                      decoration: InputDecoration(
-                                        hintText: 'Hier typen...',
-                                        hintStyle: TextStyle(
-                                          color: Colors.grey.shade500,
-                                          fontSize: 14.5,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                        border: InputBorder.none, // No border
-                                      ),
-                                      maxLines: null, // Allow multi-line input
-                                      textInputAction: TextInputAction.done,
-                                      onSubmitted: (_) =>
-                                          navigateToSkillsScreen(),
-                                    ),
-                                    const SizedBox(height: 10),
-                                  ],
-                                ],
-                                (index != options.length - 1)
-                                    ? Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 6,
-                                          ),
-                                        ],
-                                      )
-                                    : Container(),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Divider(
-                      color: Colors.grey[200],
-                      thickness: 2,
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    // Button to add new option
-                    FilledButton(
-                      style: FilledButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        elevation: 0,
-                      ),
-                      onPressed: showOptionsBottomSheet,
-                      child: Row(
-                        children: [
-                          Text(
-                            '+ Kies onderwerp',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17.5),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
