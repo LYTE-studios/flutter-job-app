@@ -9,7 +9,7 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 class JobListScreen extends StatelessWidget {
   static final String location = 'job-list';
 
-  JobListScreen({super.key});
+  const JobListScreen({super.key});
 
   static String employeeRoute = JobrRouter.getRoute(
     '${JobScreen.location}/${FilterScreenEmployee.location}/$location',

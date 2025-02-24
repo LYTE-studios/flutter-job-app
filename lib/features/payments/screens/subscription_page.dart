@@ -98,7 +98,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
           bottom: TabBar(
             labelPadding: const EdgeInsets.symmetric(horizontal: 0),
             padding: const EdgeInsets.symmetric(horizontal: 70),
-            overlayColor: MaterialStateProperty.all(
+            overlayColor: WidgetStateProperty.all(
                 Colors.transparent), // New line to remove pink overlay
             dividerColor: Colors.transparent,
             indicatorColor: Colors.black,
@@ -256,7 +256,7 @@ class _YearlyPlansState extends State<YearlyPlans> {
                 description: 'Voor groeiende kmo’s',
                 subdetails: 'Alles van Local',
                 offers: '✔️ Vragenlijst   🙋‍♂️🙋‍♀️ Meerdere vestigingen',
-                backgroundColor: const Color(0xFF0DFF3E68),
+                backgroundColor: const Color(0xff0dff3e68),
                 isSelected: selectedIndex == 2,
               ),
             ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jobr/ui/theme/jobr_theme.dart';
 
 class CustomSliderWithTwoThumbs extends StatelessWidget {
   final RangeValues values;

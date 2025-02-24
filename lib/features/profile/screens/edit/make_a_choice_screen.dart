@@ -129,7 +129,7 @@ class _MakeAChoiceScreenState extends State<MakeAChoiceScreen> {
                               ),
                             ),
                           ))
-                      .toList(),
+                      ,
                 ],
               ),
             ),
@@ -184,7 +184,7 @@ class _MakeAChoiceScreenState extends State<MakeAChoiceScreen> {
                               ),
                             ),
                           ))
-                      .toList(),
+                      ,
                 ],
               ),
             ),

@@ -95,7 +95,7 @@ class _ChooseTalentScreenState extends State<ChooseTalentScreen> {
                       ),
                       Divider(
                         thickness: 1.3,
-                        color: Color(0xFF0000000).withOpacity(0.04),
+                        color: Color(0xff0000000).withOpacity(0.04),
                       ),
                       const SizedBox(height: 8),
                       GestureDetector(
@@ -151,7 +151,7 @@ class _ChooseTalentScreenState extends State<ChooseTalentScreen> {
                           children: [
                             Divider(
                               thickness: 1.3,
-                              color: Color(0xFF0000000).withOpacity(0.04),
+                              color: Color(0xff0000000).withOpacity(0.04),
                             ),
                             const SizedBox(height: 8),
                             Wrap(

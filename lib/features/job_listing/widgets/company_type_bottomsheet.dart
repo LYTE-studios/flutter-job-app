@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/data/models/company_type.dart';
-import 'package:jobr/data/models/function_type.dart';
-import 'package:jobr/data/services/vacancies_service.dart';
 import 'package:jobr/features/profile/screens/edit/create_new_company_screen.dart';
 import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';

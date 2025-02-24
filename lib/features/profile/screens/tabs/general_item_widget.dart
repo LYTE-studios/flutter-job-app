@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/profile/screens/edit/choose_sector_screen.dart';
 import 'package:jobr/features/profile/screens/edit/choose_skills.dart';
 import 'package:jobr/features/profile/screens/edit/choose_talent_screen.dart';
-import 'package:jobr/features/profile/screens/edit/create_new_company_screen.dart';
 import 'package:jobr/features/profile/screens/edit/make_a_choice_screen.dart';
 import 'package:jobr/features/profile/screens/edit/new_experience_screen.dart';
 import 'package:jobr/ui/widgets/base/base_container.dart';

@@ -12,8 +12,7 @@ class AvailabilityScreen extends StatefulWidget {
   );
   final List<String> initialDays; // now contains IDs
 
-  const AvailabilityScreen({Key? key, required this.initialDays})
-      : super(key: key);
+  const AvailabilityScreen({super.key, required this.initialDays});
 
   @override
   State<AvailabilityScreen> createState() => _AvailabilityScreenState();

@@ -81,8 +81,6 @@ class RecruitmentDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Define a constant header height (adjust as necessary)
-    const double headerHeight = 70.0;
     return Scaffold(
       appBar: JobrAppbarNavigation(
         trailing: IconButton(
@@ -186,32 +184,29 @@ class RecruitmentDetailScreen extends StatelessWidget {
                     const SizedBox(
                       height: PaddingSizes.medium,
                     ),
-                    ...jobCards
-                        .map(
-                          (card) => Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: PaddingSizes.medium,
-                            ),
-                            child: CustomJobCard(
-                              showLikeButton: (title == 'Sollicitaties'),
-                              description: card["description"]!,
-                              age: card["age"]!,
-                              buttonColor: HexColor.fromHex('#3976FF'),
-                              buttonText: "Chat starten",
-                              onButtonPressed: () {
-                                context.push(ChatPageScreen.employerRoute);
-                              },
-                              buttonIcon: JobrIcons.send,
-                              showBottomText: true,
-                              location: card["location"]!,
-                              userName: card["userName"]!,
-                              profileImagePath: card["profileImagePath"]!,
-                              suggestionPercentage:
-                                  card["suggestionPercentage"]!,
-                            ),
-                          ),
-                        )
-                        .toList(),
+                    ...jobCards.map(
+                      (card) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: PaddingSizes.medium,
+                        ),
+                        child: CustomJobCard(
+                          showLikeButton: (title == 'Sollicitaties'),
+                          description: card["description"]!,
+                          age: card["age"]!,
+                          buttonColor: HexColor.fromHex('#3976FF'),
+                          buttonText: "Chat starten",
+                          onButtonPressed: () {
+                            context.push(ChatPageScreen.employerRoute);
+                          },
+                          buttonIcon: JobrIcons.send,
+                          showBottomText: true,
+                          location: card["location"]!,
+                          userName: card["userName"]!,
+                          profileImagePath: card["profileImagePath"]!,
+                          suggestionPercentage: card["suggestionPercentage"]!,
+                        ),
+                      ),
+                    ),
                     SafeArea(
                       top: false,
                       bottom: true,

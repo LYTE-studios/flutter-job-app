@@ -197,7 +197,7 @@ class _ChooseSkillsScreenState extends State<ChooseSkillsScreen> {
                       const SizedBox(height: 6),
                       Divider(
                         thickness: 1.3,
-                        color: Color(0xFF0000000).withOpacity(0.04),
+                        color: Color(0xff0000000).withOpacity(0.04),
                       ),
                       const SizedBox(height: 6),
                     ],

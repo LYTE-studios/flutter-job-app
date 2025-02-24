@@ -42,7 +42,7 @@ class JobrSearchBar extends StatelessWidget {
               color: HexColor.fromHex('#000000').withOpacity(0.33),
             ),
             border: InputBorder.none,
-            prefixIcon: Container(
+            prefixIcon: SizedBox(
               width: 40,
               height: double.infinity,
               child: Center(

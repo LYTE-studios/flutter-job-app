@@ -9,8 +9,6 @@ import 'package:jobr/features/job_listing/widgets/custom_slider.dart';
 import 'package:jobr/features/job_listing/widgets/function_type_bottom_sheet.dart';
 import 'package:jobr/features/jobs/job_listing.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
-import 'package:jobr/features/jobs/widgets/custom_slider.dart';
-import 'package:jobr/features/jobs/widgets/dropdown_menu.dart';
 import 'package:jobr/features/profile/screens/edit/choose_sector_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
-import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:image_picker/image_picker.dart'; // added dependency
 import 'dart:io'; // added import
 

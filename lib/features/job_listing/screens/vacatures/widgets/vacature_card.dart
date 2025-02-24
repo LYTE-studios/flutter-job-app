@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/data/models/vacancy.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
-import 'package:jobr/features/chat/screens/chat_screen.dart';
-import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_overview_screen.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/vacancy_info_page.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';

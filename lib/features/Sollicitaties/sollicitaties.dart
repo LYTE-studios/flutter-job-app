@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/Sollicitaties/widgets/job_cards.dart';
 import 'package:jobr/features/jobs/jobdetail_screen.dart';
-import 'package:jobr/features/jobs/widgets/job_card.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 

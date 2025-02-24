@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobr/data/models/company_type.dart';
-import 'package:jobr/data/models/function_type.dart';
 import 'package:jobr/data/models/status_type.dart';
-import 'package:jobr/data/services/vacancies_service.dart';
 import 'package:jobr/features/job_listing/widgets/search_function_bottom_sheet.dart';
 import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';

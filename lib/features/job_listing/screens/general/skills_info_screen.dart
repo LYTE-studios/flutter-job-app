@@ -2,18 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Add this import
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
-import 'package:jobr/data/models/language.dart';
-import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
-import 'package:jobr/features/job_listing/screens/create/create_job_listing_description_screen.dart';
-import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
-import 'package:jobr/features/job_listing/screens/create/create_job_listing_skills_screen.dart';
-import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
-import 'package:jobr/features/job_listing/widgets/custom_slider.dart';
-import 'package:jobr/features/job_listing/widgets/custom_slider_with_two_thumbs.dart';
-import 'package:jobr/features/job_listing/widgets/gender_toggle_box.dart';
-import 'package:jobr/features/job_listing/widgets/language_bottom_sheet.dart';
 // Add alias
-import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 

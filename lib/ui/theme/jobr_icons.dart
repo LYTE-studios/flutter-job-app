@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class JobrIcons {
-  static const String _basePath = 'assets/images';
   static const String _baseIconPath = 'assets/images/icons';
   static const String _baseLogoPath = 'assets/images/logos';
 
