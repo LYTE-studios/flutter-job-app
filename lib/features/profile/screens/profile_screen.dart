@@ -6,6 +6,9 @@ import 'package:jobr/features/profile/screens/availability_screen.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/company_screen/settings_screen.dart';
 import 'package:jobr/features/profile/screens/edit/edit_profile_details_screen.dart';
+import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
+import 'package:jobr/features/profile/screens/reviews/employee_reviews.dart';
+import 'package:jobr/features/profile/screens/reviews/profile_review_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -293,6 +296,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
+              const SizedBox(height: 14),
+              CustomStarRating(
+                rating: 3.5,
+                onIconTap: () {
+                  context.push(DisplayProfileReviews.employeeRoute);
+                },
+                containerBackgroundColor:
+                    HexColor.fromHex('#F0F0F0').withOpacity(0.24),
+                borderColor: HexColor.fromHex('#EDEDED').withOpacity(0.36),
+              ),
+             
             const SizedBox(height: 22),
             const Padding(
               padding: EdgeInsets.only(

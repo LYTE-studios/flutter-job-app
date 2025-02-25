@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/job_listing/widgets/status_type_bottomsheet.dart';
 import 'package:jobr/features/profile/screens/profile_screen.dart';
+import 'package:jobr/features/profile/screens/widgets/media_widget.dart';
 import 'package:jobr/features/profile/screens/widgets/selection_text_field.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:image_picker/image_picker.dart';
@@ -244,6 +245,16 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
               physics: const ClampingScrollPhysics(),
               children: [
                 const SizedBox(height: 15),
+                SizedBox(
+                  child: const Wrap(
+                    alignment: WrapAlignment.spaceBetween,
+                    children: [
+                      MediaWidget(),
+                      MediaWidget(),
+                    ],
+                  ),
+                ),
+
                 // Replaced _buildTextField calls with TextFieldSettings
                 TextFieldSettings(
                   inputTextStyle: TextStyle(

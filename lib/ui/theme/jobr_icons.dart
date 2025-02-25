@@ -22,8 +22,11 @@ class JobrIcons {
   }
 
   static const String logoLight = '$_baseLogoPath/jobr_logo_light.svg';
+  static const String qrcode = '$_baseLogoPath/dashboard.svg';
+
   static const String tick = '$_baseIconPath/tick.svg';
   static const String tick2 = '$_baseIconPath/tick2.svg';
+  static const String link = '$_baseIconPath/link.svg';
 
   static const String googleIcon = '$_baseIconPath/google.svg';
   static const String appleIcon = '$_baseIconPath/apple.svg';

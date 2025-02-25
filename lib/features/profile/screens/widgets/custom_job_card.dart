@@ -23,6 +23,8 @@ class CustomJobCard extends StatefulWidget {
   final bool isAICard;
   final bool showLikeButton;
 
+  final double? rating;
+
   const CustomJobCard({
     super.key,
     this.height = 272,
@@ -40,6 +42,7 @@ class CustomJobCard extends StatefulWidget {
     this.descriptionPadding = 0,
     this.isAICard = false,
     this.showLikeButton = false,
+    this.rating,
   });
 
   @override
@@ -89,18 +92,31 @@ class _CustomJobCardState extends State<CustomJobCard> {
             Positioned(
               top: 10,
               right: 16,
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: IconButton(
-                  color: Colors.white,
-                  icon: Icon(
-                    Icons.favorite,
-                    color: isLiked
-                        ? Theme.of(context).primaryColor
-                        : Colors.grey.shade400,
-                    size: 26,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.15),
+                      spreadRadius: 1,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: IconButton(
+                    color: const Color.fromRGBO(255, 255, 255, 1),
+                    icon: Icon(
+                      Icons.favorite,
+                      color: isLiked
+                          ? HexColor.fromHex('#FF3E68')
+                          : Colors.grey.shade300,
+                      size: 26,
+                    ),
+                    onPressed: toggleLike,
                   ),
-                  onPressed: toggleLike,
                 ),
               ),
             ),
@@ -139,6 +155,11 @@ class _CustomJobCardState extends State<CustomJobCard> {
                   _buildAgeInfo(),
                 ],
               ),
+              const SizedBox(height: 4),
+              if (widget.rating != null)
+                StarRating(
+                  rating: widget.rating!,
+                )
             ],
           ),
         ),
@@ -217,7 +238,7 @@ class _CustomJobCardState extends State<CustomJobCard> {
       style: TextStyle(
         fontFamily: 'Poppins',
         color: HexColor.fromHex('#4A4C53'),
-        fontSize: 17,
+        fontSize: 16,
         letterSpacing: 0.0001,
         fontWeight: FontWeight.w500,
       ),
@@ -322,5 +343,67 @@ class _CustomJobCardState extends State<CustomJobCard> {
         ],
       ),
     );
+  }
+}
+
+class StarRating extends StatelessWidget {
+  final double rating;
+  final int totalStars;
+  final double size;
+
+  const StarRating({
+    Key? key,
+    required this.rating,
+    this.totalStars = 5,
+    this.size = 24.0,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Wrap(
+          spacing: -4,
+          children: List.generate(totalStars, (index) {
+            if (rating >= index + 1) {
+              return Icon(Icons.star_rounded,
+                  size: size, color: const Color(0xFFFFD400));
+            } else if (rating > index) {
+              final double fraction = rating - index;
+              return Stack(
+                children: [
+                  Icon(Icons.star_rounded,
+                      size: size, color: const Color(0xFFD9D9D9)),
+                  ClipRect(
+                    clipper: _StarClipper(fraction),
+                    child: Icon(Icons.star_rounded,
+                        size: size, color: const Color(0xFFFFD400)),
+                  ),
+                ],
+              );
+            } else {
+              return Icon(Icons.star_rounded,
+                  size: size, color: const Color(0xFFD9D9D9));
+            }
+          }),
+        ),
+      ],
+    );
+  }
+}
+
+class _StarClipper extends CustomClipper<Rect> {
+  final double fraction;
+  _StarClipper(this.fraction);
+
+  @override
+  Rect getClip(Size size) {
+    return Rect.fromLTWH(0, 0, size.width * fraction, size.height);
+  }
+
+  @override
+  bool shouldReclip(covariant _StarClipper oldClipper) {
+    return oldClipper.fraction != fraction;
   }
 }

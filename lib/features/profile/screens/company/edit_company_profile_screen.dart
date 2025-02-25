@@ -475,7 +475,6 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 10),
                 TextFieldSettings(
                     label: 'Bedrijfsnaam',
                     hintText: 'Bedrijfsnaam',

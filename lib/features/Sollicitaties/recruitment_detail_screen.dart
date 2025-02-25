@@ -5,7 +5,6 @@ import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/chat/screens/employer/chat_page_screen.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
-import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -42,6 +41,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "userName": "Yassine Vuran",
       "profileImagePath": "assets/images/images/image.png",
       "suggestionPercentage": "74",
+      "rating": "4.5",
     },
     {
       "description":
@@ -51,6 +51,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "userName": "Sarah De Vries",
       "profileImagePath": "assets/images/images/image-3.png",
       "suggestionPercentage": "82",
+      "rating": "4.5",
     },
     {
       "description":
@@ -60,6 +61,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "userName": "Thomas Peeters",
       "profileImagePath": "assets/images/images/image-9.png",
       "suggestionPercentage": "68",
+      "rating": "4.5",
     },
     {
       "description": "Ervaren verkoper met passie voor klantenrelaties",
@@ -68,6 +70,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "userName": "Lisa Janssens",
       "profileImagePath": "assets/images/images/image-6.png",
       "suggestionPercentage": "79",
+      "rating": "4.5",
     },
     {
       "description": "IT specialist zoekend naar nieuwe uitdagingen",
@@ -76,11 +79,14 @@ class RecruitmentDetailScreen extends StatelessWidget {
       "userName": "Kevin Van Dam",
       "profileImagePath": "assets/images/images/image-7.png",
       "suggestionPercentage": "88",
+      "rating": "4.5",
     },
   ];
 
   @override
   Widget build(BuildContext context) {
+    // Define a constant header height (adjust as necessary)
+    const double headerHeight = 70.0;
     return Scaffold(
       appBar: JobrAppbarNavigation(
         trailing: IconButton(
@@ -111,108 +117,112 @@ class RecruitmentDetailScreen extends StatelessWidget {
           ? Stack(
               children: [
                 // Scrollable list with top padding to account for header widget and spacing
-                ListView(
+                ListView.separated(
                   padding: const EdgeInsets.only(
-                    top: 16,
-                    left: 16.0,
-                    right: 16.0,
-                    bottom: 16.0,
-                  ),
+                      top: 16 + headerHeight + 16,
+                      left: 16.0,
+                      right: 16.0,
+                      bottom: 16.0),
                   shrinkWrap: true,
                   physics: const AlwaysScrollableScrollPhysics(),
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(21),
-                        color: HexColor.fromHex('#F5F5F5'),
-                      ),
-                      padding: const EdgeInsets.all(12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Row(
-                            children: [
-                              Container(
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                width: 45,
-                                height: 45,
-                                clipBehavior: Clip.antiAlias,
-                                child: Image.asset(
-                                  JobrIcons.placeholder1,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    'Brooklyn',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xFF000000),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Gent, Voorstraat',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xFF666666),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          PrimaryButton(
-                            buttonText: ' 16 ',
-                            onTap: () {},
-                            height: 39,
-                            width: 80,
-                            icon: Icon(Icons.people),
-                            textColor: Colors.white,
-                            buttonColor: Theme.of(context).primaryColor,
-                          ),
-                        ],
-                      ),
+                  itemCount: jobCards.length,
+                  separatorBuilder: (context, index) =>
+                      const Divider(height: 10, color: Colors.transparent),
+                  itemBuilder: (context, index) {
+                    final card = jobCards[index];
+                    return CustomJobCard(
+                      rating: double.parse(card["rating"]!),
+                      showLikeButton: (title == 'Sollicitaties'),
+                      description: card["description"]!,
+                      age: card["age"]!,
+                      buttonColor: HexColor.fromHex('#3976FF'),
+                      buttonText: "Chat starten",
+                      onButtonPressed: () {
+                        context.push(ChatPageScreen.employerRoute);
+                      },
+                      buttonIcon: JobrIcons.send,
+                      showBottomText: true,
+                      location: card["location"]!,
+                      userName: card["userName"]!,
+                      profileImagePath: card["profileImagePath"]!,
+                      suggestionPercentage: card["suggestionPercentage"]!,
+                    );
+                  },
+                ),
+                // Positioned header that remains at the top
+                Positioned(
+                  top: 16,
+                  left: 16,
+                  right: 16,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(21),
+                      color: HexColor.fromHex('#F5F5F5'),
                     ),
-                    const SizedBox(
-                      height: PaddingSizes.medium,
-                    ),
-                    ...jobCards.map(
-                      (card) => Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: PaddingSizes.medium,
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Container(
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              width: 45,
+                              height: 45,
+                              clipBehavior: Clip.antiAlias,
+                              child: Image.asset(
+                                JobrIcons.placeholder1,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                Text(
+                                  'Brooklyn',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFF000000),
+                                  ),
+                                ),
+                                Text(
+                                  'Gent, Voorstraat',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xFF666666),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        child: CustomJobCard(
-                          showLikeButton: (title == 'Sollicitaties'),
-                          description: card["description"]!,
-                          age: card["age"]!,
-                          buttonColor: HexColor.fromHex('#3976FF'),
-                          buttonText: "Chat starten",
-                          onButtonPressed: () {
-                            context.push(ChatPageScreen.employerRoute);
+                        PrimaryButton(
+                          buttonText: ' 16 ',
+                          onTap: () {
+                            context.push(
+                              RecruitmentDetailScreen.employerRoute,
+                              extra: {
+                                'category': '',
+                                'title': 'Sollicitaties',
+                                "image": "",
+                              },
+                            );
                           },
-                          buttonIcon: JobrIcons.send,
-                          showBottomText: true,
-                          location: card["location"]!,
-                          userName: card["userName"]!,
-                          profileImagePath: card["profileImagePath"]!,
-                          suggestionPercentage: card["suggestionPercentage"]!,
+                          height: 39,
+                          width: 80,
+                          icon: Icon(Icons.people),
+                          textColor: Colors.white,
+                          buttonColor: Theme.of(context).primaryColor,
                         ),
-                      ),
+                      ],
                     ),
-                    SafeArea(
-                      top: false,
-                      bottom: true,
-                      child: const SizedBox(),
-                    )
-                  ],
+                  ),
                 ),
               ],
             )
@@ -231,6 +241,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final card = jobCards[index];
                       return CustomJobCard(
+                        rating: double.parse(card["rating"]!),
                         showLikeButton: (title == 'Sollicitaties'),
                         description: card["description"]!,
                         age: card["age"]!,
