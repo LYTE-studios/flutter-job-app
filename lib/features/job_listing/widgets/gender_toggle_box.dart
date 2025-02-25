@@ -20,36 +20,70 @@ class _GenderToggleBoxState extends State<GenderToggleBox> {
         borderRadius: BorderRadius.circular(10),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: options.map((option) {
-          final bool isSelected = option == selectedGender;
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedGender = option; // Update selected option
-              });
-            },
+      child: Stack(
+        children: [
+          AnimatedAlign(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            alignment: Alignment(
+                selectedGender == 'Vrouw'
+                    ? -0.2
+                    : options.indexOf(selectedGender) /
+                            (options.length - 1) *
+                            2 -
+                        1,
+                0),
             child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+              width: _getWidthForOption(selectedGender),
+              height: 40,
               decoration: BoxDecoration(
-                color: isSelected
-                    ? Theme.of(context).primaryColor
-                    : Colors.transparent,
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Text(
-                option,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: isSelected ? Colors.white : Colors.black,
-                ),
-              ),
             ),
-          );
-        }).toList(),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: options.map((option) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedGender = option; // Update selected option
+                  });
+                },
+                child: Container(
+                  width: _getWidthForOption(option),
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Text(
+                    option,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: option == selectedGender
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
       ),
     );
+  }
+
+  double _getWidthForOption(String option) {
+    switch (option) {
+      case 'Man':
+        return 70;
+      case 'Vrouw':
+        return 80;
+      case 'Geen voorkeur':
+        return 120;
+      default:
+        return 50;
+    }
   }
 }

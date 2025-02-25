@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/features/job_listing/screens/general/skills_info_screen.dart';
 import 'package:jobr/features/payments/screens/subscription_page.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -172,7 +173,7 @@ class JobInfo extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              context.push(SubscriptionPage.route);
+                    context.push(SkillsInfoScreen.employeeRoute);
                             },
                             child: SvgPicture.asset(
                               height: 20,

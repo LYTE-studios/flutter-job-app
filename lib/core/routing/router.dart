@@ -331,27 +331,26 @@ GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-          path: EmployProfileDisplayScreen.employerRoute,
-          pageBuilder: (BuildContext context, GoRouterState state) {
-            return buildPageWithSlideUpTransition(
-              context: context,
-              state: state,
-              child: const EmployProfileDisplayScreen(),
-            );
-          },
-
-          routes: [
-             GoRoute(
-          path: EmployeeReviewsDisplayScreen.location,
-          pageBuilder: (BuildContext context, GoRouterState state) {
-            return buildPageWithSlideUpTransition(
-              context: context,
-              state: state,
-              child:  EmployeeReviewsDisplayScreen(),
-            );
-          },)
-          ]
-        ),
+            path: EmployProfileDisplayScreen.employerRoute,
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return buildPageWithSlideUpTransition(
+                context: context,
+                state: state,
+                child: const EmployProfileDisplayScreen(),
+              );
+            },
+            routes: [
+              GoRoute(
+                path: EmployeeReviewsDisplayScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  return buildPageWithSlideUpTransition(
+                    context: context,
+                    state: state,
+                    child: EmployeeReviewsDisplayScreen(),
+                  );
+                },
+              )
+            ]),
         GoRoute(
           path: CompanyVenueProfile.employerRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
@@ -411,6 +410,11 @@ GoRouter router = GoRouter(
               child: const SkillsInfoScreen(),
             );
           },
+        ),
+        GoRoute(
+          path: ChooseSkillsScreen.employerRoute,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(child: ChooseSkillsScreen()),
         ),
         GoRoute(
           path: ChatPageScreen.employerRoute,
@@ -644,7 +648,7 @@ GoRouter router = GoRouter(
                         final String data = state.extra as String;
                         return NoTransitionPage(
                           child: QuestionPage(companyName: data),
-                        );    
+                        );
                       },
                     ),
                   ]),
@@ -666,6 +670,16 @@ GoRouter router = GoRouter(
               context: context,
               state: state,
               child: const ChatPageEmployeeScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: SkillsInfoScreen.employeeRoute,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return buildPageWithSlideUpTransition(
+              context: context,
+              state: state,
+              child: const SkillsInfoScreen(),
             );
           },
         ),
@@ -716,7 +730,7 @@ GoRouter router = GoRouter(
                   child: ProfileScreen(),
                 ),
             routes: [
-               GoRoute(
+              GoRoute(
                 path: DisplayProfileReviews.location,
                 pageBuilder: (BuildContext context, GoRouterState state) =>
                     NoTransitionPage(

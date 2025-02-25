@@ -388,7 +388,7 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                   label: 'Bio',
                   hintText: 'Schrijf bio',
                   controller: bioController,
-                  maxLines: 5,
+                  maxLines: null,
                   keyboardType: TextInputType.multiline,
                   color: Colors.black,
                   readOnly: false,

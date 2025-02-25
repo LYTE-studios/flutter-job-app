@@ -377,7 +377,7 @@ class _GeneralItemsWidgetState extends State<GeneralItemsWidget> {
                       else
                         GestureDetector(
                           onTap: () {
-                            context.push(ChooseSkillsScreen.route);
+                            context.push(ChooseSkillsScreen.employeeRoute);
 
                             setState(() {
                               editSkills = !editSkills;

@@ -24,6 +24,11 @@ class SkillsInfoScreen extends StatefulWidget {
     '${SkillsInfoScreen.location}/$location',
     JobrRouter.employerInitialroute,
   );
+
+  static String employeeRoute = JobrRouter.getRoute(
+    '$location',
+    JobrRouter.employeeInitialroute,
+  );
   const SkillsInfoScreen({super.key});
 
   @override

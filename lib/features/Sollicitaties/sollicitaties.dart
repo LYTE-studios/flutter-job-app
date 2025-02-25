@@ -69,59 +69,79 @@ class _SollicitatiesScreenState extends State<SollicitatiesScreen> {
               _buildGridView(),
               const SizedBox(
                   height: 14), // Reduced spacing between grid and cards
-              const JobCardSollicitaties(
-                backgroundImagePath: 'assets/images/recruteren/bekeken.png',
-                location: 'Kortrijk',
-                jobType: 'Bekeken',
-                salaryText: '€15/uur',
-                companyLogoPath: 'assets/images/recruteren/logo1.png',
-                jobTitle: 'Kassa medewerker',
-                companyName: 'Brooklyn Kortrijk',
-                suggestionPercentage: '98%',
-                suggestionIconPath:
-                    'assets/images/recruteren/jobrAI_suggesties.png',
-                isSalaryTextBlack: true,
-              ),
-              const JobCardSollicitaties(
-                backgroundImagePath: 'assets/images/recruteren/0,80.png',
-                location: 'Kortrijk',
-                jobType: '0,80km',
-                salaryText: 'n.v.t',
-                companyLogoPath: 'assets/images/recruteren/logo2.png',
-                jobTitle: 'Team leader',
-                companyName: 'Barouche',
-                suggestionPercentage: '85%',
-                suggestionIconPath:
-                    'assets/images/recruteren/jobrAI_suggesties.png',
-                isJobTypeTextBlack: true,
-              ),
-              const JobCardSollicitaties(
-                backgroundImagePath: 'assets/images/recruteren/2,32.png',
-                location: 'Kortrijk',
-                jobType: '2,32km',
-                salaryText: 'Barema',
-                companyLogoPath: 'assets/images/recruteren/logo3.png',
-                jobTitle: 'Head of restaurant',
-                companyName: 'Spicy Lemon',
-                suggestionPercentage: '79%',
-                suggestionIconPath:
-                    'assets/images/recruteren/jobrAI_suggesties.png',
-                isJobTypeTextBlack: true,
-              ),
-              const JobCardSollicitaties(
-                backgroundImagePath: 'assets/images/recruteren/7,99.png',
-                location: 'Gent',
-                jobType: '7,99km',
-                salaryText: '€14.50/uur',
-                companyLogoPath: 'assets/images/recruteren/logo4.png',
-                jobTitle: 'Winkel medewerker',
-                companyName: 'Carrefour Express K...',
-                suggestionPercentage: '67%',
-                suggestionIconPath:
-                    'assets/images/recruteren/jobrAI_suggesties.png',
-                isSalaryTextBlack: true,
-                isJobTypeTextBlack: true,
-              ),
+              if (isLiked) ...[
+                // Render only liked job cards when heart is active
+                JobCardSollicitaties(
+                  isLiked: true,
+                  backgroundImagePath: 'assets/images/recruteren/bekeken.png',
+                  location: 'Kortrijk',
+                  jobType: 'Bekeken',
+                  salaryText: '€15/uur',
+                  companyLogoPath: 'assets/images/recruteren/logo1.png',
+                  jobTitle: 'Kassa medewerker',
+                  companyName: 'Brooklyn Kortrijk',
+                  suggestionPercentage: '98%',
+                  suggestionIconPath:
+                      'assets/images/recruteren/jobrAI_suggesties.png',
+                  isSalaryTextBlack: true,
+                ),
+                // ...add additional liked posts if available...
+              ] else ...[
+                // Render default job cards
+                JobCardSollicitaties(
+                  backgroundImagePath: 'assets/images/recruteren/bekeken.png',
+                  location: 'Kortrijk',
+                  jobType: 'Bekeken',
+                  salaryText: '€15/uur',
+                  companyLogoPath: 'assets/images/recruteren/logo1.png',
+                  jobTitle: 'Kassa medewerker',
+                  companyName: 'Brooklyn Kortrijk',
+                  suggestionPercentage: '98%',
+                  suggestionIconPath:
+                      'assets/images/recruteren/jobrAI_suggesties.png',
+                  isSalaryTextBlack: true,
+                ),
+                JobCardSollicitaties(
+                  backgroundImagePath: 'assets/images/recruteren/0,80.png',
+                  location: 'Kortrijk',
+                  jobType: '0,80km',
+                  salaryText: 'n.v.t',
+                  companyLogoPath: 'assets/images/recruteren/logo2.png',
+                  jobTitle: 'Team leader',
+                  companyName: 'Barouche',
+                  suggestionPercentage: '85%',
+                  suggestionIconPath:
+                      'assets/images/recruteren/jobrAI_suggesties.png',
+                  isJobTypeTextBlack: true,
+                ),
+                JobCardSollicitaties(
+                  backgroundImagePath: 'assets/images/recruteren/2,32.png',
+                  location: 'Kortrijk',
+                  jobType: '2,32km',
+                  salaryText: 'Barema',
+                  companyLogoPath: 'assets/images/recruteren/logo3.png',
+                  jobTitle: 'Head of restaurant',
+                  companyName: 'Spicy Lemon',
+                  suggestionPercentage: '79%',
+                  suggestionIconPath:
+                      'assets/images/recruteren/jobrAI_suggesties.png',
+                  isJobTypeTextBlack: true,
+                ),
+                JobCardSollicitaties(
+                  backgroundImagePath: 'assets/images/recruteren/7,99.png',
+                  location: 'Gent',
+                  jobType: '7,99km',
+                  salaryText: '€14.50/uur',
+                  companyLogoPath: 'assets/images/recruteren/logo4.png',
+                  jobTitle: 'Winkel medewerker',
+                  companyName: 'Carrefour Express K...',
+                  suggestionPercentage: '67%',
+                  suggestionIconPath:
+                      'assets/images/recruteren/jobrAI_suggesties.png',
+                  isSalaryTextBlack: true,
+                  isJobTypeTextBlack: true,
+                ),
+              ],
             ],
           ),
         ),

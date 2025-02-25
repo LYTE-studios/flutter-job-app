@@ -263,7 +263,7 @@ langs te komen?''', isSentByMe: false),
                         style: const TextStyle(
                           fontSize: 16.5,
                           fontWeight: FontWeight.normal,
-                          color: Color(0xFFBABABA),
+                          color: Colors.black,
                         ),
                         decoration: InputDecoration(
                           hintText: 'Hier typen...',

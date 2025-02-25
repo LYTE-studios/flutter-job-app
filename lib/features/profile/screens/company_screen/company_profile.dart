@@ -12,6 +12,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:flutter/foundation.dart'; // add this import
 import 'package:flutter/gestures.dart'; // add this import
+import 'package:url_launcher/url_launcher.dart'; // add this import
 
 class CompanyProfileScreen extends StatefulWidget {
   static const String location = 'company-profile';
@@ -92,20 +93,19 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                       ? Transform.translate(
                           offset: const Offset(16.0,
                               0.0), // Shift widget left without negative margin
-                          child: Container(
-                            width: 70,
-                            height: 70,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 4),
-                              image: const DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/logos/brooklyn_kortrijk.png'),
-                                fit: BoxFit.cover,
+                          child: Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: ClipOval(
+                              child: SizedBox(
+                                width: 40, // Set the exact size
+                                height: 40,
+                                child: Image.asset(
+                                  'assets/images/logos/brooklyn_kortrijk.png',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                        )
+                          ))
                       : null,
                   backgroundColor: theme.colorScheme.surface,
                   clipBehavior: Clip.none,
@@ -128,8 +128,6 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                   barrierLabel: 'Dismiss',
                                   barrierColor: Colors.black54,
                                   pageBuilder: (_, __, ___) => ZoomImageDialog(
-                                    height: 200,
-                                    width: 200,
                                     tag: 'profileBackground',
                                     imagePath:
                                         'assets/images/images/profile_image.png',
@@ -157,6 +155,8 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                                   barrierLabel: 'Dismiss',
                                   barrierColor: Colors.black54,
                                   pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                    height: 200,
+                                    width: 200,
                                     tag: 'profileLogo',
                                     imagePath:
                                         'assets/images/logos/brooklyn_kortrijk.png',
@@ -184,7 +184,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           ),
                         ),
                         Positioned(
-                          bottom: 35,
+                          bottom: 40,
                           right: 60,
                           child: ElevatedButton.icon(
                             onPressed: () {
@@ -214,7 +214,7 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           ),
                         ),
                         Positioned(
-                          bottom: 40,
+                          bottom: 43,
                           right: 10,
                           child: InkWell(
                             onTap: () {
@@ -256,21 +256,31 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    Text(
-                      "wwww.brooklyn.be",
-                      style: TextStyle(
-                        fontSize: 17.01,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Poppins',
-                        color: TextStyles.brooklyn,
+                    GestureDetector(
+                      onTap: () {
+                        launchUrl(Uri.parse("http://www.brooklyn.be"));
+                      },
+                      child: Text(
+                        "www.brooklyn.be",
+                        style: TextStyle(
+                          fontSize: 17.01,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'Poppins',
+                          color: TextStyles.brooklyn,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 16),
-                    SvgIcon(
-                      JobrIcons.web,
-                      size: 12.72,
-                      leaveUnaltered: true,
-                      color: TextStyles.brooklyn,
+                    GestureDetector(
+                      onTap: () {
+                        launchUrl(Uri.parse("http://www.brooklyn.be"));
+                      },
+                      child: SvgIcon(
+                        JobrIcons.web,
+                        size: 12.72,
+                        leaveUnaltered: true,
+                        color: TextStyles.brooklyn,
+                      ),
                     ),
                   ],
                 ),

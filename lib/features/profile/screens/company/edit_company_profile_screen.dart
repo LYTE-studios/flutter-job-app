@@ -135,154 +135,115 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
-      body: NestedScrollView(
-        physics: const BouncingScrollPhysics(),
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SliverAppBar(
-              expandedHeight: 210,
-              floating: false,
-              pinned: true,
-              title:
-                  // innerBoxIsScrolled
-                  //     ? const Text(
-                  //         "Louis Ottevaere",
-                  //         style: TextStyle(
-                  //           fontSize: 18,
-                  //           fontFamily: 'Inter',
-                  //           fontWeight: FontWeight.w600,
-                  //         ),
-                  //       )
-                  //     :
-                  null,
-              scrolledUnderElevation: 0,
-              elevation: 0,
-              automaticallyImplyLeading: false,
-              backgroundColor: theme.colorScheme.surface,
-              clipBehavior: Clip.none,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Stack(
-                  clipBehavior: Clip.none, // Allow overflow
-                  fit: StackFit.expand,
-                  children: [
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        height: 180,
-                        decoration: BoxDecoration(
-                            image: bannerImage != null
-                                ? DecorationImage(
-                                    image: FileImage(bannerImage!),
-                                    fit: BoxFit.cover,
-                                  )
-                                : null,
-                            color: HexColor.fromHex('#E4E4E4').withOpacity(.5)),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 10,
-                      child: GestureDetector(
-                        onTap: () => _pickImage(false),
-                        child: Container(
-                          width: 140,
-                          height: 140,
-                          decoration: BoxDecoration(
-                            image: profileImage != null
-                                ? DecorationImage(
-                                    image: FileImage(profileImage!),
-                                    fit: BoxFit.cover,
-                                  )
-                                : null,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 5.64,
-                            ),
-                            color: HexColor.fromHex('#E4E4E4'),
+      body: Stack(
+        children: [
+          NestedScrollView(
+            physics: const BouncingScrollPhysics(),
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  expandedHeight: 210,
+                  floating: false,
+                  pinned: true,
+                  title: null,
+                  scrolledUnderElevation: 0,
+                  elevation: 0,
+                  automaticallyImplyLeading: false,
+                  backgroundColor: theme.colorScheme.surface,
+                  clipBehavior: Clip.none,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Stack(
+                      clipBehavior: Clip.none, // Allow overflow
+                      fit: StackFit.expand,
+                      children: [
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            height: 180,
+                            decoration: BoxDecoration(
+                                image: bannerImage != null
+                                    ? DecorationImage(
+                                        image: FileImage(bannerImage!),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : null,
+                                color: HexColor.fromHex('#E4E4E4')
+                                    .withOpacity(.5)),
                           ),
-                          alignment: Alignment.center,
-                          child: profileImage == null
-                              ? SvgPicture.asset(
-                                  JobrIcons.camera,
-                                  width: 42,
-                                  height: 42,
-                                  colorFilter: ColorFilter.mode(
-                                    HexColor.fromHex('#AEADAD'),
-                                    BlendMode.srcIn,
-                                  ),
-                                )
-                              : null,
                         ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 130,
-                      right: 10,
-                      child: InkWell(
-                        onTap: () => _pickImage(true),
-                        borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          width: 50.9,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: theme.primaryColor,
+                        Positioned(
+                          bottom: 0,
+                          left: 10,
+                          child: GestureDetector(
+                            onTap: () => _pickImage(false),
+                            child: Container(
+                              width: 140,
+                              height: 140,
+                              decoration: BoxDecoration(
+                                image: profileImage != null
+                                    ? DecorationImage(
+                                        image: FileImage(profileImage!),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : null,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 5.64,
+                                ),
+                                color: HexColor.fromHex('#E4E4E4'),
+                              ),
+                              alignment: Alignment.center,
+                              child: profileImage == null
+                                  ? SvgPicture.asset(
+                                      JobrIcons.camera,
+                                      width: 42,
+                                      height: 42,
+                                      colorFilter: ColorFilter.mode(
+                                        HexColor.fromHex('#AEADAD'),
+                                        BlendMode.srcIn,
+                                      ),
+                                    )
+                                  : null,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 130,
+                          right: 10,
+                          child: InkWell(
+                            onTap: () => _pickImage(true),
                             borderRadius: BorderRadius.circular(20),
-                          ),
-                          alignment: Alignment.center,
-                          child: SvgPicture.asset(
-                            JobrIcons.edit,
-                            width: 16.95,
-                            height: 16.95,
-                            colorFilter: ColorFilter.mode(
-                              HexColor.fromHex('#FFFFFF'),
-                              BlendMode.srcIn,
+                            child: Container(
+                              width: 50.9,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: theme.primaryColor,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              alignment: Alignment.center,
+                              child: SvgPicture.asset(
+                                JobrIcons.edit,
+                                width: 16.95,
+                                height: 16.95,
+                                colorFilter: ColorFilter.mode(
+                                  HexColor.fromHex('#FFFFFF'),
+                                  BlendMode.srcIn,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                    Positioned(
-                      top: 50,
-                      left: 10,
-                      child: InkWell(
-                        onTap: () {
-                          if (Navigator.canPop(context)) {
-                            Navigator.pop(context);
-                          }
-                        },
-                        borderRadius: BorderRadius.circular(100),
-                        child: Container(
-                          width: 35,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            color: HexColor.fromHex('#E5E5EA'),
-                            shape: BoxShape.circle,
-                          ),
-                          alignment: Alignment.center,
-                          child: SvgPicture.asset(
-                            JobrIcons.close,
-                            width: 16,
-                            height: 16,
-                            colorFilter: ColorFilter.mode(
-                              HexColor.fromHex('#8E8E93'),
-                              BlendMode.srcIn,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          ];
-        },
-        body: Stack(
-          children: [
-            ListView(
+              ];
+            },
+            body: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               physics: const ClampingScrollPhysics(),
               children: [
@@ -520,7 +481,7 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                 SelectionButton(
                   label: 'Werknemers',
                   controller: employee1Controller,
-                  hintText: 'Kies locatie',
+                  hintText: 'Aantal ',
                   hintTextStyle: hintTextStyle,
                   prefixIcon: null,
                   onTap: () => EmployeeTypeBottomSheet(
@@ -537,7 +498,7 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                   label: 'Bio',
                   hintText: 'Schrijf een biografie',
                   controller: bioController,
-                  maxLines: 3,
+                  maxLines: null,
                   keyboardType: TextInputType.multiline,
                   color: Colors.black,
                   readOnly: false,
@@ -547,7 +508,7 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                     label: 'Aantal vestigingen',
                     controller: numberOfBranches,
                     readOnly: false,
-                    hintText: 'Kies locatie',
+                    hintText: 'Aantal',
                     hintTextStyle: hintTextStyle),
                 const SizedBox(height: 10),
                 SelectionButton(
@@ -656,25 +617,55 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                 ),
               ],
             ),
-            Positioned(
-              bottom: 20,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: PrimaryButton(
-                  buttonColor: HexColor.fromHex("#FF3E68"),
-                  height: 58,
-                  borderRadius: 60,
-                  width: MediaQuery.of(context).size.width * 0.88,
-                  onTap: () {
-                    context.pop();
-                  },
-                  buttonText: 'Save',
+          ),
+          Positioned(
+            top: 50,
+            left: 10,
+            child: InkWell(
+              onTap: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
+              },
+              borderRadius: BorderRadius.circular(100),
+              child: Container(
+                width: 35,
+                height: 35,
+                decoration: BoxDecoration(
+                  color: HexColor.fromHex('#E5E5EA'),
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: SvgPicture.asset(
+                  JobrIcons.close,
+                  width: 16,
+                  height: 16,
+                  colorFilter: ColorFilter.mode(
+                    HexColor.fromHex('#8E8E93'),
+                    BlendMode.srcIn,
+                  ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          Positioned(
+            bottom: 20,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: PrimaryButton(
+                buttonColor: HexColor.fromHex("#FF3E68"),
+                height: 58,
+                borderRadius: 60,
+                width: MediaQuery.of(context).size.width * 0.88,
+                onTap: () {
+                  context.pop();
+                },
+                buttonText: 'Save',
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -68,7 +68,7 @@ class _CustomListPickerState extends State<CustomListPicker> {
                   color: HexColor.fromHex('#F3F3F3'),
                   borderRadius: BorderRadius.circular(18),
                 ),
-                margin: const EdgeInsets.only(bottom: 20),
+                margin: const EdgeInsets.only(bottom: 15),
                 alignment: Alignment.center,
                 child: Text(
                   widget.options[i],

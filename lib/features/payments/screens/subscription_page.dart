@@ -256,7 +256,6 @@ class _YearlyPlansState extends State<YearlyPlans> {
                 description: 'Voor groeiende kmo’s',
                 subdetails: 'Alles van Local',
                 offers: '✔️ Vragenlijst   🙋‍♂️🙋‍♀️ Meerdere vestigingen',
-                backgroundColor: const Color(0xFF0DFF3E68),
                 isSelected: selectedIndex == 2,
               ),
             ),
@@ -320,7 +319,7 @@ class PlanCard extends StatelessWidget {
     return Card(
       shadowColor: Colors.transparent,
       margin: const EdgeInsets.symmetric(vertical: 8),
-      color: backgroundColor,
+      color: isSelected ? const Color(0xFF0DFF3E68) : const Color(0xFFF3F3F3),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(
