@@ -7,7 +7,6 @@ import 'package:jobr/features/Sollicitaties/sollicitaties.dart';
 import 'package:jobr/features/Sollicitaties/widgets/job_info_widget.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
-import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
@@ -456,41 +455,41 @@ class _JobInfoScreenState extends State<JobInfoScreen> {
     );
   }
 
-  Widget _buildStat(String number, String label, String icon) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgIcon(
-              icon,
-              size: 20,
-              color: TextStyles.secondaryText,
-            ),
-            const SizedBox(width: 6),
-            Text(
-              number,
-              style: TextStyle(
-                fontSize: 19,
-                fontFamily: 'Inter',
-                color: TextStyles.secondaryText,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ],
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 15,
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w500,
-            color: HexColor.fromHex('#82838C'),
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildStat(String number, String label, String icon) {
+  //   return Column(
+  //     children: [
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           SvgIcon(
+  //             icon,
+  //             size: 20,
+  //             color: TextStyles.secondaryText,
+  //           ),
+  //           const SizedBox(width: 6),
+  //           Text(
+  //             number,
+  //             style: TextStyle(
+  //               fontSize: 19,
+  //               fontFamily: 'Inter',
+  //               color: TextStyles.secondaryText,
+  //               fontWeight: FontWeight.w700,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       Text(
+  //         label,
+  //         style: TextStyle(
+  //           fontSize: 15,
+  //           fontFamily: 'Inter',
+  //           fontWeight: FontWeight.w500,
+  //           color: HexColor.fromHex('#82838C'),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 }
 
 class TabData {
