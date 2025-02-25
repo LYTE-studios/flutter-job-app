@@ -120,70 +120,66 @@ class _EmployProfileDisplayScreenState
                         left: 0,
                         right: 0,
                         child: Hero(
-                            tag: 'profileBackground',
-                            child: GestureDetector(
-                              onTap: () {
-                                showGeneralDialog(
-                                  context: context,
-                                  barrierDismissible: true,
-                                  barrierLabel: 'Dismiss',
-                                  barrierColor: Colors.black54,
-                                  pageBuilder: (_, __, ___) => ZoomImageDialog(
-                                    tag: 'profileBackground',
-                                    imagePath:
-                                        'assets/images/images/profile_image.png',
-                                  ),
-                                );
-                              },
-                              child: Image.asset(
-                          'assets/images/images/image-4.png',
-                                fit: BoxFit.cover,
-                                height: 180,
-                              ),
+                          tag: 'profileBackground',
+                          child: GestureDetector(
+                            onTap: () {
+                              showGeneralDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                barrierLabel: 'Dismiss',
+                                barrierColor: Colors.black54,
+                                pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                  tag: 'profileBackground',
+                                  imagePath: 'assets/images/images/image-4.png',
+                                ),
+                              );
+                            },
+                            child: Image.asset(
+                              'assets/images/images/image-4.png',
+                              fit: BoxFit.cover,
+                              height: 180,
                             ),
                           ),
+                        ),
                       ),
                       Positioned(
                         bottom: 0,
                         left: 10,
                         child: Hero(
-                            tag: 'profileLogo',
-                            child: GestureDetector(
-                              onTap: () {
-                                showGeneralDialog(
-                                  context: context,
-                                  barrierDismissible: true,
-                                  barrierLabel: 'Dismiss',
-                                  barrierColor: Colors.black54,
-                                  pageBuilder: (_, __, ___) => ZoomImageDialog(
+                          tag: 'profileLogo',
+                          child: GestureDetector(
+                            onTap: () {
+                              showGeneralDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                barrierLabel: 'Dismiss',
+                                barrierColor: Colors.black54,
+                                pageBuilder: (_, __, ___) => ZoomImageDialog(
                                     height: 200,
                                     width: 200,
                                     tag: 'profileLogo',
                                     imagePath:
-                                        'assets/images/logos/brooklyn_kortrijk.png',
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                width: 120,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 4,
-                                  ),
-                                  image: const DecorationImage(
-                                    image: AssetImage(
-                                  'assets/images/images/profile.png'
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
+                                        'assets/images/images/profile.png'),
+                              );
+                            },
+                            child: Container(
+                              width: 120,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 4,
+                                ),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/images/profile.png'),
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                           ),
-                            
+                        ),
                       ),
                       Positioned(
                         top: 190,
