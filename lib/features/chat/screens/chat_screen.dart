@@ -5,6 +5,7 @@ import 'package:jobr/features/chat/screens/employee/chat_page_employee_screen.da
 import 'package:jobr/features/chat/screens/employer/chat_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String location = 'chat';
@@ -158,7 +159,7 @@ class _ChatScreenState extends State<ChatScreen> {
   // Helper method to build chat items
   Widget _buildChatItem(Map<String, dynamic> chat) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Profile Picture
         Container(
@@ -188,10 +189,11 @@ class _ChatScreenState extends State<ChatScreen> {
               const SizedBox(height: 4),
               Text(
                 chat['message'],
-                style: const TextStyle(
-                  color: Color(0xFF8F8F8F),
+                style: TextStyle(
+                  color: HexColor.fromHex('8F8F8F'),
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
+                  letterSpacing: 0,
                 ),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -210,7 +212,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ? const Color(0xFFFF3E68)
                     : const Color(0xFF8F8F8F),
                 fontSize: 17,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
               ),
             ),
             if (chat['unreadCount'] > 0)

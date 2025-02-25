@@ -156,7 +156,7 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
                 item["image"]!,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(

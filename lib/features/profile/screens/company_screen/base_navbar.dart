@@ -49,6 +49,7 @@ class BaseNavBarScreenState extends State<BaseNavBarScreen> {
     return Scaffold(
       bottomNavigationBar: _isNavBarVisible && widget.selectedIndex != null
           ? BottomNavigationBar(
+              unselectedItemColor: HexColor.fromHex('#999999'),
               type: BottomNavigationBarType.fixed,
               currentIndex: widget.selectedIndex ?? 0,
               onTap: (int index) {
@@ -61,10 +62,12 @@ class BaseNavBarScreenState extends State<BaseNavBarScreen> {
               },
               selectedLabelStyle: TextStyles.bodySmall.copyWith(
                 color: Theme.of(context).primaryColor,
-                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                fontSize: 13,
               ),
               unselectedLabelStyle: TextStyles.bodySmall.copyWith(
-                fontSize: 12,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
               ),
               items: widget.routes
                   .map((route) => BottomNavigationBarItem(

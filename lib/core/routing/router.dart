@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/Sollicitaties/questions.dart';
@@ -60,69 +63,35 @@ import 'package:jobr/ui/theme/jobr_icons.dart';
 
 import '../../features/profile/screens/create_profile_screen.dart';
 
-CustomTransitionPage buildPageWithSlideLeftTransition<T>({
+Page buildPageWithSlideLeftTransition<T>({
   required BuildContext context,
   required GoRouterState state,
   required Widget child,
 }) {
-  return CustomTransitionPage<T>(
-    key: state.pageKey,
-    child: child,
-    transitionDuration: const Duration(milliseconds: 300),
-    transitionsBuilder: (
-      context,
-      animation,
-      secondaryAnimation,
-      child,
-    ) {
-      late final Animation<Offset> offsetAnimation = Tween<Offset>(
-        begin: const Offset(1, 0),
-        end: Offset.zero,
-      ).animate(
-        CurvedAnimation(
-          parent: animation,
-          curve: Curves.easeOutCubic,
-        ),
-      );
+  if (Platform.isIOS) {
+    return CupertinoPage(
+      child: child,
+    );
+  }
 
-      return SlideTransition(
-        position: offsetAnimation,
-        child: child,
-      );
-    },
-  );
+  return MaterialPage(child: child);
 }
 
-CustomTransitionPage buildPageWithSlideUpTransition<T>({
+Page buildPageWithSlideUpTransition<T>({
   required BuildContext context,
   required GoRouterState state,
   required Widget child,
 }) {
-  return CustomTransitionPage<T>(
-    key: state.pageKey,
-    child: child,
-    transitionDuration: const Duration(milliseconds: 300),
-    transitionsBuilder: (
-      context,
-      animation,
-      secondaryAnimation,
-      child,
-    ) {
-      late final Animation<Offset> offsetAnimation = Tween<Offset>(
-        begin: const Offset(0, 1),
-        end: Offset.zero,
-      ).animate(
-        CurvedAnimation(
-          parent: animation,
-          curve: Curves.easeOutCubic,
-        ),
-      );
+  if (Platform.isIOS) {
+    return CupertinoPage(
+      fullscreenDialog: true,
+      child: child,
+    );
+  }
 
-      return SlideTransition(
-        position: offsetAnimation,
-        child: child,
-      );
-    },
+  return MaterialPage(
+    fullscreenDialog: true,
+    child: child,
   );
 }
 
@@ -331,27 +300,26 @@ GoRouter router = GoRouter(
           ],
         ),
         GoRoute(
-          path: EmployProfileDisplayScreen.employerRoute,
-          pageBuilder: (BuildContext context, GoRouterState state) {
-            return buildPageWithSlideUpTransition(
-              context: context,
-              state: state,
-              child: const EmployProfileDisplayScreen(),
-            );
-          },
-
-          routes: [
-             GoRoute(
-          path: EmployeeReviewsDisplayScreen.location,
-          pageBuilder: (BuildContext context, GoRouterState state) {
-            return buildPageWithSlideUpTransition(
-              context: context,
-              state: state,
-              child:  EmployeeReviewsDisplayScreen(),
-            );
-          },)
-          ]
-        ),
+            path: EmployProfileDisplayScreen.employerRoute,
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return buildPageWithSlideUpTransition(
+                context: context,
+                state: state,
+                child: const EmployProfileDisplayScreen(),
+              );
+            },
+            routes: [
+              GoRoute(
+                path: EmployeeReviewsDisplayScreen.location,
+                pageBuilder: (BuildContext context, GoRouterState state) {
+                  return buildPageWithSlideUpTransition(
+                    context: context,
+                    state: state,
+                    child: EmployeeReviewsDisplayScreen(),
+                  );
+                },
+              )
+            ]),
         GoRoute(
           path: CompanyVenueProfile.employerRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
@@ -644,7 +612,7 @@ GoRouter router = GoRouter(
                         final String data = state.extra as String;
                         return NoTransitionPage(
                           child: QuestionPage(companyName: data),
-                        );    
+                        );
                       },
                     ),
                   ]),
@@ -716,7 +684,7 @@ GoRouter router = GoRouter(
                   child: ProfileScreen(),
                 ),
             routes: [
-               GoRoute(
+              GoRoute(
                 path: DisplayProfileReviews.location,
                 pageBuilder: (BuildContext context, GoRouterState state) =>
                     NoTransitionPage(

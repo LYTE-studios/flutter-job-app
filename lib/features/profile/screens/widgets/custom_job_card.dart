@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
+import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/action_button.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -235,11 +236,8 @@ class _CustomJobCardState extends State<CustomJobCard> {
     return ReadMoreText(
       widget.description,
       trimLines: 3,
-      style: TextStyle(
-        fontFamily: 'Poppins',
-        color: HexColor.fromHex('#4A4C53'),
+      style: TextStyles.bodyMedium.copyWith(
         fontSize: 16,
-        letterSpacing: 0.0001,
         fontWeight: FontWeight.w500,
       ),
       trimMode: TrimMode.Line,
