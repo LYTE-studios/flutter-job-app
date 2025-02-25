@@ -114,27 +114,91 @@ class RecruitmentDetailScreen extends StatelessWidget {
             : Container(),
       ),
       body: (title == "Sollicitaties")
-          ? Stack(
+          ? ListView(
+              padding: const EdgeInsets.all(16),
+              shrinkWrap: true,
+              physics: const AlwaysScrollableScrollPhysics(),
               children: [
-                // Scrollable list with top padding to account for header widget and spacing
-                ListView.separated(
-                  padding: const EdgeInsets.only(
-                      top: 16 + headerHeight + 16,
-                      left: 16.0,
-                      right: 16.0,
-                      bottom: 16.0),
-                  shrinkWrap: true,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  itemCount: jobCards.length,
-                  separatorBuilder: (context, index) =>
-                      const Divider(height: 10, color: Colors.transparent),
-                  itemBuilder: (context, index) {
-                    final card = jobCards[index];
-                    return CustomJobCard(
-                      rating: double.parse(card["rating"]!),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(21),
+                    color: HexColor.fromHex('#F5F5F5'),
+                  ),
+                  padding: const EdgeInsets.all(12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            width: 45,
+                            height: 45,
+                            clipBehavior: Clip.antiAlias,
+                            child: Image.asset(
+                              JobrIcons.placeholder1,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'Brooklyn',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF000000),
+                                ),
+                              ),
+                              Text(
+                                'Gent, Voorstraat',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500,
+                                  color: Color(0xFF666666),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      PrimaryButton(
+                        buttonText: ' 16 ',
+                        onTap: () {
+                          context.push(
+                            RecruitmentDetailScreen.employerRoute,
+                            extra: {
+                              'category': '',
+                              'title': 'Sollicitaties',
+                              "image": "",
+                            },
+                          );
+                        },
+                        height: 39,
+                        width: 80,
+                        icon: Icon(Icons.people),
+                        textColor: Colors.white,
+                        buttonColor: Theme.of(context).primaryColor,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                ...jobCards.map(
+                  (job) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: CustomJobCard(
+                      rating: double.parse(job["rating"]!),
                       showLikeButton: (title == 'Sollicitaties'),
-                      description: card["description"]!,
-                      age: card["age"]!,
+                      description: job["description"]!,
+                      age: job["age"]!,
                       buttonColor: HexColor.fromHex('#3976FF'),
                       buttonText: "Chat starten",
                       onButtonPressed: () {
@@ -142,86 +206,16 @@ class RecruitmentDetailScreen extends StatelessWidget {
                       },
                       buttonIcon: JobrIcons.send,
                       showBottomText: true,
-                      location: card["location"]!,
-                      userName: card["userName"]!,
-                      profileImagePath: card["profileImagePath"]!,
-                      suggestionPercentage: card["suggestionPercentage"]!,
-                    );
-                  },
+                      location: job["location"]!,
+                      userName: job["userName"]!,
+                      profileImagePath: job["profileImagePath"]!,
+                      suggestionPercentage: job["suggestionPercentage"]!,
+                    ),
+                  ),
                 ),
-                // Positioned header that remains at the top
-                Positioned(
-                  top: 16,
-                  left: 16,
-                  right: 16,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(21),
-                      color: HexColor.fromHex('#F5F5F5'),
-                    ),
-                    padding: const EdgeInsets.all(12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            Container(
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
-                              width: 45,
-                              height: 45,
-                              clipBehavior: Clip.antiAlias,
-                              child: Image.asset(
-                                JobrIcons.placeholder1,
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Text(
-                                  'Brooklyn',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xFF000000),
-                                  ),
-                                ),
-                                Text(
-                                  'Gent, Voorstraat',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xFF666666),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        PrimaryButton(
-                          buttonText: ' 16 ',
-                          onTap: () {
-                            context.push(
-                              RecruitmentDetailScreen.employerRoute,
-                              extra: {
-                                'category': '',
-                                'title': 'Sollicitaties',
-                                "image": "",
-                              },
-                            );
-                          },
-                          height: 39,
-                          width: 80,
-                          icon: Icon(Icons.people),
-                          textColor: Colors.white,
-                          buttonColor: Theme.of(context).primaryColor,
-                        ),
-                      ],
-                    ),
+                SafeArea(
+                  child: const SizedBox(
+                    height: 8,
                   ),
                 ),
               ],
