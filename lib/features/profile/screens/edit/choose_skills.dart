@@ -13,9 +13,15 @@ class ChooseSkillsScreen extends StatefulWidget {
   const ChooseSkillsScreen({super.key});
 
   static const String location = 'choose-skills';
-  static String route = JobrRouter.getRoute(
+  static String employeeRoute = JobrRouter.getRoute(
     '${ProfileScreen.location}/$location',
     JobrRouter.employeeInitialroute,
+  );
+
+
+  static String employerRoute = JobrRouter.getRoute(
+    '$location',
+    JobrRouter.employerInitialroute,
   );
 
   @override

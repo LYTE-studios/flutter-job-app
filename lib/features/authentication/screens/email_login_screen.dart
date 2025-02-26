@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/user.dart';
 import 'package:jobr/data/services/accounts_service.dart';
+import 'package:jobr/features/authentication/screens/add_company.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
 import 'package:jobr/features/core/widgets/exception_popup.dart';
@@ -56,40 +57,28 @@ class _EmailLoginScreenState extends State<EmailLoginScreen>
       switch (userType) {
         case UserType.employee:
           context.pushReplacement(
-            JobrRouter.getRoute(
-              JobScreen.location,
-              JobrRouter.employeeInitialroute,
-            ),
-          );
+              JobrRouter.getRoute(
+                NewCompanyPage.location,
+                JobrRouter.employeeInitialroute,
+              ),
+              extra: {
+                'userType': widget.userType,
+              });
           break;
         case UserType.employer:
           context.pushReplacement(
-            JobrRouter.getRoute(
-              JobListingsScreen.location,
-              JobrRouter.employerInitialroute,
-            ),
-          );
+              JobrRouter.getRoute(
+                NewCompanyPage.location,
+                JobrRouter.employerInitialroute,
+              ),
+              extra: {
+                'userType': widget.userType,
+              });
           break;
       }
     } catch (e) {
       setError("Invalid credentials");
       return;
-    }
-
-    if (widget.userType == UserType.employee) {
-      context.go(
-        JobrRouter.getRoute(
-          JobScreen.location,
-          JobrRouter.employeeInitialroute,
-        ),
-      );
-    } else {
-      context.go(
-        JobrRouter.getRoute(
-          JobListingsScreen.location,
-          JobrRouter.employerInitialroute,
-        ),
-      );
     }
 
     return;

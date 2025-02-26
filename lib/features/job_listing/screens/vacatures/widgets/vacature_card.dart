@@ -84,14 +84,6 @@ class VacatureCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Text(
-                        "€15/uur",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
                     ],
                   ),
                   SizedBox(height: 20),

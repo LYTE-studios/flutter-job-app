@@ -15,8 +15,8 @@ class JobCardSollicitaties extends StatefulWidget {
   final String suggestionIconPath;
   final bool? isJobTypeTextBlack; // Make optional
   final bool? isSalaryTextBlack; // Make optional
-
-  const JobCardSollicitaties({
+  bool isLiked;
+  JobCardSollicitaties({
     super.key,
     required this.backgroundImagePath,
     required this.location,
@@ -28,7 +28,8 @@ class JobCardSollicitaties extends StatefulWidget {
     required this.suggestionPercentage,
     required this.suggestionIconPath,
     this.isJobTypeTextBlack, // Make optional
-    this.isSalaryTextBlack, // Make optional
+    this.isSalaryTextBlack,
+    this.isLiked = false, // Make optional
   });
 
   @override
@@ -36,8 +37,6 @@ class JobCardSollicitaties extends StatefulWidget {
 }
 
 class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
-  bool isLiked = false;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -75,7 +74,7 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                   child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        isLiked = !isLiked;
+                        widget.isLiked = !widget.isLiked;
                       });
                     },
                     child: Container(
@@ -85,7 +84,7 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                         color: Colors.white,
                       ),
                       child: SvgPicture.asset(
-                        isLiked
+                        widget.isLiked
                             ? 'assets/images/icons/like_icon-pink.svg'
                             : 'assets/images/icons/like_icon_grey.svg',
                         width: 20,

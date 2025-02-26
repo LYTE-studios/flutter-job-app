@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/features/chat/screens/employer/chat_page_screen.dart';
 import 'package:jobr/features/payments/screens/subscription_page.dart';
+import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/features/profile/screens/reviews/employee_reviews.dart';
 import 'package:jobr/features/profile/screens/tabs/employee_profile_tab.dart';
 import 'package:jobr/features/profile/screens/tabs/media_item_widget.dart';
@@ -118,28 +119,64 @@ class _EmployProfileDisplayScreenState
                         top: 0,
                         left: 0,
                         right: 0,
-                        child: Image.asset(
-                          'assets/images/images/image-4.png',
-                          fit: BoxFit.cover,
-                          height: 180,
+                        child: Hero(
+                          tag: 'profileBackground',
+                          child: GestureDetector(
+                            onTap: () {
+                              showGeneralDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                barrierLabel: 'Dismiss',
+                                barrierColor: Colors.black54,
+                                pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                  tag: 'profileBackground',
+                                  imagePath: 'assets/images/images/image-4.png',
+                                ),
+                              );
+                            },
+                            child: Image.asset(
+                              'assets/images/images/image-4.png',
+                              fit: BoxFit.cover,
+                              height: 180,
+                            ),
+                          ),
                         ),
                       ),
                       Positioned(
                         bottom: 0,
                         left: 10,
-                        child: Container(
-                          width: 135,
-                          height: 135,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 4,
-                            ),
-                            image: const DecorationImage(
-                              image: AssetImage(
-                                  'assets/images/images/profile.png'),
-                              fit: BoxFit.cover,
+                        child: Hero(
+                          tag: 'profileLogo',
+                          child: GestureDetector(
+                            onTap: () {
+                              showGeneralDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                barrierLabel: 'Dismiss',
+                                barrierColor: Colors.black54,
+                                pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                    height: 200,
+                                    width: 200,
+                                    tag: 'profileLogo',
+                                    imagePath:
+                                        'assets/images/images/profile.png'),
+                              );
+                            },
+                            child: Container(
+                              width: 120,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 4,
+                                ),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/images/profile.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           ),
                         ),

@@ -58,6 +58,27 @@ naar een antwoord :)''',
     ),
   ];
 
+  // Added controller and state flag for input control
+  final TextEditingController _messageController = TextEditingController();
+  bool hasMessage = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Added listener to update hasMessage state
+    _messageController.addListener(() {
+      setState(() {
+        hasMessage = _messageController.text.isNotEmpty;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _messageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -268,38 +289,44 @@ naar een antwoord :)''',
               // Message input field positioned at the bottom
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 18.0,
-                  vertical: 20.0,
-                ),
+                    horizontal: 18.0, vertical: 20.0),
                 child: Row(
                   children: [
                     Expanded(
                       child: SizedBox(
                         height: 42,
                         child: TextField(
+                          controller: _messageController,
+                          textAlignVertical: TextAlignVertical.center,
                           style: const TextStyle(
-                            fontSize: 19.5,
+                            fontSize: 16.5,
                             fontWeight: FontWeight.normal,
-                            color: Color(0xFFBABABA),
+                            color: Colors.black,
                           ),
                           decoration: InputDecoration(
                             hintText: 'Hier typen...',
+                            hintStyle: const TextStyle(
+                              fontSize: 16.5,
+                              fontWeight: FontWeight.normal,
+                              color: Color(0xFFBABABA),
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(21.0),
                               borderSide: BorderSide.none,
                             ),
                             filled: true,
                             fillColor: const Color(0xFFF6F6F6),
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 12.0,
-                            ),
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(width: 6),
                     SvgPicture.asset(
-                      "assets/images/logos/send_message.svg",
+                      !hasMessage
+                          ? "assets/images/icons/empty_send_icon.svg"
+                          : "assets/images/logos/send_message.svg",
                       height: 42,
                       width: 42,
                     ),

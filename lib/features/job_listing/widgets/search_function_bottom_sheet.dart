@@ -75,7 +75,7 @@ class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Padding(
         padding: EdgeInsets.only(
-          top: PaddingSizes.small,
+          top: PaddingSizes.xxl * 1.25,
           left: PaddingSizes.small,
           right: PaddingSizes.small,
         ),

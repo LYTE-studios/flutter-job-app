@@ -6,6 +6,7 @@ import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/widgets/vacancy_info_tabs.dart';
+import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -116,29 +117,67 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                         top: 0,
                         left: 0,
                         right: 0,
-                        child: Image.asset(
-                          'assets/images/images/profile_image.png',
-                          fit: BoxFit.cover,
-                          height: 180,
+                        child: Hero(
+                          tag: 'profileBackground',
+                          child: GestureDetector(
+                            onTap: () {
+                              showGeneralDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                barrierLabel: 'Dismiss',
+                                barrierColor: Colors.black54,
+                                pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                  tag: 'profileBackground',
+                                  imagePath:
+                                      'assets/images/images/profile_image.png',
+                                ),
+                              );
+                            },
+                            child: Image.asset(
+                              'assets/images/images/profile_image.png',
+                              fit: BoxFit.cover,
+                              height: 180,
+                            ),
+                          ),
                         ),
                       ),
                       Positioned(
                         bottom: 0,
                         left: 10,
-                        child: Container(
-                          width: 135,
-                          height: 135,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 4,
-                            ),
-                            image: const DecorationImage(
-                              image: AssetImage(
-                                'assets/images/logos/brooklyn_kortrijk.png',
+                        child: Hero(
+                          tag: 'profileLogo',
+                          child: GestureDetector(
+                            onTap: () {
+                              showGeneralDialog(
+                                context: context,
+                                barrierDismissible: true,
+                                barrierLabel: 'Dismiss',
+                                barrierColor: Colors.black54,
+                                pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                  height: 200,
+                                  width: 200,
+                                  tag: 'profileLogo',
+                                  imagePath:
+                                      'assets/images/logos/brooklyn_kortrijk.png',
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 135,
+                              height: 135,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 4,
+                                ),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                    'assets/images/logos/brooklyn_kortrijk.png',
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              fit: BoxFit.cover,
                             ),
                           ),
                         ),

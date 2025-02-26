@@ -20,7 +20,7 @@ class TextFieldSettings extends StatelessWidget {
       this.keyboardType = TextInputType.text,
       this.inputFormatters,
       this.readOnly = true,
-      this.maxLines,
+      this.maxLines = 1,
       this.color,
       this.hintText = 'Kies een aantal',
       this.hintTextStyle = const TextStyle(

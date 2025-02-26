@@ -11,6 +11,7 @@ import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_
 import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/job_listing/widgets/date_time_picker.dart';
+import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:intl/intl.dart'; // Import for DateFormat
@@ -39,6 +40,18 @@ class _CreateJobListingAvailabilityScreenState
   final TextEditingController _dateController = TextEditingController();
   DateTime? selectedDate;
   TimeOfDay? selectedTime = TimeOfDay.now();
+
+  // NEW: Add endDate and endTime variables
+  DateTime? endDate;
+  TimeOfDay? endTime;
+
+  // NEW: Helper to format date & time
+  String formatDateTime(DateTime date, TimeOfDay time) {
+    final formattedDate = DateFormat('d MMM yyyy').format(date);
+    final formattedTime =
+        '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+    return '$formattedDate om $formattedTime';
+  }
 
   String toVisibleDay(Weekday day) {
     return {
@@ -187,77 +200,98 @@ class _CreateJobListingAvailabilityScreenState
                 ),
                 if (selectedRadio == 1) ...[
                   const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _dateController,
-                    decoration: InputDecoration(
-                      labelText: 'Kies een datum & tijdstip',
-                      labelStyle: TextStyles.titleMedium.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16.16,
-                        color: HexColor.fromHex("#000000").withAlpha(102),
-                      ),
-                      suffixIcon: Icon(
-                        Icons.calendar_month,
-                        color: HexColor.fromHex("#8B8B8B"),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 16.0),
-                      filled: true,
-                      fillColor: HexColor.fromHex("#00000008").withAlpha(8),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(color: Colors.transparent),
-                      ),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: HexColor.fromHex('#F7F7F7'),
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    style: TextStyle(
-                        fontSize: 20, color: Colors.grey.withAlpha(230)),
-                    readOnly: true,
-                    onTap: () async {
-                      FocusScope.of(context).unfocus();
-                      await showDialog(
-                        context: context,
-                        barrierColor: Colors.black54,
-                        builder: (context) => Dialog(
-                          insetPadding: EdgeInsets.all(18),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          child: Container(
-                            constraints: BoxConstraints(
-                              maxWidth: 800,
-                              maxHeight:
-                                  MediaQuery.of(context).size.height * 0.8,
-                            ),
-                            width: double.infinity,
-                            child: CustomDateTimePicker(
-                              initialDate: selectedDate ?? DateTime.now(),
-                              initialTime: selectedTime ?? TimeOfDay.now(),
-                              onDateTimeSelected: (date, time) {
-                                setState(() {
-                                  selectedDate = date;
-                                  selectedTime = time;
-                                  final formattedDate =
-                                      DateFormat('d MMM yyyy').format(date);
-                                  final formattedTime =
-                                      '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
-                                  _dateController.text =
-                                      '$formattedDate om $formattedTime';
-                                });
-                                Navigator.pop(context);
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 0),
+                            child: TextField(
+                              readOnly: true,
+                              textAlignVertical: TextAlignVertical.center,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w500,
+                              ),
+                              decoration: InputDecoration(
+                                filled: false,
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                hintText: endDate == null || endTime == null
+                                    ? 'Kies een datum & tijdstip'
+                                    : formatDateTime(endDate!, endTime!),
+                                hintStyle: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500,
+                                  color: endDate == null || endTime == null
+                                      ? HexColor.fromHex('#B7B7B7')
+                                      : Colors.black,
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 12,
+                                  horizontal: 0,
+                                ),
+                              ),
+                              onTap: () async {
+                                FocusScope.of(context).unfocus();
+                                await showDialog(
+                                  context: context,
+                                  barrierColor: Colors.black54,
+                                  builder: (context) => Dialog(
+                                    insetPadding: const EdgeInsets.all(18),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(24),
+                                    ),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                        maxWidth: 800,
+                                        maxHeight:
+                                            MediaQuery.of(context).size.height *
+                                                0.8,
+                                      ),
+                                      width: double.infinity,
+                                      child: CustomDateTimePicker(
+                                        initialDate: endDate ?? DateTime.now(),
+                                        initialTime: endTime ?? TimeOfDay.now(),
+                                        onDateTimeSelected: (date, time) {
+                                          setState(() {
+                                            endDate = date;
+                                            endTime = time;
+                                            selectedDate = DateTime(date.year, date.month, date.day, time.hour, time.minute);
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                );
                               },
                             ),
                           ),
                         ),
-                      );
-                    },
+                        SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: SvgPicture.asset(
+                            JobrIcons.calendar,
+                            width: 20,
+                            height: 20,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ]
               ],

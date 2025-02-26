@@ -1,4 +1,4 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
@@ -37,8 +37,9 @@ class SelectionButton extends StatefulWidget {
 class _SelectionButtonState extends State<SelectionButton> {
   @override
   Widget build(BuildContext context) {
-    bool isLocationSelected =
-        widget.label == 'Locatie' && widget.controller.text != widget.hintText;
+    bool isLocationSelected = widget.label == 'Locatie' &&
+        widget.controller.text != widget.hintText &&
+        widget.controller.text.isNotEmpty;
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,

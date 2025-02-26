@@ -79,16 +79,24 @@ class _MediaWidgetState extends State<MediaWidget> {
                   ),
                 ),
               )
-            : Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: theme.primaryColor,
-                ),
-                padding: const EdgeInsets.all(5),
-                child: Icon(
-                  CupertinoIcons.person_fill,
-                  color: TextStyles.clearText,
-                  size: 28,
+            : GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _imagePath = null;
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: theme.primaryColor,
+                  ),
+                  padding: const EdgeInsets.all(9),
+                  child: SvgPicture.asset(
+                    JobrIcons.close,
+                    color: Colors.white,
+                    width: 11,
+                    height: 11,
+                  ),
                 ),
               ),
       ),

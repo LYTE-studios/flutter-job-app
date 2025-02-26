@@ -500,6 +500,7 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
                     textAlignVertical: TextAlignVertical.center,
                     style: const TextStyle(
                       fontSize: 16,
+                      color: Colors.black,
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w500,
                     ),
@@ -515,7 +516,9 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
                         fontSize: 16,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w500,
-                        color: HexColor.fromHex('#B7B7B7'),
+                        color: endDate == null || endTime == null
+                            ? HexColor.fromHex('#B7B7B7')
+                            : Colors.black,
                       ),
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 12,

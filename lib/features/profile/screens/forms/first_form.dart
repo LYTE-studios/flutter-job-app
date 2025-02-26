@@ -51,6 +51,11 @@ class _FirstFormState extends State<FirstForm> {
     super.dispose();
   }
 
+  void initState() {
+    super.initState();
+    _emailController.text = 'voorbeeld@mail.com';
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(

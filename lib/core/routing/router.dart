@@ -7,6 +7,7 @@ import 'package:jobr/features/Sollicitaties/questions.dart';
 import 'package:jobr/features/Sollicitaties/sollicitaties.dart';
 import 'package:jobr/features/Sollicitaties/sollicitaties_tabs_info.dart';
 import 'package:jobr/features/authentication/base/base_auth_screen.dart';
+import 'package:jobr/features/authentication/screens/add_company.dart';
 import 'package:jobr/features/authentication/screens/email_login_screen.dart';
 import 'package:jobr/features/authentication/screens/email_register_screen.dart';
 import 'package:jobr/features/authentication/screens/first_glance_screen.dart';
@@ -381,6 +382,11 @@ GoRouter router = GoRouter(
           },
         ),
         GoRoute(
+          path: ChooseSkillsScreen.employerRoute,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(child: ChooseSkillsScreen()),
+        ),
+        GoRoute(
           path: ChatPageScreen.employerRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return buildPageWithSlideLeftTransition(
@@ -447,6 +453,18 @@ GoRouter router = GoRouter(
               },
             ),
           ],
+        ),
+        GoRoute(
+          path: NewCompanyPage.employerRoute,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+
+            return NoTransitionPage(
+              child: NewCompanyPage(
+                userType: data["userType"],
+              ),
+            );
+          },
         ),
         GoRoute(
           path: JobrRouter.getRoute(
@@ -628,12 +646,35 @@ GoRouter router = GoRouter(
           ),
         ),
         GoRoute(
+          path: NewCompanyPage.employeeRoute,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+
+            return NoTransitionPage(
+              child: NewCompanyPage(
+                userType: data["userType"],
+              ),
+            );
+          },
+        ),
+
+        GoRoute(
           path: ChatPageEmployeeScreen.employeeRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
             return buildPageWithSlideLeftTransition(
               context: context,
               state: state,
               child: const ChatPageEmployeeScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: SkillsInfoScreen.employeeRoute,
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return buildPageWithSlideUpTransition(
+              context: context,
+              state: state,
+              child: const SkillsInfoScreen(),
             );
           },
         ),

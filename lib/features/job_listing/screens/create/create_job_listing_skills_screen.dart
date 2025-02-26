@@ -37,7 +37,7 @@ class _CreateJobListingSkillsScreenState
   bool showHardWarning = false;
 
   bool get _isButtonEnabled =>
-      selectedSoftSkills.length >= 3 && selectedHardSkills.length >= 3;
+      selectedSoftSkills.length >= 2 && selectedHardSkills.length >= 2;
 
   @override
   void dispose() {
@@ -53,8 +53,8 @@ class _CreateJobListingSkillsScreenState
       onNavigate: () {
         if (!_isButtonEnabled) {
           setState(() {
-            showSoftWarning = selectedSoftSkills.length < 3;
-            showHardWarning = selectedHardSkills.length < 3;
+            showSoftWarning = selectedSoftSkills.length < 2;
+            showHardWarning = selectedHardSkills.length < 2;
           });
         } else {
           // vacancy.skills = [...vacancy.softSkills, vacancy.hardSkills];
@@ -131,7 +131,7 @@ class _CreateJobListingSkillsScreenState
               'Klantgericht',
               'Oog voor detail',
             ],
-            minSelection: 3,
+            minSelection: 2,
             maxSelection: 9,
             isSoftSkills: true,
           ),
@@ -150,7 +150,7 @@ class _CreateJobListingSkillsScreenState
               'Afwas',
               'Tijdmanagement',
             ],
-            minSelection: 3,
+            minSelection: 2,
             maxSelection: 8,
             isSoftSkills: false,
           ),

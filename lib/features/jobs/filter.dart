@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/contract_type.dart';
 import 'package:jobr/data/models/function_type.dart';
+import 'package:jobr/data/services/vacancies_service.dart';
 import 'package:jobr/features/job_listing/widgets/contract_type_bottom_sheet.dart';
 import 'package:jobr/features/job_listing/widgets/custom_slider.dart';
 import 'package:jobr/features/job_listing/widgets/function_type_bottom_sheet.dart';
@@ -12,6 +13,7 @@ import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/edit/choose_sector_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
+import 'package:lyte_studios_flutter_ui/mixins/screen_state_mixin.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class FilterScreenEmployee extends StatefulWidget {
@@ -26,13 +28,37 @@ class FilterScreenEmployee extends StatefulWidget {
   _FilterScreenEmployeeState createState() => _FilterScreenEmployeeState();
 }
 
-class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
+class _FilterScreenEmployeeState extends State<FilterScreenEmployee>
+    with ScreenStateMixin {
   double _distanceSliderValue = 23;
   // Dropdown selections
   ContractType? _selectedContractType;
   FunctionType? _selectedFunction;
   // Added state to hold the selected sector.
   Sector? _selectedSector;
+
+  List<FunctionType> functionTypes = [];
+  bool isLoading = false; // NEW
+
+  @override
+  Future<void> loadData() async {
+    setState(() => isLoading = true);
+    functionTypes = await VacanciesService().getFunctionTypes();
+    setState(() {
+      isLoading = false;
+      functionTypes = functionTypes;
+      if (functionTypes.isNotEmpty) {
+        _selectedFunction = functionTypes.first;
+      }
+    });
+    return super.loadData();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,8 +153,8 @@ class _FilterScreenEmployeeState extends State<FilterScreenEmployee> {
                   }
                 },
                 child: Container(
-                  height: 80,
-                  width: 80,
+                  height: 85,
+                  width: 85,
                   decoration: BoxDecoration(
                     color: HexColor.fromHex('#F3F3F3'),
                     border: Border.all(color: Colors.grey[100]!),

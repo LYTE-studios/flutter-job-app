@@ -362,32 +362,34 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                 const Spacer(),
                 // Suggestion Percentage
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[50],
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                        color: Theme.of(context).primaryColor, width: 2),
-                  ),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        height: 23,
-                        width: 23,
-                        "assets/images/recruteren/jobrAI_suggesties.png",
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 6, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: Theme.of(context).primaryColor,
+                          width: 1.5,
+                        ),
                       ),
-                      const SizedBox(width: 6),
-                      Text(
-                        '98%',
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.1),
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            height: 20,
+                            width: 20,
+                            "assets/images/recruteren/jobrAI_suggesties.png",
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            '98%',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
+                    ),
               ],
             ),
           ),
