@@ -221,6 +221,12 @@ class _SettingsScreenState extends State<SettingsScreen> with ScreenStateMixin {
                     // Handle navigation to Betalingen herstellen
                   },
                 ),
+                buildListTile(
+                  title: 'Account Settings',
+                  onTap: () {
+                    // Handle navigation to Betalingen herstellen
+                  },
+                ),
               ],
             ),
           ),

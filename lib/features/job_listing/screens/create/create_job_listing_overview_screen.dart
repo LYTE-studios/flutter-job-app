@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/enums/weekday.dart';
@@ -13,10 +14,12 @@ import 'package:jobr/features/job_listing/screens/create/create_job_listing_tale
 import 'package:jobr/features/job_listing/screens/create/shared/base_create_job_listing_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/shared/create_job_listing_mixin.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/input/jobr_dropdown_field.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:intl/intl.dart';
 
 import 'create_job_listing_availability_screen.dart';
 
@@ -62,6 +65,14 @@ class _CreateJobListingOverviewScreenState
       setLoading(false);
       ExceptionPopup.show(context, "Er is een fout opgetreden");
     }
+  }
+
+  // New helper method for formatting date and time.
+  String formatDateTime(DateTime date, TimeOfDay time) {
+    final formattedDate = DateFormat('d MMM yyyy').format(date);
+    final formattedTime =
+        '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+    return '$formattedDate om $formattedTime';
   }
 
   @override
@@ -113,6 +124,147 @@ class _CreateJobListingOverviewScreenState
                     ],
                   ),
                   _SelectableSection(
+                    title: 'Beschrijving',
+                    isExpanded: vacancy.descriptions?.isNotEmpty ?? false,
+                    children: [
+                      vacancy.descriptions?.isNotEmpty ?? false
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Header as in the description screen
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Je job als Barista",
+                                      style: TextStyles.titleMedium.copyWith(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const Text(
+                                      '*',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                // Replace undefined vacancy.mainDescription:
+                                // Use first description's text if available, otherwise an empty string.
+                                Text(
+                                  vacancy.descriptions!.isNotEmpty
+                                      ? vacancy.descriptions!.first.description
+                                      : "",
+                                  style: TextStyles.bodyMedium
+                                      .copyWith(fontSize: 15),
+                                ),
+                                const SizedBox(height: 16),
+                                // Mimic the AnimatedSwitcher from the description screen
+                                AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 300),
+                                  transitionBuilder: (child, animation) =>
+                                      FadeTransition(
+                                    opacity: animation,
+                                    child: child,
+                                  ),
+                                  child: Column(
+                                    key: ValueKey<int>(
+                                        vacancy.descriptions!.length),
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: vacancy.descriptions!
+                                        .asMap()
+                                        .entries
+                                        .map((entry) {
+                                      int index = entry.key;
+                                      final desc = entry.value;
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 8.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Divider(
+                                              color: Colors.grey.shade300
+                                                  .withOpacity(
+                                                      0.7), // updated call
+                                              thickness: 1.3,
+                                            ),
+                                            const SizedBox(height: 6),
+                                            // Display description option title
+                                            Text(
+                                              desc.question.name,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            // Display description option text
+                                            Text(
+                                              desc.description,
+                                              style: const TextStyle(
+                                                fontSize: 15,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            if (index !=
+                                                vacancy.descriptions!.length -
+                                                    1)
+                                              const SizedBox(height: 6),
+                                          ],
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Divider(
+                                  color: Colors.grey.shade300
+                                      .withOpacity(0.7), // updated call
+                                  thickness: 1.3,
+                                ),
+                              ],
+                            )
+                          : GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade100,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 16),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Text(
+                                      '+ ',
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'Poppins'),
+                                    ),
+                                    Text(
+                                      'Voeg beschrijving toe',
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                    ],
+                  ),
+                  _SelectableSection(
                     title: 'Beschikbaarheid',
                     isExpanded: (vacancy.weekDays?.isNotEmpty ?? false) ||
                         vacancy.jobDate != null,
@@ -145,21 +297,63 @@ class _CreateJobListingOverviewScreenState
                             [],
                       ),
                       if (vacancy.jobDate != null)
-                        Text(
-                          "Datum: ${vacancy.jobDate!.day}-${vacancy.jobDate!.month}-${vacancy.jobDate!.year}",
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                        ),
-                      if (vacancy.jobDate != null)
-                        Text(
-                          "Tijd: ",
-                          style: TextStyle(
-                            fontFamily: "Inter",
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 0),
+                                  child: TextField(
+                                    readOnly: true,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    decoration: InputDecoration(
+                                      filled: false,
+                                      border: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      hintText: formatDateTime(
+                                          vacancy.jobDate!,
+                                          TimeOfDay.fromDateTime(
+                                              vacancy.jobDate!)),
+                                      hintStyle: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                        vertical: 12,
+                                        horizontal: 0,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: SvgPicture.asset(
+                                  JobrIcons.calendar,
+                                  width: 20,
+                                  height: 20,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                     ],
@@ -271,14 +465,15 @@ class _CreateJobListingOverviewScreenState
                                   spacing: 8,
                                   runSpacing: 8,
                                   children: vacancy.questions
-                                          ?.map(
+                                          ?.asMap()
+                                          .entries
+                                          .map(
                                             (entry) => CustomQuestionBox(
-                                              question: entry,
-                                              label:
-                                                  'Vraag ${(vacancy.questions?.indexOf(entry) ?? 0) + 1}',
+                                              question: entry.value,
+                                              label: 'Vraag ${entry.key + 1}',
                                               onRemove: () {},
-                                              controller:
-                                                  TextEditingController(),
+                                              controller: TextEditingController(
+                                                  text: entry.value),
                                               isEditable: false,
                                               onToggleEditable: () {},
                                             ),

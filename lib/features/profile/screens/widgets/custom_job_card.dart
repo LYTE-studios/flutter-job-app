@@ -60,67 +60,71 @@ class _CustomJobCardState extends State<CustomJobCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      decoration: BoxDecoration(
-        color: HexColor.fromHex('#F6F6F6'),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildProfileHeader(context),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: widget.descriptionPadding.toDouble(),
+    return GestureDetector(
+      onTap: () {
+        context.push(EmployProfileDisplayScreen.employerRoute);
+      },
+      child: Container(
+        constraints: const BoxConstraints(minHeight: 250),
+        decoration: BoxDecoration(
+          color: HexColor.fromHex('#F6F6F6'),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildProfileHeader(context),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: widget.descriptionPadding.toDouble(),
+                      ),
+                      child: _buildDescription(context),
                     ),
-                    child: _buildDescription(context),
                   ),
-                ),
-                _buildActionRow(context),
-                if (widget.showBottomText) _buildBottomRow(context),
-              ],
+                  _buildActionRow(context),
+                ],
+              ),
             ),
-          ),
-          if (widget.showLikeButton)
-            Positioned(
-              top: 10,
-              right: 16,
-              child: Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
-                      spreadRadius: 1,
-                      blurRadius: 4,
-                      offset: Offset(0, 2),
+            if (widget.showLikeButton)
+              Positioned(
+                top: 10,
+                right: 16,
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.15),
+                        spreadRadius: 1,
+                        blurRadius: 4,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      color: const Color.fromRGBO(255, 255, 255, 1),
+                      icon: Icon(
+                        Icons.favorite,
+                        color: isLiked
+                            ? HexColor.fromHex('#FF3E68')
+                            : Colors.grey.shade300,
+                        size: 26,
+                      ),
+                      onPressed: toggleLike,
                     ),
-                  ],
-                ),
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    color: const Color.fromRGBO(255, 255, 255, 1),
-                    icon: Icon(
-                      Icons.favorite,
-                      color: isLiked
-                          ? HexColor.fromHex('#FF3E68')
-                          : Colors.grey.shade300,
-                      size: 26,
-                    ),
-                    onPressed: toggleLike,
                   ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -286,9 +290,7 @@ class _CustomJobCardState extends State<CustomJobCard> {
           color: HexColor.fromHex('#000000').withOpacity(0.1),
         ),
         ClearInkWell(
-          onTap: () {
-            context.push(EmployProfileDisplayScreen.employerRoute);
-          },
+          onTap: () {},
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

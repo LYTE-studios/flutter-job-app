@@ -82,7 +82,7 @@ class _SkillsInfoScreenState extends State<SkillsInfoScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Hoe werken de Jobr Skill levels?',
+                    'Hoe werken de Jobr skill levels?',
                     style: TextStyle(
                       fontSize: 21,
                       fontWeight: FontWeight.w600,

@@ -110,7 +110,9 @@ class _CreateJobListingGeneralScreenState
             title: "Contract type",
             selectedValue: _selectedContractTypes.length > 2
                 ? '${_selectedContractTypes.take(2).map((ct) => ct.name).join(', ')} + ${_selectedContractTypes.length - 2} more'
-                : _selectedContractTypes.map((ct) => ct.name).join(', '),
+                : _selectedContractTypes.length == 0
+                    ? null
+                    : _selectedContractTypes.map((ct) => ct.name).join(', '),
             onPressed: () => ContractTypeBottomSheet(
               onSelected: (List<ContractType> values) {
                 setState(() {
