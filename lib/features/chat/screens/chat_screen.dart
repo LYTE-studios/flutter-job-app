@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/models/message.dart';
+import 'package:jobr/data/services/chat_service.dart';
 import 'package:jobr/features/chat/screens/employee/chat_page_employee_screen.dart';
 import 'package:jobr/features/chat/screens/employer/chat_page_screen.dart';
 import 'package:jobr/features/chat/screens/chat_request_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
+import 'package:lyte_studios_flutter_ui/mixins/screen_state_mixin.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -20,32 +23,18 @@ class ChatScreen extends StatefulWidget {
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreenState extends State<ChatScreen> with ScreenStateMixin {
   String selectedCategory = 'Alle';
 
-  // Sample chat data
-  final List<Map<String, dynamic>> chatData = [
-    {
-      'name': 'Spicy Lemon',
-      'message': 'Top, tot dan!',
-      'time': '09:46',
-      'image': 'assets/images/logos/spicy_lemon.png',
-      'unreadCount': 0,
-    },
-    {
-      'name': 'Brooklyn Kortrijk',
-      'message': 'Ik: Plannen we anders..',
-      'time': '07:23',
-      'image': 'assets/images/logos/brooklyn_kortrijk.png',
-      'unreadCount': 1,
-    },
-  ];
+  List<Message> chatData = [];
 
-  List<Map<String, dynamic>> get filteredChats {
-    if (selectedCategory == 'Ongelezen') {
-      return chatData.where((chat) => chat['unreadCount'] > 0).toList();
-    }
-    return chatData;
+  @override
+  Future<void> loadData() async {
+    chatData = await ChatService().getMessages();
+
+    setState(() {
+      chatData = chatData;
+    });
   }
 
   @override
@@ -131,9 +120,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     }
                   },
                   child: ListView.builder(
-                    itemCount: filteredChats.length,
+                    itemCount: chatData.length,
                     itemBuilder: (context, index) {
-                      final chat = filteredChats[index];
+                      final chat = chatData[index];
                       return Column(
                         children: [
                           _buildChatItem(chat),
@@ -157,7 +146,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   // Helper method to build chat items
-  Widget _buildChatItem(Map<String, dynamic> chat) {
+  Widget _buildChatItem(Message chat) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -168,7 +157,7 @@ class _ChatScreenState extends State<ChatScreen> {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: AssetImage(chat['image']),
+              image: AssetImage(chat.sender),
               fit: BoxFit.cover,
             ),
           ),
@@ -180,7 +169,8 @@ class _ChatScreenState extends State<ChatScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                chat['name'],
+                // chat['name'],
+                '',
                 style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
@@ -188,7 +178,8 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                chat['message'],
+                // chat['message'],
+                '',
                 style: TextStyle(
                   color: HexColor.fromHex('8F8F8F'),
                   fontSize: 16,
@@ -206,28 +197,29 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              chat['time'],
+              // chat['time'],
+              '',
               style: TextStyle(
-                color: chat['unreadCount'] > 0
-                    ? const Color(0xFFFF3E68)
-                    : const Color(0xFF8F8F8F),
+                // color: chat['unreadCount'] > 0
+                //     ? const Color(0xFFFF3E68)
+                //     : const Color(0xFF8F8F8F),
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            if (chat['unreadCount'] > 0)
-              CircleAvatar(
-                radius: 10,
-                backgroundColor: const Color(0xFFFF3E68),
-                child: Text(
-                  '${chat['unreadCount']}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+            // if (chat['unreadCount'] > 0)
+            //   CircleAvatar(
+            //     radius: 10,
+            //     backgroundColor: const Color(0xFFFF3E68),
+            //     child: Text(
+            //       '${chat['unreadCount']}',
+            //       style: const TextStyle(
+            //         color: Colors.white,
+            //         fontSize: 12,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     ),
+            //   ),
           ],
         ),
       ],

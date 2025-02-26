@@ -4,9 +4,9 @@ import '../services/api_service.dart';
 class ChatService extends ApiService {
   ChatService();
 
-  Future<List<Message>> getMessages(int chatId) async {
+  Future<List<Message>> getMessages() async {
     try {
-      final response = await getApi('chat/$chatId/messages/');
+      final response = await getApi('chat/history');
       return (response.data as List)
           .map((json) => Message.fromJson(json))
           .toList();

@@ -42,7 +42,10 @@ class BaseOptionBottomSheet extends StatelessWidget with BottomSheetMixin {
               child: Container(
                 height: 5,
                 width: 48,
-                color: const Color(0xffD9D9D9),
+                decoration: BoxDecoration(
+                  color: const Color(0xffD9D9D9),
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
             ),
             Column(

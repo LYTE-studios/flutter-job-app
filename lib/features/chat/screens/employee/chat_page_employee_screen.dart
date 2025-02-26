@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/models/message.dart';
 import 'package:jobr/features/Sollicitaties/sollicitaties_tabs_info.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
@@ -20,20 +21,20 @@ class ChatPageEmployeeScreen extends StatefulWidget {
 
 class _ChatPageEmployeeScreenState extends State<ChatPageEmployeeScreen> {
   final List<Message> messages = [
-    Message(content: '''Hey Emma! Ik zag je sollicitatie voor
-onze winkelmedewerker-vacature.
-Je profiel spreekt ons enorm aan.
-Wanneer zie je het zitten om eens
-langs te komen?''', isSentByMe: false),
-    Message(
-        content: "Kan je morgen langskomen voor een sollicitatiegesprek?",
-        isSentByMe: false),
-    Message(
-        content:
-            "Kan ik morgen eventueel langs... Hey! Ja hoor, ik kan rond 15u?",
-        isSentByMe: true),
-    Message(content: "Perfect, kom dan maar af!", isSentByMe: false),
-    Message(content: "Thanks, tot morgen!", isSentByMe: true),
+//     Message(content: '''Hey Emma! Ik zag je sollicitatie voor
+// onze winkelmedewerker-vacature.
+// Je profiel spreekt ons enorm aan.
+// Wanneer zie je het zitten om eens
+// langs te komen?''', isSentByMe: false),
+//     Message(
+//         content: "Kan je morgen langskomen voor een sollicitatiegesprek?",
+//         isSentByMe: false),
+//     Message(
+//         content:
+//             "Kan ik morgen eventueel langs... Hey! Ja hoor, ik kan rond 15u?",
+//         isSentByMe: true),
+//     Message(content: "Perfect, kom dan maar af!", isSentByMe: false),
+//     Message(content: "Thanks, tot morgen!", isSentByMe: true),
   ];
 
   // New variables for text input control and icon color change
@@ -206,38 +207,38 @@ langs te komen?''', isSentByMe: false),
                   // Chat messages
                   final message = messages[messages.length - 1 - index];
                   return Align(
-                    alignment: message.isSentByMe
-                        ? Alignment.centerRight
-                        : Alignment.centerLeft,
+                    // alignment: message.isSentByMe
+                    //     ? Alignment.centerRight
+                    //     : Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.only(
-                        left: message.isSentByMe ? 64.0 : 0,
-                        right: message.isSentByMe ? 0 : 64.0,
+                        // left: message.isSentByMe ? 64.0 : 0,
+                        // right: message.isSentByMe ? 0 : 64.0,
                       ),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 5.0),
                         padding: const EdgeInsets.all(12.0),
                         decoration: BoxDecoration(
-                          color: message.isSentByMe
-                              ? const Color(0xFF3976FF)
-                              : const Color(0xFFF6F6F6),
+                          // color: message.isSentByMe
+                          //     ? const Color(0xFF3976FF)
+                          //     : const Color(0xFFF6F6F6),
                           borderRadius: BorderRadius.only(
                             topLeft: const Radius.circular(17.79),
-                            topRight: message.isSentByMe
-                                ? Radius.zero
-                                : const Radius.circular(17.79),
-                            bottomLeft: message.isSentByMe
-                                ? const Radius.circular(17.79)
-                                : Radius.zero,
+                            // topRight: message.isSentByMe
+                            //     ? Radius.zero
+                            //     : const Radius.circular(17.79),
+                            // bottomLeft: message.isSentByMe
+                            //     ? const Radius.circular(17.79)
+                            //     : Radius.zero,
                             bottomRight: const Radius.circular(17.79),
                           ),
                         ),
                         child: Text(
                           message.content,
                           style: TextStyle(
-                            color: message.isSentByMe
-                                ? Colors.white
-                                : Colors.black,
+                            // color: message.isSentByMe
+                            //     ? Colors.white
+                            //     : Colors.black,
                             fontSize: 16.74,
                           ),
                         ),
@@ -300,11 +301,4 @@ langs te komen?''', isSentByMe: false),
       ),
     );
   }
-}
-
-class Message {
-  final String content;
-  final bool isSentByMe;
-
-  Message({required this.content, required this.isSentByMe});
 }

@@ -20,17 +20,17 @@ class ChatPageScreen extends StatefulWidget {
 }
 
 class _ChatPageScreenState extends State<ChatPageScreen> {
-  final List<Message> messages = [
-    Message(content: "Hey Louis,", isSentByMe: true),
-    Message(
-        content: "Kan je morgen langskomen voor een sollicitatiegesprek?",
-        isSentByMe: true),
-    Message(
-        content:
-            "Kan ik morgen eventueel langs... Hey! Ja hoor, ik kan rond 15u?",
-        isSentByMe: false),
-    Message(content: "Perfect, kom dan maar af!", isSentByMe: true),
-    Message(content: "Thanks, tot morgen!", isSentByMe: false),
+  final List messages = [
+    // Message(content: "Hey Louis,", isSentByMe: true),
+    // Message(
+    //     content: "Kan je morgen langskomen voor een sollicitatiegesprek?",
+    //     isSentByMe: true),
+    // Message(
+    //     content:
+    //         "Kan ik morgen eventueel langs... Hey! Ja hoor, ik kan rond 15u?",
+    //     isSentByMe: false),
+    // Message(content: "Perfect, kom dan maar af!", isSentByMe: true),
+    // Message(content: "Thanks, tot morgen!", isSentByMe: false),
   ];
 
   @override
@@ -272,11 +272,4 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
       ),
     );
   }
-}
-
-class Message {
-  final String content;
-  final bool isSentByMe;
-
-  Message({required this.content, required this.isSentByMe});
 }
