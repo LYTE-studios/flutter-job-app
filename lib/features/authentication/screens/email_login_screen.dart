@@ -80,7 +80,27 @@ class _EmailLoginScreenState extends State<EmailLoginScreen>
       setError("Invalid credentials");
       return;
     }
-
+if (widget.userType == UserType.employee) {
+      context.go(
+        JobrRouter.getRoute(
+          NewCompanyPage.location,
+          JobrRouter.employeeInitialroute,
+        ),
+         extra: {
+                'userType': widget.userType,
+              }
+      );
+    } else {
+      context.go(
+        JobrRouter.getRoute(
+          NewCompanyPage.location,
+          JobrRouter.employerInitialroute,
+        ),
+         extra: {
+                'userType': widget.userType,
+              }
+      );
+    }
     return;
   }
 
