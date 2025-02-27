@@ -147,7 +147,7 @@ class _JobListingsScreenState extends State<JobListingsScreen>
                       },
                       child: ListView(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: PaddingSizes.large,
+                          horizontal: PaddingSizes.extraSmall,
                         ),
                         children: vacancies
                             .map(

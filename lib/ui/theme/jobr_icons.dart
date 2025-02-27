@@ -81,6 +81,8 @@ class JobrIcons {
   static const String uploadIcon = '$_baseIconPath/upload.svg';
   static const String food_basket = '$_baseIconPath/food_bar.svg';
 
+  static const String eye = '$_baseIconPath/eye.svg';
+
   static const List<String> icons = [
     logoLight,
     googleIcon,

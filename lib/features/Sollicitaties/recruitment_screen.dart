@@ -383,7 +383,7 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 350),
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * .37,
+        height: 300,
         child: ListView(
           padding: const EdgeInsets.all(
             PaddingSizes.large,
@@ -401,7 +401,7 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
                       context.push(EmployProfileDisplayScreen.employerRoute);
                     },
                     child: CustomJobCard(
-                      height: double.infinity,
+                      height: 300,
                       descriptionPadding: 8,
                       isAICard: true,
                       description:

@@ -8,6 +8,8 @@ import 'package:jobr/features/profile/screens/company_screen/company_profile.dar
 import 'package:jobr/features/profile/screens/reviews/employee_reviews.dart';
 import 'package:jobr/features/profile/screens/tabs/employee_profile_tab.dart';
 import 'package:jobr/features/profile/screens/tabs/media_item_widget.dart';
+import 'package:jobr/ui/theme/border_radii.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
@@ -181,15 +183,42 @@ class _EmployProfileDisplayScreenState
                           ),
                         ),
                       ),
-                      Positioned(
-                        top: 190,
-                        right: 25,
-                        child: Text(
-                          '143x bekeken',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
-                      ),
+                      // Positioned(
+                      //   top: 136,
+                      //   right: 20,
+                      //   child: Container(
+                      //     padding: EdgeInsets.symmetric(
+                      //       horizontal: PaddingSizes.small,
+                      //       vertical: PaddingSizes.xxs,
+                      //     ),
+                      //     decoration: BoxDecoration(
+                      //       color: Theme.of(context).primaryColor,
+                      //       borderRadius: BorderRadius.circular(
+                      //         BorderRadii.large,
+                      //       ),
+                      //     ),
+                      //     child: Row(
+                      //       children: [
+                      //         SvgIcon(
+                      //           JobrIcons.eye,
+                      //           color: Colors.white,
+                      //           size: 24,
+                      //         ),
+                      //         const SizedBox(
+                      //           width: 6,
+                      //         ),
+                      //         Text(
+                      //           '143',
+                      //           style: TextStyle(
+                      //             color: TextStyles.clearText,
+                      //             fontSize: 14,
+                      //             fontWeight: FontWeight.bold,
+                      //           ),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

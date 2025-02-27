@@ -53,7 +53,9 @@ class JobrAppbarNavigation extends StatelessWidget
             children: [
               if (prefixIcon != null)
                 Padding(
-                  padding: const EdgeInsets.only(left: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                  ),
                   child: prefixIcon!,
                 ),
               SizedBox(
@@ -100,7 +102,7 @@ class JobrAppbarNavigation extends StatelessWidget
           ),
           if (canGoBack)
             Positioned(
-              top: 10,
+              top: 0,
               left: 0,
               bottom: 0,
               child: IconButton(

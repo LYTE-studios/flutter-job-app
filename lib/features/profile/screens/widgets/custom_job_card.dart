@@ -66,6 +66,7 @@ class _CustomJobCardState extends State<CustomJobCard> {
         context.push(EmployProfileDisplayScreen.employerRoute);
       },
       child: Container(
+        height: widget.height,
         constraints: const BoxConstraints(minHeight: 250),
         decoration: BoxDecoration(
           color: HexColor.fromHex('#F6F6F6'),
@@ -81,8 +82,7 @@ class _CustomJobCardState extends State<CustomJobCard> {
                 children: [
                   _buildProfileHeader(context),
                   const SizedBox(height: 10),
-                  Flexible(
-                    fit: FlexFit.loose,
+                  Expanded(
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: widget.descriptionPadding.toDouble(),
