@@ -1,35 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/models/function_type.dart';
+import 'package:jobr/features/job_listing/widgets/function_type_bottom_sheet.dart';
+import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:jobr/features/profile/screens/widgets/custom_list_tile.dart';
+import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:intl/intl.dart'; // added for date formatting
+import 'package:jobr/features/job_listing/widgets/date_time_picker.dart'; // added for date-time picker
+import 'package:jobr/features/job_listing/widgets/company_type_bottomsheet.dart'; // added for company selection
 
-import '../../../../ui/theme/jobr_icons.dart';
+// Import the bottom sheet and function type (assumed to be available)
 import '../../models/list_model.dart';
 
 class NewExpereinceScreen extends StatefulWidget {
   static const String location = 'new-experience';
+  static String route = JobrRouter.getRoute(
+    '${ProfileScreen.location}/$location',
+    JobrRouter.employeeInitialroute,
+  );
 
-  const NewExpereinceScreen({super.key});
+  final bool? isAddNewCertificationPage;
+  const NewExpereinceScreen(
+      {super.key, this.isAddNewCertificationPage = false});
 
   @override
   State<NewExpereinceScreen> createState() => _NewExpereinceScreenState();
 }
 
 class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
-  ListData initialExperience = ListData(
-    image: 'assets/images/images/image-1.png',
-    title: 'Sommelier',
-    subTitle: "MAGMA",
-    duration: 'Nov 2017 - Feb 2021',
-    time: '3 jr 3 mnd',
+  final ListData initialExperience = ListData(
+    image: 'assets/images/images/image-8.png',
+    title: 'Functie',
+    subTitle: "Bedrijf",
+    duration: 'Van - Tot',
+    time: 'totaal mnd',
   );
   TextEditingController companyController = TextEditingController();
   TextEditingController functionController = TextEditingController();
 
+  // New state variables to hold mutable values
+  String companyText = "";
+  String functionText = "";
+
+  FunctionType? _selectedFunction; // for function selection
+
+  DateTime? startDate; // new state var for start date
+  TimeOfDay? startTime; // new state var for start time
+  DateTime? endDate; // new state var for end date
+  TimeOfDay? endTime; // new state var for end time
+
+  // helper to format date & time together
+  String formatDateTime(DateTime date, TimeOfDay time) {
+    final formattedDate = DateFormat('d MMM yyyy').format(date);
+    final formattedTime = '${time.hour.toString().padLeft(2, '0')}:'
+        '${time.minute.toString().padLeft(2, '0')}';
+    return '$formattedDate om $formattedTime';
+  }
+
+  String formatDate(DateTime date) {
+    return DateFormat('dd/MM/yyyy').format(date);
+  }
+
   @override
   void initState() {
-    companyController.text = initialExperience.subTitle;
-    functionController.text = initialExperience.title;
+    companyController.text = 'Kies een bedrijf';
+    functionController.text = 'Kies een functie';
+    companyText = companyController.text;
+    functionText = functionController.text;
+    // Listener to update companyText when text changes
+    companyController.addListener(() {
+      setState(() {
+        companyText = companyController.text;
+      });
+    });
     super.initState();
   }
 
@@ -46,20 +92,23 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
     double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
+        surfaceTintColor: Colors.transparent,
         leading: Center(
           child: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: SvgPicture.asset(
               JobrIcons.backArrow,
-              width: 30,
-              height: 30,
+              width: 20,
+              height: 20,
             ),
           ),
         ),
         centerTitle: true,
-        title: const Text(
-          "Nieuwe ervaring",
-          style: TextStyle(
+        title: Text(
+          (widget.isAddNewCertificationPage ?? false)
+              ? "Onderwijs & certificaten"
+              : "Nieuwe ervaring",
+          style: const TextStyle(
             fontSize: 20,
             fontFamily: 'Inter',
             fontWeight: FontWeight.w700,
@@ -78,26 +127,39 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: CustomListTile2(
               image: initialExperience.image,
-              title: initialExperience.title,
-              subTitle: initialExperience.subTitle,
+              title: functionText,
+              subTitle: companyText,
               duration: initialExperience.duration,
               time: initialExperience.time,
               centerImage: true,
             ),
           ),
           const SizedBox(height: 10),
-          Divider(color: Colors.grey[300]),
+          // Replaced withOpacity with withAlpha (0.04 * 255 ≃ 10)
+          Divider(color: const Color(0xFF000000).withAlpha(10)),
           const SizedBox(height: 20),
+          // Updated "Bedrijf" field to show CompanyTypeBottomSheet on tap
           _buildTextField(
             'Bedrijf',
-            '',
+            companyText,
             controller: companyController,
+            onTap: () {
+              CompanyTypeBottomSheet(
+                title: "Kies een bedrijf",
+                onSelected: (companyType) {
+                  setState(() {
+                    companyText = companyType.name;
+                    companyController.text = companyType.name;
+                  });
+                },
+              ).showPopup(context: context);
+            },
             suffixIcon: Container(
               width: 20,
               height: 20,
               margin: const EdgeInsets.only(right: 10),
               child: SvgPicture.asset(
-                JobrIcons.edit,
+                JobrIcons.add,
                 width: 20,
                 height: 20,
                 colorFilter: ColorFilter.mode(
@@ -108,16 +170,30 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
             ),
           ),
           const SizedBox(height: 20),
+          // "Functie" field now uses onTap to show FunctionTypeBottomSheet
           _buildTextField(
             'Functie',
             '',
             controller: functionController,
+            onTap: () {
+              FunctionTypeBottomSheet(
+                title: "Maak een keuze",
+                onSelected: (FunctionType value) {
+                  setState(() {
+                    _selectedFunction = value;
+                    functionText = value.name;
+                    functionController.text = value.name;
+                  });
+                },
+              ).showPopup(context: context);
+            },
+            // Remove the existing add icon for this field
             suffixIcon: Container(
               width: 20,
               height: 20,
               margin: const EdgeInsets.only(right: 10),
               child: SvgPicture.asset(
-                JobrIcons.edit,
+                JobrIcons.add,
                 width: 20,
                 height: 20,
                 colorFilter: ColorFilter.mode(
@@ -131,7 +207,6 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
           _buildPerioudField(
             'Periode',
             '',
-            controller: functionController,
             suffixIcon: SizedBox(
               width: 20,
               height: 20,
@@ -145,22 +220,23 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
         child: Center(
           child: SizedBox(
             width: width,
-            height: 58,
+            height: 56,
             child: FilledButton(
               style: FilledButton.styleFrom(
                 backgroundColor: theme.primaryColor,
-                // shape: RoundedRectangleBorder(),
                 padding: const EdgeInsets.symmetric(vertical: 10),
               ),
-              onPressed: () {},
+              onPressed: () {
+                context.pop();
+              },
               child: const Text(
-                "Toon resultaten",
+                "Ervaring toevoegen",
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w800,
                 ),
@@ -172,6 +248,7 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
     );
   }
 
+  // Modified _buildTextField to accept onTap and set readOnly accordingly.
   Widget _buildTextField(
     String label,
     String hint, {
@@ -179,6 +256,7 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
     TextEditingController? controller,
     Widget? prefixIcon,
     Widget? suffixIcon,
+    VoidCallback? onTap,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,9 +265,9 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
           text: TextSpan(
             text: label,
             style: const TextStyle(
-              fontSize: 16,
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w700,
+              fontSize: 16.5,
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
               color: Colors.black,
             ),
             children: const [
@@ -205,12 +283,14 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
         ),
         const SizedBox(height: 10),
         TextFormField(
+          readOnly: onTap != null,
+          onTap: onTap,
           keyboardType: keyboardType,
           controller: controller,
           textAlignVertical: TextAlignVertical.center,
           style: const TextStyle(
             fontSize: 16.5,
-            fontFamily: 'Inter',
+            fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
           ),
           decoration: InputDecoration(
@@ -247,10 +327,10 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
     );
   }
 
+  // _buildPerioudField remains unchanged except replacing withOpacity usage.
   Widget _buildPerioudField(
     String label,
     String hint, {
-    TextEditingController? controller,
     Widget? suffixIcon,
   }) {
     return Column(
@@ -277,11 +357,9 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
           ),
         ),
         const SizedBox(height: 10),
+        // 'Van' date & time field
         Container(
-          padding: const EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: 16,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
           decoration: BoxDecoration(
             color: HexColor.fromHex('#F7F7F7'),
             borderRadius: BorderRadius.circular(20),
@@ -292,13 +370,14 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                  color: HexColor.fromHex('#A4A4A4').withOpacity(.3),
+                  // Adjusted styling remains unchanged
+                  color: HexColor.fromHex('#BEBEBE').withOpacity(0.3),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 margin: const EdgeInsets.only(right: 5),
                 width: 52,
                 alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                padding: const EdgeInsets.symmetric(vertical: 5),
                 child: const Text(
                   'Van',
                   style: TextStyle(
@@ -314,6 +393,7 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 0),
                   child: TextField(
+                    readOnly: true,
                     textAlignVertical: TextAlignVertical.center,
                     style: const TextStyle(
                       fontSize: 16,
@@ -325,18 +405,54 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
-                      hintText: 'Kies een datum',
+                      hintText: startDate == null || startTime == null
+                          ? 'Kies een datum & tijdstip'
+                          : formatDateTime(startDate!, startTime!),
                       hintStyle: TextStyle(
                         fontSize: 16,
-                        fontFamily: 'Inter',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
-                        color: HexColor.fromHex('#BEBEBE'),
+                        color: startDate == null || startTime == null
+                            ? HexColor.fromHex('#B7B7B7')
+                            : Colors.black,
                       ),
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 12,
                         horizontal: 0,
                       ),
                     ),
+                    onTap: () async {
+                      FocusScope.of(context).unfocus();
+                      await showDialog(
+                        context: context,
+                        barrierColor: Colors.black54,
+                        builder: (context) => Dialog(
+                          insetPadding: const EdgeInsets.all(18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Container(
+                            constraints: BoxConstraints(
+                              maxWidth: 800,
+                              maxHeight:
+                                  MediaQuery.of(context).size.height * 0.8,
+                            ),
+                            width: double.infinity,
+                            child: CustomDateTimePicker(
+                              initialDate: startDate ?? DateTime.now(),
+                              initialTime: startTime ?? TimeOfDay.now(),
+                              onDateTimeSelected: (date, time) {
+                                setState(() {
+                                  startDate = date;
+                                  startTime = time;
+                                });
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -345,11 +461,9 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
           ),
         ),
         const SizedBox(height: 10),
+        // 'Tot' date & time field
         Container(
-          padding: const EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: 16,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
           decoration: BoxDecoration(
             color: HexColor.fromHex('#F7F7F7'),
             borderRadius: BorderRadius.circular(20),
@@ -360,13 +474,13 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
             children: <Widget>[
               Container(
                 decoration: BoxDecoration(
-                  color: HexColor.fromHex('#A4A4A4').withOpacity(.3),
+                  color: HexColor.fromHex('#BEBEBE').withOpacity(0.3),
                   borderRadius: BorderRadius.circular(30),
                 ),
                 margin: const EdgeInsets.only(right: 5),
                 width: 52,
                 alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                padding: const EdgeInsets.symmetric(vertical: 5),
                 child: const Text(
                   'Tot',
                   style: TextStyle(
@@ -382,9 +496,11 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 0),
                   child: TextField(
+                    readOnly: true,
                     textAlignVertical: TextAlignVertical.center,
                     style: const TextStyle(
                       fontSize: 16,
+                      color: Colors.black,
                       fontFamily: 'Inter',
                       fontWeight: FontWeight.w500,
                     ),
@@ -393,18 +509,54 @@ class _NewExpereinceScreenState extends State<NewExpereinceScreen> {
                       border: InputBorder.none,
                       focusedBorder: InputBorder.none,
                       enabledBorder: InputBorder.none,
-                      hintText: 'Kies een datum',
+                      hintText: endDate == null || endTime == null
+                          ? 'Kies een datum & tijdstip'
+                          : formatDateTime(endDate!, endTime!),
                       hintStyle: TextStyle(
                         fontSize: 16,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w500,
-                        color: HexColor.fromHex('#BEBEBE'),
+                        color: endDate == null || endTime == null
+                            ? HexColor.fromHex('#B7B7B7')
+                            : Colors.black,
                       ),
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 12,
                         horizontal: 0,
                       ),
                     ),
+                    onTap: () async {
+                      FocusScope.of(context).unfocus();
+                      await showDialog(
+                        context: context,
+                        barrierColor: Colors.black54,
+                        builder: (context) => Dialog(
+                          insetPadding: const EdgeInsets.all(18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          child: Container(
+                            constraints: BoxConstraints(
+                              maxWidth: 800,
+                              maxHeight:
+                                  MediaQuery.of(context).size.height * 0.8,
+                            ),
+                            width: double.infinity,
+                            child: CustomDateTimePicker(
+                              initialDate: endDate ?? DateTime.now(),
+                              initialTime: endTime ?? TimeOfDay.now(),
+                              onDateTimeSelected: (date, time) {
+                                setState(() {
+                                  endDate = date;
+                                  endTime = time;
+                                });
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

@@ -39,6 +39,8 @@ final jobrTheme = ThemeData(
     labelSmall: TextStyles.labelSmall,
   ),
   inputDecorationTheme: InputDecorationTheme(
+    alignLabelWithHint: true,
+    labelStyle: TextStyles.labelMedium,
     hintStyle: TextStyle(
       color: HexColor.fromHex('#B7B7B7'),
       fontSize: 16,
@@ -57,9 +59,6 @@ final jobrTheme = ThemeData(
       borderRadius: BorderRadius.circular(20),
       borderSide: BorderSide.none,
     ),
-    contentPadding: const EdgeInsets.symmetric(
-      vertical: 20,
-      horizontal: 16,
-    ),
+    contentPadding: EdgeInsets.zero,
   ),
 );

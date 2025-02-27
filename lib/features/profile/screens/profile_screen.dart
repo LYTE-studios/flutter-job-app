@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/availability_screen.dart';
+import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
+import 'package:jobr/features/profile/screens/company_screen/settings_screen.dart';
+import 'package:jobr/features/profile/screens/edit/edit_profile_details_screen.dart';
+import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
+import 'package:jobr/features/profile/screens/reviews/employee_reviews.dart';
+import 'package:jobr/features/profile/screens/reviews/profile_review_screen.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -14,6 +23,11 @@ class ProfileScreen extends StatefulWidget {
 
   const ProfileScreen({super.key});
 
+  static String employeeRoute = JobrRouter.getRoute(
+    location,
+    JobrRouter.employeeInitialroute,
+  );
+
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
@@ -21,9 +35,21 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   List<TabData> tabData = [
     TabData(label: 'Algemeen', icon: JobrIcons.dashboard),
-    TabData(label: 'Media', icon: JobrIcons.chat),
+    TabData(label: 'Media', icon: JobrIcons.camera),
   ];
   int selectedIndex = 0;
+  List<String> selectedDays = ['V', 'Z1']; // using 'Z1' for Saturday
+
+  // Add a local dayData list that maps ID to label
+  final List<Map<String, String>> dayData = [
+    {'id': 'M', 'label': 'M'},
+    {'id': 'D1', 'label': 'D'},
+    {'id': 'W', 'label': 'W'},
+    {'id': 'D2', 'label': 'D'},
+    {'id': 'V', 'label': 'V'},
+    {'id': 'Z1', 'label': 'Z'},
+    {'id': 'Z2', 'label': 'Z'},
+  ];
 
   List<Widget> tabs = const [
     GeneralItemsWidget(),
@@ -41,6 +67,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              // leading: Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: CircleAvatar(
+              //     backgroundColor: Colors.white,
+              //     child: IconButton(
+              //       icon: SvgPicture.asset(
+              //         'assets/images/icons/back-arrow.svg',
+              //         color: Colors.grey,
+              //       ),
+              //       onPressed: () {
+              //         Navigator.of(context).pop();
+              //       },
+              //     ),
+              //   ),
+              // ),
               expandedHeight: 200,
               floating: false,
               pinned: true,
@@ -91,38 +132,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       top: 0,
                       left: 0,
                       right: 0,
-                      child: Image.asset(
-                        'assets/images/images/image-4.png',
-                        fit: BoxFit.cover,
-                        height: 180,
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: 10,
-                      child: Container(
-                        width: 135,
-                        height: 135,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 4,
-                          ),
-                          image: const DecorationImage(
-                            image:
-                                AssetImage('assets/images/images/profile.png'),
+                      child: Hero(
+                        tag: 'profileBackground',
+                        child: GestureDetector(
+                          onTap: () {
+                            showGeneralDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              barrierLabel: 'Dismiss',
+                              barrierColor: Colors.black54,
+                              pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                tag: 'profileBackground',
+                                imagePath: 'assets/images/images/image-4.png',
+                              ),
+                            );
+                          },
+                          child: Image.asset(
+                            'assets/images/images/image-4.png',
                             fit: BoxFit.cover,
+                            height: 180,
                           ),
                         ),
                       ),
                     ),
                     Positioned(
-                      top: 156,
-                      right: 10,
+                      bottom: 0,
+                      left: 10,
+                      child: Hero(
+                        tag: 'profileLogo',
+                        child: GestureDetector(
+                          onTap: () {
+                            showGeneralDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              barrierLabel: 'Dismiss',
+                              barrierColor: Colors.black54,
+                              pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                height: 200,
+                                width: 200,
+                                tag: 'profileLogo',
+                                imagePath: 'assets/images/images/profile.png',
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 135,
+                            height: 135,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 4,
+                              ),
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/images/profile.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 166,
+                      right: 60,
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          // context.push(EditProfileDetailsScreen.route);
+                          context.push(EditProfileDetailsScreen.route);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: theme.primaryColor,
@@ -150,6 +227,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
+                    Positioned(
+                      bottom: 40,
+                      right: 10,
+                      child: InkWell(
+                        onTap: () {
+                          // Add your settings action here
+                          context.push(SettingsScreen.route);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey.shade100,
+                          ),
+                          child: SvgIcon(
+                            JobrIcons.settings1,
+                            size: 20.68,
+                            color: TextStyles.disabledText,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -173,9 +272,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               "louisottevaere@gmail.com",
               style: TextStyle(
                 fontSize: 17,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Inter',
-                color: TextStyles.unselectedText,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Poppins',
+                color: Color(0xFF6F717C),
               ),
             ),
             const SizedBox(height: 4),
@@ -197,17 +296,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
+              const SizedBox(height: 14),
+              CustomStarRating(
+                rating: 3.5,
+                onIconTap: () {
+                  context.push(DisplayProfileReviews.employeeRoute);
+                },
+                containerBackgroundColor:
+                    HexColor.fromHex('#F0F0F0').withOpacity(0.24),
+                borderColor: HexColor.fromHex('#EDEDED').withOpacity(0.36),
+              ),
+             
             const SizedBox(height: 22),
             const Padding(
               padding: EdgeInsets.only(
-                right: 72,
+                right: 12,
               ),
               child: Text(
-                "Ik ben Louis, 30 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste service geven.",
+                '''Ik ben Louis, 30 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste
+service geven.''',
                 style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
+                    fontSize: 15.28,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF4A4C53)),
               ),
             ),
             const SizedBox(height: 24),
@@ -240,6 +351,82 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 27),
+
+            // Availability Card
+            GestureDetector(
+              onTap: () async {
+                final updated = await context.push(
+                  AvailabilityScreen.employeeRoute,
+                  extra: selectedDays,
+                );
+                if (updated != null) {
+                  setState(() => selectedDays = updated as List<String>);
+                }
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFFF2F2F2)),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Card(
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  elevation: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Beschikbaarheid",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Divider(
+                          color: HexColor.fromHex('#F0F1F3'),
+                          thickness: 1,
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            // Iterate over dayData instead of hard-coded letters
+                            for (var day in dayData)
+                              Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: CircleAvatar(
+                                  radius: 18,
+                                  backgroundColor:
+                                      selectedDays.contains(day['id']!)
+                                          ? Colors.red.shade100
+                                              .withAlpha((255 * 0.5).toInt())
+                                          : const Color(0xFFF5F5F5),
+                                  child: Text(
+                                    day['label']!,
+                                    style: TextStyle(
+                                      color: selectedDays.contains(day['id']!)
+                                          ? Colors.red
+                                          : const Color(0xFFCECECE),
+                                      fontSize: 16.5,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
             Row(
               children: List.generate(
                 tabData.length,
@@ -256,9 +443,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ? theme.primaryColor
                           : TextStyles.clearText,
                       side: BorderSide(
+                        width: 1.5,
                         color: selectedIndex == index
                             ? theme.primaryColor
-                            : TextStyles.unselectedText,
+                            : Color(0xFF494A54).withOpacity(0.2),
                       ),
                     ),
                     label: Text(
@@ -266,7 +454,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: TextStyle(
                         color: selectedIndex == index
                             ? TextStyles.clearText
-                            : TextStyles.unselectedText,
+                            : Color(0xFF494A54).withOpacity(0.4),
                         fontWeight: FontWeight.w700,
                         fontFamily: 'Inter',
                         fontSize: 16,
@@ -281,7 +469,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         colorFilter: ColorFilter.mode(
                           selectedIndex == index
                               ? TextStyles.clearText
-                              : TextStyles.unselectedText,
+                              : Color(0xFF494A54).withOpacity(0.4),
                           BlendMode.srcIn,
                         ),
                       ),
@@ -291,6 +479,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 20),
+
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: tabs[selectedIndex],

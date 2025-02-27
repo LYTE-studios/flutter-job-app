@@ -1,5 +1,16 @@
 enum UserType { employee, employer }
 
+extension UserTypeExtension on UserType {
+  String api() {
+    switch (this) {
+      case UserType.employee:
+        return "employee";
+      case UserType.employer:
+        return "employer";
+    }
+  }
+}
+
 class User {
   final int id;
   final String username;
@@ -7,7 +18,7 @@ class User {
 
   User({required this.id, required this.username, required this.email});
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  factory User.fromJson(Map<dynamic, dynamic> json) {
     return User(
       id: json['id'],
       username: json['username'],

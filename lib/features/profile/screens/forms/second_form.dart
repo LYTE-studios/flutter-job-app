@@ -128,26 +128,26 @@ class _SecondFormState extends State<SecondForm> {
           ),
         ),
         const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgIcon(
-              JobrIcons.location,
-              size: 16,
-              leaveUnaltered: true,
-              color: theme.primaryColor,
-            ),
-            const SizedBox(width: 4),
-            const Text(
-              "Kortrijk",
-              style: TextStyle(
-                fontSize: 17,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     SvgIcon(
+        //       JobrIcons.location,
+        //       size: 16,
+        //       leaveUnaltered: true,
+        //       color: theme.primaryColor,
+        //     ),
+        //     const SizedBox(width: 4),
+        //     const Text(
+        //       "Kortrijk",
+        //       style: TextStyle(
+        //         fontSize: 17,
+        //         fontFamily: 'Inter',
+        //         fontWeight: FontWeight.w500,
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ],
     );
   }

@@ -1,6 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jobr/configuration.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/ui/theme/jobr_icons.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TermsAndConditionsWidget extends StatelessWidget {
@@ -21,6 +27,7 @@ class TermsAndConditionsWidget extends StatelessWidget {
             TextSpan(
               text: 'onze voorwaarden.',
               style: const TextStyle(
+                fontWeight: FontWeight.bold,
                 decoration: TextDecoration.underline,
                 color: Colors.grey, // Changed from blue to grey
               ),
@@ -42,6 +49,12 @@ class TermsAndConditionsWidget extends StatelessWidget {
 }
 
 class SubscriptionPage extends StatefulWidget {
+  static const String location = 'subscription_page';
+
+  static String route = JobrRouter.getRoute(
+    location,
+    JobrRouter.employeeInitialroute,
+  );
   const SubscriptionPage({super.key});
 
   @override
@@ -49,14 +62,6 @@ class SubscriptionPage extends StatefulWidget {
 }
 
 class _SubscriptionPageState extends State<SubscriptionPage> {
-  int _selectedIndex = 0;
-
-  void _onTabTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -66,28 +71,44 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         appBar: AppBar(
           title: const Text(
             'Kies je plan',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
           ),
           backgroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,
           leading: IconButton(
-            icon: const Padding(
-              padding: EdgeInsets.only(left: 14.0),
-              child: Icon(Icons.close, color: Colors.black, size: 25),
+            splashColor: Colors.transparent, // New: removes splash color
+            highlightColor: Colors.transparent, // New: removes highlight color
+            icon: Padding(
+              // Removed 'const' from Padding
+              padding: const EdgeInsets.only(left: 14.0),
+              child: SvgPicture.asset(
+                JobrIcons.close,
+                colorFilter:
+                    const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                width: 15,
+                height: 15,
+              ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              context.pop();
+            },
           ),
           bottom: TabBar(
-            padding: const EdgeInsets.symmetric(horizontal: 60),
-            onTap: _onTabTapped,
+            labelPadding: const EdgeInsets.symmetric(horizontal: 0),
+            padding: const EdgeInsets.symmetric(horizontal: 70),
+            overlayColor: MaterialStateProperty.all(
+                Colors.transparent), // New line to remove pink overlay
             dividerColor: Colors.transparent,
             indicatorColor: Colors.black,
             labelColor: Colors.black,
             labelStyle:
                 const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             unselectedLabelStyle: const TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey),
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Color(0xFFADADAD)),
             tabs: const [
               Tab(text: 'Maandelijks'),
               Tab(text: 'Jaarlijks'),
@@ -105,8 +126,15 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   }
 }
 
-class MonthlyPlans extends StatelessWidget {
+class MonthlyPlans extends StatefulWidget {
   const MonthlyPlans({super.key});
+
+  @override
+  State<MonthlyPlans> createState() => _MonthlyPlansState();
+}
+
+class _MonthlyPlansState extends State<MonthlyPlans> {
+  int selectedIndex = 2; // Default select "Scale" card
 
   @override
   Widget build(BuildContext context) {
@@ -114,45 +142,60 @@ class MonthlyPlans extends StatelessWidget {
       children: [
         ListView(
           padding: const EdgeInsets.all(16),
-          children: const [
-            PlanCard(
-              title: 'Starter',
-              price: 'Gratis',
-              description: 'Maak kennis met jobr',
-              offers: ' 📍 1 vestiging   📄 1 vacature',
+          children: [
+            GestureDetector(
+              onTap: () => setState(() => selectedIndex = 0),
+              child: PlanCard(
+                title: 'Starter',
+                price: 'Gratis',
+                description: 'Maak kennis met jobr',
+                offers: ' 📍 1 vestiging   📄 1 vacature',
+                isSelected: selectedIndex == 0,
+              ),
             ),
-            PlanCard(
-              title: 'Local ⚡',
-              price: '€59,90',
-              description: 'Ideaal voor lokale zaken',
-              offers:
-                  ' 📍 1 vestiging   📄 2 vacatures\n 🔍 AI matchmaking   ✔️ Custom vragenlijst',
-              isPopular: true,
+            GestureDetector(
+              onTap: () => setState(() => selectedIndex = 1),
+              child: PlanCard(
+                title: 'Local ⚡',
+                price: '€59,90',
+                description: 'Ideaal voor lokale zaken',
+                offers:
+                    ' 📍 1 vestiging   📄 2 vacatures\n 🔍 AI matchmaking   ✔️ Custom vragenlijst',
+                isPopular: true,
+                isSelected: selectedIndex == 1,
+              ),
             ),
-            PlanCard(
-              title: 'Scale',
-              price: '€69,90',
-              description: 'Voor groeiende kmo’s',
-              offers:
-                  ' ∞ Onbeperkte kandidaten \n 🔍 AI matchmaking   ✔️ Custom vragenlijst   \n👀 Wie bekeek mijn vacature?',
-              backgroundColor: Color.fromARGB(255, 255, 249, 251),
+            GestureDetector(
+              onTap: () => setState(() => selectedIndex = 2),
+              child: PlanCard(
+                title: 'Scale',
+                price: '€69,90',
+                description: 'Voor groeiende kmo’s',
+                offers:
+                    ' ∞ Onbeperkte kandidaten \n 🔍 AI matchmaking   ✔️ Custom vragenlijst   \n👀 Wie bekeek mijn vacature?',
+                backgroundColor: const Color(0x0DFF3E68),
+                isSelected: selectedIndex == 2,
+              ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 130),
           ],
         ),
         Positioned(
           bottom: 50, // Adjust to ensure button and widget fit
           left: 16,
           right: 16,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.pink,
-              minimumSize: const Size.fromHeight(50),
-            ),
-            onPressed: () {},
-            child: const Text(
-              'Doorgaan - €49,90/maand',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+          child: PrimaryButton(
+            borderRadius: 32,
+            buttonText: 'Doorgaan - €49,90/maand',
+            onTap: () {
+              context.pop();
+            },
+            buttonColor: HexColor.fromHex('#FF3E68'),
+            height: 58,
+            textStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              fontSize: 19,
             ),
           ),
         ),
@@ -167,8 +210,15 @@ class MonthlyPlans extends StatelessWidget {
   }
 }
 
-class YearlyPlans extends StatelessWidget {
+class YearlyPlans extends StatefulWidget {
   const YearlyPlans({super.key});
+
+  @override
+  State<YearlyPlans> createState() => _YearlyPlansState();
+}
+
+class _YearlyPlansState extends State<YearlyPlans> {
+  int selectedIndex = 2; // Default select "Scale" card
 
   @override
   Widget build(BuildContext context) {
@@ -176,44 +226,59 @@ class YearlyPlans extends StatelessWidget {
       children: [
         ListView(
           padding: const EdgeInsets.all(16),
-          children: const [
-            PlanCard(
-              title: 'Starter',
-              price: 'Gratis',
-              description: 'Maak kennis met jobr',
-              offers: '📍 1 vestiging  📄 1 vacature',
+          children: [
+            GestureDetector(
+              onTap: () => setState(() => selectedIndex = 0),
+              child: PlanCard(
+                title: 'Starter',
+                price: 'Gratis',
+                description: 'Maak kennis met jobr',
+                offers: '📍 1 vestiging  📄 1 vacature',
+                isSelected: selectedIndex == 0,
+              ),
             ),
-            PlanCard(
-              title: 'Local ⚡',
-              price: '€19,90',
-              description: 'Ideaal voor lokale zaken',
-              offers:
-                  '📍 1 vestiging\n📄 2 vacatures 🔍 AI matchmaking\n👀 Wie bekeek je profiel?',
-              isPopular: true,
+            GestureDetector(
+              onTap: () => setState(() => selectedIndex = 1),
+              child: PlanCard(
+                title: 'Local ⚡',
+                price: '€19,90',
+                description: 'Ideaal voor lokale zaken',
+                offers:
+                    '📍 1 vestiging\n📄 2 vacatures 🔍 AI matchmaking\n👀 Wie bekeek je profiel?',
+                isSelected: selectedIndex == 1,
+              ),
             ),
-            PlanCard(
-              title: 'Scale',
-              price: '€89,90',
-              description: 'Voor groeiende kmo’s',
-              offers:
-                  '📍 Meerdere vestigingen   📄 5 vacatures\n🔍 AI matchmaking  👀 Wie bekeek je profiel? \n ✔️ Vragenlijst',
-              backgroundColor: Color.fromARGB(255, 255, 249, 251),
+            GestureDetector(
+              onTap: () => setState(() => selectedIndex = 2),
+              child: PlanCard(
+                title: 'Scale',
+                price: '€89,90',
+                description: 'Voor groeiende kmo’s',
+                subdetails: 'Alles van Local',
+                offers: '✔️ Vragenlijst   🙋‍♂️🙋‍♀️ Meerdere vestigingen',
+                isSelected: selectedIndex == 2,
+              ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 130),
           ],
         ),
         Positioned(
           bottom: 50, // Adjust to ensure button and widget fit
           left: 16,
           right: 16,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.pink,
-              minimumSize: const Size.fromHeight(50),
+          child: PrimaryButton(
+            borderRadius: 32,
+            buttonText: 'Doorgaan - €49,90/maand',
+            onTap: () {
+              context.pop();
+            },
+            buttonColor: HexColor.fromHex('#FF3E68'),
+            height: 58,
+            textStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              fontSize: 19,
             ),
-            onPressed: () {},
-            child: const Text('Doorgaan - €478,80/jaar',
-                style: TextStyle(color: Colors.white, fontSize: 20)),
           ),
         ),
         const Positioned(
@@ -234,6 +299,8 @@ class PlanCard extends StatelessWidget {
   final String offers;
   final Color backgroundColor;
   final bool isPopular;
+  final String? subdetails;
+  final bool isSelected; // New property
 
   const PlanCard({
     super.key,
@@ -242,21 +309,24 @@ class PlanCard extends StatelessWidget {
     required this.description,
     this.backgroundColor = Colors.white,
     this.isPopular = false,
+    this.subdetails,
     required this.offers,
+    this.isSelected = false, // Default false
   });
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      shadowColor: Colors.transparent,
       margin: const EdgeInsets.symmetric(vertical: 8),
-      color: backgroundColor,
+      color: isSelected ? const Color(0xFF0DFF3E68) : const Color(0xFFF3F3F3),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(
-          color: (title == 'Scale')
-              ? Colors.pink.shade300
-              : Colors.black12, // Conditional border color
-          width: (title == 'Scale') ? 2 : 0.5, // Border width
+          color: isSelected
+              ? Color(0xFFFF3E68).withAlpha((0.64 * 255).round())
+              : const Color(0xFFF3F3F3),
+          width: 2,
         ),
       ),
       child: Padding(
@@ -272,7 +342,7 @@ class PlanCard extends StatelessWidget {
                       Text(
                         title,
                         style: const TextStyle(
-                          fontSize: 24,
+                          fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -283,7 +353,7 @@ class PlanCard extends StatelessWidget {
                             'Populair',
                             style: TextStyle(
                               fontSize: 20,
-                              color: Colors.orange,
+                              color: Color(0xFFFFA100),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -294,8 +364,11 @@ class PlanCard extends StatelessWidget {
                 Text(
                   price,
                   style: TextStyle(
-                    fontSize: 22,
-                    color: (price == 'Gratis') ? Colors.grey : Colors.pink,
+                    fontSize: 21,
+                    color: (price == 'Gratis')
+                        ? const Color(0xFF000000)
+                            .withAlpha((0.32 * 255).round())
+                        : Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -305,17 +378,31 @@ class PlanCard extends StatelessWidget {
             Text(
               description,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 17,
+                fontFamily: 'Poppins',
                 fontWeight: FontWeight.w500,
-                color: Colors.black38,
+                color: Color(0xFFADADAD),
                 height: 1.5,
               ),
             ),
             const SizedBox(height: 8),
+            if (subdetails != null)
+              Text(
+                subdetails!,
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFFAA5FE8),
+                  height: 1.5,
+                ),
+              ),
+            const SizedBox(height: 8),
             Text(
               offers,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 15.5,
+                fontFamily: 'Inter',
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
                 height: 1.5,

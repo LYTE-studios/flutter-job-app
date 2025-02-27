@@ -3,13 +3,20 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/profile/screens/edit/choose_sector_screen.dart';
+import 'package:jobr/features/profile/screens/profile_screen.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../../ui/theme/jobr_icons.dart';
 
 class CreateNewCompanyScreen extends StatefulWidget {
   static const String location = 'create-company';
-
+  static String route = JobrRouter.getRoute(
+    '${ProfileScreen.location}/$location',
+    JobrRouter.employeeInitialroute,
+  );
   const CreateNewCompanyScreen({super.key});
 
   @override
@@ -19,6 +26,7 @@ class CreateNewCompanyScreen extends StatefulWidget {
 class _CreateNewCompanyScreenState extends State<CreateNewCompanyScreen> {
   File? selectedFile;
   File? selectedFile2;
+  Sector? selectedSector;
 
   Future<File?> pickImage() async {
     try {
@@ -48,8 +56,8 @@ class _CreateNewCompanyScreenState extends State<CreateNewCompanyScreen> {
             onPressed: () => Navigator.pop(context),
             icon: SvgPicture.asset(
               JobrIcons.close,
-              width: 30,
-              height: 30,
+              width: 15,
+              height: 15,
             ),
           ),
         ),
@@ -63,7 +71,7 @@ class _CreateNewCompanyScreenState extends State<CreateNewCompanyScreen> {
           ),
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +92,7 @@ class _CreateNewCompanyScreenState extends State<CreateNewCompanyScreen> {
                   fontSize: 14,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w500,
-                  color: Colors.black.withOpacity(.6)),
+                  color: Colors.black.withOpacity(.37)),
             ),
             const SizedBox(height: 10),
             SizedBox(
@@ -123,9 +131,6 @@ class _CreateNewCompanyScreenState extends State<CreateNewCompanyScreen> {
                             selectedFile != null
                                 ? theme.primaryColor
                                 : HexColor.fromHex('#A3A3A3')),
-                        padding: const WidgetStatePropertyAll(
-                          EdgeInsets.all(8),
-                        ),
                       ),
                       onPressed: () async {
                         final image = await pickImage();
@@ -134,12 +139,11 @@ class _CreateNewCompanyScreenState extends State<CreateNewCompanyScreen> {
                           selectedFile = image;
                         });
                       },
-                      padding: const EdgeInsets.all(5),
                       icon: selectedFile == null
                           ? SvgPicture.asset(
-                              JobrIcons.addIcon,
-                              width: 16,
-                              height: 16,
+                              JobrIcons.add,
+                              width: 20,
+                              height: 20,
                               colorFilter: ColorFilter.mode(
                                 HexColor.fromHex('#FFFFFF'),
                                 BlendMode.srcIn,
@@ -185,16 +189,18 @@ class _CreateNewCompanyScreenState extends State<CreateNewCompanyScreen> {
             const SizedBox(height: 10),
             InkWell(
               onTap: () async {
-                final image = await pickImage();
-                if (selectedFile2 == null) return;
-                setState(() {
-                  selectedFile2 = image;
-                });
+                final chosenSector =
+                    await context.push(ChooseSectorScreen.route);
+                if (chosenSector is Sector) {
+                  setState(() {
+                    selectedSector = chosenSector;
+                  });
+                }
               },
               borderRadius: BorderRadius.circular(17.33),
               child: Container(
-                width: 104,
-                height: 104,
+                width: 85,
+                height: 85,
                 decoration: BoxDecoration(
                   color: HexColor.fromHex('#F6F6F6'),
                   border: selectedFile2 != null
@@ -204,12 +210,22 @@ class _CreateNewCompanyScreenState extends State<CreateNewCompanyScreen> {
                   borderRadius: BorderRadius.circular(17.33),
                 ),
                 alignment: Alignment.center,
-                child: selectedFile2 != null
-                    ? Image.file(
-                        selectedFile2!,
-                        fit: BoxFit.contain,
-                        width: 40,
-                        height: 40,
+                child: selectedSector != null
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            selectedSector!.image,
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.contain,
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            selectedSector!.name, // for example
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ],
                       )
                     : SvgPicture.asset(
                         JobrIcons.addIcon,
@@ -223,6 +239,32 @@ class _CreateNewCompanyScreenState extends State<CreateNewCompanyScreen> {
               ),
             ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        child: SizedBox(
+          width: double.infinity,
+          height: 55,
+          child: FilledButton(
+            style: FilledButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(65),
+              ),
+              backgroundColor: HexColor.fromHex("#FF3E68"),
+            ),
+            onPressed: () {
+              // Handle new company creation
+            },
+            child: const Text(
+              'Nieuw bedrijf toevoegen +',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w700,
+                fontSize: 17.5,
+              ),
+            ),
+          ),
         ),
       ),
     );

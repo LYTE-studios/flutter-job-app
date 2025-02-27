@@ -28,7 +28,7 @@ class CustomListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     double width = MediaQuery.sizeOf(context).width;
-    return Row(
+    Widget content = Row(
       crossAxisAlignment:
           centerImage ? CrossAxisAlignment.center : CrossAxisAlignment.start,
       children: <Widget>[
@@ -42,40 +42,46 @@ class CustomListTile extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              width: width * .65,
-              child: Row(
+        Expanded(
+          // Wrap the Column with Expanded
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        title,
-                        style: const TextStyle(
-                          fontSize: 16.5,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w600,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 16.5,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                      Text(
-                        subTitle,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w500,
-                          color: HexColor.fromHex('#00000000').withOpacity(.6),
+                        Text(
+                          subTitle,
+                          style: TextStyle(
+                            fontSize: 15,
+                            letterSpacing: 0.4,
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                            color:
+                                HexColor.fromHex('#00000000').withOpacity(.6),
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   if (edit)
                     Container(
-                      padding: const EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(6),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: HexColor.fromHex('#F62C2C'),
@@ -83,8 +89,8 @@ class CustomListTile extends StatelessWidget {
                       alignment: Alignment.center,
                       child: SvgPicture.asset(
                         JobrIcons.close,
-                        width: 18,
-                        height: 18,
+                        width: 11,
+                        height: 12,
                         colorFilter: const ColorFilter.mode(
                           Colors.white,
                           BlendMode.srcIn,
@@ -93,30 +99,11 @@ class CustomListTile extends StatelessWidget {
                     ),
                 ],
               ),
-            ),
-            Row(
-              children: <Widget>[
-                Text(
-                  duration,
-                  style: TextStyle(
-                    fontSize: 14.5,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                    color: TextStyles.unselectedText,
-                  ),
-                ),
-                if (time != null) ...[
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    width: 10,
-                    height: 10,
-                    decoration: BoxDecoration(
-                      color: TextStyles.unselectedText,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
+              Wrap(
+                spacing: 5,
+                children: <Widget>[
                   Text(
-                    time ?? '',
+                    duration,
                     style: TextStyle(
                       fontSize: 14.5,
                       fontFamily: 'Inter',
@@ -124,12 +111,49 @@ class CustomListTile extends StatelessWidget {
                       color: TextStyles.unselectedText,
                     ),
                   ),
-                ]
-              ],
-            )
-          ],
+                  if (time != null) ...[
+                    Container(
+                      margin: const EdgeInsets.only(right: 4, left: 4, top: 8),
+                      constraints: BoxConstraints(
+                          minWidth: 4, minHeight: 4, maxHeight: 4, maxWidth: 4),
+                      decoration: BoxDecoration(
+                        color: TextStyles.unselectedText,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    Text(
+                      time ?? '',
+                      style: TextStyle(
+                        fontSize: 14.5,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w500,
+                        color: TextStyles.unselectedText,
+                      ),
+                    ),
+                  ]
+                ],
+              )
+            ],
+          ),
         ),
       ],
+    );
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: edit
+            ? HexColor.fromHex('#D9D9D9').withOpacity(0.31)
+            : Colors.transparent,
+        borderRadius: BorderRadius.circular(14),
+        boxShadow: [
+          BoxShadow(
+            color: HexColor.fromHex('#00000000'),
+            offset: const Offset(0, 3),
+            blurRadius: 6,
+          ),
+        ],
+      ),
+      child: content,
     );
   }
 }
@@ -198,9 +222,9 @@ class CustomListTile2 extends StatelessWidget {
                 ),
                 if (time != null) ...[
                   Container(
-                    margin: const EdgeInsets.all(10),
-                    width: 10,
-                    height: 10,
+                    margin: const EdgeInsets.all(8),
+                    constraints: BoxConstraints(
+                        minWidth: 4, minHeight: 4, maxHeight: 4, maxWidth: 4),
                     decoration: BoxDecoration(
                       color: TextStyles.unselectedText,
                       shape: BoxShape.circle,

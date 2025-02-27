@@ -2,10 +2,10 @@ name: jobr
 description: ""
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+17
+version: 1.0.0+47
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -30,10 +30,21 @@ dependencies:
   mime: ^2.0.0
   flutter_svg: ^2.0.16
   dio: ^5.0.0
-  flutter_secure_storage: ^10.0.0-beta.4
   logger: ^2.5.0
   file_picker: ^8.1.6
   readmore: ^3.0.0
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
+  image_picker: ^1.1.2
+  flutter_web_auth: ^0.6.0
+  flutter_facebook_auth: ^6.0.4
+  intl: ^0.17.0  # or the latest version
+  google_maps_flutter: ^2.10.0
+  flutter_typeahead: ^5.2.0
+  geocoding: ^3.0.0
+  package_info_plus: ^8.1.4
+  share_plus: ^10.1.4
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:

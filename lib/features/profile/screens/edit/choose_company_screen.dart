@@ -6,8 +6,7 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import '../../../../ui/theme/jobr_icons.dart';
 
 class ChooseCompanyScreen extends StatefulWidget {
-  static const String location = 'choose-company';
-
+  static const String location = '/choose-company';
   const ChooseCompanyScreen({super.key});
 
   @override

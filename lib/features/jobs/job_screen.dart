@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/features/profile/screens/recruteren/jobr_ai_suggestions_screen.dart';
-import 'package:jobr/ui/widget/common_appbar_navigation.dart';
-import 'package:jobr/ui/widget/common_search_bar.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';
+import 'package:jobr/features/jobs/filter.dart';
+import 'package:jobr/features/jobs/jobdetail_screen.dart';
+import 'package:jobr/ui/widgets/buttons/primary_button.dart';
+import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
+import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:jobr/ui/theme/padding_sizes.dart'; // added import
 
 class JobScreen extends StatefulWidget {
   static const String location = 'jobs';
+  static String employeeRoute = JobrRouter.getRoute(
+    location,
+    JobrRouter.employeeInitialroute,
+  );
 
   const JobScreen({super.key});
 
@@ -58,26 +68,36 @@ class _JobScreenState extends State<JobScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: const CommonAppbarNavigation(appbarTitle: "Vind jouw job"),
+      appBar: const JobrAppbarNavigation(
+        appbarTitle: "Vind jouw job",
+        center: false,
+      ),
       backgroundColor: theme.colorScheme.surface,
-      body: Padding(
-        padding: const EdgeInsets.only(top: 0, left: 10, right: 10, bottom: 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            const CommonSearchBar(
-              hintText: "Zoek een bedrijf, functie...",
-            ),
-            const SizedBox(height: 14),
-            _buildGridView(),
-            const SizedBox(height: 10),
-            _buildFilterRow(theme),
-            const SizedBox(height: 20),
-            _buildJobrAISection(theme),
-            const SizedBox(height: 5),
-            _buildJobrAISuggestions(),
-            const SizedBox(height: 15),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          // Updated scaffold padding to match verified screen
+          padding:
+              const EdgeInsets.symmetric(horizontal: PaddingSizes.medium * 1.5),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const JobrSearchBar(
+                hintText: "Zoek een bedrijf, functie...",
+              ),
+              const SizedBox(height: 10),
+              _buildGridView(),
+              const SizedBox(height: 14),
+              _buildFilterRow(theme),
+              const SizedBox(height: 20),
+              _buildJobrAISection(theme),
+              const SizedBox(height: 10),
+              _buildJobrAISuggestions(),
+              const SizedBox(height: 20),
+              Divider(
+                color: Colors.transparent,
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -106,7 +126,7 @@ class _JobScreenState extends State<JobScreen> {
           ? () {}
           : () {
               context.push(
-                '/jobs/${item["category"]}',
+                JobDetailScreen.employeeRoute,
                 extra: {
                   'category': item["category"],
                   'title': item["text"],
@@ -127,8 +147,9 @@ class _JobScreenState extends State<JobScreen> {
           children: [
             Center(
               child: Image.asset(
-                height: 30,
-                width: 30,
+                // Updated image dimensions to match verified screen
+                height: 36,
+                width: 36,
                 item["image"]!,
               ),
             ),
@@ -152,78 +173,59 @@ class _JobScreenState extends State<JobScreen> {
   }
 
   Widget _buildFilterRow(ThemeData theme) {
-    return GestureDetector(
+    return PrimaryButton(
       onTap: () {
-        context.push(
-          '/jobs/filters',
-        );
-        // Push to FilterScreen
+        context.push(FilterScreenEmployee.employeeRoute);
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 11),
-          decoration: BoxDecoration(
-            color: theme.primaryColor,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Zoek met filters ",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: theme.colorScheme.onPrimary,
-                ),
-              ),
-              Image.asset(
-                height: 20,
-                width: 20,
-                "assets/images/recruteren/filter.png",
-              ),
-            ],
-          ),
-        ),
+      height: 50,
+      suffixIcon: Image.asset(
+        // Updated filter icon size
+        height: 23,
+        width: 23,
+        "assets/images/recruteren/filter.png",
       ),
+      buttonText: "Zoek met filters",
     );
   }
 
   Widget _buildJobrAISection(ThemeData theme) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Image.asset(
-              height: 20,
-              width: 20,
-              "assets/images/recruteren/jobrAI_suggesties.png",
-            ),
-            const SizedBox(width: 6),
-            Text(
-              "Jobr-AI suggesties",
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Image.asset(
+                // Updated Jobr-AI icon size
+                height: 23,
+                width: 23,
+                "assets/images/recruteren/jobrAI_suggesties.png",
+              ),
+              const SizedBox(width: 6),
+              Text(
+                "Jobr-AI suggesties",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: theme.colorScheme.onPrimaryContainer,
+                ),
+              ),
+            ],
+          ),
+          GestureDetector(
+            onTap: () => context.push(JobrAiSuggestionsScreen.employerRoute),
+            child: Text(
+              "Bekijk alle",
               style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: theme.colorScheme.onPrimaryContainer,
+                fontSize: 16.55,
+                fontWeight: FontWeight.w600,
+                color: Colors.grey[400],
               ),
             ),
-          ],
-        ),
-        GestureDetector(
-          onTap: () => context.push(JobrAiSuggestionsScreen.employerRoute),
-          child: Text(
-            "Bekijk alle",
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey[400],
-            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -237,14 +239,14 @@ class _JobScreenState extends State<JobScreen> {
           child: Row(
             children: List.generate(5, (index) {
               return Container(
-                width: 300,
+                width: 347,
                 // Fixed width for uniformity
-                height: 230,
+                height: 245,
                 // Fixed height for uniformity
                 margin: const EdgeInsets.symmetric(horizontal: 8),
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.grey[100], // Light background color
+                  color: HexColor.fromHex('#F3F3F3').withOpacity(0.7),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -254,9 +256,9 @@ class _JobScreenState extends State<JobScreen> {
                       "Vervolledig je profiel om gebruik\nte maken van onze AI \nmatchmaking",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 16.8,
                         fontWeight: FontWeight.w500,
-                        color: Colors.grey[400], // Muted text color
+                        color: HexColor.fromHex('#000000').withOpacity(0.3),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -265,24 +267,25 @@ class _JobScreenState extends State<JobScreen> {
                         // Navigate to the profile screen
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey.shade200.withOpacity(0.2),
+                        backgroundColor:
+                            HexColor.fromHex('#F3F3F3').withOpacity(0.7),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
                         side: BorderSide(
-                          color: Colors.grey[200]!, // Set boundary color
+                          color: Colors.transparent, // Set boundary color
                           width: 2,
                         ),
                       ),
-                      child: const Text(
+                      child: Text(
                         "Ga naar profiel",
                         style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins',
-                          color: Colors.pinkAccent,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Inter',
+                          color: HexColor.fromHex('#FF3E68'),
                         ),
                       ),
                     ),
@@ -325,7 +328,7 @@ class _JobScreenState extends State<JobScreen> {
                 ),
                 SvgPicture.asset(
                   'assets/images/icons/bell.svg',
-                  color: Colors.pinkAccent,
+                  color: Theme.of(context).primaryColor,
                   height: 20,
                   width: 20,
                 ),

@@ -1,18 +1,18 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:logger/logger.dart';
 
 class ApiService {
   late Dio dio;
-  final FlutterSecureStorage storage;
   final Logger logger = Logger();
 
-  ApiService({FlutterSecureStorage? secureStorage})
-      : storage = secureStorage ?? const FlutterSecureStorage() {
+  ApiService() {
     BaseOptions options = BaseOptions(
       baseUrl: _getBaseUrl(),
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
+      // Increased timeouts from 100 seconds to 150 seconds
+      connectTimeout: const Duration(seconds: 150),
+      receiveTimeout: const Duration(seconds: 150),
+      sendTimeout: const Duration(seconds: 150),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -22,15 +22,44 @@ class ApiService {
     _setupInterceptors();
   }
 
+  static Future<Box> _getTokenBox() async {
+    return await Hive.openBox('tokens');
+  }
+
+  static Future<Map<String, String?>> getTokens() async {
+    Box box = await _getTokenBox();
+
+    final token = await box.get('access_token');
+    final refreshToken = await box.get('refresh_token');
+
+    return {'access_token': token, 'refresh_token': refreshToken};
+  }
+
+  Future<void> setTokens(String accessToken, String refreshToken) async {
+    Box box = await _getTokenBox();
+
+    await box.put('access_token', accessToken);
+    await box.put('refresh_token', refreshToken);
+  }
+
+  Future<void> clearTokens() async {
+    Box box = await _getTokenBox();
+
+    await box.delete('access_token');
+    await box.delete('refresh_token');
+  }
+
   static String _getBaseUrl() {
-    return const String.fromEnvironment('BASE_URL',
-        defaultValue: "http://api.jobr.lytestudios.be/api/");
+    return const String.fromEnvironment(
+      'BASE_URL',
+      defaultValue: "https://api.jobr.lytestudios.be/api/",
+    );
   }
 
   void _setupInterceptors() {
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        final token = await storage.read(key: 'access_token');
+        final token = (await getTokens())['access_token'];
         if (token != null) {
           options.headers['Authorization'] = 'Bearer $token';
         }
@@ -52,7 +81,7 @@ class ApiService {
   }
 
   Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {
-    final token = await storage.read(key: 'access_token');
+    final token = (await getTokens())['access_token'];
     final options = Options(
       method: requestOptions.method,
       headers: {
@@ -60,26 +89,44 @@ class ApiService {
         'Authorization': 'Bearer $token',
       },
     );
-    return dio.request<dynamic>(
+
+    dio.interceptors.clear();
+
+    Response response = await dio.request<dynamic>(
       requestOptions.path,
       data: requestOptions.data,
       options: options,
     );
+
+    _setupInterceptors();
+
+    if (response.statusCode == 401) {
+      await clearTokens();
+      throw Exception("Token expired");
+    }
+
+    return response;
   }
 
   Future<bool> _refreshToken() async {
     try {
-      final refreshToken = await storage.read(key: 'refresh_token');
+      final refreshToken = (await getTokens())['refresh_token'];
       if (refreshToken == null) return false;
+
+      dio.interceptors.clear();
 
       final response = await dio.post('token/refresh/', data: {
         'refresh': refreshToken,
       });
 
+      _setupInterceptors();
+
       if (response.statusCode == 200) {
         await setTokens(response.data['access'], response.data['refresh']);
         return true;
       }
+
+      await clearTokens();
       return false;
     } catch (e) {
       logger.e('Error refreshing token: $e');
@@ -87,23 +134,59 @@ class ApiService {
     }
   }
 
-  Future<void> setTokens(String accessToken, String refreshToken) async {
-    await storage.write(key: 'access_token', value: accessToken);
-    await storage.write(key: 'refresh_token', value: refreshToken);
-  }
+  static String _formatUrl(String url) {
+    if (url.endsWith('/')) {
+      url = url.substring(0, url.length - 1);
+    }
 
-  Future<void> clearTokens() async {
-    await storage.delete(key: 'access_token');
-    await storage.delete(key: 'refresh_token');
+    return url;
   }
 
   /// Common `getApi` method
   Future<Response<dynamic>> getApi(
     String endpoint, {
     Map<String, dynamic>? queryParameters,
+    Duration? cacheDuration,
   }) async {
+    Box? box;
+
+    if (cacheDuration != null) {
+      box = await Hive.openBox<dynamic>('cache');
+
+      if (box.containsKey(endpoint)) {
+        Map<dynamic, dynamic> data = box.get(endpoint);
+
+        if (data['created'] == null ||
+            (DateTime.now().millisecondsSinceEpoch -
+                    ((data['created'] as int?) ?? 0) >
+                cacheDuration.inMilliseconds)) {
+          await box.delete(endpoint);
+        } else {
+          return Response(
+            data: data['data'],
+            requestOptions: RequestOptions(path: endpoint),
+          );
+        }
+      }
+    }
+
     try {
-      return await dio.get(endpoint, queryParameters: queryParameters);
+      Response response = await dio.get(
+        _formatUrl(endpoint),
+        queryParameters: queryParameters,
+      );
+
+      if (box != null) {
+        box.put(
+          endpoint,
+          {
+            'created': DateTime.now().millisecondsSinceEpoch,
+            'data': response.data,
+          },
+        );
+      }
+
+      return response;
     } catch (e) {
       logger.e('GET API Error: $e');
       rethrow;
@@ -116,7 +199,10 @@ class ApiService {
     Map<String, dynamic>? data,
   }) async {
     try {
-      return await dio.post(endpoint, data: data);
+      return await dio.post(
+        _formatUrl(endpoint),
+        data: data,
+      );
     } catch (e) {
       logger.e('POST API Error: $e');
       rethrow;

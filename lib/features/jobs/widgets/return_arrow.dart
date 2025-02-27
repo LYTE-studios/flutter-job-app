@@ -9,7 +9,7 @@ class ReturnArrow extends StatelessWidget {
     return IconButton(
         icon: const Icon(
           Icons.keyboard_arrow_left,
-          size: 27,
+          size: 30,
         ),
         onPressed: () {
           context.pop();

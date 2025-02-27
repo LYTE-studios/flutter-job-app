@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
 import '../../../ui/theme/jobr_icons.dart';
@@ -9,6 +12,11 @@ import 'forms/second_form.dart';
 class CreateProfileScreen extends StatefulWidget {
   static const String location = 'create-profile';
 
+  static String employeeRoute = JobrRouter.getRoute(
+    location,
+    JobrRouter.employeeInitialroute,
+  );
+
   const CreateProfileScreen({super.key});
 
   @override
@@ -17,6 +25,7 @@ class CreateProfileScreen extends StatefulWidget {
 
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
   int currentForm = 0;
+  bool _isFirstFormValid = false; // track if first form is filled
   PageController controller = PageController();
 
   @override
@@ -31,14 +40,21 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => Navigator.pop(context),
-          icon: SvgPicture.asset(
-            JobrIcons.backArrow,
-            width: 21,
-            height: 21,
-          ),
-        ),
+        leading: currentForm == 1
+            ? IconButton(
+                onPressed: () {
+                  controller.previousPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                icon: SvgPicture.asset(
+                  JobrIcons.backArrow,
+                  width: 21,
+                  height: 21,
+                ),
+              )
+            : null, // no icon for first form
         centerTitle: true,
         title: const Text(
           "Profiel maken",
@@ -67,7 +83,7 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
               ),
             ),
             const SizedBox(height: 5),
-            Divider(color: Colors.grey[300]),
+            Divider(thickness: 1.48, color: Colors.grey[100]),
             Flexible(
               child: PageView(
                 onPageChanged: (value) {
@@ -79,6 +95,11 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
                 children: [
                   FirstForm(
                     width: width,
+                    onFormValidityChanged: (isValid) {
+                      setState(() {
+                        _isFirstFormValid = isValid;
+                      });
+                    },
                   ),
                   SecondForm(
                     width: width,
@@ -97,21 +118,32 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
             height: 58,
             child: FilledButton(
               style: FilledButton.styleFrom(
-                backgroundColor: currentForm == 1
-                    ? theme.primaryColor
-                    : HexColor.fromHex('#DADADA'),
+                backgroundColor: currentForm == 0
+                    ? (_isFirstFormValid
+                        ? theme.primaryColor
+                        : HexColor.fromHex('#DADADA'))
+                    : theme.primaryColor,
                 shape: RoundedRectangleBorder(
-                  borderRadius: currentForm == 1
-                      ? BorderRadius.circular(50)
-                      : BorderRadius.circular(19.2),
+                  borderRadius: BorderRadius.circular(50),
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 10),
               ),
               onPressed: () {
-                controller.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                );
+                if (currentForm == 0) {
+                  if (_isFirstFormValid) {
+                    controller.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  }
+                } else {
+                  context.pushReplacement(
+                    JobrRouter.getRoute(
+                      JobScreen.location,
+                      JobrRouter.employeeInitialroute,
+                    ),
+                  );
+                }
               },
               child: const Text(
                 "Toon resultaten",
