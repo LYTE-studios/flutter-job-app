@@ -4,12 +4,16 @@ import 'package:go_router/go_router.dart';
 import 'package:jobr/features/job_listing/screens/general/jobr_ai_suggestions_screen.dart';
 import 'package:jobr/features/jobs/jobdetail_screen.dart';
 import 'package:jobr/features/profile/screens/edit/choose_sector_screen.dart';
+import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/widgets/navigation/jobr_appbar_navigation.dart';
 import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:jobr/features/jobs/filter.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:jobr/ui/theme/text_styles.dart';
+import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 
 class JobVerifiedScreen extends StatefulWidget {
   static const String location = 'jobs';
@@ -21,6 +25,74 @@ class JobVerifiedScreen extends StatefulWidget {
 }
 
 class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
+  // Add a controller for the search text field:
+  final TextEditingController _searchController = TextEditingController();
+
+  final List<Map<String, String>> jobCards = [
+    {
+      "isLiked": "true",
+      "backgroundImagePath": "assets/images/recruteren/bekeken.png",
+      "location": "Kortrijk",
+      "jobType": "Bekeken",
+      "salaryText": "€15/uur",
+      "companyLogoPath": "assets/images/recruteren/logo1.png",
+      "jobTitle": "Kassa medewerker",
+      "companyName": "Brooklyn Kortrijk",
+      "suggestionPercentage": "98%",
+      "suggestionIconPath": "assets/images/recruteren/jobrAI_suggesties.png",
+      "isSalaryTextBlack": "true",
+    },
+    {
+      "backgroundImagePath": "assets/images/recruteren/bekeken.png",
+      "location": "Kortrijk",
+      "jobType": "Bekeken",
+      "salaryText": "€15/uur",
+      "companyLogoPath": "assets/images/recruteren/logo1.png",
+      "jobTitle": "Kassa medewerker",
+      "companyName": "Brooklyn Kortrijk",
+      "suggestionPercentage": "98%",
+      "suggestionIconPath": "assets/images/recruteren/jobrAI_suggesties.png",
+      "isSalaryTextBlack": "true",
+    },
+    {
+      "backgroundImagePath": "assets/images/recruteren/0,80.png",
+      "location": "Kortrijk",
+      "jobType": "0,80km",
+      "salaryText": "n.v.t",
+      "companyLogoPath": "assets/images/recruteren/logo2.png",
+      "jobTitle": "Team leader",
+      "companyName": "Barouche",
+      "suggestionPercentage": "85%",
+      "suggestionIconPath": "assets/images/recruteren/jobrAI_suggesties.png",
+      "isJobTypeTextBlack": "true",
+    },
+    {
+      "backgroundImagePath": "assets/images/recruteren/2,32.png",
+      "location": "Kortrijk",
+      "jobType": "2,32km",
+      "salaryText": "Barema",
+      "companyLogoPath": "assets/images/recruteren/logo3.png",
+      "jobTitle": "Head of restaurant",
+      "companyName": "Spicy Lemon",
+      "suggestionPercentage": "79%",
+      "suggestionIconPath": "assets/images/recruteren/jobrAI_suggesties.png",
+      "isJobTypeTextBlack": "true",
+    },
+    {
+      "backgroundImagePath": "assets/images/recruteren/7,99.png",
+      "location": "Gent",
+      "jobType": "7,99km",
+      "salaryText": "€14.50/uur",
+      "companyLogoPath": "assets/images/recruteren/logo4.png",
+      "jobTitle": "Winkel medewerker",
+      "companyName": "Carrefour Express K...",
+      "suggestionPercentage": "67%",
+      "suggestionIconPath": "assets/images/recruteren/jobrAI_suggesties.png",
+      "isSalaryTextBlack": "true",
+      "isJobTypeTextBlack": "true",
+    },
+  ];
+
   final List<Map<String, dynamic>> items = const [
     {
       "text": "Horeca",
@@ -81,12 +153,12 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
             });
           },
           child: SvgPicture.asset(
-                        isLiked
-                            ? 'assets/images/icons/like_icon-pink.svg'
-                            : 'assets/images/icons/like_icon_grey.svg',
-                        width: 20,
-                        height: 20,
-                      ),
+            isLiked
+                ? 'assets/images/icons/like_icon-pink.svg'
+                : 'assets/images/icons/like_icon_grey.svg',
+            width: 20,
+            height: 20,
+          ),
         ),
         appbarTitle: "Vind jouw job",
         center: false, // Added to match JobScreen
@@ -102,8 +174,95 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const JobrSearchBar(
-                  hintText: "Zoek een bedrijf, functie...",
+                // Replace the JobrSearchBar with a TypeAheadField:
+                TypeAheadField<Map<String, String>>(
+                  suggestionsCallback: (pattern) async {
+                    return jobCards.where((company) {
+                      final companyName =
+                          company["companyName"]?.toLowerCase() ?? "";
+                      return companyName.contains(pattern.toLowerCase());
+                    }).toList();
+                  },
+                  itemBuilder: (context, suggestion) {
+                    return ListTile(
+                      leading: Image.asset(
+                        suggestion["companyLogoPath"]!,
+                        height: 21,
+                        width: 21,
+                      ),
+                      title: Text(
+                        suggestion["companyName"]!,
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: TextStyles.labelSmall.fontSize,
+                          fontWeight: TextStyles.labelSmall.fontWeight,
+                          color: TextStyles.labelSmall.color,
+                        ),
+                      ),
+                    );
+                  },
+                  onSelected: (Map<String, String> suggestion) {
+                    _searchController.text = suggestion["companyName"]!;
+                    // Optionally refresh the view based on the selection.
+                  },
+                  builder: (context, controller, focusNode) {
+                    _searchController.addListener(() {
+                      if (_searchController.text != controller.text) {
+                        controller.text = _searchController.text;
+                      }
+                    });
+                    return Container(
+                      height: 52,
+                      decoration: BoxDecoration(
+                        color: HexColor.fromHex('#D9D9D9').withAlpha(51),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Center(
+                        child: TextField(
+                          controller: controller,
+                          focusNode: focusNode,
+                          cursorHeight: 20,
+                          style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontSize: TextStyles.labelSmall.fontSize,
+                            fontWeight: TextStyles.labelSmall.fontWeight,
+                            color: TextStyles.labelSmall.color,
+                          ),
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            hintText: 'Zoek een bedrijf, functie...',
+                            hintStyle: TextStyle(
+                              fontFamily: 'Inter',
+                              fontSize: TextStyles.labelSmall.fontSize,
+                              fontWeight: TextStyles.labelSmall.fontWeight,
+                              color: TextStyles.labelSmall.color,
+                            ).copyWith(
+                              color: HexColor.fromHex('#000000').withAlpha(84),
+                            ),
+                            border: InputBorder.none,
+                            prefixIcon: Container(
+                              width: 40,
+                              height: double.infinity,
+                              padding: const EdgeInsets.all(10),
+                              child: Center(
+                                child: SvgIcon(
+                                  JobrIcons.magnifyingGlass,
+                                  size: 21,
+                                  color: HexColor.fromHex('#999999'),
+                                ),
+                              ),
+                            ),
+                            contentPadding:
+                                const EdgeInsets.symmetric(vertical: 10),
+                          ),
+                          onChanged: (text) {
+                            _searchController.text = text;
+                          },
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 14),
                 _buildGridView(),
@@ -362,34 +521,34 @@ class _JobVerifiedScreenState extends State<JobVerifiedScreen> {
                 const Spacer(),
                 // Suggestion Percentage
                 Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 6, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: Theme.of(context).primaryColor,
-                          width: 1.5,
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            height: 20,
-                            width: 20,
-                            "assets/images/recruteren/jobrAI_suggesties.png",
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            '98%',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15),
-                          ),
-                        ],
-                      ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: Theme.of(context).primaryColor,
+                      width: 1.5,
                     ),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        height: 20,
+                        width: 20,
+                        "assets/images/recruteren/jobrAI_suggesties.png",
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '98%',
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

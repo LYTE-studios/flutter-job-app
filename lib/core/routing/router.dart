@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/data/models/user.dart';
 import 'package:jobr/features/Sollicitaties/questions.dart';
 import 'package:jobr/features/Sollicitaties/sollicitaties.dart';
 import 'package:jobr/features/Sollicitaties/sollicitaties_tabs_info.dart';
@@ -457,7 +458,7 @@ GoRouter router = GoRouter(
         GoRoute(
           path: NewCompanyPage.employerRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
-            Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+            Map<String, dynamic> data = state.extra as Map<String, UserType>;
 
             return NoTransitionPage(
               child: NewCompanyPage(
@@ -648,7 +649,7 @@ GoRouter router = GoRouter(
         GoRoute(
           path: NewCompanyPage.employeeRoute,
           pageBuilder: (BuildContext context, GoRouterState state) {
-            Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+            Map<String, dynamic> data = state.extra as Map<String, UserType>;
 
             return NoTransitionPage(
               child: NewCompanyPage(
