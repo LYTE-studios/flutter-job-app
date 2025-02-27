@@ -509,6 +509,7 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                     controller: numberOfBranches,
                     readOnly: false,
                     hintText: 'Aantal',
+                    keyboardType: TextInputType.phone,
                     hintTextStyle: hintTextStyle),
                 const SizedBox(height: 10),
                 SelectionButton(

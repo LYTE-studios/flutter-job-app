@@ -9,6 +9,7 @@ import 'package:jobr/features/authentication/screens/login_screen.dart';
 
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/jobs/job_screen.dart';
+import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 
 class NewCompanyPage extends StatefulWidget {
@@ -106,10 +107,12 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
         centerTitle: true,
         leading: IconButton(
           icon: SvgPicture.asset(
-            'assets/images/icons/vector.svg',
+            JobrIcons.chevronLeftIcon,
             color: Colors.black,
           ),
-          onPressed: () {},
+          onPressed: () {
+            gotoMainPage();
+          },
         ),
         title: Text(
           'Nieuw bedrijf',
@@ -356,7 +359,6 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                 buttonText: 'Volgende stap',
               ),
             ),
-            SizedBox(height: 15), // Add some space at the bottom
           ],
         ),
       ),

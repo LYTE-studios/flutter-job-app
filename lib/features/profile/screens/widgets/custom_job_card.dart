@@ -76,10 +76,12 @@ class _CustomJobCardState extends State<CustomJobCard> {
               padding: const EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   _buildProfileHeader(context),
                   const SizedBox(height: 10),
-                  Expanded(
+                  Flexible(
+                    fit: FlexFit.loose,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: widget.descriptionPadding.toDouble(),
