@@ -50,7 +50,6 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             style: TextStyle(
               color: TextStyles.unselectedText,
               fontSize: 16,
-              fontFamily: 'Poppins',
               letterSpacing: 0.25,
               fontWeight: FontWeight.w500,
             ),
@@ -84,7 +83,6 @@ class _MediaItemWidgetState extends State<MediaItemWidget> {
             style: TextStyle(
               color: TextStyles.unselectedText,
               fontSize: 16,
-              fontFamily: 'Poppins',
               letterSpacing: 0.15,
               fontWeight: FontWeight.w500,
             ),

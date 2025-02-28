@@ -40,12 +40,6 @@ class _CreateJobListingSkillsScreenState
       selectedSoftSkills.length >= 2 && selectedHardSkills.length >= 2;
 
   @override
-  void dispose() {
-    // usedWidgetsInCreation.remove('Vaardigheden');
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BaseCreateJobListingScreen(
       buttonLabel: 'Naar beschikbaarheid',
@@ -333,7 +327,6 @@ class _CreateJobListingSkillsScreenState
               selectedColor: Colors.transparent,
               backgroundColor: Colors.white,
               labelStyle: TextStyle(
-                fontFamily: 'Poppins',
                 color: selectedSkills.contains(skill)
                     ? HexColor.fromHex("#FF3E68")
                     : HexColor.fromHex("#A0A0A0"),

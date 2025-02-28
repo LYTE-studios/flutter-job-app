@@ -321,10 +321,10 @@ class _JobScreenState extends State<JobScreen> {
                 const Text(
                   "Sector binnenkort beschikbaar ",
                   style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: 'Poppins'),
+                    fontSize: 14,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 SvgPicture.asset(
                   'assets/images/icons/bell.svg',

@@ -265,7 +265,6 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                         style: TextStyle(
                           fontSize: 17.01,
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins',
                           color: TextStyles.brooklyn,
                         ),
                       ),

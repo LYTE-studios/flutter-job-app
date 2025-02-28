@@ -127,16 +127,15 @@ class _ChooseTalentScreenState extends State<ChooseTalentScreen> {
                               Text(
                                 '+ ',
                                 style: TextStyle(
-                                    fontSize: 24,
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'Poppins'),
+                                  fontSize: 24,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                               Text(
                                 'Voeg talen toe',
                                 style: TextStyle(
                                   fontSize: 18,
-                                  fontFamily: 'Poppins',
                                   color: Colors.grey,
                                   fontWeight: FontWeight.w500,
                                 ),

@@ -179,7 +179,6 @@ class _ChatPageEmployeeScreenState extends State<ChatPageEmployeeScreen> {
                   "Vandaag",
                   style: TextStyle(
                     fontSize: 17,
-                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                     letterSpacing: 0.2,
                     color: Color(0xFF696969),
@@ -212,9 +211,9 @@ class _ChatPageEmployeeScreenState extends State<ChatPageEmployeeScreen> {
                     //     : Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.only(
-                        // left: message.isSentByMe ? 64.0 : 0,
-                        // right: message.isSentByMe ? 0 : 64.0,
-                      ),
+                          // left: message.isSentByMe ? 64.0 : 0,
+                          // right: message.isSentByMe ? 0 : 64.0,
+                          ),
                       child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 5.0),
                         padding: const EdgeInsets.all(12.0),

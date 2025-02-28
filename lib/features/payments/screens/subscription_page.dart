@@ -379,7 +379,6 @@ class PlanCard extends StatelessWidget {
               description,
               style: const TextStyle(
                 fontSize: 17,
-                fontFamily: 'Poppins',
                 fontWeight: FontWeight.w500,
                 color: Color(0xFFADADAD),
                 height: 1.5,
@@ -391,7 +390,6 @@ class PlanCard extends StatelessWidget {
                 subdetails!,
                 style: const TextStyle(
                   fontSize: 17,
-                  fontFamily: 'Poppins',
                   fontWeight: FontWeight.w700,
                   color: Color(0xFFAA5FE8),
                   height: 1.5,

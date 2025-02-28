@@ -153,7 +153,6 @@ class _ReviewCardState extends State<ReviewCard> {
         Text(
           widget.location,
           style: TextStyle(
-            fontFamily: 'Poppins',
             color: HexColor.fromHex('#666666'),
             fontSize: 15,
             fontWeight: FontWeight.w500,
@@ -178,7 +177,6 @@ class _ReviewCardState extends State<ReviewCard> {
         Text(
           "${widget.category}",
           style: TextStyle(
-            fontFamily: 'Poppins',
             color: HexColor.fromHex('#666666'),
             fontSize: 15,
             letterSpacing: 0.0001,
@@ -236,7 +234,6 @@ class _ReviewCardState extends State<ReviewCard> {
                 widget.description,
                 trimLines: 3,
                 style: TextStyle(
-                  fontFamily: 'Poppins',
                   color: HexColor.fromHex('#4A4C53').withOpacity(0.66),
                   fontSize: 14,
                   letterSpacing: 0.0001,

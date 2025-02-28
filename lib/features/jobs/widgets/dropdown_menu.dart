@@ -28,11 +28,11 @@ class _CustomDropdownState extends State<CustomDropdown> {
           hint: Text(
             widget.hintText,
             style: TextStyle(
-                color: Colors.grey[500],
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                letterSpacing: 0.1,
-                fontFamily: 'Poppins'),
+              color: Colors.grey[500],
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 0.1,
+            ),
           ),
           icon: Icon(
             Icons.keyboard_arrow_down,

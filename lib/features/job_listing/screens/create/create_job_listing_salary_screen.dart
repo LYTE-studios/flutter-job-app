@@ -44,79 +44,6 @@ class _CreateJobListingSalaryScreenState
     extends State<CreateJobListingSalaryScreen> with CreateJobListingMixin {
   final bool _isButtonEnabled = true;
 
-  Widget _buildSkillSection(String title, List<String> skills,
-      {int maxSelection = 3, bool isSoftSkills = true}) {
-    List<String> selectedSkills = isSoftSkills
-        ? AppState.selectedSoftSkills
-        : AppState.selectedHardSkills;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: TextStyles.titleMedium
-                  .copyWith(fontSize: 17, fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: -3,
-          children: skills.map((skill) {
-            return ChoiceChip(
-              showCheckmark: false,
-              label: Text(skill),
-              elevation: 0,
-              selected: selectedSkills.contains(skill),
-              onSelected: (selected) {
-                setState(() {
-                  if (selected) {
-                    if (selectedSkills.length < maxSelection) {
-                      selectedSkills.add(skill);
-                    }
-                  } else {
-                    selectedSkills.remove(skill);
-                  }
-                });
-              },
-              selectedColor: Colors.white,
-              backgroundColor: Colors.white,
-              labelStyle: TextStyle(
-                fontFamily: 'Poppins',
-                color: selectedSkills.contains(skill)
-                    ? HexColor.fromHex("#FF3E68")
-                    : HexColor.fromHex("#A0A0A0"),
-                fontWeight: FontWeight.w500,
-                fontSize: 15.88,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-                side: BorderSide(
-                  width: selectedSkills.contains(skill) ? 1.6 : 1,
-                  color: selectedSkills.contains(skill)
-                      ? HexColor.fromHex("#FF3E68")
-                      : HexColor.fromHex("#E8E8E8"),
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            );
-          }).toList(),
-        ),
-      ],
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    // usedWidgetsInCreation.remove('Salaris');
-  }
-
   SalaryWidget salaryWidget = const SalaryWidget();
 
   @override
@@ -340,7 +267,6 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                   textStyle: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins',
                     color: Colors.black54,
                   ),
                   onPressed: () => SalaryUnitTypeBottomSheet(
@@ -376,7 +302,6 @@ class _SalaryWidgetState extends State<SalaryWidget> {
                   'Volgens barema',
                   style: TextStyle(
                     fontSize: 16.72,
-                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                 ),

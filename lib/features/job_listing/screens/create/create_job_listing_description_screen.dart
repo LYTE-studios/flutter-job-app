@@ -400,11 +400,11 @@ class _CreateJobListingDescriptionScreenState
           Text(
             "Schrijf een inleidende jobbeschrijving en kies \nextra onderwerpen.",
             style: TextStyles.bodyMedium.copyWith(
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0.1,
-                fontFamily: 'Poppins',
-                fontSize: 14.5,
-                color: HexColor.fromHex("#6D6D6D")),
+              fontWeight: FontWeight.w400,
+              letterSpacing: 0.1,
+              fontSize: 14.5,
+              color: HexColor.fromHex("#6D6D6D"),
+            ),
           ),
           SizedBox(
             height: 6,
@@ -443,7 +443,7 @@ class _CreateJobListingDescriptionScreenState
                   Row(
                     children: [
                       Text(
-                        "Je job als Barista",
+                        "Je job als ${vacancy.internalFunction ?? vacancy.function?.name ?? ''}",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -608,9 +608,10 @@ class _CreateJobListingDescriptionScreenState
                         Text(
                           '+ Kies onderwerp',
                           style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17.5),
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17.5,
+                          ),
                         ),
                       ],
                     ),

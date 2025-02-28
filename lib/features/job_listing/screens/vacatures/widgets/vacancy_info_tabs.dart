@@ -64,7 +64,6 @@ class VacancyInfoTab extends StatelessWidget {
                                 color: Colors.black,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins',
                               ),
                             ),
                           ),
@@ -149,7 +148,6 @@ class VacancyInfoTab extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
-                                fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -275,7 +273,6 @@ class VacancyInfoTab extends StatelessWidget {
                                         '874 volgers',
                                         style: TextStyle(
                                           fontSize: 15,
-                                          fontFamily: 'Poppins',
                                           fontWeight: FontWeight.w500,
                                           color: HexColor.fromHex('#666666'),
                                         ),

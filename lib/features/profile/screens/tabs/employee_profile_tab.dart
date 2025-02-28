@@ -41,7 +41,6 @@ class EmployeeProfileTab extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 15.5,
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'Poppins',
                           ),
                         ),
                         Row(
@@ -151,7 +150,6 @@ class EmployeeProfileTab extends StatelessWidget {
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 15,
-                                fontFamily: 'Poppins',
                               ),
                             ),
                           ],
@@ -171,9 +169,8 @@ class EmployeeProfileTab extends StatelessWidget {
                               width: 5,
                             ),
                             GestureDetector(
-                              onTap: (){
-                                                              context.push(SubscriptionPage.route);
-
+                              onTap: () {
+                                context.push(SubscriptionPage.route);
                               },
                               child: SvgPicture.asset(
                                 height: 20,
@@ -393,7 +390,6 @@ class _VragenlijstCardState extends State<VragenlijstCard> {
           question,
           style: const TextStyle(
             fontSize: 15,
-            fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
           ),
         ),

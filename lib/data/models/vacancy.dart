@@ -19,6 +19,7 @@ class Vacancy {
   Mastery? expectedMastery;
   List<LanguageMastery>? languages; // List of language IDs
   List<String>? questions; // List of question IDs
+  String? internalFunction;
 
   Vacancy({
     this.descriptions,
@@ -32,6 +33,7 @@ class Vacancy {
     this.expectedMastery,
     this.languages,
     this.questions,
+    this.internalFunction,
   });
 
   /// Factory constructor to create a Vacancy object from JSON

@@ -265,7 +265,6 @@ class _SettingsScreenState extends State<SettingsScreen> with ScreenStateMixin {
                     color: Colors.grey,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins',
                   ),
                 ),
                 SizedBox(height: 21),
@@ -288,7 +287,6 @@ class _SettingsScreenState extends State<SettingsScreen> with ScreenStateMixin {
             fontWeight: FontWeight.w600,
             color: Colors.black,
             fontSize: 17,
-            fontFamily: 'Poppins',
           ),
         ),
         trailing: Icon(

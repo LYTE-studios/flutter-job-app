@@ -181,7 +181,6 @@ class _FirstFormState extends State<FirstForm> {
                   style: TextStyle(
                     color: Colors.black.withOpacity(0.47),
                     fontSize: 18,
-                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
                   ),
                 ),

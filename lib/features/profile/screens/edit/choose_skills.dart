@@ -18,7 +18,6 @@ class ChooseSkillsScreen extends StatefulWidget {
     JobrRouter.employeeInitialroute,
   );
 
-
   static String employerRoute = JobrRouter.getRoute(
     '$location',
     JobrRouter.employerInitialroute,
@@ -111,7 +110,6 @@ class _ChooseSkillsScreenState extends State<ChooseSkillsScreen> {
                       style: TextStyle(
                         color: Color(0xFF6D6D6D),
                         fontSize: 16,
-                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),

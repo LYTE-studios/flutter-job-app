@@ -39,7 +39,6 @@ class JobInfo extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins',
                         ),
                       ),
                       Row(
@@ -86,7 +85,6 @@ class JobInfo extends StatelessWidget {
                         "Alle hard skills matchen",
                         style: TextStyle(
                           fontSize: 14.98,
-                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -108,7 +106,6 @@ class JobInfo extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 13.8,
-                            fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -124,7 +121,6 @@ class JobInfo extends StatelessWidget {
                           'Klantvriendelijk',
                           style: TextStyle(
                             color: Colors.black,
-                            fontFamily: 'Poppins',
                             fontSize: 13.8,
                             fontWeight: FontWeight.w500,
                           ),
@@ -153,7 +149,6 @@ class JobInfo extends StatelessWidget {
                             "Alle hard skills matchen",
                             style: TextStyle(
                               fontSize: 14.98,
-                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -173,7 +168,7 @@ class JobInfo extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                    context.push(SkillsInfoScreen.employeeRoute);
+                              context.push(SkillsInfoScreen.employeeRoute);
                             },
                             child: SvgPicture.asset(
                               height: 20,
@@ -309,7 +304,6 @@ class JobInfo extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 15,
-                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -434,7 +428,6 @@ class JobInfo extends StatelessWidget {
                                         '1203 volgers',
                                         style: TextStyle(
                                           fontSize: 15,
-                                          fontFamily: 'Poppins',
                                           fontWeight: FontWeight.w500,
                                           color: HexColor.fromHex('#666666'),
                                         ),

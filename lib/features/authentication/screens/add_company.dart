@@ -117,10 +117,10 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
         title: Text(
           'Nieuw bedrijf',
           style: TextStyle(
-              color: Colors.black,
-              fontSize: 17.5,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Poppins'),
+            color: Colors.black,
+            fontSize: 17.5,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: Colors.white,
         elevation: 0,
@@ -142,9 +142,9 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                         Text(
                           'BTW nummer',
                           style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: 'Poppins'),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
                       ],
                     ),
@@ -155,9 +155,9 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                       cursorHeight: 25,
                       controller: btwController,
                       style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
                       decoration: InputDecoration(
                         hintStyle: TextStyle(
                           color: btwFocusNode.hasFocus &&
@@ -166,7 +166,6 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                               : Colors.grey,
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
-                          fontFamily: 'Poppins',
                         ),
                         hintText: 'BE 0000.000.000',
                         contentPadding:
@@ -208,15 +207,13 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                         textAlignVertical: TextAlignVertical
                             .center, // Align text to vertical center
                         style: TextStyle(
-                          fontSize: 16, // Ensure font size consistency
-                          fontFamily: 'Poppins',
+                          fontSize: 16,
                         ),
                         decoration: InputDecoration(
                           hintStyle: TextStyle(
                             color: Colors.grey.shade400,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            fontFamily: 'Poppins',
                           ),
                           hintText: 'Nude BV',
                           filled: true,
@@ -261,9 +258,9 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                               child: Text(
                                 'Algemene gegevens',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 16,
-                                    fontFamily: 'Poppins'),
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 16,
+                                ),
                               ),
                             ),
                             SizedBox(height: 7),
@@ -286,7 +283,6 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                                           fontSize: 15,
                                           fontWeight: FontWeight.w800,
                                           color: Colors.black87,
-                                          fontFamily: 'Poppins',
                                         ),
                                       ),
                                       TextSpan(
@@ -295,7 +291,6 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                                           fontSize: 15,
                                           fontWeight: FontWeight.w800,
                                           color: Colors.red,
-                                          fontFamily: 'Poppins',
                                         ),
                                       ),
                                     ],
@@ -379,7 +374,6 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                     fontSize: 15,
                     fontWeight: FontWeight.w800,
                     color: Colors.black87,
-                    fontFamily: 'Poppins',
                   ),
                 ),
                 TextSpan(
@@ -388,7 +382,6 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
                     fontSize: 15,
                     fontWeight: FontWeight.w800,
                     color: Colors.red,
-                    fontFamily: 'Poppins',
                   ),
                 ),
               ],
@@ -399,15 +392,13 @@ class _NewCompanyPageState extends State<NewCompanyPage> {
           cursorHeight: 22, // Match cursor height with font size
           textAlignVertical: TextAlignVertical.center, // Align text vertically
           style: TextStyle(
-            fontSize: 16, // Match font size for consistency
-            fontFamily: 'Poppins',
+            fontSize: 16,
           ),
           decoration: InputDecoration(
             hintStyle: TextStyle(
               color: Colors.grey.shade400,
               fontSize: 16,
               fontWeight: FontWeight.w500,
-              fontFamily: 'Poppins',
             ),
             hintText: placeholder,
             filled: true,

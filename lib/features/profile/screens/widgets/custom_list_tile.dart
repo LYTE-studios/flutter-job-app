@@ -69,7 +69,6 @@ class CustomListTile extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 15,
                             letterSpacing: 0.4,
-                            fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
                             color:
                                 HexColor.fromHex('#00000000').withOpacity(.6),

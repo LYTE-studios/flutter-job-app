@@ -73,7 +73,6 @@ class JobrDropdownField extends StatelessWidget {
                       TextStyles.titleSmall.copyWith(
                           fontSize: 16.5,
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins',
                           color: selectedValue == null
                               ? Color(0xFF878787)
                               : Colors.black),

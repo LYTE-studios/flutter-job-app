@@ -45,7 +45,6 @@ Widget buildSocialButton({
           label,
           style: TextStyle(
             fontSize: 15.5,
-            fontFamily: 'Poppins',
             fontWeight: FontWeight.w500,
             color: isInstagram ? TextStyles.red : TextStyles.lightgrey,
           ),

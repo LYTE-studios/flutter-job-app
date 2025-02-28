@@ -96,16 +96,14 @@ class _CreateJobListingTalentScreenState
         //                     style: TextStyle(
         //                         fontSize: 24,
         //                         color: Colors.grey,
-        //                         fontWeight: FontWeight.w500,
-        //                         fontFamily: 'Poppins'),
+        //                         fontWeight: FontWeight.w500,),
         //                   ),
         //                   Text(
         //                     'Voeg talen toe',
         //                     style: TextStyle(
         //                         fontSize: 17,
         //                         color: Colors.grey,
-        //                         fontWeight: FontWeight.w500,
-        //                         fontFamily: 'Poppins'),
+        //                         fontWeight: FontWeight.w500,),
         //                   ),
         //                 ],
         //               ),
@@ -176,10 +174,10 @@ class _CreateJobListingTalentScreenState
                   Text(
                     '+ ',
                     style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Poppins'),
+                      fontSize: 24,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   Text(
                     'Voeg talen toe',
@@ -211,18 +209,17 @@ class _CreateJobListingTalentScreenState
                   runSpacing: 8,
                   children: _selectedlanguages
                       .map(
-                        (function) => CustomSliderWidget(
-                          mastery: function,
+                        (language) => CustomSliderWidget(
+                          mastery: language,
                           onChanged: (mastery) {
-                            // setState(() {
-                            //   _selectedlanguages.remove(function);
-
-                            //   _selectedlanguages.add(mastery);
-                            // });
+                            setState(() {
+                              _selectedlanguages.remove(language);
+                              _selectedlanguages.add(mastery);
+                            });
                           },
                           onRemove: () {
                             setState(() {
-                              _selectedlanguages.remove(function);
+                              _selectedlanguages.remove(language);
                             });
                           },
                         ),

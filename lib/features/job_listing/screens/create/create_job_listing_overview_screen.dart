@@ -244,10 +244,10 @@ class _CreateJobListingOverviewScreenState
                                     Text(
                                       '+ ',
                                       style: TextStyle(
-                                          fontSize: 24,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'Poppins'),
+                                        fontSize: 24,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                     Text(
                                       'Voeg beschrijving toe',
@@ -255,7 +255,6 @@ class _CreateJobListingOverviewScreenState
                                         fontSize: 17,
                                         color: Colors.grey,
                                         fontWeight: FontWeight.w500,
-                                        fontFamily: 'Poppins',
                                       ),
                                     ),
                                   ],
@@ -415,18 +414,18 @@ class _CreateJobListingOverviewScreenState
                                     Text(
                                       '+ ',
                                       style: TextStyle(
-                                          fontSize: 24,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'Poppins'),
+                                        fontSize: 24,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                     Text(
                                       'Voeg talen toe',
                                       style: TextStyle(
-                                          fontSize: 17,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'Poppins'),
+                                        fontSize: 17,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -498,18 +497,16 @@ class _CreateJobListingOverviewScreenState
                                     Text(
                                       '+ ',
                                       style: TextStyle(
-                                          fontSize: 24,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'Poppins'),
+                                        fontSize: 24,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                     Text(
                                       'Voeg talen toe',
                                       style: TextStyle(
                                         fontSize: 17,
                                         color: Colors.grey,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Poppins',
                                       ),
                                     ),
                                   ],

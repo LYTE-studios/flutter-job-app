@@ -96,15 +96,13 @@ class _FillChoiceFormState extends State<FillChoiceForm> {
                   cursorWidth: 2, // increased cursor width
                   cursorHeight: 24, // increased cursor height
                   style: const TextStyle(
-                    fontSize: 16, // reasonable font size
-                    fontFamily: 'Poppins',
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
                   decoration: InputDecoration(
                     hintText: "Jouw antwoord...",
                     hintStyle: const TextStyle(
                         fontSize: 17,
-                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                         color: Color(0xFFB7B7B7)),
                     border: InputBorder.none,

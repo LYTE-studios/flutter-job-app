@@ -201,7 +201,6 @@ class _CustomJobCardState extends State<CustomJobCard> {
         Text(
           widget.location,
           style: TextStyle(
-            fontFamily: 'Poppins',
             color: HexColor.fromHex('#666666'),
             fontSize: 15,
             fontWeight: FontWeight.w500,
@@ -226,7 +225,6 @@ class _CustomJobCardState extends State<CustomJobCard> {
         Text(
           "${widget.age} jaar",
           style: TextStyle(
-            fontFamily: 'Poppins',
             color: HexColor.fromHex('#666666'),
             fontSize: 15,
             letterSpacing: 0.0001,

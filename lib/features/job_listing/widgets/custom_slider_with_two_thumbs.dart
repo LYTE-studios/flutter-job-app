@@ -39,7 +39,6 @@ class CustomSliderWithTwoThumbs extends StatelessWidget {
         valueIndicatorTextStyle: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
-          fontFamily: 'Poppins',
           color: Colors.white,
         ),
         thumbColor: theme.primaryColor,

@@ -273,7 +273,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'Poppins',
                 color: Color(0xFF6F717C),
               ),
             ),
@@ -296,17 +295,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
-              const SizedBox(height: 14),
-              CustomStarRating(
-                rating: 3.5,
-                onIconTap: () {
-                  context.push(DisplayProfileReviews.employeeRoute);
-                },
-                containerBackgroundColor:
-                    HexColor.fromHex('#F0F0F0').withOpacity(0.24),
-                borderColor: HexColor.fromHex('#EDEDED').withOpacity(0.36),
-              ),
-             
+            const SizedBox(height: 14),
+            CustomStarRating(
+              rating: 3.5,
+              onIconTap: () {
+                context.push(DisplayProfileReviews.employeeRoute);
+              },
+              containerBackgroundColor:
+                  HexColor.fromHex('#F0F0F0').withOpacity(0.24),
+              borderColor: HexColor.fromHex('#EDEDED').withOpacity(0.36),
+            ),
+
             const SizedBox(height: 22),
             const Padding(
               padding: EdgeInsets.only(

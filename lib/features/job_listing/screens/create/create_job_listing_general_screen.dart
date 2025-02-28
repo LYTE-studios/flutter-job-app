@@ -41,6 +41,9 @@ class _CreateJobListingGeneralScreenState
   FunctionType? _selectedFunction;
   LocationType? _selectedLocation;
 
+  final TextEditingController _internalFunctionController =
+      TextEditingController();
+
   bool get _isButtonEnabled =>
       _selectedContractTypes.isNotEmpty &&
       _selectedFunction != null &&
@@ -65,6 +68,9 @@ class _CreateJobListingGeneralScreenState
         vacancy.contractType = _selectedContractTypes.first;
         vacancy.function = _selectedFunction;
         vacancy.location = _selectedLocation;
+        vacancy.internalFunction = _internalFunctionController.text.isEmpty
+            ? null
+            : _internalFunctionController.text;
 
         context.push(CreateJobListingDescriptionScreen.route, extra: vacancy);
 
@@ -141,11 +147,11 @@ class _CreateJobListingGeneralScreenState
             textAlignVertical:
                 TextAlignVertical.center, // Align text to vertical center
             style: TextStyle(
-              fontSize: 16, // Ensure font size consistency
-              fontFamily: 'Poppins',
+              fontSize: 16,
             ),
             enabled: _selectedFunction !=
                 null, // Enable only when _selectedFunction is not null
+            controller: _internalFunctionController,
             decoration: InputDecoration(
               suffixIcon: InformationPopupButton(
                 title: 'Interne functietitel',
@@ -161,7 +167,6 @@ class _CreateJobListingGeneralScreenState
                     : Colors.grey.shade400,
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'Poppins',
               ),
               hintText: 'Interne functietitel',
               filled: true,

@@ -285,7 +285,6 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                 TextFieldSettings(
                   inputTextStyle: TextStyle(
                     fontSize: 16,
-                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
                   ),
@@ -380,7 +379,6 @@ class _EditProfileDetailsScreenState extends State<EditProfileDetailsScreen> {
                 TextFieldSettings(
                   inputTextStyle: TextStyle(
                     fontSize: 16,
-                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
                   ),

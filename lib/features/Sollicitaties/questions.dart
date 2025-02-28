@@ -75,7 +75,6 @@ class _QuestionPageState extends State<QuestionPage> {
                       style: TextStyles.bodyMedium.copyWith(
                           fontWeight: FontWeight.w400,
                           letterSpacing: 0.1,
-                          fontFamily: 'Poppins',
                           fontSize: 14.5,
                           color: HexColor.fromHex("#6D6D6D")),
                     ),
@@ -177,7 +176,6 @@ class _QuestionCardState extends State<QuestionCard> {
                 question,
                 style: const TextStyle(
                   fontSize: 15,
-                  fontFamily: 'Poppins',
                   fontWeight: FontWeight.w500,
                 ),
               ),

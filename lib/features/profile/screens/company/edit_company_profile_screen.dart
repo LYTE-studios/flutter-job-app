@@ -46,7 +46,6 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
   TextEditingController locationController = TextEditingController();
   final hintTextStyle = TextStyle(
     fontSize: 16,
-    fontFamily: 'Poppins',
     letterSpacing: 0.05,
     fontWeight: FontWeight.w500,
     color: Colors.black,

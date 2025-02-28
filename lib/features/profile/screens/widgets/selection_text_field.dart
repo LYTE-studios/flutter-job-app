@@ -96,7 +96,6 @@ class _SelectionButtonState extends State<SelectionButton> {
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                       fontSize: 15.36,
-                                      fontFamily: 'Poppins',
                                       letterSpacing: 0.05,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,
@@ -139,7 +138,6 @@ class _SelectionButtonState extends State<SelectionButton> {
                                 ? widget.hintTextStyle
                                 : const TextStyle(
                                     fontSize: 15.36,
-                                    fontFamily: 'Poppins',
                                     letterSpacing: 0.05,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black,

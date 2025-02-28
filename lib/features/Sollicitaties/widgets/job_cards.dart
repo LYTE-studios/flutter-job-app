@@ -118,7 +118,6 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                             style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
                               fontSize: 17,
                             ),
                           ),
@@ -138,7 +137,6 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                                   ? Colors.black
                                   : Colors.grey[500],
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
                               fontSize: 17,
                               letterSpacing: 0.1,
                             ),
@@ -152,7 +150,6 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                               ? Colors.black
                               : Colors.grey[500],
                           fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins',
                           fontSize: 17,
                         ),
                       ),
@@ -179,14 +176,12 @@ class _JobCardSollicitatiesState extends State<JobCardSollicitaties> {
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 17.5,
-                                  fontFamily: 'Poppins',
                                 ),
                               ),
                               Text(
                                 widget.companyName,
                                 style: const TextStyle(
                                   color: Colors.grey,
-                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16,
                                 ),

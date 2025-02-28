@@ -46,47 +46,46 @@ class VacatureCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Location and Price Row
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(width: 4),
-                          SvgIcon(
-                            'assets/images/icons/location.svg',
-                            color: Theme.of(context).primaryColor,
-                            size: 17,
-                          ),
-                          SizedBox(width: 4),
-                          Text(
-                            "Kortrijk",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            " •",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey[300],
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            " 0,60km",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Row(
+                  //       children: [
+                  //         SizedBox(width: 4),
+                  //         SvgIcon(
+                  //           'assets/images/icons/location.svg',
+                  //           color: Theme.of(context).primaryColor,
+                  //           size: 17,
+                  //         ),
+                  //         SizedBox(width: 4),
+                  //         Text(
+                  //           "Kortrijk",
+                  //           style: TextStyle(
+                  //             fontSize: 16,
+                  //             color: Colors.black,
+                  //             fontWeight: FontWeight.w400,
+                  //           ),
+                  //         ),
+                  //         Text(
+                  //           " •",
+                  //           style: TextStyle(
+                  //             fontSize: 16,
+                  //             color: Colors.grey[300],
+                  //             fontWeight: FontWeight.w400,
+                  //           ),
+                  //         ),
+                  //         Text(
+                  //           " 0,60km",
+                  //           style: TextStyle(
+                  //             fontSize: 16,
+                  //             color: Colors.black,
+                  //             fontWeight: FontWeight.w400,
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ],
+                  // ),
                   // Job Title and Subtitle
                   Row(
                     children: [
@@ -108,7 +107,6 @@ class VacatureCard extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'Poppins',
                             ),
                           ),
                           Text(

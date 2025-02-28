@@ -54,10 +54,10 @@ class JobCard extends StatelessWidget {
                           Text(
                             'Brussels',
                             style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins'),
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                           SizedBox(width: 8),
                           Text(
@@ -70,20 +70,20 @@ class JobCard extends StatelessWidget {
                           Text(
                             'Full-time',
                             style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Poppins',
-                                fontSize: 16),
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
                           ),
                         ],
                       ),
                       Text(
                         '€12/uur',
                         style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Poppins',
-                            fontSize: 16),
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
                       ),
                     ],
                   ),
@@ -107,9 +107,9 @@ class JobCard extends StatelessWidget {
                               Text(
                                 'Bartender',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18,
-                                    fontFamily: 'Poppins'),
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                ),
                               ),
                               Text(
                                 'UFC',
