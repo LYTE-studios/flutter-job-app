@@ -12,10 +12,10 @@ class SearchFunctionBottomSheet extends StatefulWidget with BottomSheetMixin {
   final String title;
   final String? description;
   final bool allowMultipleOptionSelection;
-
   final bool loading;
+  final String? initiallySelectedOption; // add this
 
-  SearchFunctionBottomSheet({
+  const SearchFunctionBottomSheet({
     super.key,
     required this.onSelected,
     required this.options,
@@ -23,6 +23,7 @@ class SearchFunctionBottomSheet extends StatefulWidget with BottomSheetMixin {
     this.description,
     this.allowMultipleOptionSelection = false,
     this.loading = false,
+    this.initiallySelectedOption, // pass it
   });
 
   @override
@@ -33,6 +34,15 @@ class SearchFunctionBottomSheet extends StatefulWidget with BottomSheetMixin {
 class _SearchFunctionBottomSheetState extends State<SearchFunctionBottomSheet> {
   String? selectedOption;
   List<String> selectedOptions = [];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initiallySelectedOption != null) {
+      selectedOption =
+          widget.initiallySelectedOption; // highlight previous selection
+    }
+  }
 
   late List<String> options = widget.options;
 

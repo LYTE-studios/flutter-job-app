@@ -6,11 +6,13 @@ import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
 class LocationTypeBottomSheet extends StatefulWidget with BottomSheetMixin {
+  final LocationType? selectedOption; // New parameter
   final void Function(LocationType locationType) onSelected;
   final String title;
 
   LocationTypeBottomSheet({
     super.key,
+    this.selectedOption, // Pass older selection
     required this.onSelected,
     required this.title,
   });
@@ -41,6 +43,7 @@ class _LocationTypeBottomSheetState extends State<LocationTypeBottomSheet>
       title: "Location",
       loading: loading,
       options: locationType.map((e) => e.name).toList(),
+      selectedOption: widget.selectedOption?.name, // highlight previous
       onSelected: (index) {
         widget.onSelected.call(locationType[index]);
 

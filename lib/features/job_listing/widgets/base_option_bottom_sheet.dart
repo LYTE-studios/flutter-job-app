@@ -13,12 +13,15 @@ class BaseOptionBottomSheet extends StatelessWidget with BottomSheetMixin {
 
   final bool loading;
 
-  BaseOptionBottomSheet({
+  final String? selectedOption; // add this
+
+  const BaseOptionBottomSheet({
     super.key,
     required this.onSelected,
     required this.title,
     required this.options,
     this.loading = false,
+    this.selectedOption, // pass it
   });
 
   @override
@@ -58,20 +61,32 @@ class BaseOptionBottomSheet extends StatelessWidget with BottomSheetMixin {
                       itemCount: options.length,
                       itemBuilder: (context, index) {
                         final option = options[index];
+                        final isSelected =
+                            option == selectedOption; // highlight match
+
                         return GestureDetector(
                           onTap: () => onSelected(index),
                           child: Container(
                             margin: const EdgeInsets.symmetric(vertical: 6),
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
-                              color: HexColor.fromHex("#F3F3F3"),
+                              color: isSelected
+                                  ? Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.1)
+                                  : HexColor.fromHex("#F3F3F3"),
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: Center(
                               child: Text(
                                 option,
                                 style: TextStyles.titleSmall.copyWith(
-                                    fontSize: 17, fontWeight: FontWeight.w600),
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: isSelected
+                                      ? Theme.of(context).primaryColor
+                                      : null,
+                                ),
                               ),
                             ),
                           ),

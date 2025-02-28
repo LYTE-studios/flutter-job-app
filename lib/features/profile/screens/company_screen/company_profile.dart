@@ -184,7 +184,8 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           ),
                         ),
                         Positioned(
-                          bottom: 40,
+                          top:
+                              157, // Updated from bottom: 40 to align half above and half below image end (height 180)
                           right: 60,
                           child: ElevatedButton.icon(
                             onPressed: () {
@@ -214,7 +215,8 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                           ),
                         ),
                         Positioned(
-                          bottom: 43,
+                          top:
+                              160, // Updated from bottom: 43 to align similarly with the image
                           right: 10,
                           child: InkWell(
                             onTap: () {

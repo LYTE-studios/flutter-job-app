@@ -13,6 +13,7 @@ class SearchContractBottomSheet extends StatefulWidget with BottomSheetMixin {
   final String? description;
   final bool allowMultipleOptionSelection;
   final bool loading;
+  final List<String> initiallySelectedOptions;
 
   SearchContractBottomSheet({
     super.key,
@@ -22,6 +23,7 @@ class SearchContractBottomSheet extends StatefulWidget with BottomSheetMixin {
     this.description,
     this.allowMultipleOptionSelection = false,
     this.loading = false,
+    this.initiallySelectedOptions = const [],
   });
 
   @override
@@ -32,6 +34,15 @@ class SearchContractBottomSheet extends StatefulWidget with BottomSheetMixin {
 class _SearchContractBottomSheetState extends State<SearchContractBottomSheet> {
   String? selectedOption;
   List<String> selectedOptions = [];
+
+  @override
+  void initState() {
+    super.initState();
+    selectedOptions = [
+      ...widget.initiallySelectedOptions
+    ]; // highlight previous selections
+  }
+
   late List<String> options = widget.options;
   late List<String> initialOptions = widget.options;
 
@@ -184,9 +195,8 @@ class _SearchContractBottomSheetState extends State<SearchContractBottomSheet> {
                               });
                             },
                             selected: isSelected,
-                            selectedTileColor: Theme.of(context)
-                                .primaryColor
-                                .withOpacity(0.1),
+                            selectedTileColor:
+                                Theme.of(context).primaryColor.withOpacity(0.1),
                           ),
                         );
                       },

@@ -162,10 +162,10 @@ class _CustomJobCardState extends State<CustomJobCard> {
                 ],
               ),
               const SizedBox(height: 4),
-              if (widget.rating != null)
-                StarRating(
-                  rating: widget.rating!,
-                )
+              // if (widget.rating != null)
+              //   StarRating(
+              //     rating: widget.rating!,
+              //   )
             ],
           ),
         ),
