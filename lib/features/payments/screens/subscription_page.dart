@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/configuration.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/features/payments/widgets/custom_plan_card_border.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -126,15 +127,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   }
 }
 
-class MonthlyPlans extends StatefulWidget {
+class MonthlyPlans extends StatelessWidget {
   const MonthlyPlans({super.key});
-
-  @override
-  State<MonthlyPlans> createState() => _MonthlyPlansState();
-}
-
-class _MonthlyPlansState extends State<MonthlyPlans> {
-  int selectedIndex = 2; // Default select "Scale" card
 
   @override
   Widget build(BuildContext context) {
@@ -142,42 +136,31 @@ class _MonthlyPlansState extends State<MonthlyPlans> {
       children: [
         ListView(
           padding: const EdgeInsets.all(16),
-          children: [
-            GestureDetector(
-              onTap: () => setState(() => selectedIndex = 0),
-              child: PlanCard(
-                title: 'Starter',
-                price: 'Gratis',
-                description: 'Maak kennis met jobr',
-                offers: ' 📍 1 vestiging   📄 1 vacature',
-                isSelected: selectedIndex == 0,
-              ),
+          children: const [
+            PlanCard(
+              title: 'Starter',
+              price: 'Gratis',
+              description: 'Maak kennis met jobr',
+              offers: ' 📍 1 vestiging   📄 1 vacature',
             ),
-            GestureDetector(
-              onTap: () => setState(() => selectedIndex = 1),
-              child: PlanCard(
-                title: 'Local ⚡',
-                price: '€59,90',
-                description: 'Ideaal voor lokale zaken',
-                offers:
-                    ' 📍 1 vestiging   📄 2 vacatures\n 🔍 AI matchmaking   ✔️ Custom vragenlijst',
-                isPopular: true,
-                isSelected: selectedIndex == 1,
-              ),
+            PlanCard(
+              title: 'Local ⚡',
+              price: '€59,90',
+              description: 'Ideaal voor lokale zaken',
+              offers:
+                  ' 📍 1 vestiging   📄 2 vacatures\n 🔍 AI matchmaking   ✔️ Custom vragenlijst',
+              isPopular: true,
             ),
-            GestureDetector(
-              onTap: () => setState(() => selectedIndex = 2),
-              child: PlanCard(
-                title: 'Scale',
-                price: '€69,90',
-                description: 'Voor groeiende kmo’s',
-                offers:
-                    ' ∞ Onbeperkte kandidaten \n 🔍 AI matchmaking   ✔️ Custom vragenlijst   \n👀 Wie bekeek mijn vacature?',
-                backgroundColor: const Color(0x0DFF3E68),
-                isSelected: selectedIndex == 2,
-              ),
+            PlanCard(
+              title: 'Scale',
+              price: '€69,90',
+              description: 'Voor groeiende kmo’s',
+              offers:
+                  ' ∞ Onbeperkte kandidaten \n 🔍 AI matchmaking   ✔️ Custom vragenlijst   \n👀 Wie bekeek mijn vacature?',
+              backgroundColor: Color(
+                  0x0DFF3E68), // 0x0D represents 5% opacity (0.05 * 255 ≈ 13)
             ),
-            const SizedBox(height: 130),
+            SizedBox(height: 130),
           ],
         ),
         Positioned(
@@ -210,15 +193,8 @@ class _MonthlyPlansState extends State<MonthlyPlans> {
   }
 }
 
-class YearlyPlans extends StatefulWidget {
+class YearlyPlans extends StatelessWidget {
   const YearlyPlans({super.key});
-
-  @override
-  State<YearlyPlans> createState() => _YearlyPlansState();
-}
-
-class _YearlyPlansState extends State<YearlyPlans> {
-  int selectedIndex = 2; // Default select "Scale" card
 
   @override
   Widget build(BuildContext context) {
@@ -226,40 +202,33 @@ class _YearlyPlansState extends State<YearlyPlans> {
       children: [
         ListView(
           padding: const EdgeInsets.all(16),
-          children: [
-            GestureDetector(
-              onTap: () => setState(() => selectedIndex = 0),
-              child: PlanCard(
-                title: 'Starter',
-                price: 'Gratis',
-                description: 'Maak kennis met jobr',
-                offers: '📍 1 vestiging  📄 1 vacature',
-                isSelected: selectedIndex == 0,
-              ),
+          children: const [
+            PlanCard(
+              isYearPlan: true,
+              title: 'Starter',
+              price: 'Gratis',
+              description: 'Maak kennis met jobr',
+              offers: '📍 1 vestiging  📄 1 vacature',
             ),
-            GestureDetector(
-              onTap: () => setState(() => selectedIndex = 1),
-              child: PlanCard(
-                title: 'Local ⚡',
-                price: '€19,90',
-                description: 'Ideaal voor lokale zaken',
-                offers:
-                    '📍 1 vestiging\n📄 2 vacatures 🔍 AI matchmaking\n👀 Wie bekeek je profiel?',
-                isSelected: selectedIndex == 1,
-              ),
+            PlanCard(
+              isYearPlan: true,
+              title: 'Local ⚡',
+              price: '€19,90',
+              description: 'Ideaal voor lokale zaken',
+              offers:
+                  '📍 1 vestiging\n📄 2 vacatures 🔍 AI matchmaking\n👀 Wie bekeek je profiel?',
+              isPopular: true,
             ),
-            GestureDetector(
-              onTap: () => setState(() => selectedIndex = 2),
-              child: PlanCard(
-                title: 'Scale',
-                price: '€89,90',
-                description: 'Voor groeiende kmo’s',
-                subdetails: 'Alles van Local',
-                offers: '✔️ Vragenlijst   🙋‍♂️🙋‍♀️ Meerdere vestigingen',
-                isSelected: selectedIndex == 2,
-              ),
+            PlanCard(
+              isYearPlan: true,
+              title: 'Scale',
+              price: '€89,90',
+              description: 'Voor groeiende kmo’s',
+              subdetails: 'Alles van Local',
+              offers: '✔️ Vragenlijst   🙋‍♂️🙋‍♀️ Meerdere vestigingen',
+              backgroundColor: Colors.transparent,
             ),
-            const SizedBox(height: 130),
+            SizedBox(height: 130),
           ],
         ),
         Positioned(
@@ -299,8 +268,8 @@ class PlanCard extends StatelessWidget {
   final String offers;
   final Color backgroundColor;
   final bool isPopular;
+  final bool isYearPlan;
   final String? subdetails;
-  final bool isSelected; // New property
 
   const PlanCard({
     super.key,
@@ -309,9 +278,9 @@ class PlanCard extends StatelessWidget {
     required this.description,
     this.backgroundColor = Colors.white,
     this.isPopular = false,
+    this.isYearPlan = false,
     this.subdetails,
     required this.offers,
-    this.isSelected = false, // Default false
   });
 
   @override
@@ -319,16 +288,18 @@ class PlanCard extends StatelessWidget {
     return Card(
       shadowColor: Colors.transparent,
       margin: const EdgeInsets.symmetric(vertical: 8),
-      color: isSelected ? const Color(0xFF0DFF3E68) : const Color(0xFFF3F3F3),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-        side: BorderSide(
-          color: isSelected
-              ? Color(0xFFFF3E68).withAlpha((0.64 * 255).round())
-              : const Color(0xFFF3F3F3),
-          width: 2,
-        ),
-      ),
+      color: backgroundColor,
+      shape: isYearPlan
+          ? CustomPlanCardBorder(title)
+          : RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(
+                color: (title == 'Scale')
+                    ? Color(0xFFFF3E68).withAlpha((0.64 * 255).round())
+                    : const Color(0xFFF3F3F3),
+                width: 2,
+              ),
+            ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

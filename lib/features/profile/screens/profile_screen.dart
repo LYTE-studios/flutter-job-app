@@ -195,7 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Positioned(
-                      top: 166,
+                      top: 158,
                       right: 60,
                       child: ElevatedButton.icon(
                         onPressed: () {
@@ -228,7 +228,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Positioned(
-                      bottom: 40,
+                      top: 160,
                       right: 10,
                       child: InkWell(
                         onTap: () {
@@ -296,17 +296,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
-              const SizedBox(height: 14),
-              CustomStarRating(
-                rating: 3.5,
-                onIconTap: () {
-                  context.push(DisplayProfileReviews.employeeRoute);
-                },
-                containerBackgroundColor:
-                    HexColor.fromHex('#F0F0F0').withOpacity(0.24),
-                borderColor: HexColor.fromHex('#EDEDED').withOpacity(0.36),
-              ),
-             
+            const SizedBox(height: 14),
+            CustomStarRating(
+              rating: 3.5,
+              onIconTap: () {
+                context.push(DisplayProfileReviews.employeeRoute);
+              },
+              containerBackgroundColor:
+                  HexColor.fromHex('#F0F0F0').withOpacity(0.24),
+              borderColor: HexColor.fromHex('#EDEDED').withOpacity(0.36),
+            ),
+
             const SizedBox(height: 22),
             const Padding(
               padding: EdgeInsets.only(
