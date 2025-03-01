@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/models/chat_room.dart';
 import 'package:jobr/data/models/message.dart';
 import 'package:jobr/data/services/chat_service.dart';
 import 'package:jobr/features/chat/screens/employee/chat_page_employee_screen.dart';
@@ -26,11 +27,11 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> with ScreenStateMixin {
   String selectedCategory = 'Alle';
 
-  List<Message> chatData = [];
+  List<ChatRoom> chatData = [];
 
   @override
   Future<void> loadData() async {
-    chatData = await ChatService().getMessages();
+    chatData = await ChatService().getChatrooms();
 
     setState(() {
       chatData = chatData;
@@ -146,7 +147,7 @@ class _ChatScreenState extends State<ChatScreen> with ScreenStateMixin {
   }
 
   // Helper method to build chat items
-  Widget _buildChatItem(Message chat) {
+  Widget _buildChatItem(ChatRoom chat) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -157,7 +158,7 @@ class _ChatScreenState extends State<ChatScreen> with ScreenStateMixin {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: AssetImage(chat.sender),
+              image: AssetImage(''),
               fit: BoxFit.cover,
             ),
           ),

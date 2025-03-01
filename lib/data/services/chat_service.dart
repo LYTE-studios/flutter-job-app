@@ -1,14 +1,16 @@
+import 'package:jobr/data/models/chat_room.dart';
+
 import '../models/message.dart';
 import '../services/api_service.dart';
 
 class ChatService extends ApiService {
   ChatService();
 
-  Future<List<Message>> getMessages() async {
+  Future<List<ChatRoom>> getChatrooms() async {
     try {
       final response = await getApi('chat/history');
       return (response.data as List)
-          .map((json) => Message.fromJson(json))
+          .map((json) => ChatRoom.fromJson(json))
           .toList();
     } catch (e) {
       throw Exception('Failed to fetch messages: $e');

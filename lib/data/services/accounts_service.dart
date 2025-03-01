@@ -143,4 +143,22 @@ class AccountsService extends ApiService {
       throw Exception("Failed to register employer: ${e.message}");
     }
   }
+
+  Future<List<User>> getAiSuggestions() async {
+    try {
+      final response = await getApi(
+        "/accounts/ai/suggestions",
+      );
+
+      List? data = response.data as List?;
+
+      if (data?.isEmpty ?? true) {
+        return [];
+      }
+
+      return data!.map((e) => User.fromJson(e)).toList();
+    } on DioException catch (e) {
+      throw Exception("Failed to get ai suggestions: ${e.message}");
+    }
+  }
 }

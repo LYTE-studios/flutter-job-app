@@ -74,32 +74,6 @@ class _JobListingsScreenState extends State<JobListingsScreen>
             ),
           ),
         ),
-        const SizedBox(
-          height: 24,
-        ),
-        ElevatedButton.icon(
-          onPressed: () {
-            AccountsService().logout();
-            // Action for "Nieuwe vacature" button
-          },
-          label: const Text(
-            'Logout',
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold), // Increased font size
-          ),
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: Theme.of(context).primaryColor.withOpacity(.5),
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 8,
-            ), // Increased padding
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ),
-        ),
       ],
     );
   }

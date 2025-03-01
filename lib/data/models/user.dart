@@ -15,8 +15,18 @@ class User {
   final int id;
   final String username;
   final String email;
+  final String? profilePicturePath;
+  final double? rating;
+  final Employee? employeeProfile;
 
-  User({required this.id, required this.username, required this.email});
+  User({
+    required this.id,
+    required this.username,
+    required this.email,
+    this.profilePicturePath,
+    this.rating,
+    this.employeeProfile,
+  });
 
   factory User.fromJson(Map<dynamic, dynamic> json) {
     return User(
@@ -36,12 +46,11 @@ class User {
 }
 
 class Employee {
-  final String dateOfBirth;
+  final DateTime dateOfBirth;
   final String gender;
   final String phoneNumber;
   final String? cityName;
   final String? biography;
-  final int user;
   final String? latitude;
   final String? longitude;
 
@@ -51,7 +60,6 @@ class Employee {
     required this.phoneNumber,
     this.cityName,
     this.biography,
-    required this.user,
     this.latitude,
     this.longitude,
   });
@@ -63,11 +71,12 @@ class Employee {
       "phone_number": phoneNumber,
       "city_name": cityName,
       "biography": biography,
-      "user": user,
       "latitude": latitude,
       "longitude": longitude,
     };
   }
+
+  int get age => DateTime.now().difference(dateOfBirth).inDays ~/ 365;
 }
 
 class Employer {

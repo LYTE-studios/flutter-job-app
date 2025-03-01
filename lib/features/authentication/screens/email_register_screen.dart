@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/user.dart';
 import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
@@ -39,25 +40,6 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
     setLoading(false);
   }
 
-  Future<void> _registerEmployee() async {
-    final data = {
-      "email": tecEmail.text,
-      "password": tecPassword.text,
-      "confirm_password": tecConfirmPassword.text,
-    };
-
-    // Call the provider to register the employee (or employer if needed)
-    await AccountsService().registerByEmployee(data);
-  }
-
-  Future<void> _registerEmployer() async {
-    final data = {
-      "email": tecEmail.text,
-      "password": tecPassword.text,
-      "confirm_password": tecConfirmPassword.text,
-    };
-  }
-
   Future<void> _register() async {
     if (tecEmail.text.isEmpty) {
       setError('Email is verplicht');
@@ -83,10 +65,9 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
 
       switch (widget.userType) {
         case UserType.employee:
-          print('object');
-          context.pushReplacement(CreateProfileScreen.employeeRoute);
+          router.pushReplacement(CreateProfileScreen.employeeRoute);
         case UserType.employer:
-          context.pushReplacement(JobListingsScreen.employerRoute);
+          router.pushReplacement(JobListingsScreen.employerRoute);
       }
     } catch (e) {
       setError('Account kon niet worden aangemaakt');
@@ -120,8 +101,7 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
                       hintText: "Kies wachtwoord",
                       obscureText: true,
                       height: 45,
-                                            isPassword : true,
-
+                      isPassword: true,
                     ),
                     const SizedBox(height: 10),
                     JobrTextField(
@@ -129,7 +109,7 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
                       hintText: "Herhaal wachtwoord",
                       obscureText: true,
                       height: 45,
-                      isPassword : true,
+                      isPassword: true,
                     ),
                     const SizedBox(height: 10),
                     PrimaryButton(
