@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/models/vacancy.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_overview_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
+import 'package:jobr/features/job_listing/screens/vacatures/widgets/company_info_tab.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/widgets/vacancy_info_tabs.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
@@ -30,13 +33,17 @@ class VacancyInfoScreen extends StatefulWidget {
 
 class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
   List<TabData> tabData = [
-    TabData(label: 'Algemeen', icon: JobrIcons.dashboard),
-    TabData(label: 'Media', icon: JobrIcons.chat),
+    TabData(
+      label: 'Vacature',
+      icon: "assets/images/logos/info.svg",
+    ),
+    TabData(label: 'Over dit bedrijf', icon: JobrIcons.venueLocation),
   ];
   int selectedIndex = 0;
 
   List<Widget> tabs = [
     VacancyInfoTab(),
+    const CompanyInfoTab(),
   ];
 
   @override
@@ -187,6 +194,10 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                         right: 70,
                         child: InkWell(
                           onTap: () {
+                             context.push(
+                              CreateJobListingOverviewScreen.route,
+                              extra: Vacancy(),
+                            );
                             // Add your settings action here
                           },
                           child: Container(
@@ -285,6 +296,81 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                 ],
               ),
               const SizedBox(height: 22),
+              CommonContainers(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    for (int i = 0; i < tabData.length; i++)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            setState(() {
+                              selectedIndex = i;
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shadowColor: Colors.transparent,
+                            backgroundColor: selectedIndex == i
+                                ? theme.primaryColor
+                                : Colors.white,
+                            side: BorderSide(
+                              color: selectedIndex == i
+                                  ? Colors.transparent
+                                  : Colors.grey.shade300,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 10,
+                            ),
+                            elevation: 0,
+                          ),
+                          label: Text(
+                            tabData[i].label,
+                            style: TextStyle(
+                              color: selectedIndex == i
+                                  ? Colors.white
+                                  : Colors.grey.shade700,
+                              fontSize: 14,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          icon: tabData[i].icon.startsWith('assets')
+                              ? Padding(
+                                  padding: const EdgeInsets.only(right: 6.0),
+                                  child: SvgPicture.asset(
+                                    tabData[i].icon,
+                                    width: 16,
+                                    height: 16,
+                                    colorFilter: ColorFilter.mode(
+                                      selectedIndex == i
+                                          ? Colors.white
+                                          : Colors.grey.shade700,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.only(right: 6.0),
+                                  child: SvgIcon(
+                                    tabData[i].icon,
+                                    size: 16,
+                                    color: selectedIndex == i
+                                        ? Colors.white
+                                        : Colors.grey.shade700,
+                                  ),
+                                ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 child: tabs[selectedIndex],

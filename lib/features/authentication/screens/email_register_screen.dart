@@ -28,35 +28,35 @@ class EmailRegisterScreen extends StatefulWidget {
 }
 
 class _EmailRegisterScreenState extends State<EmailRegisterScreen>
-    with ScreenStateMixin {
-  // Text editing controllers
+    with ScreenStateMixin, WidgetsBindingObserver {
   final TextEditingController tecEmail = TextEditingController();
   final TextEditingController tecPassword = TextEditingController();
   final TextEditingController tecConfirmPassword = TextEditingController();
+  bool _isKeyboardVisible = false;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    final bottomInset = WidgetsBinding.instance.window.viewInsets.bottom;
+    setState(() {
+      _isKeyboardVisible = bottomInset > 0;
+    });
+  }
+
   void setError(String error) {
     ExceptionPopup.show(context, error);
     setLoading(false);
-  }
-
-  Future<void> _registerEmployee() async {
-    final data = {
-      "email": tecEmail.text,
-      "password": tecPassword.text,
-      "confirm_password": tecConfirmPassword.text,
-    };
-
-    // Call the provider to register the employee (or employer if needed)
-    await AccountsService().registerByEmployee(data);
-  }
-
-  Future<void> _registerEmployer() async {
-    final data = {
-      "email": tecEmail.text,
-      "password": tecPassword.text,
-      "confirm_password": tecConfirmPassword.text,
-    };
   }
 
   Future<void> _register() async {
@@ -84,13 +84,14 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
 
       switch (widget.userType) {
         case UserType.employee:
-          print('object');
           context.pushReplacement(CreateProfileScreen.employeeRoute);
+          break;
         case UserType.employer:
           context.pushReplacement(JobListingsScreen.employerRoute);
+          break;
       }
     } catch (e) {
-      setError('Account kon niet worden aangemaakt');
+      setError('E-mail bestaat al');
       return;
     }
   }
@@ -98,15 +99,14 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent, // Transparent background
-      resizeToAvoidBottomInset: true, // Prevent overflow when keyboard appears
+      backgroundColor: Colors.transparent,
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
-                reverse:
-                    true, // Keeps focus on the bottom when the keyboard opens
+                reverse: true,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -121,8 +121,7 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
                       hintText: "Kies wachtwoord",
                       obscureText: true,
                       height: 45,
-                                            isPassword : true,
-
+                      isPassword: true,
                     ),
                     const SizedBox(height: 10),
                     JobrTextField(
@@ -130,7 +129,7 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
                       hintText: "Herhaal wachtwoord",
                       obscureText: true,
                       height: 45,
-                      isPassword : true,
+                      isPassword: true,
                     ),
                     const SizedBox(height: 10),
                     PrimaryButton(
@@ -138,7 +137,7 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
                       onTap: loading ? null : _register,
                       buttonText: loading ? 'Laden...' : 'Account maken',
                     ),
-                    const PrivacyPolicyBlock(),
+                    if (!_isKeyboardVisible) const PrivacyPolicyBlock(),
                     const SizedBox(height: 20),
                   ],
                 ),

@@ -19,6 +19,8 @@ class Vacancy {
   Mastery? expectedMastery;
   List<LanguageMastery>? languages; // List of language IDs
   List<String>? questions; // List of question IDs
+  String? mainDescription; // Main job description
+  List<String>? tasks; // List of job tasks
 
   Vacancy({
     this.descriptions,
@@ -32,6 +34,8 @@ class Vacancy {
     this.expectedMastery,
     this.languages,
     this.questions,
+    this.mainDescription,
+    this.tasks,
   });
 
   /// Factory constructor to create a Vacancy object from JSON
@@ -55,6 +59,8 @@ class Vacancy {
       //     .map((e) => LanguageMastery.fromJson(e))
       //     .toList(),
       // questions: (json['question'] ?? []).map((e) => e.toString()).toList(),
+      mainDescription: json['main_description'],
+      tasks: (json['tasks'] as List?)?.map((e) => e.toString()).toList(),
     );
   }
 
@@ -72,6 +78,8 @@ class Vacancy {
       'expected_mastery': expectedMastery?.api(),
       'languages': languages?.map((e) => e.toJson()).toList() ?? [],
       'questions': questions?.map((e) => {'question': e}).toList(),
+      'main_description': mainDescription,
+      'tasks': tasks,
     };
   }
 }

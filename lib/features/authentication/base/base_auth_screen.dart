@@ -69,16 +69,25 @@ class BaseAuthScreen extends StatelessWidget {
                                   ),
                                   children: [
                                     const TextSpan(
-                                      text: 'Making ',
+                                      text: 'Find ',
                                     ),
                                     TextSpan(
-                                      text: 'matches',
+                                      text: 'jobs',
                                       style: TextStyles.titleMedium.copyWith(
                                         color: theme.colorScheme.primary,
                                       ),
                                     ),
                                     const TextSpan(
-                                      text: ' that work.',
+                                      text: ' &',
+                                    ),
+                                    TextSpan(
+                                      text: ' talent',
+                                      style: TextStyles.titleMedium.copyWith(
+                                        color: theme.colorScheme.primary,
+                                      ),
+                                    ),
+                                    const TextSpan(
+                                      text: 'easily. ',
                                     ),
                                   ],
                                 ),
