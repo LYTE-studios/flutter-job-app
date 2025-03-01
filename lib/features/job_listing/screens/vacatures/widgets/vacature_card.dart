@@ -77,7 +77,7 @@ class VacatureCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            " 0,60km",
+                            " Flexi",
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.black,
