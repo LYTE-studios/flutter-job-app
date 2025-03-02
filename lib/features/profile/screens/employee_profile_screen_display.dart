@@ -129,6 +129,9 @@ class _EmployProfileDisplayScreenState
                                 barrierLabel: 'Dismiss',
                                 barrierColor: Colors.black54,
                                 pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                  height: 200,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
                                   tag: 'profileBackground',
                                   imagePath: 'assets/images/images/image-4.png',
                                 ),

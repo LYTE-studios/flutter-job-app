@@ -161,7 +161,9 @@ class RecruitmentDetailScreen extends StatelessWidget {
                   right: 16,
                   child: Container(
                     padding: const EdgeInsets.only(top: 16),
-                    decoration: BoxDecoration(color: Colors.white),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
                     child: GestureDetector(
                       onTap: () {
                         context.push(
@@ -175,6 +177,13 @@ class RecruitmentDetailScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(21),
                               color: HexColor.fromHex('#F5F5F5'),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
                             ),
                             padding: const EdgeInsets.all(12),
                             child: Row(
@@ -276,7 +285,7 @@ class RecruitmentDetailScreen extends StatelessWidget {
                       final card = jobCards[index];
                       return CustomJobCard(
                         rating: double.parse(card["rating"]!),
-                        showLikeButton: (title == 'Sollicitaties'),
+                        showLikeButton: true,
                         description: card["description"]!,
                         age: card["age"]!,
                         buttonColor: HexColor.fromHex('#3976FF'),

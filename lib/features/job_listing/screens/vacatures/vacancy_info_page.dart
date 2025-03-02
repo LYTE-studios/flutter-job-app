@@ -134,6 +134,9 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                                 barrierLabel: 'Dismiss',
                                 barrierColor: Colors.black54,
                                 pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                  height: 200,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
                                   tag: 'profileBackground',
                                   imagePath:
                                       'assets/images/images/profile_image.png',
@@ -194,7 +197,7 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                         right: 70,
                         child: InkWell(
                           onTap: () {
-                             context.push(
+                            context.push(
                               CreateJobListingOverviewScreen.route,
                               extra: Vacancy(),
                             );
@@ -297,80 +300,59 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
               ),
               const SizedBox(height: 22),
               CommonContainers(),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    for (int i = 0; i < tabData.length; i++)
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            setState(() {
-                              selectedIndex = i;
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shadowColor: Colors.transparent,
-                            backgroundColor: selectedIndex == i
-                                ? theme.primaryColor
-                                : Colors.white,
-                            side: BorderSide(
-                              color: selectedIndex == i
-                                  ? Colors.transparent
-                                  : Colors.grey.shade300,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 10,
-                            ),
-                            elevation: 0,
-                          ),
-                          label: Text(
-                            tabData[i].label,
-                            style: TextStyle(
-                              color: selectedIndex == i
-                                  ? Colors.white
-                                  : Colors.grey.shade700,
-                              fontSize: 14,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          icon: tabData[i].icon.startsWith('assets')
-                              ? Padding(
-                                  padding: const EdgeInsets.only(right: 6.0),
-                                  child: SvgPicture.asset(
-                                    tabData[i].icon,
-                                    width: 16,
-                                    height: 16,
-                                    colorFilter: ColorFilter.mode(
-                                      selectedIndex == i
-                                          ? Colors.white
-                                          : Colors.grey.shade700,
-                                      BlendMode.srcIn,
-                                    ),
-                                  ),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.only(right: 6.0),
-                                  child: SvgIcon(
-                                    tabData[i].icon,
-                                    size: 16,
-                                    color: selectedIndex == i
-                                        ? Colors.white
-                                        : Colors.grey.shade700,
-                                  ),
-                                ),
+              const SizedBox(height: 20),
+              Row(
+                children: List.generate(
+                  tabData.length,
+                  (index) => Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    child: FilledButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      style: FilledButton.styleFrom(
+                        backgroundColor: selectedIndex == index
+                            ? theme.primaryColor
+                            : TextStyles.clearText,
+                        side: BorderSide(
+                          width: 1.5,
+                          color: selectedIndex == index
+                              ? theme.primaryColor
+                              : Color(0xFF494A54).withOpacity(0.2),
                         ),
                       ),
-                  ],
+                      label: Text(
+                        tabData[index].label,
+                        style: TextStyle(
+                          color: selectedIndex == index
+                              ? TextStyles.clearText
+                              : Color(0xFF494A54).withOpacity(0.4),
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Inter',
+                          fontSize: 16,
+                        ),
+                      ),
+                      icon: Padding(
+                        padding: const EdgeInsets.only(left: 4.0),
+                        child: SvgPicture.asset(
+                          tabData[index].icon,
+                          width: 16,
+                          height: 16,
+                          colorFilter: ColorFilter.mode(
+                            selectedIndex == index
+                                ? TextStyles.clearText
+                                : Color(0xFF494A54).withOpacity(0.4),
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
+              const SizedBox(height: 20),
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 child: tabs[selectedIndex],

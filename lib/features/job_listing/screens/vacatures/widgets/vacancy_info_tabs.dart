@@ -103,13 +103,13 @@ class CommonContainers extends StatelessWidget {
                           fontSize: 15,
                         ),
                       ),
-                      const Text(
-                        "Bovengemiddeld",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
-                            color: Color(0xFF35BD76)),
-                      ),
+                      // const Text(
+                      //   "Bovengemiddeld",
+                      //   style: TextStyle(
+                      //       fontWeight: FontWeight.w600,
+                      //       fontSize: 15,
+                      //       color: Color(0xFF35BD76)),
+                      // ),
                     ],
                   ),
                   const SizedBox(height: 6),

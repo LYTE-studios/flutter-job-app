@@ -73,34 +73,43 @@ langs te komen?''', isSentByMe: false),
               },
               icon: const Icon(Icons.arrow_back_ios, size: 23),
             ),
-            Container(
-              width: 33,
-              height: 33,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage("assets/images/logos/spicy_lemon.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            const Text(
-              'Louis Ottevaere',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const Spacer(),
             GestureDetector(
               onTap: () => context.push(JobInfoScreen.route),
-              child: SvgIcon(
-                "assets/images/logos/info.svg",
-                size: 24,
-                color: Colors.grey[400],
+              child: Row(
+                children: [
+                  Container(
+                    width: 33,
+                    height: 33,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image:
+                            AssetImage("assets/images/logos/spicy_lemon.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'Louis Ottevaere',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ),
+
+            // const Spacer(),
+            // GestureDetector(
+            //   onTap: () => context.push(JobInfoScreen.route),
+            //   child: SvgIcon(
+            //     "assets/images/logos/info.svg",
+            //     size: 24,
+            //     color: Colors.grey[400],
+            //   ),
+            // ),
           ],
         ),
       ),

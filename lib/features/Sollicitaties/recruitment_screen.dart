@@ -401,6 +401,7 @@ class _RecruitmentScreenState extends State<RecruitmentScreen> {
                       context.push(EmployProfileDisplayScreen.employerRoute);
                     },
                     child: CustomJobCard(
+                      showLikeButton: true,
                       height: double.infinity,
                       descriptionPadding: 8,
                       isAICard: true,

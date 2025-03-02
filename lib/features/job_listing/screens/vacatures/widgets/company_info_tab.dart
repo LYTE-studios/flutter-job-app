@@ -113,7 +113,7 @@ class CompanyInfoTab extends StatelessWidget {
               children: [
                 Image.asset(
                   'assets/images/images/Frame-m.png',
-                  height: 180,
+                  height: 230,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),

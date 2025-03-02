@@ -41,7 +41,7 @@ class CustomJobCard extends StatefulWidget {
     required this.showBottomText,
     this.descriptionPadding = 0,
     this.isAICard = false,
-    this.showLikeButton = false,
+    this.showLikeButton = true,
     this.rating,
   });
 
@@ -65,7 +65,6 @@ class _CustomJobCardState extends State<CustomJobCard> {
         context.push(EmployProfileDisplayScreen.employerRoute);
       },
       child: Container(
-        constraints: const BoxConstraints(minHeight: 250),
         decoration: BoxDecoration(
           color: HexColor.fromHex('#F6F6F6'),
           borderRadius: BorderRadius.circular(20),
@@ -80,16 +79,16 @@ class _CustomJobCardState extends State<CustomJobCard> {
                 children: [
                   _buildProfileHeader(context),
                   const SizedBox(height: 10),
-                  Flexible(
-                    fit: FlexFit.loose,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: widget.descriptionPadding.toDouble(),
-                      ),
-                      child: _buildDescription(context),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: widget.descriptionPadding.toDouble(),
                     ),
+                    child: _buildDescription(context),
                   ),
-                  _buildActionRow(context),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: _buildActionRow(context),
+                  ),
                 ],
               ),
             ),
