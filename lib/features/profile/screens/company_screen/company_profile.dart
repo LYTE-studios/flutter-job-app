@@ -242,36 +242,8 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen> {
                         right: 10,
                         child: InkWell(
                           onTap: () {
-                            // Show a popup menu for settings
-                            showMenu(
-                              context: context,
-                              position: RelativeRect.fromLTRB(
-                                MediaQuery.of(context).size.width - 50,
-                                200,
-                                10,
-                                0,
-                              ),
-                              items: [
-                                PopupMenuItem(
-                                  child: const Text('Instellingen'),
-                                  onTap: () {
-                                    // Delay the navigation to avoid conflicts with menu closing
-                                    Future.delayed(Duration.zero, () {
-                                      context.push(SettingsScreen.route);
-                                    });
-                                  },
-                                ),
-                                PopupMenuItem(
-                                  child: const Text('Toggle Empty State'),
-                                  onTap: () {
-                                    // Delay the state change to avoid conflicts with menu closing
-                                    Future.delayed(Duration.zero, () {
-                                      toggleEmptyState();
-                                    });
-                                  },
-                                ),
-                              ],
-                            );
+                                                                  context.push(SettingsScreen.route);
+
                           },
                           child: Container(
                             padding: const EdgeInsets.all(10),
