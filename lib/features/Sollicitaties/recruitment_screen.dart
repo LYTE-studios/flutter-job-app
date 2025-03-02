@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/data/models/user.dart';
-import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/features/chat/screens/employer/chat_page_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/filter_screen.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
@@ -12,6 +10,7 @@ import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:jobr/ui/theme/padding_sizes.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
+import 'package:jobr/ui/widgets/input/jobr_search_bar.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
@@ -26,18 +25,57 @@ class RecruitmentScreen extends StatefulWidget {
   State createState() => _RecruitmentScreenState();
 }
 
-class _RecruitmentScreenState extends State<RecruitmentScreen>
-    with ScreenStateMixin {
-  List<User> suggestedUsers = [];
-
-  @override
-  Future<void> loadData() async {
-    suggestedUsers = await AccountsService().getAiSuggestions();
-
-    setState(() {
-      suggestedUsers = suggestedUsers;
-    });
-  }
+class _RecruitmentScreenState extends State<RecruitmentScreen> {
+  final List<Map<String, String>> jobCards = [
+    {
+      "description":
+          "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
+      "age": "20",
+      "location": "Brussel",
+      "userName": "Yassine Vuran",
+      "profileImagePath": "assets/images/images/image.png",
+      "suggestionPercentage": "74",
+      "rating": "4.5",
+    },
+    {
+      "description":
+          "Hallo, ik ben Sarah en ik zoek een uitdagende baan in de klantenservice",
+      "age": "23",
+      "location": "Antwerpen",
+      "userName": "Sarah De Vries",
+      "profileImagePath": "assets/images/images/image-3.png",
+      "suggestionPercentage": "82",
+      "rating": "4.5",
+    },
+    {
+      "description":
+          "Marketing professional met 2 jaar ervaring in social media management",
+      "age": "25",
+      "location": "Gent",
+      "userName": "Thomas Peeters",
+      "profileImagePath": "assets/images/images/image-9.png",
+      "suggestionPercentage": "68",
+      "rating": "4.5",
+    },
+    {
+      "description": "Ervaren verkoper met passie voor klantenrelaties",
+      "age": "28",
+      "location": "Leuven",
+      "userName": "Lisa Janssens",
+      "profileImagePath": "assets/images/images/image-6.png",
+      "suggestionPercentage": "79",
+      "rating": "4.5",
+    },
+    {
+      "description": "IT specialist zoekend naar nieuwe uitdagingen",
+      "age": "24",
+      "location": "Hasselt",
+      "userName": "Kevin Van Dam",
+      "profileImagePath": "assets/images/images/image-7.png",
+      "suggestionPercentage": "88",
+      "rating": "4.5",
+    },
+  ];
 
   final List<Map<String, dynamic>> items = const [
     {
@@ -68,6 +106,14 @@ class _RecruitmentScreenState extends State<RecruitmentScreen>
   ];
 
   final TextEditingController _searchController = TextEditingController();
+
+  Future<List<Map<String, String>>> _fetchEmployeeSuggestions(
+      String pattern) async {
+    return jobCards.where((employee) {
+      final name = employee["userName"]?.toLowerCase() ?? "";
+      return name.contains(pattern.toLowerCase());
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +150,9 @@ class _RecruitmentScreenState extends State<RecruitmentScreen>
                   height: PaddingSizes.extraSmall,
                 ),
                 TypeAheadField<Map<String, String>>(
-                  suggestionsCallback: (pattern) async {},
+                  suggestionsCallback: (pattern) async {
+                    return await _fetchEmployeeSuggestions(pattern);
+                  },
                   itemBuilder: (context, suggestion) {
                     return ListTile(
                       leading: ClipRRect(
@@ -157,6 +205,7 @@ class _RecruitmentScreenState extends State<RecruitmentScreen>
                             isDense: true,
                             hintText: 'Zoek een werknemer',
                             hintStyle: TextStyle(
+                              fontFamily: 'Inter',
                               fontSize: TextStyles.labelSmall.fontSize,
                               fontWeight: TextStyles.labelSmall.fontWeight,
                               color: TextStyles.labelSmall.color,
@@ -254,7 +303,7 @@ class _RecruitmentScreenState extends State<RecruitmentScreen>
                 item["image"]!,
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             FittedBox(
               fit: BoxFit.scaleDown,
               child: Text(
@@ -334,21 +383,48 @@ class _RecruitmentScreenState extends State<RecruitmentScreen>
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 350),
       child: SizedBox(
-        height: 300,
+        height: MediaQuery.of(context).size.height * .37,
         child: ListView(
           padding: const EdgeInsets.all(
             PaddingSizes.large,
           ),
           scrollDirection: Axis.horizontal,
-          children: suggestedUsers
-              .map((user) => CustomJobCard(
-                    user: user,
-                    suggestionPercentage: 74,
-                    onButtonPressed: () {
-                      context.push(ChatPageScreen.employerRoute);
+          children: List.generate(
+            5,
+            (index) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * .9,
+                  child: ClearInkWell(
+                    onTap: () {
+                      context.push(EmployProfileDisplayScreen.employerRoute);
                     },
-                  ))
-              .toList(),
+                    child: CustomJobCard(
+                      showLikeButton: true,
+                      height: double.infinity,
+                      descriptionPadding: 8,
+                      isAICard: true,
+                      description:
+                          "Ik ben Yassine, 20 jaar en super gemotiveerd om te doen waar ik het beste in ben: mensen de beste serv",
+                      age: "20",
+                      buttonColor: HexColor.fromHex('#3976FF'),
+                      buttonText: "Chat starten",
+                      onButtonPressed: () {
+                        context.push(ChatPageScreen.employerRoute);
+                      },
+                      buttonIcon: JobrIcons.send,
+                      location: "Brussel",
+                      userName: "Yassine Vuran",
+                      profileImagePath: "assets/images/images/image-3.png",
+                      suggestionPercentage: "74",
+                      showBottomText: false,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

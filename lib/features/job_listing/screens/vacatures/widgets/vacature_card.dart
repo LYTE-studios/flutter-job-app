@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/data/models/vacancy.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
+import 'package:jobr/features/chat/screens/chat_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_general_screen.dart';
 import 'package:jobr/features/job_listing/screens/create/create_job_listing_overview_screen.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/vacancy_info_page.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
@@ -46,46 +48,47 @@ class VacatureCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Location and Price Row
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     Row(
-                  //       children: [
-                  //         SizedBox(width: 4),
-                  //         SvgIcon(
-                  //           'assets/images/icons/location.svg',
-                  //           color: Theme.of(context).primaryColor,
-                  //           size: 17,
-                  //         ),
-                  //         SizedBox(width: 4),
-                  //         Text(
-                  //           "Kortrijk",
-                  //           style: TextStyle(
-                  //             fontSize: 16,
-                  //             color: Colors.black,
-                  //             fontWeight: FontWeight.w400,
-                  //           ),
-                  //         ),
-                  //         Text(
-                  //           " •",
-                  //           style: TextStyle(
-                  //             fontSize: 16,
-                  //             color: Colors.grey[300],
-                  //             fontWeight: FontWeight.w400,
-                  //           ),
-                  //         ),
-                  //         Text(
-                  //           " 0,60km",
-                  //           style: TextStyle(
-                  //             fontSize: 16,
-                  //             color: Colors.black,
-                  //             fontWeight: FontWeight.w400,
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ],
-                  // ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(width: 4),
+                          SvgIcon(
+                            'assets/images/icons/location.svg',
+                            color: Theme.of(context).primaryColor,
+                            size: 17,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            "Kortrijk",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            " •",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey[300],
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            " Flexi",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
                   // Job Title and Subtitle
                   Row(
                     children: [
@@ -94,8 +97,7 @@ class VacatureCard extends StatelessWidget {
                         radius: 24,
                         backgroundColor: Colors.blue,
                         child: Image.asset(
-                          'assets/images/logos/brooklyn_kortrijk.png',
-                        ),
+                            'assets/images/logos/brooklyn_kortrijk.png'),
                       ),
                       SizedBox(width: 12),
                       // Title and Subtitle
@@ -107,6 +109,7 @@ class VacatureCard extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w500,
+                              fontFamily: 'Poppins',
                             ),
                           ),
                           Text(

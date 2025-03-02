@@ -464,6 +464,9 @@ class _CreateJobListingOverviewScreenState
                                   spacing: 8,
                                   runSpacing: 8,
                                   children: vacancy.questions
+                                          ?.where((question) =>
+                                              question.trim().isNotEmpty)
+                                          .toList()
                                           ?.asMap()
                                           .entries
                                           .map(

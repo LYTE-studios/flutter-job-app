@@ -60,8 +60,8 @@ class CustomSliderWithTwoThumbs extends StatelessWidget {
         max: max,
         divisions: divisions,
         labels: RangeLabels(
-          startLabel ?? '  ${values.start.round()} km  ',
-          endLabel ?? '  ${values.end.round()} km  ',
+          startLabel ?? '  ${values.start.round()} jaar  ',
+          endLabel ?? '  ${values.end.round()} jaar  ',
         ),
         onChanged: onChanged,
       ),

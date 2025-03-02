@@ -6,11 +6,14 @@ import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'search_contract_bottom_sheet.dart'; // new file
 
 class ContractTypeBottomSheet extends StatefulWidget with BottomSheetMixin {
-  final void Function(List<ContractType> contractTypes) onSelected; // changed signature
+  final List<ContractType>? selectedOptions; // New parameter
+  final void Function(List<ContractType> contractTypes)
+      onSelected; // changed signature
   final String title;
 
   ContractTypeBottomSheet({
     super.key,
+    this.selectedOptions, // Pass older selections
     required this.onSelected,
     required this.title,
   });
@@ -45,15 +48,17 @@ class _ContractTypeBottomSheetState extends State<ContractTypeBottomSheet>
       onSelected: (String value) {
         // value is comma separated, e.g.: "Option1, Option2"
         List<String> names = value.split(', ');
-        List<ContractType> selected = contractTypes
-            .where((ct) => names.contains(ct.name))
-            .toList();
+        List<ContractType> selected =
+            contractTypes.where((ct) => names.contains(ct.name)).toList();
         widget.onSelected(selected);
         Navigator.of(context).pop();
       },
       options: contractTypes.map((e) => e.name).toList(),
       title: "Contract type",
       description: "Zoek een contract type",
+      initiallySelectedOptions:
+          widget.selectedOptions?.map((ct) => ct.name).toList() ??
+              [], // highlight previous
     );
   }
 }

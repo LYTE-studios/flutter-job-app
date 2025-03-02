@@ -13,90 +13,92 @@ class BaseOptionBottomSheet extends StatelessWidget with BottomSheetMixin {
 
   final bool loading;
 
-  BaseOptionBottomSheet({
+  final String? selectedOption; // add this
+
+  const BaseOptionBottomSheet({
     super.key,
     required this.onSelected,
     required this.title,
     required this.options,
     this.loading = false,
+    this.selectedOption, // pass it
   });
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(16),
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(
+            height: 5,
           ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(
-              height: 5,
-            ),
-            Center(
+          Center(
               child: Container(
-                height: 5,
-                width: 48,
-                decoration: BoxDecoration(
-                  color: const Color(0xffD9D9D9),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-            Column(
-              children: [
-                const SizedBox(
-                  height: 16,
-                ),
-                Text(
-                  title,
-                  style: TextStyles.titleMedium.copyWith(fontSize: 21),
-                ),
-                JobrLoadingSwitcher(
-                  loading: loading,
-                  child: ListView(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.only(
-                      left: 12,
-                      right: 12,
-                      top: 16,
-                    ),
-                    children: [
-                      ...options.map(
-                        (option) => GestureDetector(
-                          onTap: () => onSelected(options.indexOf(option)),
+            height: 5,
+            width: 48,
+            color: const Color(0xffD9D9D9),
+          )),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 24.0),
+              child: Column(
+                children: [
+                  Text(
+                    title,
+                    style: TextStyles.titleMedium.copyWith(fontSize: 21),
+                  ),
+                  const SizedBox(height: 12),
+                  JobrLoadingSwitcher(
+                    loading: loading,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: options.length,
+                      itemBuilder: (context, index) {
+                        final option = options[index];
+                        final isSelected =
+                            option == selectedOption; // highlight match
+
+                        return GestureDetector(
+                          onTap: () => onSelected(index),
                           child: Container(
                             margin: const EdgeInsets.symmetric(vertical: 6),
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             decoration: BoxDecoration(
-                              color: HexColor.fromHex("#F3F3F3"),
+                              color: isSelected
+                                  ? Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.1)
+                                  : HexColor.fromHex("#F3F3F3"),
                               borderRadius: BorderRadius.circular(16),
                             ),
                             child: Center(
                               child: Text(
                                 option,
                                 style: TextStyles.titleSmall.copyWith(
-                                    fontSize: 17, fontWeight: FontWeight.w600),
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                  color: isSelected
+                                      ? Theme.of(context).primaryColor
+                                      : null,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      SafeArea(
-                        child: const SizedBox(),
-                      ),
-                    ],
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

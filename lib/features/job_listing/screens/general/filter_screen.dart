@@ -469,10 +469,15 @@ class _SkillsSectionState extends State<SkillsSection> {
           // Convert to async to capture result from ChooseSkillsScreen
           onTap: () async {
             final result = await context.push(ChooseSkillsScreen.employerRoute);
-            if (result != null && result is List<String>) {
+            if (result != null) {
               setState(() {
                 _selectedSkills.clear();
-                _selectedSkills.addAll(result);
+                // Add the returned skills list
+                if (result is List<String>) {
+                  _selectedSkills.addAll(result);
+                } else if (result is List) {
+                  _selectedSkills.addAll(List<String>.from(result));
+                }
               });
             }
           },

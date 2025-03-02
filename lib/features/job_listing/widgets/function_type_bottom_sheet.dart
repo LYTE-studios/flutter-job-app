@@ -6,12 +6,15 @@ import 'package:jobr/ui/mixins/bottom_sheet_mixin.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 
 class FunctionTypeBottomSheet extends StatefulWidget with BottomSheetMixin {
+  final FunctionType? selectedOption; // New parameter
   final void Function(FunctionType functionType) onSelected;
   final String title;
   final bool showTitle;
+
   FunctionTypeBottomSheet({
     super.key,
     this.showTitle = false,
+    this.selectedOption, // Pass older selection
     required this.onSelected,
     required this.title,
   });
@@ -53,6 +56,8 @@ class _FunctionTypeBottomSheetState extends State<FunctionTypeBottomSheet>
       },
       options: functionTypes.map((e) => e.name).toList(),
       title: widget.showTitle ? widget.title : "Function type",
+      initiallySelectedOption:
+          widget.selectedOption?.name, // highlight previous
     );
   }
 }

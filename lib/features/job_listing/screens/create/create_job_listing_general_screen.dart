@@ -116,10 +116,12 @@ class _CreateJobListingGeneralScreenState
             title: "Contract type",
             selectedValue: _selectedContractTypes.length > 2
                 ? '${_selectedContractTypes.take(2).map((ct) => ct.name).join(', ')} + ${_selectedContractTypes.length - 2} more'
-                : _selectedContractTypes.length == 0
+                : _selectedContractTypes.isEmpty
                     ? null
                     : _selectedContractTypes.map((ct) => ct.name).join(', '),
             onPressed: () => ContractTypeBottomSheet(
+              selectedOptions:
+                  _selectedContractTypes, // New parameter to highlight previous selections
               onSelected: (List<ContractType> values) {
                 setState(() {
                   _selectedContractTypes = values;
@@ -134,6 +136,8 @@ class _CreateJobListingGeneralScreenState
             title: "Functie",
             selectedValue: _selectedFunction?.name,
             onPressed: () => FunctionTypeBottomSheet(
+              selectedOption:
+                  _selectedFunction, // New parameter to highlight previous selection
               title: "Kies een functie",
               onSelected: (FunctionType value) {
                 setState(() {
@@ -171,7 +175,7 @@ class _CreateJobListingGeneralScreenState
               hintText: 'Interne functietitel',
               filled: true,
               fillColor: (_selectedFunction == null)
-                  ? Colors.grey.shade100.withOpacity(0.4)
+                  ? Colors.grey.shade100.withAlpha(102)
                   : Colors.grey.shade100,
               contentPadding: EdgeInsets.symmetric(
                 vertical: 17, // Center text vertically
@@ -231,6 +235,8 @@ class _CreateJobListingGeneralScreenState
             title: "Locatie",
             selectedValue: _selectedLocation?.name,
             onPressed: () => LocationTypeBottomSheet(
+              selectedOption:
+                  _selectedLocation, // New parameter to highlight previous selection
               title: "Kies een locatie",
               onSelected: (LocationType value) {
                 setState(() {

@@ -64,7 +64,7 @@ class _ChooseSkillsScreenState extends State<ChooseSkillsScreen> {
     setState(() {
       if (selectedCreatiefTwo.contains(skill)) {
         selectedCreatiefTwo.remove(skill);
-      } else if (selectedCreatiefTwo.length < 5) {
+      } else if (selectedCreatiefTwo.length < 1) {
         selectedCreatiefTwo.add(skill);
       }
     });
@@ -73,7 +73,7 @@ class _ChooseSkillsScreenState extends State<ChooseSkillsScreen> {
   @override
   Widget build(BuildContext context) {
     bool isButtonEnabled =
-        (selectedCreatiefOne.length + selectedCreatiefTwo.length) >= 5;
+        (selectedCreatiefOne.length + selectedCreatiefTwo.length) >= 1;
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -106,7 +106,7 @@ class _ChooseSkillsScreenState extends State<ChooseSkillsScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Kies minimaal 5 skills',
+                      'Kies minimaal 1 skills',
                       style: TextStyle(
                         color: Color(0xFF6D6D6D),
                         fontSize: 16,
@@ -304,7 +304,11 @@ class _ChooseSkillsScreenState extends State<ChooseSkillsScreen> {
                       onPressed: isButtonEnabled
                           ? () {
                               // Handle confirmation action
-                              context.pop();
+                              List<String> allSelectedSkills = [
+                                ...selectedCreatiefOne,
+                                ...selectedCreatiefTwo,
+                              ];
+                              context.pop(allSelectedSkills);
                             }
                           : null,
                       child: const Text(

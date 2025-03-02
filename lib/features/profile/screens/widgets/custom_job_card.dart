@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/data/models/user.dart';
 import 'package:jobr/features/profile/screens/employee_profile_screen_display.dart';
-import 'package:jobr/ui/theme/jobr_icons.dart';
-import 'package:jobr/ui/theme/text_styles.dart';
 import 'package:jobr/ui/widgets/buttons/action_button.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
@@ -11,23 +8,41 @@ import 'package:readmore/readmore.dart';
 
 class CustomJobCard extends StatefulWidget {
   final double height;
-
-  final User user;
-
-  final double suggestionPercentage;
+  final String description;
+  final String userName;
+  final String location;
+  final String age;
+  final String profileImagePath;
+  final String buttonText;
+  final String buttonIcon;
+  final Color buttonColor;
+  final String suggestionPercentage;
+  final VoidCallback onButtonPressed;
+  final bool showBottomText;
+  final int descriptionPadding;
   final bool isAICard;
   final bool showLikeButton;
 
-  final VoidCallback onButtonPressed;
+  final double? rating;
 
   const CustomJobCard({
     super.key,
-    required this.user,
     this.height = 272,
+    required this.description,
+    required this.userName,
+    required this.location,
+    required this.age,
+    required this.profileImagePath,
+    required this.buttonText,
+    required this.buttonIcon,
+    required this.buttonColor,
     required this.suggestionPercentage,
     required this.onButtonPressed,
+    required this.showBottomText,
+    this.descriptionPadding = 0,
     this.isAICard = false,
-    this.showLikeButton = false,
+    this.showLikeButton = true,
+    this.rating,
   });
 
   @override
@@ -50,8 +65,6 @@ class _CustomJobCardState extends State<CustomJobCard> {
         context.push(EmployProfileDisplayScreen.employerRoute);
       },
       child: Container(
-        height: widget.height,
-        constraints: const BoxConstraints(minHeight: 250),
         decoration: BoxDecoration(
           color: HexColor.fromHex('#F6F6F6'),
           borderRadius: BorderRadius.circular(20),
@@ -66,10 +79,16 @@ class _CustomJobCardState extends State<CustomJobCard> {
                 children: [
                   _buildProfileHeader(context),
                   const SizedBox(height: 10),
-                  Expanded(
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: widget.descriptionPadding.toDouble(),
+                    ),
                     child: _buildDescription(context),
                   ),
-                  _buildActionRow(context),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: _buildActionRow(context),
+                  ),
                 ],
               ),
             ),
@@ -123,7 +142,7 @@ class _CustomJobCardState extends State<CustomJobCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.user.username,
+                widget.userName,
                 style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 18,
@@ -142,10 +161,10 @@ class _CustomJobCardState extends State<CustomJobCard> {
                 ],
               ),
               const SizedBox(height: 4),
-              if (widget.user.rating != null)
-                StarRating(
-                  rating: widget.user.rating ?? 0,
-                )
+              // if (widget.rating != null)
+              //   StarRating(
+              //     rating: widget.rating!,
+              //   )
             ],
           ),
         ),
@@ -161,7 +180,7 @@ class _CustomJobCardState extends State<CustomJobCard> {
         shape: BoxShape.circle,
         border: Border.all(color: Colors.white, width: 4),
         image: DecorationImage(
-          image: AssetImage(widget.user.profilePicturePath ?? ''),
+          image: AssetImage(widget.profileImagePath),
           fit: BoxFit.cover,
         ),
       ),
@@ -178,8 +197,9 @@ class _CustomJobCardState extends State<CustomJobCard> {
         ),
         const SizedBox(width: 4),
         Text(
-          widget.user.employeeProfile?.cityName ?? '',
+          widget.location,
           style: TextStyle(
+            fontFamily: 'Poppins',
             color: HexColor.fromHex('#666666'),
             fontSize: 15,
             fontWeight: FontWeight.w500,
@@ -202,8 +222,9 @@ class _CustomJobCardState extends State<CustomJobCard> {
         ),
         const SizedBox(width: 4),
         Text(
-          "${widget.user.employeeProfile?.age ?? 0} jaar",
+          "${widget.age} jaar",
           style: TextStyle(
+            fontFamily: 'Poppins',
             color: HexColor.fromHex('#666666'),
             fontSize: 15,
             letterSpacing: 0.0001,
@@ -217,10 +238,13 @@ class _CustomJobCardState extends State<CustomJobCard> {
   Widget _buildDescription(BuildContext context) {
     final theme = Theme.of(context);
     return ReadMoreText(
-      widget.user.employeeProfile?.biography ?? '',
+      widget.description,
       trimLines: 3,
-      style: TextStyles.bodyMedium.copyWith(
+      style: TextStyle(
+        fontFamily: 'Poppins',
+        color: HexColor.fromHex('#4A4C53'),
         fontSize: 16,
+        letterSpacing: 0.0001,
         fontWeight: FontWeight.w500,
       ),
       trimMode: TrimMode.Line,
@@ -249,13 +273,47 @@ class _CustomJobCardState extends State<CustomJobCard> {
           flex: 2,
           child: ActionButton(
             onButtonPressed: widget.onButtonPressed,
-            buttonText: 'Chat starten',
-            icon: JobrIcons.send,
-            backgroundColor: HexColor.fromHex('#3976FF'),
+            buttonText: widget.buttonText,
+            icon: widget.buttonIcon,
+            backgroundColor: widget.buttonColor,
           ),
         ),
         const SizedBox(width: 10),
         _buildSuggestionPercentage(theme),
+      ],
+    );
+  }
+
+  Widget _buildBottomRow(BuildContext context) {
+    return Column(
+      children: [
+        Divider(
+          color: HexColor.fromHex('#000000').withOpacity(0.1),
+        ),
+        ClearInkWell(
+          onTap: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Profiel bekijken',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  color: HexColor.fromHex('#4A4C53'),
+                  fontSize: 16,
+                  letterSpacing: -0.352,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(width: 5),
+              Icon(
+                Icons.arrow_forward_ios,
+                size: 12,
+                color: HexColor.fromHex('#4A4C53'),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

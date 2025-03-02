@@ -1,11 +1,173 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jobr/ui/theme/jobr_icons.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 
-class VacancyInfoTab extends StatelessWidget {
-  VacancyInfoTab({super.key});
+class CommonContainers extends StatelessWidget {
   final List<String> hardSkill = ['Fashion', 'Stockbeheer', 'Kassa', 'Verkoop'];
   final List<String> salarisTabs = ['Maaltijdcheques', 'Wagen', 'GSM'];
+
+  CommonContainers({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Hard Skills Container
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Card(
+            shadowColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            elevation: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Benodigde hard skills",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Divider(
+                    thickness: 1.32,
+                    color: Colors.grey[200],
+                  ),
+                  const SizedBox(height: 6),
+                  Wrap(
+                    spacing: 8.0,
+                    runSpacing: 4.0,
+                    children: [
+                      for (var skill in hardSkill)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          child: Text(
+                            skill,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Poppins',
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                ],
+              ),
+            ),
+          ),
+        ),
+
+        const SizedBox(height: 16),
+        // Salary Container
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Card(
+            shadowColor: Colors.transparent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            elevation: 4,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Salaris",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                        ),
+                      ),
+                      // const Text(
+                      //   "Bovengemiddeld",
+                      //   style: TextStyle(
+                      //       fontWeight: FontWeight.w600,
+                      //       fontSize: 15,
+                      //       color: Color(0xFF35BD76)),
+                      // ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Divider(
+                    thickness: 1.32,
+                    color: Colors.grey[200],
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "💰 €2500/maand",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                            color: Colors.black),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 8.0,
+                    runSpacing: 4.0,
+                    children: [
+                      for (var skill in salarisTabs)
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(18),
+                          ),
+                          child: Text(
+                            skill,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class VacancyInfoTab extends StatelessWidget {
+  VacancyInfoTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,214 +177,9 @@ class VacancyInfoTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Match Percentage Card
+          // Removed the hard skills and salary containers as they're now in CommonContainers
 
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Card(
-              shadowColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              elevation: 4,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Benodigde hard skills",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Divider(
-                      thickness: 1.32,
-                      color: Colors.grey[200],
-                    ),
-                    const SizedBox(height: 6),
-                    Wrap(
-                      spacing: 8.0,
-                      runSpacing: 4.0,
-                      children: [
-                        for (var skill in hardSkill)
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 6),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Text(
-                              skill,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 16),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Card(
-              shadowColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              elevation: 4,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Salaris",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
-                          ),
-                        ),
-                        const Text(
-                          "Bovengemiddeld",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color: Color(0xFF35BD76)),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    Divider(
-                      thickness: 1.32,
-                      color: Colors.grey[200],
-                    ),
-                    const SizedBox(height: 6),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "💰 €2500/maand",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color: Colors.black),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Wrap(
-                      spacing: 8.0,
-                      runSpacing: 4.0,
-                      children: [
-                        for (var skill in salarisTabs)
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 6),
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Text(
-                              skill,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(vertical: 12.0),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     children: [
-          //       ElevatedButton.icon(
-          //         onPressed: () {},
-          //         style: ElevatedButton.styleFrom(
-          //           shadowColor: Colors.transparent,
-          //           backgroundColor: Colors.white,
-          //           side: BorderSide(color: Colors.grey), // Added border color
-          //         ),
-          //         label: Text(
-          //           "Vacature",
-          //           style: TextStyle(
-          //             color: Colors.grey,
-          //             fontSize: 16,
-          //             fontFamily: 'Inter',
-          //             fontWeight: FontWeight.w700,
-          //           ),
-          //         ),
-          //         icon: Padding(
-          //           padding: const EdgeInsets.only(left: 4.0),
-          //           child: SvgPicture.asset(
-          //             'assets/images/logos/info.svg',
-          //             width: 16,
-          //             height: 16,
-          //             colorFilter: ColorFilter.mode(Colors.grey,
-          //                 BlendMode.srcIn), // Updated to use colorFilter
-          //           ),
-          //         ),
-          //       ),
-          //       SizedBox(
-          //         width: 4,
-          //       ),
-          //       ElevatedButton.icon(
-          //         onPressed: () {},
-          //         style: ElevatedButton.styleFrom(
-          //           backgroundColor: theme.primaryColor,
-          //         ),
-          //         label: Text(
-          //           "Over dit bedrijf",
-          //           style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize: 16,
-          //             fontFamily: 'Inter',
-          //             fontWeight: FontWeight.w700,
-          //           ),
-          //         ),
-          //         icon: Padding(
-          //           padding: const EdgeInsets.only(left: 4.0),
-          //           child: SvgPicture.asset(
-          //             color: Colors.white,
-          //             JobrIcons.venueLocation,
-          //             width: 16,
-          //             height: 16,
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // // Availability Card
+          // Company Info Container
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(21), color: Colors.white),
@@ -273,6 +230,7 @@ class VacancyInfoTab extends StatelessWidget {
                                         '874 volgers',
                                         style: TextStyle(
                                           fontSize: 15,
+                                          fontFamily: 'Poppins',
                                           fontWeight: FontWeight.w500,
                                           color: HexColor.fromHex('#666666'),
                                         ),
@@ -316,9 +274,9 @@ class VacancyInfoTab extends StatelessWidget {
                   height: 15,
                 ),
                 Text(
-                  '''Multibrandstores & Webshop. Brooklyn, da’s een mix van merken en heel veel broeken. Dat laatste nemen we als broekenspecialist au sérieux met een jeans assortiment om ‘u’ tegen te zeggen.
+                  '''Multibrandstores & Webshop. Brooklyn, da's een mix van merken en heel veel broeken. Dat laatste nemen we als broekenspecialist au sérieux met een jeans assortiment om 'u' tegen te zeggen.
 
-Multibrandstores & Webshop. Brooklyn, da’s een mix van merken en heel veel broeken. Dat laatste nemen we als broekenspecialist au sérieux met een jeans assortiment om ‘u’ tegen te zeggen.''',
+Multibrandstores & Webshop. Brooklyn, da's een mix van merken en heel veel broeken. Dat laatste nemen we als broekenspecialist au sérieux met een jeans assortiment om 'u' tegen te zeggen.''',
                   style: TextStyle(
                     fontSize: 15.28,
                     fontFamily: 'Inter',

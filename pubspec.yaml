@@ -45,7 +45,8 @@ dependencies:
   package_info_plus: ^8.1.4
   share_plus: ^10.1.4
   qr_flutter: ^4.1.0
-
+  video_player: ^2.8.2
+  video_thumbnail: ^0.4.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

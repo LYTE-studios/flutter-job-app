@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:jobr/core/routing/router.dart';
+import 'package:jobr/data/models/vacancy.dart';
 import 'package:jobr/features/Sollicitaties/recruitment_detail_screen.dart';
+import 'package:jobr/features/job_listing/screens/create/create_job_listing_overview_screen.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/delete_vacancy.dart';
+import 'package:jobr/features/job_listing/screens/vacatures/widgets/company_info_tab.dart';
 import 'package:jobr/features/job_listing/screens/vacatures/widgets/vacancy_info_tabs.dart';
 import 'package:jobr/features/profile/screens/company_screen/company_profile.dart';
 import 'package:jobr/ui/theme/text_styles.dart';
@@ -30,13 +33,17 @@ class VacancyInfoScreen extends StatefulWidget {
 
 class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
   List<TabData> tabData = [
-    TabData(label: 'Algemeen', icon: JobrIcons.dashboard),
-    TabData(label: 'Media', icon: JobrIcons.chat),
+    TabData(
+      label: 'Vacature',
+      icon: "assets/images/logos/info.svg",
+    ),
+    TabData(label: 'Over dit bedrijf', icon: JobrIcons.venueLocation),
   ];
   int selectedIndex = 0;
 
   List<Widget> tabs = [
     VacancyInfoTab(),
+    const CompanyInfoTab(),
   ];
 
   @override
@@ -127,6 +134,9 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                                 barrierLabel: 'Dismiss',
                                 barrierColor: Colors.black54,
                                 pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                  height: 200,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
                                   tag: 'profileBackground',
                                   imagePath:
                                       'assets/images/images/profile_image.png',
@@ -187,6 +197,10 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                         right: 70,
                         child: InkWell(
                           onTap: () {
+                            context.push(
+                              CreateJobListingOverviewScreen.route,
+                              extra: Vacancy(),
+                            );
                             // Add your settings action here
                           },
                           child: Container(
@@ -285,6 +299,60 @@ class _VacancyInfoScreenState extends State<VacancyInfoScreen> {
                 ],
               ),
               const SizedBox(height: 22),
+              CommonContainers(),
+              const SizedBox(height: 20),
+              Row(
+                children: List.generate(
+                  tabData.length,
+                  (index) => Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    child: FilledButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      style: FilledButton.styleFrom(
+                        backgroundColor: selectedIndex == index
+                            ? theme.primaryColor
+                            : TextStyles.clearText,
+                        side: BorderSide(
+                          width: 1.5,
+                          color: selectedIndex == index
+                              ? theme.primaryColor
+                              : Color(0xFF494A54).withOpacity(0.2),
+                        ),
+                      ),
+                      label: Text(
+                        tabData[index].label,
+                        style: TextStyle(
+                          color: selectedIndex == index
+                              ? TextStyles.clearText
+                              : Color(0xFF494A54).withOpacity(0.4),
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Inter',
+                          fontSize: 16,
+                        ),
+                      ),
+                      icon: Padding(
+                        padding: const EdgeInsets.only(left: 4.0),
+                        child: SvgPicture.asset(
+                          tabData[index].icon,
+                          width: 16,
+                          height: 16,
+                          colorFilter: ColorFilter.mode(
+                            selectedIndex == index
+                                ? TextStyles.clearText
+                                : Color(0xFF494A54).withOpacity(0.4),
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
                 child: tabs[selectedIndex],

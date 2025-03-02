@@ -427,12 +427,29 @@ class _EditCompanyProfileScreenState extends State<EditCompanyProfileScreen> {
                 ),
                 const SizedBox(height: 10),
                 SizedBox(
-                  child: const Wrap(
-                    alignment: WrapAlignment.spaceBetween,
-                    children: [
-                      MediaWidget(),
-                      MediaWidget(),
-                    ],
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        const MediaWidget(),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        const MediaWidget(),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        const MediaWidget(),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        const MediaWidget(),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        const MediaWidget(),
+                      ],
+                    ),
                   ),
                 ),
                 TextFieldSettings(

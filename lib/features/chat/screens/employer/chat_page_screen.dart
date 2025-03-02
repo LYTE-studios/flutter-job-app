@@ -71,23 +71,33 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
               },
               icon: const Icon(Icons.arrow_back_ios, size: 23),
             ),
-            Container(
-              width: 33,
-              height: 33,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage("assets/images/logos/spicy_lemon.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            const Text(
-              'Louis Ottevaere',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
+            GestureDetector(
+              onTap: () {
+                context.push(EmployProfileDisplayScreen.employerRoute);
+              },
+              child: Row(
+                children: [
+                  Container(
+                    width: 33,
+                    height: 33,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image:
+                            AssetImage("assets/images/logos/spicy_lemon.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'Louis Ottevaere',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
               ),
             ),
             const Spacer(),
@@ -96,11 +106,11 @@ class _ChatPageScreenState extends State<ChatPageScreen> {
               color: Theme.of(context).primaryColor,
               size: 20,
             ),
-            const SizedBox(width: 8),
-            GestureDetector(
-                onTap: () =>
-                    context.push(EmployProfileDisplayScreen.employerRoute),
-                child: const SvgIcon("assets/images/logos/info.svg", size: 24)),
+            // const SizedBox(width: 8),
+            // GestureDetector(
+            //     onTap: () =>
+            //         context.push(EmployProfileDisplayScreen.employerRoute),
+            //     child: const SvgIcon("assets/images/logos/info.svg", size: 24)),
           ],
         ),
       ),

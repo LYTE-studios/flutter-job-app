@@ -131,6 +131,9 @@ class _EmployProfileDisplayScreenState
                                 barrierLabel: 'Dismiss',
                                 barrierColor: Colors.black54,
                                 pageBuilder: (_, __, ___) => ZoomImageDialog(
+                                  height: 200,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
                                   tag: 'profileBackground',
                                   imagePath: 'assets/images/images/image-4.png',
                                 ),
@@ -255,19 +258,19 @@ class _EmployProfileDisplayScreenState
                   ),
                 ],
               ),
-              const SizedBox(height: 14),
-              CustomStarRating(
-                rating: 3.5,
-                onIconTap: () {
-                  context.push(EmployeeReviewsDisplayScreen.employerRoute);
-                },
-                containerBackgroundColor:
-                    HexColor.fromHex('#F0F0F0').withOpacity(0.24),
-                borderColor: HexColor.fromHex('#EDEDED').withOpacity(0.36),
-              ),
-              SizedBox(
-                height: 14,
-              ),
+              // const SizedBox(height: 14),
+              // CustomStarRating(
+              //   rating: 3.5,
+              //   onIconTap: () {
+              //     context.push(EmployeeReviewsDisplayScreen.employerRoute);
+              //   },
+              //   containerBackgroundColor:
+              //       HexColor.fromHex('#F0F0F0').withOpacity(0.24),
+              //   borderColor: HexColor.fromHex('#EDEDED').withOpacity(0.36),
+              // ),
+              // SizedBox(
+              //   height: 14,
+              // ),
               Row(
                 children: [
                   SvgIcon(

@@ -31,7 +31,10 @@ class JobInfoScreen extends StatefulWidget {
 class _JobInfoScreenState extends State<JobInfoScreen> {
   List<TabData> tabData = [
     TabData(label: 'Algemeen', icon: JobrIcons.dashboard),
-    TabData(label: 'Media', icon: JobrIcons.chat),
+    TabData(
+      label: 'Media',
+      icon: JobrIcons.location,
+    ),
   ];
   int selectedIndex = 0;
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jobr/core/routing/router.dart';
 import 'package:jobr/data/models/user.dart';
 import 'package:jobr/data/services/accounts_service.dart';
 import 'package:jobr/features/authentication/screens/login_screen.dart';
 import 'package:jobr/features/authentication/widgets/privacy_policy_block.dart';
 import 'package:jobr/features/core/widgets/exception_popup.dart';
 import 'package:jobr/features/job_listing/screens/general/job_listings_screen.dart';
+import 'package:jobr/features/jobs/job_screen.dart';
 import 'package:jobr/features/profile/screens/create_profile_screen.dart';
 import 'package:jobr/ui/widgets/buttons/primary_button.dart';
 import 'package:jobr/ui/widgets/input/jobr_textfield.dart';
@@ -28,13 +28,32 @@ class EmailRegisterScreen extends StatefulWidget {
 }
 
 class _EmailRegisterScreenState extends State<EmailRegisterScreen>
-    with ScreenStateMixin {
-  // Text editing controllers
+    with ScreenStateMixin, WidgetsBindingObserver {
   final TextEditingController tecEmail = TextEditingController();
   final TextEditingController tecPassword = TextEditingController();
   final TextEditingController tecConfirmPassword = TextEditingController();
+  bool _isKeyboardVisible = false;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    final bottomInset = WidgetsBinding.instance.window.viewInsets.bottom;
+    setState(() {
+      _isKeyboardVisible = bottomInset > 0;
+    });
+  }
+
   void setError(String error) {
     ExceptionPopup.show(context, error);
     setLoading(false);
@@ -65,12 +84,14 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
 
       switch (widget.userType) {
         case UserType.employee:
-          router.pushReplacement(CreateProfileScreen.employeeRoute);
+          context.pushReplacement(CreateProfileScreen.employeeRoute);
+          break;
         case UserType.employer:
-          router.pushReplacement(JobListingsScreen.employerRoute);
+          context.pushReplacement(JobListingsScreen.employerRoute);
+          break;
       }
     } catch (e) {
-      setError('Account kon niet worden aangemaakt');
+      setError('E-mail bestaat al');
       return;
     }
   }
@@ -78,15 +99,14 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent, // Transparent background
-      resizeToAvoidBottomInset: true, // Prevent overflow when keyboard appears
+      backgroundColor: Colors.transparent,
+      resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
-                reverse:
-                    true, // Keeps focus on the bottom when the keyboard opens
+                reverse: true,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -117,7 +137,7 @@ class _EmailRegisterScreenState extends State<EmailRegisterScreen>
                       onTap: loading ? null : _register,
                       buttonText: loading ? 'Laden...' : 'Account maken',
                     ),
-                    const PrivacyPolicyBlock(),
+                    if (!_isKeyboardVisible) const PrivacyPolicyBlock(),
                     const SizedBox(height: 20),
                   ],
                 ),
